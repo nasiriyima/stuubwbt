@@ -30,4 +30,8 @@ class Exam extends Model
     public function question(){
         return $this->hasMany('\App\Question');
     }
+    
+    public function scopePublishedExams($query){
+        return $query->where('status', '=', '1')->get();
+    }
 }

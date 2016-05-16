@@ -51,7 +51,6 @@ EXAMINATION RESOURCE MANAGER
                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Examination</th>
                             <th class="hidden-sm">Details</th>
                             <th class="hidden-sm">Attempts</th>
@@ -59,13 +58,14 @@ EXAMINATION RESOURCE MANAGER
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($exams as $exam)
                         <tr>
-                            <td>1</td>
-                            <td>JAMB, Mathematics 2015/16</td>
+                            <td>{{$exam->examProvider->code}}, {{$exam->subject->name}} ({{$exam->month->code}} {{$exam->session->name}})</td>
                             <td class="hidden-sm">50 QNS in 50 Min.</td>
                             <td>20</td>
                             <td><span class="label label-info">3 Months Ago</span></td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table> 
                 </div>
@@ -84,7 +84,7 @@ EXAMINATION RESOURCE MANAGER
                     <div class="main-counters margin-bottom-10">
                         <div class="row">
                                 <div class="counters col-md-6 col-sm-6">
-                                        <span class="counter">52147</span>
+                                        <span class="counter">{{$examcount}}</span>
                                         <h4>Examinations</h4>
                                 </div>
                                 <div class="counters col-md-6 col-sm-6">

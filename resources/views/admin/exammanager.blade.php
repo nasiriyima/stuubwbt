@@ -6,7 +6,9 @@ EXAMINATION RESOURCES MANAGER - <small>Examination</small>
 @section('maincontent')
 <div class="tab-v1">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">Examinations</a></li>
+        <li class="active"><a href="#home" data-toggle="tab">All Entries</a></li>
+        <li class=""><a href="#published" data-toggle="tab">Published</a></li>
+        <li class=""><a href="#unpublished" data-toggle="tab">Unpublished</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
@@ -20,7 +22,6 @@ EXAMINATION RESOURCES MANAGER - <small>Examination</small>
                     <table class="table table-striped">
                          <thead>
                              <tr>
-                                 <th>#</th>
                                  <th>Examination</th>
                                  <th class="hidden-sm"><center>Questions</center></th>
                                  <th class="hidden-sm"><center>Average Scores</center></th>
@@ -29,18 +30,24 @@ EXAMINATION RESOURCES MANAGER - <small>Examination</small>
                              </tr>
                          </thead>
                          <tbody>
+                             @foreach($exams as $exam)
                              <tr>
-                                 <td>1</td>
-                                 <td><a href="#">JAMB, Mathematics 2015/16</a></td>
+                                 <td><a href="{{url('admin/exam-profile')}}/{{\Crypt::encrypt($exam->id)}}">{{$exam->examProvider->code}}, {{$exam->subject->name}} ({{$exam->month->code}} {{$exam->session->name}})</a></td>
                                  <td class="hidden-sm"><center>50</center></td>
                                  <td><center>70%</center></td>
                                  <td><span class="label label-info">3 Months Ago</span></td>
                                  <td>3 Months Ago</td>
                              </tr>
+                             @endforeach
                          </tbody>
                      </table> 
                 </div>
             </div>
+        </div>
+        <div class="tab-pane fade in" id="published">
+        </div>
+        <div class="tab-pane fade in" id="unpublished">
+            
         </div>
     </div>
 </div>

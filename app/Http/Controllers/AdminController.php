@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
+    protected $page_data = [];
+    public function __construct() {
+        //$this->middleware('sentinel');
+        //$this->page_data['pagegroup'] = 'Aviation';
+        $this->page_data['currentuser'] = "User";
+    }
      /**
      * Display a listing of the resource.
      *
@@ -36,7 +42,9 @@ class AdminController extends Controller
      */
     public function getWbtManager()
     {
-        return view('admin.wbtmanager');
+        $this->page_data['exams'] = \App\Exam::publishedExams();
+        $this->page_data['examcount'] = \App\Exam::count();
+        return view('admin.wbtmanager', $this->page_data);
     }
     
     /**
@@ -46,7 +54,8 @@ class AdminController extends Controller
      */
     public function getExamManager()
     {
-        return view('admin.exammanager');
+        $this->page_data['exams'] = \App\Exam::get();
+        return view('admin.exammanager',$this->page_data);
     }
     
     /**
@@ -56,7 +65,8 @@ class AdminController extends Controller
      */
     public function getAddExam()
     {
-        return view('admin.addexam');
+        $this->page_data['subjects'] = \App\Subject::get();
+        return view('admin.addexam',$this->page_data);
     }
     
     /**
@@ -64,9 +74,10 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getExamProfile()
+    public function getExamProfile($id)
     {
-        return view('admin.examprofile');
+        $this->page_data['exam'] = \App\Exam::find(\Crypt::decrypt($id));
+        return view('admin.examprofile',$this->page_data );
     }
     
     public function getSubjectManager()

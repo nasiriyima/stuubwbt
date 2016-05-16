@@ -12,7 +12,7 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
         <div class="tab-pane fade in active" id="home">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="#" id="sky-form" class="sky-form">
+                            {!! Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
                         <fieldset>
                             <div class="row">
                                 <section class="col col-6">
@@ -29,9 +29,11 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                 <section class="col col-6">
                                     <label class="select">
                                         <span>EXAM SUBJECT</span>
-                                        <select name="Subject">
+                                        <select name="subject_id" class="select">
                                             <option value="0" selected disabled>Exam Subject</option>
-                                            <option value="244">Mathematics</option>
+                                            @foreach($subjects as $subject)
+                                            <option value="{{$subject->id}}">{{$subject->name}}</option>
+                                            @endforeach
                                         </select>
                                     </label>
                                 </section>
@@ -49,7 +51,7 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                 <section class="col col-4">
                                     <label class="select">
                                         <span>EXAM YEAR</span>
-                                        <select name="Subject">
+                                        <select name="Subject" class="select">
                                             <option value="0" selected disabled>Exam Year</option>
                                             <option value="244">2015</option>
                                         </select>
@@ -70,10 +72,10 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                         </fieldset>
                         <footer>
                             <div class="pull-right">
-                                <a href="{{url('admin/exam-profile')}}" class="btn-u">Save and Add Questions</a>
+                                <button type="submit" class="btn-u">Save and Add Questions</button>
                             </div>
                         </footer>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
 
             </div>
