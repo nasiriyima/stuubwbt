@@ -65,6 +65,9 @@ class AdminController extends Controller
      */
     public function getAddExam()
     {
+        $this->page_data['months'] = \App\Month::get();
+        $this->page_data['sessions'] = \App\Session::get();
+        $this->page_data['providers'] = \App\ExamProvider::get();
         $this->page_data['subjects'] = \App\Subject::get();
         return view('admin.addexam',$this->page_data);
     }

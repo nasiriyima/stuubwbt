@@ -20,9 +20,9 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                         <span>EXAM PROVIDER</span>
                                         <select name="provider">
                                             <option value="0" selected disabled>Exam Provider</option>
-                                            <option value="244">JAMB</option>
-                                            <option value="1">WEAC</option>
-                                            <option value="2">NECO</option>
+                                            @foreach($providers as $provider)
+                                            <option value="{{$provider->id}}">{{$provider->name}}</option>
+                                            @endforeach
                                         </select>
                                     </label>
                                 </section>
@@ -44,7 +44,9 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                         <span>EXAM MONTH</span>
                                         <select name="Subject">
                                             <option value="0" selected disabled>Exam Month</option>
-                                            <option value="1">January</option>
+                                            @foreach($months as $month)
+                                            <option value="{{$month->id}}">{{$month->name}}</option>
+                                            @endforeach
                                         </select>
                                     </label>
                                 </section>
@@ -53,7 +55,9 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                         <span>EXAM YEAR</span>
                                         <select name="Subject" class="select">
                                             <option value="0" selected disabled>Exam Year</option>
-                                            <option value="244">2015</option>
+                                            @foreach($sessions as $session)
+                                            <option value="{{$session->id}}">{{$session->name}}</option>
+                                            @endforeach
                                         </select>
                                     </label>
                                 </section>
@@ -65,6 +69,19 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                             <option value="244">JAMB</option>
                                             <option value="1">WEAC</option>
                                             <option value="2">NECO</option>
+                                        </select>
+                                    </label>
+                                </section>
+                            </div>
+                            <div class="row">
+                                <section class="col col-12 col">
+                                    <label class="select">
+                                        <span>EXAM MONTH</span>
+                                        <select name="Subject">
+                                            <option value="0" selected disabled>Exam Month</option>
+                                            @foreach($months as $month)
+                                            <option value="{{$month->id}}">{{$month->name}}</option>
+                                            @endforeach
                                         </select>
                                     </label>
                                 </section>
