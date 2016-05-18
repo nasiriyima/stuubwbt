@@ -17,17 +17,39 @@
                                     Instructions
                             </a>
                         </li>
+                        <li class="active">
+                            <a data-toggle="modal" data-target=".bs-example-modal-sm">
+                                    <span class="badge badge-green pull-right rounded-x">2</span>
+                                    Questions
+                            </a>
+                        </li>
                             {{--*/$count=1;/*--}}
                             @foreach($questions->get() as $question)
-                            <li class="{{ ($count==1)? 'active' : '' }}" id="question-side-menu{{ $count }}">
+                            <li class="{{ ($count==1)? 'active' : '' }}" id="question-side-menu{{ $count }}" style="display: none;">
                                 <a href="javascript:void(0);" onclick="gotoQuestion('{{ $count }}');">
-                                    <span class="badge pull-right rounded-x" id="side-menu-badge{{ $count }}">{{ $count +  2 }}</span>
-                                    Question - {{ $count }}
+                                    <span class="badge pull-right rounded-x" id="side-menu-badge{{ $count }}">{{ $count}}</span>
+                                    Question - {{$count}}
                                 </a>
                             </li>
                             {{--*/$count++;/*--}}
                             @endforeach
                     </ul>
+                    <br/>
+                    <div class="row-fluid">
+                        <div class="col-md-1">  
+                        </div>
+                        {{--*/$count=1;/*--}}
+                        @foreach($questions->get() as $question)
+                        <div class="col-md-2" id="question-side-menu{{ $count }}">
+                            <a href="javascript:void(0);" onclick="gotoQuestion('{{ $count }}');">
+                                <span class="badge pull-right rounded-x" id="side-menu-span{{ $count }}">{{ $count }}</span>
+                            </a>
+                        </div>
+                        {{--*/$count++;/*--}}
+                        @endforeach
+                        <div class="col-md-1">  
+                        </div>
+                    </div>
                 </div>
             </div>
     </nav>
@@ -35,14 +57,16 @@
 
 @stop
 @section('content')
-<div class="col-md-9">
+<div class="col-md-1">
+</div>
+<div class="col-md-10">
     {{--*/$questionCount=1;/*--}}
     {{--*/$questionids=[];/*--}}
     <input type="hidden" value="{{ $questionCount }}" name="active_question" />
     @foreach($questions->get() as $question)
     <div class="shadow-wrapper" id="question-{{ $questionCount }}" style="{{ ($questionCount==1)? '' : 'display:none;' }}">
         <blockquote  class="tag-box tag-box-v1 box-shadow shadow-effect-2">
-            <p><span class="dropcap-bg">{{ $questionCount }}</span><em id="question">{!! $question->name !!}</em></p>
+            <p><span class="dropcap-bg">{{ $questionCount }}</span><em id="question">{{ $question->name }}</em></p>
         </blockquote>
         {{--*/$questionids[$question->id]= "0";/*--}}
         @if(count($question->option) > 0)
