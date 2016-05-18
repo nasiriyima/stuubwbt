@@ -40,11 +40,11 @@
             </fieldset>
             <fieldset>
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-12">
                         <section>
                             <label class="textarea">
                                 <span>QUESTION TEXT</span>
-                                <textarea rows="2" name="question_name" placeholder="Question Text" ></textarea>
+                                <textarea rows="2" name="question_name" placeholder="Question Text" id="question" ></textarea>
                             </label>
                         </section>
                     </div>

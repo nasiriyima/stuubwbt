@@ -51,11 +51,12 @@
                                                 System Settings
                                         </a>
                                         <ul class="dropdown-menu">
-                                                <li><a href="{{url('email/email-settings')}}">Email Settings</a></li>
+                                                <li><a href="{{url('admin/users-management')}}">User Management</a></li>
+                                                 <li><a href="{{url('email/email-settings')}}">Email Settings</a></li>
                                         </ul>
                                 </li>
                             </ul>
-                            <p class="copyright-text">&copy; 2015 Unify. All Rights Reserved.</p>
+                            <p class="copyright-text">&copy; 2015 STUUB Web Based Testing.</p>
                     </div>
             </div>
             <!-- End Navbar Collapse -->

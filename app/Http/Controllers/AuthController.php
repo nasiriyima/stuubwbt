@@ -85,6 +85,7 @@ class AuthController extends Controller
         }
     }
     
+    
     public function postAccountActivation()
     {
         $formdata = \Request::all();

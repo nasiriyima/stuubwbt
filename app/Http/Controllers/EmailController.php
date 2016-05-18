@@ -68,6 +68,7 @@ class EmailController extends Controller
             //send email
             \Mail::send('email.registration', $data, function($message) use ($data)
             {
+               // dd('here');
                 $message->to($data['email'], 'Abbas Lawal')->subject($data['subject']);
             });
        }else{

@@ -20,6 +20,10 @@ class CBTController extends Controller
      */
     Public function postAddExaminationQuestion(){
         $formData = \Request::all();
-        dd($formData);
+        $question = new \App\Question();
+        $question->code = 'test';
+        $question->exam_id = 6;
+        $question->average_time = 0;
+        $question->save();
     }
 }

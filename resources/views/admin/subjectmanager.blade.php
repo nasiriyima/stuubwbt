@@ -22,23 +22,23 @@ EXAMINATION RESOURCES MANAGER - <small>Subjects</small>
                              <tr>
                                  <th>#</th>
                                  <th>Subject Name</th>
-                                 <th class="hidden-sm"><center>Examinations</center></th>
-                                 <th class="hidden-sm"><center># Providers</center></th>
+                                 <th class="hidden-sm"><center># Examinations</center></th>
                                  <th class="hidden-sm"><center>Average Scores</center></th>
                                  <th class="hidden-sm">Published</th>
-                                 <th class="hidden-sm">Actions</th>
                              </tr>
                          </thead>
                          <tbody>
+                             {{--*/$count=1;/*--}}
+                             @foreach($subjects as $subject)
                              <tr>
-                                 <td>1</td>
-                                 <td><a href="#">Mathematics</a></td>
-                                 <td class="hidden-sm"><center>30</center></td>
-                                 <td class="hidden-sm"><center>3</center></td>
-                                 <td><center>70%</center></td>
+                                 <td>{{$count}}</td>
+                                 <td><a href="{{url('admin/subject-exams')}}/{{\Crypt::encrypt($subject->id)}}">{{$subject->name}}</a></td>
+                                 <td class="hidden-sm"><center>{{count($subject->exam)}}</center></td>
+                                 <td><center></center></td>
                                  <td><span class="label label-info">3 Months Ago</span></td>
-                                 <td></td>
                              </tr>
+                             {{--*/$count++;/*--}}
+                             @endforeach
                          </tbody>
                      </table> 
                 </div>

@@ -66,7 +66,7 @@
     @foreach($questions->get() as $question)
     <div class="shadow-wrapper" id="question-{{ $questionCount }}" style="{{ ($questionCount==1)? '' : 'display:none;' }}">
         <blockquote  class="tag-box tag-box-v1 box-shadow shadow-effect-2">
-            <p><span class="dropcap-bg">{{ $questionCount }}</span><em id="question">{{ $question->name }}</em></p>
+            <p><span class="dropcap-bg">{{ $questionCount }}</span><em id="question">{!! $question->name !!}</em></p>
         </blockquote>
         {{--*/$questionids[$question->id]= "0";/*--}}
         @if(count($question->option) > 0)

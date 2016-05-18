@@ -32,7 +32,14 @@ class AdminController extends Controller
      */
     public function getStudentManager()
     {
-        return view('admin.studentmanager');
+        $this->page_data['students'] = \App\User::studentUsers();
+        return view('admin.studentmanager', $this->page_data);
+    }
+    
+    public function getUsersManagement()
+    {
+        $this->page_data['students'] = \App\User::staffUsers();
+        return view('admin.settings.usermgt.index', $this->page_data);
     }
     
     /**
@@ -85,7 +92,14 @@ class AdminController extends Controller
     
     public function getSubjectManager()
     {
-        return view('admin.subjectmanager');
+        $this->page_data['subjects'] = \App\Subject::get();
+        return view('admin.subjectmanager', $this->page_data);
+    }
+    
+    public function getSubjectExams($id)
+    {
+        $this->page_data['subject'] = \App\Subject::find(\Crypt::decrypt($id));
+        return view('admin.subjectexams', $this->page_data);
     }
     
     public function getProviderManager()
