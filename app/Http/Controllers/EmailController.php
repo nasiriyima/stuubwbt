@@ -79,7 +79,7 @@ class EmailController extends Controller
     public function getSendEmail(){
         $data=[
             'email'=>'lawal.abbas@gmail.com',
-            'subject'=>'STUUB CBT Registration',
+            'subject'=>'STUUB WBT Registration',
             'activationcode'=>'hvdhfdgfdhgfdhgfhg',
             'activationurl'=> url('auth/verify-account/1')
         ];
