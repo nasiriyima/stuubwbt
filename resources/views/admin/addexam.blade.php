@@ -12,10 +12,10 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
         <div class="tab-pane fade in active" id="home">
             <div class="row">
                 <div class="col-md-12">
-                            {!! Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
+                            {!! Form::open(array('url' => url('wbt/add-examination'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
                         <fieldset>
                             <div class="row">
-                                <section class="col col-6">
+                                <section class="col col-4">
                                     <label class="select">
                                         <span>EXAM PROVIDER</span>
                                         <select name="provider">
@@ -26,7 +26,7 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                         </select>
                                     </label>
                                 </section>
-                                <section class="col col-6">
+                                <section class="col col-4">
                                     <label class="select">
                                         <span>EXAM SUBJECT</span>
                                         <select name="subject_id" class="select">
@@ -37,23 +37,28 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                         </select>
                                     </label>
                                 </section>
+                                <section class="col col-4">
+                                    <label class="input">
+                                        <span>TOTAL TIME ALLOWED</span>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="text" name="hr" placeholder="Hr.">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="min" placeholder="Min.">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" name="sec" placeholder="Sec.">
+                                            </div>
+                                        </div>
+                                    </label>
+                                </section>
                             </div>
                             <div class="row">
                                 <section class="col col-4">
                                     <label class="select">
-                                        <span>EXAM MONTH</span>
-                                        <select name="Subject">
-                                            <option value="0" selected disabled>Exam Month</option>
-                                            @foreach($months as $month)
-                                            <option value="{{$month->id}}">{{$month->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </label>
-                                </section>
-                                <section class="col col-4">
-                                    <label class="select">
                                         <span>EXAM YEAR</span>
-                                        <select name="Subject" class="select">
+                                        <select name="session_id" class="select">
                                             <option value="0" selected disabled>Exam Year</option>
                                             @foreach($sessions as $session)
                                             <option value="{{$session->id}}">{{$session->name}}</option>
@@ -63,24 +68,22 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
                                 </section>
                                 <section class="col col-4">
                                     <label class="select">
-                                        <span>TIME ALLOWED</span>
-                                        <select name="time-allowed">
-                                            <option value="0" selected disabled>Exam Provider</option>
-                                            <option value="244">JAMB</option>
-                                            <option value="1">WEAC</option>
-                                            <option value="2">NECO</option>
-                                        </select>
-                                    </label>
-                                </section>
-                            </div>
-                            <div class="row">
-                                <section class="col col-12 col">
-                                    <label class="select">
                                         <span>EXAM MONTH</span>
-                                        <select name="Subject">
+                                        <select name="month_id">
                                             <option value="0" selected disabled>Exam Month</option>
                                             @foreach($months as $month)
                                             <option value="{{$month->id}}">{{$month->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                 </section>
+                                <section class="col col-4">
+                                    <label class="select">
+                                        <span>INSTRUCTION</span>
+                                        <select name="instruction" class="select">
+                                            <option value="0" selected disabled>Exam Instruction</option>
+                                            @foreach($instructions as $instruction)
+                                            <option value="{{$instruction->id}}">{{$instruction->title}}</option>
                                             @endforeach
                                         </select>
                                     </label>
@@ -110,13 +113,12 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/forms/checkout.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
                         OrderForm.initOrderForm();
 			ReviewForm.initReviewForm();
 			CheckoutForm.initCheckoutForm();
                     });
-    CKEDITOR.replace('texteditor');
+//    CKEDITOR.replace('texteditor');
 </script>
 @stop
