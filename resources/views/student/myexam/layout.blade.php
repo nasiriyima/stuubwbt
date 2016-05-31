@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            @include('includes.admin.scripts_js')
+            @include('student.include.scripts_js')
             <script type="text/javascript">
                 var examwindow = window;
             </script>

@@ -34,7 +34,18 @@
                         </p>
                             <div class="col-md-12">
                                     <div class="row-fluid {{ $body->id }}-subjects">
-                            
+                                        <div class="tab-pane fade in {{ ($index == 0)? 'active' : '' }}">
+                                            <p><span class="label label-success rounded">Please Select a category to view subjects</span>
+                                        </div>
+                                        <div class="row content-boxes-v2">
+                                            <div class="tag-box tag-box-v1 text-justify">
+                                                <ul class="pagination">
+                                                    <li><a href="#" data-toggle="tab">&laquo;</a></li>
+                                                    <li class="active"><a href="#" data-toggle="tab">1</a></li>
+                                                    <li><a href="#" data-toggle="tab">&raquo;</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                             </div>
                     </div>
@@ -51,6 +62,7 @@
     var subjectsurl = "{!! url('student/subjects') !!}";
     var sessionsurl = "{!! url('student/session') !!}";
     var csrf = "{!! csrf_token() !!}";
+    var timeleft = '00:00:00';
 </script>
 <script type="text/javascript" src="{{ asset('public/assets/js/custom.js') }}"></script>
 @stop
