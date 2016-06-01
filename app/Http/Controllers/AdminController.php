@@ -99,6 +99,7 @@ class AdminController extends Controller
     public function getExamProfile($id)
     {
         $this->page_data['exam'] = \App\Exam::find(\Crypt::decrypt($id));
+        $this->page_data['information'] = \App\QuestionAdditionalInformation::all();
         return view('admin.examprofile',$this->page_data );
     }
     

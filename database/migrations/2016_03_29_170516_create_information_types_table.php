@@ -16,7 +16,6 @@ class CreateInformationTypesTable extends Migration
         Schema::create('information_types',function($table){
             $table->increments('id');
             $table->text('name');
-            $table->text('function');
             $table->timestamps();
             $table->softdeletes();
         });
