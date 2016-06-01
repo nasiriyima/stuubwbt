@@ -51,9 +51,11 @@
                     </div>
                     <div class="col-md-4">
                         <section>
-                            <label class="textarea">
+                            <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <textarea rows="2" name="question_name" placeholder="Question Text" id="question" ></textarea>
+                                <select>
+                                    <option value="1">test</option>
+                                </select>
                             </label>
                         </section>
                     </div>
