@@ -14,7 +14,41 @@ class StudentController extends Controller
      * Student Controller Dashboard
      */
     public function getIndex(){
-        return view('student.index');
+        $data['fname'] = 'UnAuthenticated User';
+        $data['leaders'] = $this->getLeaders(\Carbon\Carbon::now()->subMonth(),
+            \Carbon\Carbon::now());
+        $data['startDate'] = \Carbon\Carbon::now()->subMonth();
+        $data['endDate'] = \Carbon\Carbon::now();
+        $data['series'] = $this->getSeries(\App\User::find(1), $data['startDate'], $data['endDate']);
+        return view('student.index', $data);
+    }
+
+    private function getLeaders($startDate, $endDate){
+        return \App\History::leadersBoard($startDate, $endDate)->get();
+    }
+
+    private function getSeries($user, $startDate, $endDate){
+        $test_attempts = $user->history()->attempts($startDate, $endDate)->take(10);
+        dd($test_attempts);
+        return '[
+            {
+              name: "Avg Score",
+              color: "green",
+              data: [
+                  {x: 0, y:5,},
+                  {x: 1, y:3,},
+                  {x: 2, y:8,},
+                  {x: 3, y:6,},
+                  {x: 4, y:3,},
+                  {x: 5, y:12,},
+                  {x: 6, y:13,},
+                  {x: 7, y:14,},
+                  {x: 8, y:12,},
+                  {x: 9, y:8,},
+                  {x: 10, y:9,},
+              ]
+            }
+         ]';
     }
     
     public function getMyExam(){

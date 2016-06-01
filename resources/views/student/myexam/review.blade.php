@@ -93,9 +93,10 @@
                         <h4 id="myLargeModalLabel3" class="modal-title">WBT Warning Message!</h4>
                     </div>
                     <div class="modal-body alert alert-warning fade in text-center">
-                        <p>If you want to retake this exam click OK on this dialog or click cancel to return to exam score board</p>
-                        <a class="btn-u btn-u-xs btn-u-default" href="{{ url('student/exam-complete') }}">Cancel</a> 
-                        <a class="btn-u btn-u-xs btn-u-default" href="{{ url('student/instructions').'/'.\Session::get('body').'/'.\Session::get('category').'/'.\Session::get('subject').'/'.\Session::get('month').'/'.\Session::get('session') }}">OK</a>
+                        <p>If you want to retake this exam click YES on this dialog or click NO to return to exam score board</p>
+                        <a class="btn-u btn-u-xs btn-u-default" href="{{ url('student/instructions').'/'.\Session::get('body').'/'.\Session::get('category').'/'.\Session::get('subject').'/'.\Session::get('month').'/'.\Session::get('session') }}">YES</a>
+                        <a class="btn-u btn-u-xs btn-u-default" href="{{ url('student/exam-complete') }}">NO</a>
+
                     </div>
             </div>
     </div>
