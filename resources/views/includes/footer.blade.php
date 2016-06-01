@@ -4,57 +4,54 @@
 					<div class="row">
 						<!-- About -->
 						<div class="col-md-3 md-margin-bottom-40">
-                                                    <a href="index.html"><img id="logo-footer" class="footer-logo" src="{{ asset('public/assets/img/stuub-logo.png')}}" alt="" width="140px"></a>
-							<p>About Unify dolor sit amet, consectetur adipiscing elit. Maecenas eget nisl id libero tincidunt sodales.</p>
-							<p>Duis eleifend fermentum ante ut aliquam. Cras mi risus, dignissim sed adipiscing ut, placerat non arcu.</p>
+							<a href="index.html">
+								<img id="logo-footer" class="footer-logo" src="{{ asset('public/assets/img/stuub-logo.png')}}" alt="" width="140px">
+							</a>
+							<p style="text-align: justify;">At Stuub Agency, we recruit students for renowned universities in Turkey. Our expertise in students’ recruitment has given these higher institutions we partner with the luxury of focusing on university administration and instructing while we run point on promoting and creating awareness for their brands. </p>
 						</div><!--/col-md-3-->
 						<!-- End About -->
 
-						<!-- Latest -->
-						<div class="col-md-3 md-margin-bottom-40">
-							<div class="posts">
-								<div class="headline"><h2>Latest Posts</h2></div>
-								<ul class="list-unstyled latest-list">
-									<li>
-										<a href="#">Incredible content</a>
-										<small>May 8, 2014</small>
-									</li>
-									<li>
-										<a href="#">Best shoots</a>
-										<small>June 23, 2014</small>
-									</li>
-									<li>
-										<a href="#">New Terms and Conditions</a>
-										<small>September 15, 2014</small>
-									</li>
-								</ul>
-							</div>
-						</div><!--/col-md-3-->
-						<!-- End Latest -->
 
 						<!-- Link List -->
 						<div class="col-md-3 md-margin-bottom-40">
 							<div class="headline"><h2>Useful Links</h2></div>
 							<ul class="list-unstyled link-list">
-								<li><a href="#">About us</a><i class="fa fa-angle-right"></i></li>
-								<li><a href="#">Portfolio</a><i class="fa fa-angle-right"></i></li>
-								<li><a href="#">Latest jobs</a><i class="fa fa-angle-right"></i></li>
-								<li><a href="#">Community</a><i class="fa fa-angle-right"></i></li>
-								<li><a href="#">Contact us</a><i class="fa fa-angle-right"></i></li>
-							</ul>
+								<li><a href="http://stuub.com" target="_blank">About STUUB</a><i class="fa fa-angle-right"></i></li>
 						</div><!--/col-md-3-->
 						<!-- End Link List -->
 
 						<!-- Address -->
-						<div class="col-md-3 map-img md-margin-bottom-40">
+						<div class="col-md-6 map-img md-margin-bottom-40">
 							<div class="headline"><h2>Contact Us</h2></div>
-							<address class="md-margin-bottom-40">
-								25, Lorem Lis Street, Orange <br />
-								California, US <br />
-								Phone: 800 123 3456 <br />
-								Fax: 800 123 3456 <br />
-								Email: <a href="mailto:info@anybiz.com" class="">info@anybiz.com</a>
-							</address>
+							<div class="row">
+								<div class="col-md-6">
+									<address>
+										<strong">ABUJA OFFICE</strong><br />
+										Suite 102 APC Plaza, <br />
+										12 Cape town street <br />
+										Wuse Zone 4, Abuja - Nigeria <br />
+										Line 1: (+234) 081-5734-0545 <br/>
+										Line 2: (+234) 081-7061-6505 <br />
+									</address>
+								</div>
+								<div class="col-md-6">
+									<address>
+										<strong">ISTANBUL OFFICE</strong><br />
+										Hakki Yeten Caddesi Selenium Plaza <br />
+										No. 10/C K5/6 Besiktas  <br />
+										Istanbul, Turkey <br />
+										Phone: (+90) 212-381-8723  <br />
+										Fax: (+90) 212-381-8686
+									</address>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<address class="md-margin-bottom-40">
+										Email: <a href="mailto:info@anybiz.com" class="">admissions@stuub.com</a>
+									</address>
+								</div>
+							</div>
 						</div><!--/col-md-3-->
 						<!-- End Address -->
 					</div>
@@ -75,16 +72,16 @@
 						<div class="col-md-6">
 							<ul class="footer-socials list-inline">
 								<li>
-									<a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+									<a href="http://www.facebook.com/stuubAgency" target="_blank" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
 										<i class="fa fa-facebook"></i>
 									</a>
 								</li>
 								<li>
-									<a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Skype">
+									<a href="" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Skype">
 										<i class="fa fa-skype"></i>
 									</a>
 								</li>
-								<li>
+								{{--<li>
 									<a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google Plus">
 										<i class="fa fa-google-plus"></i>
 									</a>
@@ -108,7 +105,7 @@
 									<a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dribbble">
 										<i class="fa fa-dribbble"></i>
 									</a>
-								</li>
+								</li>--}}
 							</ul>
 						</div>
 						<!-- End Social Links -->

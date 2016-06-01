@@ -35,6 +35,17 @@ class AdminController extends Controller
         $this->page_data['students'] = \App\User::studentUsers();
         return view('admin.studentmanager', $this->page_data);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getStudentProfile()
+    {
+        $this->page_data['students'] = \App\User::studentUsers();
+        return view('admin.studentmanager', $this->page_data);
+    }
     
     public function getUsersManagement()
     {
@@ -76,6 +87,7 @@ class AdminController extends Controller
         $this->page_data['sessions'] = \App\Session::get();
         $this->page_data['providers'] = \App\ExamProvider::get();
         $this->page_data['subjects'] = \App\Subject::get();
+        $this->page_data['instructions'] = \App\Instruction::get();
         return view('admin.addexam',$this->page_data);
     }
     
