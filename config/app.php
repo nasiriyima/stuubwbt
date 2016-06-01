@@ -152,6 +152,7 @@ return [
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Nqxcode\LuceneSearch\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -60,29 +60,10 @@ class EmailController extends Controller
     public static function sendEmail($data){
        $settings = self::MailSettings();
        self::configMailSettings($settings);
-       
-       //Check Internet Connectivity
-       $connected = @fopen('http://www.google.com/','r');
-       if($connected){
-           //dd('connected');
-            //send email
-            \Mail::send('email.registration', $data, function($message) use ($data)
-            {
-               // dd('here');
-                $message->to($data['email'], 'Abbas Lawal')->subject($data['subject']);
-            });
-       }else{
-           dd('not conneccted');
-       }
-    }
-    
-    public function getSendEmail(){
-        $data=[
-            'email'=>'lawal.abbas@gmail.com',
-            'subject'=>'STUUB WBT Registration',
-            'activationcode'=>'hvdhfdgfdhgfdhgfhg',
-            'activationurl'=> url('auth/verify-account/1')
-        ];
-        self::sendEmail($data);
+        \Mail::later(10, 'email.accountActivation', $data, function($message) use ($data)
+        {
+            $message->to($data['email'], $data['name'])
+                    ->subject($data['subject']);
+        });
     }
 }
