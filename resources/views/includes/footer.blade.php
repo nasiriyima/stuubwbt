@@ -7,7 +7,7 @@
 							<a href="index.html">
 								<img id="logo-footer" class="footer-logo" src="{{ asset('public/assets/img/stuub-logo.png')}}" alt="" width="140px">
 							</a>
-							<p style="text-align: justify;">At Stuub Agency, we recruit students for renowned universities in Turkey. Our expertise in studentsâ€™ recruitment has given these higher institutions we partner with the luxury of focusing on university administration and instructing while we run point on promoting and creating awareness for their brands. </p>
+							<p style="text-align: justify;">At Stuub Agency, we recruit students for renowned universities in Turkey. Our expertise in students’ recruitment has given these higher institutions we partner with the luxury of focusing on university administration and instructing while we run point on promoting and creating awareness for their brands. </p>
 						</div><!--/col-md-3-->
 						<!-- End About -->
 
@@ -58,15 +58,15 @@
 				</div>
 			</div><!--/footer-->
 
-			<div class="copyright">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6">
-							<p>
-								2016 &copy; All Rights Reserved.
-								<a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-							</p>
-						</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<p>
+						2016 &copy; All Rights Reserved.
+						<a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+					</p>
+				</div>
 
 						<!-- Social Links -->
 						<div class="col-md-6">
@@ -111,5 +111,8 @@
 						<!-- End Social Links -->
 					</div>
 				</div>
-			</div><!--/copyright-->
+				<!-- End Social Links -->
+			</div>
 		</div>
+	</div><!--/copyright-->
+</div>

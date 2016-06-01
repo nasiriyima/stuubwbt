@@ -61,7 +61,6 @@ function nextQuestion(previous,question_id){
             $("input[name=active_question]").val(next);
             if($(".options"+previous).is(":checked")){
                 $("#side-menu-badge"+previous).attr("class","badge badge-green pull-right rounded-x");
-                $("#side-menu-span"+previous).attr("class","badge badge-green pull-right rounded-x");
                 $("#question-side-menu"+next).attr("class","active");
                 $("#question-side-menu"+previous).attr("class","");
                 $(".options"+previous).each(function(index){
