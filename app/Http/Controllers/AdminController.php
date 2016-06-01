@@ -41,10 +41,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getStudentProfile()
+    public function getStudentProfile($id)
     {
-        $this->page_data['students'] = \App\User::studentUsers();
-        return view('admin.studentmanager', $this->page_data);
+        $this->page_data['student'] = \App\User::find(\Crypt::decrypt($id));
+        $this->page_data['performances'] = \App\ExamProvider::all();
+        return view('admin.studentprofile', $this->page_data);
     }
     
     public function getUsersManagement()

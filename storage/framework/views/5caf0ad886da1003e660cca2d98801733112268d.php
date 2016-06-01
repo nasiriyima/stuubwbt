@@ -1,9 +1,7 @@
-@extends('admin_layout')
-
-@section('pagetitle')
+<?php $__env->startSection('pagetitle'); ?>
 EXAMINATION RESOURCES MANAGER - <small>Providers</small>
-@stop
-@section('maincontent')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">Examination Providers</a></li>
@@ -12,7 +10,7 @@ EXAMINATION RESOURCES MANAGER - <small>Providers</small>
         <div class="tab-pane fade in active" id="home">
             <div class="row margin-bottom-10">
                 <div class="col-md-2 pull-right">
-                    <a href="{{url('admin/add-exam')}}" class="btn-u btn-brd btn-brd-hover rounded-2x btn-u-aqua btn-u-xs"><i class="icon-line  icon-education-003"></i> Add New Provider</a>                
+                    <a href="<?php echo e(url('admin/add-exam')); ?>" class="btn-u btn-brd btn-brd-hover rounded-2x btn-u-aqua btn-u-xs"><i class="icon-line  icon-education-003"></i> Add New Provider</a>                
                 </div>
             </div>
             <div class="row">
@@ -30,7 +28,6 @@ EXAMINATION RESOURCES MANAGER - <small>Providers</small>
                              </tr>
                          </thead>
                          <tbody>
-
                              <tr>
                                  <td>1</td>
                                  <td><a href="#">JAMB</a></td>
@@ -47,7 +44,8 @@ EXAMINATION RESOURCES MANAGER - <small>Providers</small>
         </div>
     </div>
 </div>
-@stop
-@section('pagejs')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagejs'); ?>
 
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

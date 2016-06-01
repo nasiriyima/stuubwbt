@@ -20,4 +20,5 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="{{ asset('public/assets/css/custom.css')}}">
+	@yield('pagecss')
         
