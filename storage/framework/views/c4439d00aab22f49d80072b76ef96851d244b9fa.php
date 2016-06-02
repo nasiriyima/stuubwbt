@@ -14,7 +14,7 @@
                     <!-- Logo -->
                     <div class="logo">
                             <a href="">
-                                    <img id="logo-header" src="{{ asset('public/assets/img/stuub.jpg')}}" alt="Logo">
+                                    <img id="logo-header" src="<?php echo e(asset('public/assets/img/stuub.jpg')); ?>" alt="Logo">
                             </a>
                     </div>
                     <!-- End Logo -->
@@ -25,15 +25,15 @@
                     <div class="menu-container">
                             <ul class="nav navbar-nav">
                                 <li class="active">
-                                    <a href="{{url('admin')}}">Dashboard</a>
+                                    <a href="<?php echo e(url('admin')); ?>">Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('admin/student-manager')}}">
+                                    <a href="<?php echo e(url('admin/student-manager')); ?>">
                                             Student Manager
                                     </a>
                                 </li>
                                 <li>
-                                        <a href="{{url('admin/wbt-manager')}}">
+                                        <a href="<?php echo e(url('admin/wbt-manager')); ?>">
                                                 WBT Manager
                                         </a>
                                 </li>
@@ -47,7 +47,7 @@
                                         </ul>
                                 </li>
                                 <li>
-                                    <a href="{{url('admin/news')}}">
+                                    <a href="<?php echo e(url('admin/news')); ?>">
                                         News Manager
                                     </a>
                                 </li>
@@ -56,8 +56,8 @@
                                                 System Settings
                                         </a>
                                         <ul class="dropdown-menu">
-                                                <li><a href="{{url('admin/users-management')}}">User Management</a></li>
-                                                 <li><a href="{{url('email/email-settings')}}">Email Settings</a></li>
+                                                <li><a href="<?php echo e(url('admin/users-management')); ?>">User Management</a></li>
+                                                 <li><a href="<?php echo e(url('email/email-settings')); ?>">Email Settings</a></li>
                                         </ul>
                                 </li>
                             </ul>

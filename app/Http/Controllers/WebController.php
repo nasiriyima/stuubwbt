@@ -47,11 +47,17 @@ class WebController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getNews()
+    public function getNews($id = NULL)
     {
-        $page_data['pagename'] = 'news';
-        $page_data['news'] = \App\News::publishedNews();
-        return view('frontweb.news', $page_data);
+        if(empty($id)) {
+            $page_data['pagename'] = 'news';
+            $page_data['news'] = \App\News::publishedNews()->chunk(4);
+            return view('frontweb.news', $page_data);
+        }else{
+            $page_data['pagename'] = 'news';
+            $page_data['newsitem'] = \App\News::find(\Crypt::decrypt($id));
+            return view('frontweb.newsitem', $page_data);
+        }
     }
     
     

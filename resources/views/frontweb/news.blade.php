@@ -15,34 +15,33 @@
         </div>
         <br/><!--/breadcrumbs-->
         <div class="container s-results margin-bottom-50">
-
-                @foreach($news as $newsitem)
-                <div class="inner-results">
-                        <h3><a href="#">{{$newsitem->title}}</a></h3>
-                        <ul class="list-inline down-ul">
-                                <li>3 years ago - By Anthon Brandley</li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut orci urna. Morbi blandit enim eget risus posuere dapibus. Vestibulum velit nisi, tempus in placerat non, auctor eu purus. Morbi suscipit porta libero, ac tempus tellus consectetur non. Praesent eget consectetur nunc. Aliquam erat volutpat. Suspendisse ultrices eros eros, consectetur facilisis urna posuere id.</p>
-                        <ul class="list-inline up-ul">
-                                <li><a href="#">Wrapbootstrap</a></li>
-                                <li><a href="#">Dribbble</a></li>
-                        </ul>
+                <div class="tab-content">
+                        @foreach($news as $key => $group)
+                        <div class="tab-pane fade in {{ ($key+1 == 1)? 'active': '' }}" id="page-{{ $key+1 }}">
+                                @foreach($group as $newsitem)
+                                <div class="inner-results">
+                                        <h3><a href="#">{{$newsitem->title}}</a></h3>
+                                        <p>{{$newsitem->caption}}</p>
+                                        <ul class="list-inline down-ul">
+                                                <li>{{$newsitem->created_at->diffForHumans()}} - By {{$newsitem->user->first_name}} {{$newsitem->user->last_name}}</li>
+                                        </ul>
+                                        <br/>
+                                        <a href="{{url('web/news')}}/{{\Crypt::encrypt($newsitem->id)}}" class="btn-u btn-u-dark-blue">Read More</a>
+                                </div>
+                                <hr>
+                                @endforeach
+                        </div>
+                        @endforeach
                 </div>
-                <hr>
-                @endforeach
-
                 <div class="margin-bottom-30"></div>
 
                 <div class="text-center">
                         <ul class="pagination">
-                                <li><a href="#">«</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">...</a></li>
-                                <li><a href="#">157</a></li>
-                                <li><a href="#">158</a></li>
-                                <li><a href="#">»</a></li>
+                                <li><a href="#page-1" data-toggle="tab">&laquo;</a></li>
+                                @for($x=1;$x<=count($news);$x++)
+                                        <li class="($x==1)?'active': '';"><a href="#page-{{$x}}" data-toggle="tab">{{ $x }}</a></li>
+                                @endfor
+                                <li><a href="#page-{{ count($news) }}" data-toggle="tab">&raquo;</a></li>
                         </ul>
                 </div>
         </div><!--/container-->
