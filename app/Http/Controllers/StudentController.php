@@ -20,6 +20,7 @@ class StudentController extends Controller
         $data['startDate'] = \Carbon\Carbon::now()->subMonth();
         $data['endDate'] = \Carbon\Carbon::now();
         $data['series'] = $this->getSeries(\App\User::find(1), $data['startDate'], $data['endDate']);
+//        dd($data['series']);
         return view('student.index', $data);
     }
 
@@ -28,27 +29,24 @@ class StudentController extends Controller
     }
 
     private function getSeries($user, $startDate, $endDate){
-        $test_attempts = $user->history()->attempts($startDate, $endDate)->take(10);
-        dd($test_attempts);
-        return '[
-            {
-              name: "Avg Score",
-              color: "green",
-              data: [
-                  {x: 0, y:5,},
-                  {x: 1, y:3,},
-                  {x: 2, y:8,},
-                  {x: 3, y:6,},
-                  {x: 4, y:3,},
-                  {x: 5, y:12,},
-                  {x: 6, y:13,},
-                  {x: 7, y:14,},
-                  {x: 8, y:12,},
-                  {x: 9, y:8,},
-                  {x: 10, y:9,},
-              ]
-            }
-         ]';
+        $attempts = $user->history()->attempts($startDate, $endDate);
+        $month = 1;
+        $series['name'] = "Avg Score";
+        $series['color'] = "green";
+        $data = [];
+        while($attempts->count() < 0 || $month > 11){
+            $startDate = \Carbon\Carbon::now()->subMonth($month);
+            $attempts = $user->history()->attempts($startDate, $endDate);
+            $month ++;
+        }
+        $histories = $attempts->get()->take(10);
+        foreach($histories as $history){
+            $value['x'] = (int) strtotime($history->created_at);
+            $value['y'] = (double) $history->score;
+            array_push($data, (object) $value);
+        }
+        $series['data'] = $data;
+        return json_encode([$series]);
     }
     
     public function getMyExam(){

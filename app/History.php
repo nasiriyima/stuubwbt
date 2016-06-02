@@ -22,6 +22,7 @@ class History extends Model
     }
 
     public function scopeAttempts($query, $startDate, $endDate){
-        return $query->whereBetween('created_at', [$startDate,$endDate]);
+        return $query->whereBetween('created_at', [$startDate,$endDate])
+                     ->orderBy('created_at','dsc');
     }
 }

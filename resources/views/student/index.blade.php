@@ -35,14 +35,14 @@
     <!-- Content Boxes v6-->
     <div class="container content-sm">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <!-- Dark Blue Panel -->
                 <div class="panel panel-dark-blue">
                     <div class="panel-heading">
                         <h3 class="panel-title"><i class="fa fa-tasks"></i> Performance Chart</h3>
                     </div>
                     <div class="panel-body">
-                        <div style="margin-bottom:10px; margin-left:20px" id="mylegend"></div>
+                        <div style="margin-bottom:10px; margin-left:20px" id="legend"></div>
                         <div id="yaxis"></div>
                         <div id="chart"></div>
                         <div id="xaxis"></div>
@@ -50,7 +50,7 @@
                 </div>
                 <!-- End Dark Blue Panel -->
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <!-- Turquoise Panel -->
                 <div class="panel panel-sea">
                     <div class="panel-heading">
@@ -94,32 +94,29 @@
 <script type="text/javascript" src="{{ asset('public/assets/rickshaw/vendor/d3.v3.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/rickshaw/rickshaw.js') }}"></script>
 <script type="text/javascript">
-    var myGraph = new Rickshaw.Graph({
+    var graph = new Rickshaw.Graph({
     element: document.querySelector("#chart"),
-    width: 500,
-    height: 250,
-    min: 0,
-    max: 18,
-    renderer: 'lineplot',
-    series: JSON.parse(JSON.stringify({!! $series !!}))
-  });
-    var xTicks = new Rickshaw.Graph.Axis.X({
-      graph:myGraph,
-      orientation: "bottom",
-      element: document.querySelector("#xaxis")
+        width: 780,
+        height: 250,
+        renderer: 'lineplot',
+        series: JSON.parse(JSON.stringify({!! $series !!}))
     });
-    var yTicks = new Rickshaw.Graph.Axis.Y({
-      graph:myGraph,
-      orientation: "left",
-      element: document.querySelector("#yaxis")
+    var xAxis = new Rickshaw.Graph.Axis.Time({
+        graph:graph,
+    });
+    var yAxis = new Rickshaw.Graph.Axis.Y({
+        graph: graph,
+        orientation: 'left',
+        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+        element: document.querySelector('#yaxis'),
     });
     var graphHover = new Rickshaw.Graph.HoverDetail({
-      graph:myGraph
+        graph:graph
     });
-    var myLegend = new Rickshaw.Graph.Legend({
-      graph:myGraph,
-      element: document.querySelector("#mylegend")
+    var legend = new Rickshaw.Graph.Legend({
+        graph:graph,
+        element: document.querySelector("#legend")
     });
-    myGraph.render();
+    graph.render();
 </script>
 @stop
