@@ -16,7 +16,42 @@ class WebController extends Controller
      */
     public function getIndex()
     {
-        return view('frontweb.index');
+        $page_data['pagename'] = 'home';
+        return view('frontweb.index', $page_data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAboutUs()
+    {
+        $page_data['pagename'] = 'aboutus';
+        return view('frontweb.aboutus', $page_data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getContactUs()
+    {
+        $page_data['pagename'] = 'contactus';
+        return view('frontweb.contactus', $page_data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getNews()
+    {
+        $page_data['pagename'] = 'news';
+        $page_data['news'] = \App\News::publishedNews();
+        return view('frontweb.news', $page_data);
     }
     
     
