@@ -94,21 +94,23 @@
 <script type="text/javascript" src="{{ asset('public/assets/rickshaw/vendor/d3.v3.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/rickshaw/rickshaw.js') }}"></script>
 <script type="text/javascript">
+    var data = JSON.parse(JSON.stringify({!! $series !!}));
     var graph = new Rickshaw.Graph({
     element: document.querySelector("#chart"),
         width: 780,
         height: 250,
         renderer: 'lineplot',
-        series: JSON.parse(JSON.stringify({!! $series !!}))
+        series: data
     });
     var xAxis = new Rickshaw.Graph.Axis.Time({
         graph: graph,
         orientation: 'bottom',
-        tickFormat: function(x){
-            return new Date(x * 1000).toLocaleDateString();
-        },
         element: document.querySelector('#xaxis'),
+        tickFormat: function(x){
+            return new Date(x * 1000).toLocaleTimeString();
+        }
     });
+    xAxis.render();
     var yAxis = new Rickshaw.Graph.Axis.Y({
         graph: graph,
         orientation: 'left',

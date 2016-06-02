@@ -34,15 +34,32 @@ class StudentController extends Controller
         $series['name'] = "Avg Score";
         $series['color'] = "green";
         $data = [];
+        $axis = [];
+        $exam_attempted = [];
+        $divisors = [];
         while($attempts->count() < 0 || $month > 11){
             $startDate = \Carbon\Carbon::now()->subMonth($month);
             $attempts = $user->history()->attempts($startDate, $endDate);
             $month ++;
         }
-        $histories = $attempts->get()->take(10);
+        $histories = $attempts->get()->take(28);
         foreach($histories as $history){
-            $value['x'] = (int) strtotime($history->created_at);
-            $value['y'] = (double) $history->score;
+            var_dump($history->created_at->format('d/m/y'));
+            $same_day = strtotime($history->created_at->format('d/m/y'));
+            if(!in_array($same_day, $exam_attempted)){
+                array_push($exam_attempted, $same_day);
+                $axis['x'][$same_day] =  (int) $same_day;
+                $axis['y'][$same_day] = (double) $history->score;
+                $divisors[$same_day] = 1;
+            } else {
+                $axis['y'][$same_day] += (double) $history->score;
+                $divisors[$same_day] = $divisors[$same_day] + 1;
+            }
+        }
+        dd();
+        foreach($exam_attempted as $date){
+            $value['x'] = $axis['x'][$date];
+            $value['y'] = (double)($axis['y'][$date] /$divisors[$date]);
             array_push($data, (object) $value);
         }
         $series['data'] = $data;

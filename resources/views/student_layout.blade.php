@@ -28,7 +28,9 @@
             </div>
             <!--=== End Content Side Left Right ===-->
         </div><!--/wrapper-->
+        <script type="text/javascript"> var timeleft="00:00:00"; </script>
         @include('student.include.scripts_js')
         @yield('pagejs')
+
     </body>
 </html>
