@@ -102,7 +102,12 @@
         series: JSON.parse(JSON.stringify({!! $series !!}))
     });
     var xAxis = new Rickshaw.Graph.Axis.Time({
-        graph:graph,
+        graph: graph,
+        orientation: 'bottom',
+        tickFormat: function(x){
+            return new Date(x * 1000).toLocaleDateString();
+        },
+        element: document.querySelector('#xaxis'),
     });
     var yAxis = new Rickshaw.Graph.Axis.Y({
         graph: graph,
@@ -111,7 +116,7 @@
         element: document.querySelector('#yaxis'),
     });
     var graphHover = new Rickshaw.Graph.HoverDetail({
-        graph:graph
+        graph:graph,
     });
     var legend = new Rickshaw.Graph.Legend({
         graph:graph,
