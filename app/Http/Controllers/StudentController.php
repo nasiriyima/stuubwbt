@@ -292,6 +292,8 @@ class StudentController extends Controller
                 \Carbon\Carbon::createFromTimestamp($startDate),
                 \Carbon\Carbon::createFromTimestamp($endDate)
             ])->get();
+            $data['startDate'] =  \Carbon\Carbon::createFromTimestamp($startDate);
+            $data['endDate'] = \Carbon\Carbon::createFromTimestamp($endDate);
         } else {
             $data['histories'] = \App\History::where([
                 'user_id' => 1
@@ -300,16 +302,26 @@ class StudentController extends Controller
                 \Carbon\Carbon::now()->startOfMonth(),
                 \Carbon\Carbon::now()
             ])->get();
+            $data['startDate'] = \Carbon\Carbon::now()->startOfMonth();
+            $data['endDate'] = \Carbon\Carbon::now();
         }
 
         return view('student.myrecords.index')->with($data);
     }
 
     public function postMyRecord(){
-        $request = \Request::accepts('_token');
-        $startDate = \Carbon\Carbon::createFromDate($request['startDate'])->timestamp;
-        $endDate = \Carbon\Carbon::createFromDate($request['startDate'])->timestamp;
-        return $this->getMyRecord($startDate, $endDate);
+        $request = \Request::except('_token');
+        $rules = [
+            'startDate'  => 'required',
+            'endDate'=> 'required|after:startDate',
+        ];
+        $validation = \Validator::make($request, $rules);
+        if($validation->passes()){
+            $startDate = \Carbon\Carbon::createFromFormat('Y-m-d', $request['startDate'])->timestamp;
+            $endDate = \Carbon\Carbon::createFromFormat('Y-m-d', $request['endDate'])->timestamp;
+            return $this->getMyRecord($startDate, $endDate);
+        }
+        return redirect()->back()->withErrors($validation)->withInput();
     }
     
     public function getErrortest(){

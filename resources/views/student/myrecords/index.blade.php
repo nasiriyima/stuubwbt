@@ -8,10 +8,51 @@
 
 @section('maincontent')
 <!--=== Profile ===-->
+@if(count($errors) > 0)
+        <div class="alert alert-danger fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4>Oh snap! You got an error!</h4>
+                @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+                @endforeach
+                <p>
+                        <a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
+                </p>
+        </div>
+@endif
 <div class="container content profile">
     <div class="row">
+            <!-- Inline Form -->
+            <div class="panel panel-grey margin-bottom-40">
+                    <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-tasks"></i>Search My Records</h3>
+                    </div>
+                    <div class="panel-body">
+                            <form class="form-inline" role="form" method="post" action="{{ url('student/my-record') }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <div class="form-group">
+                                            <label class="sr-only" for="exampleInputEmail2">Begin</label>
+                                            <input type="date" class="form-control" name="startDate" id="date" value="{{ $startDate->format('Y-m-d') }}" placeholder="Start Date" required>
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="sr-only" for="exampleInputPassword2">End</label>
+                                            <input type="date" class="form-control" name="endDate" id="date" value="{{ $endDate->format('Y-m-d') }}" placeholder="End Date" required>
+                                    </div>
+                                    <button type="submit" class="btn-u btn-u-default">Sort My Records</button>
+                                    <div class="label">
+                                            <label>
+                                                   Only 50 Records can be displayed at a time
+                                            </label>
+                                    </div>
+                            </form>
+                    </div>
+            </div>
+            <!-- End Inline Form -->
        <!-- Profile Content -->
         <div class="col-md-12">
+            <div class="panel-heading">
+                    Showing Records Between {{ $startDate->format('d - m - Y') }} to {{ $endDate->format('d - m - Y') }}
+            </div>
             <div class="profile-body">
                 <!--Timeline-->
                 <ul class="timeline-v2">
@@ -45,7 +86,7 @@
                                                                 <p class="text-left">Percentage</p>
                                                                 <p class="text-right">{{ $x }}%</p>
                                                                 <div class="progress progress-u progress-xs">
-                                                                        <div class="progress-bar progress-bar-u progress-bar-u-info" role="progressbar" aria-valuenow="{{ $x }}" aria-valuemin="0" aria-valuemax="100" style="width: 55%">
+                                                                        <div class="progress-bar progress-bar-u progress-bar-u-success" role="progressbar" aria-valuenow="{{ $x }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $x }}%">
                                                                         </div>
                                                                 </div>
                                                         </div>
@@ -56,9 +97,11 @@
                                                         <!-- Progress Bar Text -->
                                                         <div class="progress-bar-text">
                                                                 <p class="text-left">Attempts</p>
-                                                                <p class="text-right">67%</p>
+                                                                {{--*/ $z = floor(($history->cumulativeAverage($history->exam_id, $startDate, $endDate)*100)/$history->examAttemptAll($history->exam_id)->count()); /*--}}
+                                                                <p class="text-right">{{ $history->examAttempts($history->exam_id, $startDate, $endDate)->count()  }} ({{ $z }})%</p>
+
                                                                 <div class="progress progress-u progress-xs">
-                                                                        <div class="progress-bar progress-bar-u progress-bar-u-danger" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%">
+                                                                        <div style="width:{{ $z  }}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{ $z  }}" role="progressbar" class="progress-bar progress-bar-u">
                                                                         </div>
                                                                 </div>
                                                         </div>
@@ -67,9 +110,10 @@
                                                         <!-- Progress Bar Text -->
                                                         <div class="progress-bar-text">
                                                                 <p class="text-left">Cumulative Average</p>
-                                                                <p class="text-right">73%</p>
+                                                                {{--*/ $y = floor($history->cumulativeAverage($history->exam_id, $startDate, $endDate)*100/count($history->exam->question)); /*--}}
+                                                                <p class="text-right">{{ rand($history->cumulativeAverage($history->exam_id, $startDate, $endDate), 2)  }}</p>
                                                                 <div class="progress progress-u progress-xs">
-                                                                        <div class="progress-bar progress-bar-u progress-bar-u-warning" role="progressbar" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100" style="width: 73%">
+                                                                        <div style="width:{{ $y  }}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{ $y  }}" role="progressbar" class="progress-bar progress-bar-u">
                                                                         </div>
                                                                 </div>
                                                         </div>

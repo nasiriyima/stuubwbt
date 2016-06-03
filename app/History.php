@@ -25,4 +25,30 @@ class History extends Model
         return $query->whereBetween('created_at', [$startDate,$endDate])
                      ->orderBy('created_at','asc');
     }
+
+    public function  scopeExamAttempts($query, $exam_id, $startDate, $endDate){
+        return $query->where([
+            'exam_id' => $exam_id
+        ])->whereBetween('created_at', [$startDate,$endDate]);
+    }
+
+    public function scopeCumulativeAverage($query, $exam_id, $startDate, $endDate){
+        $total = 0.0;
+        $count = 0;
+        $histories = $query->where([
+            'exam_id' => $exam_id
+        ])->whereBetween('created_at', [$startDate,$endDate])->get();
+        foreach($histories as $history){
+            $total = (double)($total + $history->score);
+            $count++;
+        }
+        $average = (double) ($total / $count);
+        return $average;
+    }
+
+    public function scopeExamAttemptAll($query, $exam_id){
+        return $query->where([
+            'exam_id' => $exam_id
+        ]);
+    }
 }
