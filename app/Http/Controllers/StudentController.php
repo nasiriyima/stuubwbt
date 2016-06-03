@@ -20,7 +20,6 @@ class StudentController extends Controller
         $data['startDate'] = \Carbon\Carbon::now()->subMonth();
         $data['endDate'] = \Carbon\Carbon::now();
         $data['series'] = $this->getSeries(\App\User::find(1), $data['startDate'], $data['endDate']);
-//        dd($data['series']);
         return view('student.index', $data);
     }
 
@@ -37,31 +36,32 @@ class StudentController extends Controller
         $axis = [];
         $exam_attempted = [];
         $divisors = [];
-        while($attempts->count() < 0 || $month > 11){
+        while($attempts->count() < 10 || $month < 13){
             $startDate = \Carbon\Carbon::now()->subMonth($month);
             $attempts = $user->history()->attempts($startDate, $endDate);
             $month ++;
         }
         $histories = $attempts->get()->take(28);
         foreach($histories as $history){
-            var_dump($history->created_at->format('d/m/y'));
-            $same_day = strtotime($history->created_at->format('d/m/y'));
+            $date_time = date_format($history->created_at, 'd-m-Y');
+            $same_day = strtotime($date_time);
             if(!in_array($same_day, $exam_attempted)){
                 array_push($exam_attempted, $same_day);
                 $axis['x'][$same_day] =  (int) $same_day;
                 $axis['y'][$same_day] = (double) $history->score;
                 $divisors[$same_day] = 1;
             } else {
-                $axis['y'][$same_day] += (double) $history->score;
+                $axis['y'][$same_day] = $axis['y'][$same_day] + (double) $history->score;
                 $divisors[$same_day] = $divisors[$same_day] + 1;
             }
         }
-        dd();
+
         foreach($exam_attempted as $date){
             $value['x'] = $axis['x'][$date];
-            $value['y'] = (double)($axis['y'][$date] /$divisors[$date]);
+            $value['y'] = round((double)($axis['y'][$date] /$divisors[$date]), 2);
             array_push($data, (object) $value);
         }
+
         $series['data'] = $data;
         return json_encode([$series]);
     }
@@ -282,15 +282,34 @@ class StudentController extends Controller
         return view('student.myprofile.index');
     }
     
-    public function getMyRecord(){
-        $data['histories'] = \App\History::where([
-            'user_id' => 1
-        ])->whereBetween(
-            'created_at', [
+    public function getMyRecord($startDate = '', $endDate = ''){
+        $data = [];
+        if($startDate && $endDate){
+            $data['histories'] = \App\History::where([
+                'user_id' => 1
+            ])->whereBetween(
+                'created_at', [
+                \Carbon\Carbon::createFromTimestamp($startDate),
+                \Carbon\Carbon::createFromTimestamp($endDate)
+            ])->get();
+        } else {
+            $data['histories'] = \App\History::where([
+                'user_id' => 1
+            ])->whereBetween(
+                'created_at', [
                 \Carbon\Carbon::now()->startOfMonth(),
                 \Carbon\Carbon::now()
-        ])->get();
+            ])->get();
+        }
+
         return view('student.myrecords.index')->with($data);
+    }
+
+    public function postMyRecord(){
+        $request = \Request::accepts('_token');
+        $startDate = \Carbon\Carbon::createFromDate($request['startDate'])->timestamp;
+        $endDate = \Carbon\Carbon::createFromDate($request['startDate'])->timestamp;
+        return $this->getMyRecord($startDate, $endDate);
     }
     
     public function getErrortest(){

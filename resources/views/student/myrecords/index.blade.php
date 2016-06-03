@@ -32,7 +32,7 @@
                                                         <div class="progress-bar-text">
                                                                 <p class="text-left">Score</p>
                                                                 {{--*/ $x = $history->score*100/count($history->exam->question); /*--}}
-                                                                <p class="text-right">{{ $x }}%</p>
+                                                                <p class="text-right">{{ (double) $history->score  }}</p>
                                                                 <div class="progress progress-u progress-xs">
                                                                         <div class="progress-bar progress-bar-u progress-bar-u-success" role="progressbar" aria-valuenow="{{ $x }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $x }}%">
                                                                         </div>
@@ -42,10 +42,10 @@
 
                                                         <!-- Progress Bar Text -->
                                                         <div class="progress-bar-text">
-                                                                <p class="text-left">Web Animation</p>
-                                                                <p class="text-right">55%</p>
+                                                                <p class="text-left">Percentage</p>
+                                                                <p class="text-right">{{ $x }}%</p>
                                                                 <div class="progress progress-u progress-xs">
-                                                                        <div class="progress-bar progress-bar-u progress-bar-u-info" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%">
+                                                                        <div class="progress-bar progress-bar-u progress-bar-u-info" role="progressbar" aria-valuenow="{{ $x }}" aria-valuemin="0" aria-valuemax="100" style="width: 55%">
                                                                         </div>
                                                                 </div>
                                                         </div>
@@ -55,7 +55,7 @@
                                                 <div class="col-sm-6">
                                                         <!-- Progress Bar Text -->
                                                         <div class="progress-bar-text">
-                                                                <p class="text-left">Web Design</p>
+                                                                <p class="text-left">Attempts</p>
                                                                 <p class="text-right">67%</p>
                                                                 <div class="progress progress-u progress-xs">
                                                                         <div class="progress-bar progress-bar-u progress-bar-u-danger" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%">
@@ -66,7 +66,7 @@
 
                                                         <!-- Progress Bar Text -->
                                                         <div class="progress-bar-text">
-                                                                <p class="text-left">PHP &amp; Javascript</p>
+                                                                <p class="text-left">Cumulative Average</p>
                                                                 <p class="text-right">73%</p>
                                                                 <div class="progress progress-u progress-xs">
                                                                         <div class="progress-bar progress-bar-u progress-bar-u-warning" role="progressbar" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100" style="width: 73%">

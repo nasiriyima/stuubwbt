@@ -36,7 +36,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ url('student/my-record') }}">
+                        <a href="{{ url('student/my-record') }}/{{ \Carbon\Carbon::now()->startOfMonth()->timestamp }}/{{ \Carbon\Carbon::now()->timestamp }}">
                             My Records
                         </a>
                     </li>

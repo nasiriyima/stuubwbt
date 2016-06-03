@@ -39,7 +39,7 @@
                 <!-- Dark Blue Panel -->
                 <div class="panel panel-dark-blue">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-tasks"></i> Performance Chart</h3>
+                        <h3 class="panel-title"><i class="fa fa-tasks"></i> Most Recent Performance Chart as At {{ $endDate->format('F, Y')  }}</h3>
                     </div>
                     <div class="panel-body">
                         <div style="margin-bottom:10px; margin-left:20px" id="legend"></div>
@@ -54,7 +54,7 @@
                 <!-- Turquoise Panel -->
                 <div class="panel panel-sea">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-tasks"></i>Leader's Board as at {{ \Carbon\Carbon::now()->subMonth()->format('M, Y') }} -  {{ \Carbon\Carbon::now()->format('M, Y') }}</h3>
+                        <h3 class="panel-title"><i class="fa fa-tasks"></i>Leader's Board as at {{ \Carbon\Carbon::now()->subMonth()->format('F, Y') }} -  {{ \Carbon\Carbon::now()->format('M, Y') }}</h3>
                     </div>
                     <div class="panel-body">
                         <!--Timeline-->
@@ -67,7 +67,7 @@
                                 <ul class="timeline-v2 timeline-me">
                                     @foreach($leaders as $leader)
                                         <li>
-                                            <time datetime="" class="cbp_tmtime"><span>{{ $leader->user->profile->school or 'Unspecified' }}</span> <span>{{ $leader->user->created_at->diffForHumans()  }}</span></time>
+                                            <time datetime="" class="cbp_tmtime"><span>Last Seen</span> <span>{{ $leader->user->updated_at->diffForHumans()  }}</span></time>
                                             <i class="cbp_tmicon rounded-x hidden-xs"></i>
                                             <div class="cbp_tmlabel">
                                                 <h2>{{ $leader->user->first_name  }} {{ $leader->user->last_name  }}</h2>
@@ -99,7 +99,7 @@
     element: document.querySelector("#chart"),
         width: 780,
         height: 250,
-        renderer: 'lineplot',
+        renderer: 'bar',
         series: data
     });
     var xAxis = new Rickshaw.Graph.Axis.Time({
