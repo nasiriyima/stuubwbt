@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="{{ asset('public/assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css') }}">
 <link rel="stylesheet" href="{{ asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.css') }}">
 <link rel="stylesheet" href="{{ asset('public/assets/plugins/fancybox/source/jquery.fancybox.css') }}">
+<link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css') }}">
+<link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css') }}">
+<!--[if lt IE 9]><link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms-ie8.css') }}"><![endif]-->
 
 @yield('pagecss')
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use \Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -15,10 +16,10 @@ class StudentController extends Controller
      */
     public function getIndex(){
         $data['fname'] = 'UnAuthenticated User';
-        $data['leaders'] = $this->getLeaders(\Carbon\Carbon::now()->subMonth(),
-            \Carbon\Carbon::now());
-        $data['startDate'] = \Carbon\Carbon::now()->subMonth();
-        $data['endDate'] = \Carbon\Carbon::now();
+        $data['leaders'] = $this->getLeaders(Carbon::now()->subMonth(),
+            Carbon::now());
+        $data['startDate'] =Carbon::now()->subMonth();
+        $data['endDate'] =Carbon::now();
         $data['series'] = $this->getSeries(\App\User::find(1), $data['startDate'], $data['endDate']);
         return view('student.index', $data);
     }
@@ -37,7 +38,7 @@ class StudentController extends Controller
         $exam_attempted = [];
         $divisors = [];
         while($attempts->count() < 10 || $month < 13){
-            $startDate = \Carbon\Carbon::now()->subMonth($month);
+            $startDate = Carbon::now()->subMonth($month);
             $attempts = $user->history()->attempts($startDate, $endDate);
             $month ++;
         }
@@ -226,16 +227,16 @@ class StudentController extends Controller
                 'exam_id' => \Session::get('exam'),
                 'user_id' => 1,
             ])->whereBetween('created_at',[
-                \Carbon\Carbon::now()->subWeek(), 
-                \Carbon\Carbon::now()
+                Carbon::now()->subWeek(),
+                Carbon::now()
             ])->count();
             
             $data['history_month_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
                 'user_id' => 1,
             ])->whereBetween('created_at', [
-                \Carbon\Carbon::now()->startOfMonth()->subMonth(),
-                \Carbon\Carbon::now()->startOfMonth()
+                Carbon::now()->startOfMonth()->subMonth(),
+                Carbon::now()->startOfMonth()
             ])->count();
             $data['history_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
@@ -289,21 +290,21 @@ class StudentController extends Controller
                 'user_id' => 1
             ])->whereBetween(
                 'created_at', [
-                \Carbon\Carbon::createFromTimestamp($startDate),
-                \Carbon\Carbon::createFromTimestamp($endDate)
+                Carbon::createFromTimestamp($startDate),
+                Carbon::createFromTimestamp($endDate)
             ])->get();
-            $data['startDate'] =  \Carbon\Carbon::createFromTimestamp($startDate);
-            $data['endDate'] = \Carbon\Carbon::createFromTimestamp($endDate);
+            $data['startDate'] =  Carbon::createFromTimestamp($startDate);
+            $data['endDate'] = Carbon::createFromTimestamp($endDate);
         } else {
             $data['histories'] = \App\History::where([
                 'user_id' => 1
             ])->whereBetween(
                 'created_at', [
-                \Carbon\Carbon::now()->startOfMonth(),
-                \Carbon\Carbon::now()
+                Carbon::now()->startOfMonth(),
+                Carbon::now()
             ])->get();
-            $data['startDate'] = \Carbon\Carbon::now()->startOfMonth();
-            $data['endDate'] = \Carbon\Carbon::now();
+            $data['startDate'] = Carbon::now()->startOfMonth();
+            $data['endDate'] = Carbon::now();
         }
 
         return view('student.myrecords.index')->with($data);
@@ -317,8 +318,8 @@ class StudentController extends Controller
         ];
         $validation = \Validator::make($request, $rules);
         if($validation->passes()){
-            $startDate = \Carbon\Carbon::createFromFormat('Y-m-d', $request['startDate'])->timestamp;
-            $endDate = \Carbon\Carbon::createFromFormat('Y-m-d', $request['endDate'])->timestamp;
+            $startDate = Carbon::createFromFormat('d.m.Y', $request['startDate'])->timestamp;
+            $endDate = Carbon::createFromFormat('d.m.Y', $request['endDate'])->timestamp;
             return $this->getMyRecord($startDate, $endDate);
         }
         return redirect()->back()->withErrors($validation)->withInput();
@@ -356,15 +357,15 @@ class StudentController extends Controller
         $last_month_count = $history::where([
             'user_id' => 1
         ])->whereBetween('created_at',[
-            \Carbon\Carbon::now()->startOfMonth()->subMonth(),
-            \Carbon\Carbon::now()->startOfMonth()
+            Carbon::now()->startOfMonth()->subMonth(),
+            Carbon::now()->startOfMonth()
         ])->count();
 
         $this_month_count = $history::where([
             'user_id' => 1
         ])->whereBetween('created_at',[
-            \Carbon\Carbon::now()->startOfMonth(),
-            \Carbon\Carbon::now()
+            Carbon::now()->startOfMonth(),
+            Carbon::now()
         ])->count();
 
         $month_diff = $this_month_count - $last_month_count;
@@ -386,6 +387,6 @@ class StudentController extends Controller
     }
     
     public function getTest(){
-        return \Carbon\Carbon::now()->startOfWeek()->subWeek();
+        return Carbon::now()->startOfWeek()->subWeek();
     }
 }
