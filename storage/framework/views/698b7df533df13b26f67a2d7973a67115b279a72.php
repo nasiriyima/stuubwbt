@@ -5,6 +5,7 @@
 <script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/jquery.countdown.js')); ?>"></script>
 
 <!-- JS Implementing Plugins -->
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/back-to-top.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/jquery-appear.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/smoothScroll.js')); ?>"></script>

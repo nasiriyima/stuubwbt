@@ -36,43 +36,37 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="<?php echo e(url('student/my-record')); ?>">
+                        <a href="<?php echo e(url('student/my-record')); ?>/<?php echo e(\Carbon\Carbon::now()->startOfMonth()->timestamp); ?>/<?php echo e(\Carbon\Carbon::now()->timestamp); ?>">
                             My Records
                         </a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown <?php echo e(isset($open) ? $open : ''); ?>">
                         <a href="javascript:void(0);" class="dropdown-toggle">
                             My Messages
                         </a>
                         <ul class="dropdown-menu">
                             <li class="">
                                 <a href="<?php echo e(url('student/my-message-inbox')); ?>">
-                                    <span class="badge pull-right rounded-x">7</span>
+                                    <span class="badge badge-u pull-right rounded-2x"><?php echo e($inbox_count); ?></span>
                                     Inbox
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="badge pull-right rounded-2x">37</span>
-                                    Outbox
+                                <a href="<?php echo e(url('student/my-message-sent')); ?>">
+                                    <span class="badge  badge-green pull-right rounded-2x"><?php echo e($sent_count); ?></span>
+                                    Sent
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="badge pull-right rounded">3</span>
-                                    Draft
+                                <a href="<?php echo e(url('student/my-message-saved')); ?>">
+                                    <span class="badge badge-yellow pull-right rounded-2x"><?php echo e($saved_count); ?></span>
+                                    Saved
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="badge pull-right">37</span>
-                                    Junk
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="badge pull-right">37</span>
-                                    Trash
+                                <a href="<?php echo e(url('student/my-message-deleted')); ?>">
+                                    <span class="badge badge-red pull-right rounded-2x"><?php echo e($deleted_count); ?></span>
+                                    Deleted
                                 </a>
                             </li>
                         </ul>

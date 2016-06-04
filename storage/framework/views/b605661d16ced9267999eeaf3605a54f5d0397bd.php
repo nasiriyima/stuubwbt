@@ -28,7 +28,9 @@
             </div>
             <!--=== End Content Side Left Right ===-->
         </div><!--/wrapper-->
+        <script type="text/javascript"> var timeleft="00:00:00"; </script>
         <?php echo $__env->make('student.include.scripts_js', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <?php echo $__env->yieldContent('pagejs'); ?>
+
     </body>
 </html>

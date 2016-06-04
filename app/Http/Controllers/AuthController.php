@@ -70,6 +70,7 @@ class AuthController extends Controller
     {
         \Activation::removeExpired(); // Remove all Expired Activations
         $page_data['user'] = \Sentinel::findById(\Crypt::decrypt($user));
+        $page_data['pagename'] = "home";
         if($page_data['user']){
             if(\Activation::exists($page_data['user'])){
                 if(!(\Activation::completed($page_data['user']))){
