@@ -40,7 +40,7 @@
                             My Records
                         </a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown {{ $open or '' }}">
                         <a href="javascript:void(0);" class="dropdown-toggle">
                             My Messages
                         </a>

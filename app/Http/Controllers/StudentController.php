@@ -282,7 +282,26 @@ class StudentController extends Controller
 
     public function getMyMessageInbox(){
         $this->page_data['message_inbox'] = \App\Message::inbox();
+        $this->page_data['open'] = 'open';
         return view('student.mymessage.index')->with($this->page_data);
+    }
+
+    public function getMyMessageSent(){
+        $this->page_data['message_inbox'] = \App\Message::inbox();
+        $this->page_data['open'] = 'open';
+        return view('student.mymessage.sent')->with($this->page_data);
+    }
+
+    public function getMyMessageSaved(){
+        $this->page_data['message_inbox'] = \App\Message::inbox();
+        $this->page_data['open'] = 'open';
+        return view('student.mymessage.Saved')->with($this->page_data);
+    }
+
+    public function getMyMessageDeleted(){
+        $this->page_data['message_inbox'] = \App\Message::inbox();
+        $this->page_data['open'] = 'open';
+        return view('student.mymessage.deleted')->with($this->page_data);
     }
     
     public function getMyProfile(){
