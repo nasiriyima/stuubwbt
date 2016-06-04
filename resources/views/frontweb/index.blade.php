@@ -1,5 +1,10 @@
 @extends('web_layout')
 
+@section('pagecss')
+    <link rel="stylesheet" href="{{ asset('public/assets/plugins/parallax-slider/css/parallax-slider.css')}}">
+    <link rel="stylesheet" href="{{ asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.css')}}">
+@stop
+
 @section('maincontent')
 <!--=== Slider ===-->
     <div class="slider-inner">
@@ -118,6 +123,10 @@
 <script type="text/javascript" src="{{ asset('public/assets/js/plugins/owl-carousel.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/plugins/style-switcher.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/plugins/parallax-slider.js')}}"></script>
+
+<script type="text/javascript" src="{{ asset('public/assets/plugins/parallax-slider/js/modernizr.js')}}"></script>
+<script type="text/javascript" src="{{ asset('public/assets/plugins/parallax-slider/js/jquery.cslider.js')}}"></script>
+<script type="text/javascript" src="{{ asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.js')}}"></script>
 <script type="text/javascript">
         jQuery(document).ready(function() {
                 App.init();

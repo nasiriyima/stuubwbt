@@ -25,7 +25,7 @@ STUDENT MANAGER
                         @foreach($students as $student)
                         <tr>
                             <td>1</td>
-                            <td>{{$student->first_name}}</td>
+                            <td><a href="{{url('admin/student-profile')}}/{{\Crypt::encrypt($student->id)}}">{{$student->first_name}}</a></td>
                             <td>{{$student->email}}</td>
                             <td><span class="label label-warning">Expiring</span></td>
                         </tr>
