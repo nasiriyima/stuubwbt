@@ -36,12 +36,12 @@
     <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
         <div class="container">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="{{($pagename == 'home')? 'active':' '}}">
                         <a href="{{url('web')}}">
                                 Home
                         </a>
                     </li>
-                    <li>
+                    <li class="{{($pagename == 'aboutus')? 'active':' '}}">
                         <a href="{{url('web/about-us')}}">
                                 About Us
                         </a>
@@ -79,12 +79,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="{{($pagename == 'news')? 'active':' '}}">
                         <a href="{{url('web/news')}}">
                                 News
                         </a>
                     </li>
-                    <li>
+                    <li class="{{($pagename == 'contactus')? 'active':' '}}">
                         <a href="{{url('web/contact-us')}}">
                                 Contact Us
                         </a>

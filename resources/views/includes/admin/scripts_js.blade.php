@@ -12,7 +12,6 @@
 <script type="text/javascript" src="{{ asset('public/assets/plugins/fancybox/source/jquery.fancybox.pack.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-@yield('pageplugins')
 <!-- JS Customization -->
 <script type="text/javascript" src="{{ asset('public/assets/js/custom.js')}}"></script>
 <!-- JS Page Level -->
@@ -34,3 +33,4 @@
                 ProgressBar.initProgressBarHorizontal();
         });
 </script>
+@yield('pageplugins')
