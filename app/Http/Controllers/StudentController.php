@@ -11,10 +11,10 @@ class StudentController extends Controller
 {
     public $page_data = [];
     public function __construct(){
-        $this->page_data['inbox_count'] = \App\Message::inbox()->count();
-        $this->page_data['sent_count'] = \App\Message::sent()->count();
-        $this->page_data['saved_count'] = \App\Message::draft()->count();
-        $this->page_data['deleted_count'] = \App\Message::Trash()->count();
+        $this->page_data['inbox_count'] = \App\User::find(1)->message()->inbox()->count();
+        $this->page_data['sent_count'] = \App\User::find(1)->message()->sent()->count();
+        $this->page_data['saved_count'] = \App\User::find(1)->message()->draft()->count();
+        $this->page_data['deleted_count'] = \App\User::find(1)->message()->Trash()->count();
     }
     /*
      * Student Controller Dashboard
@@ -281,7 +281,7 @@ class StudentController extends Controller
     }
 
     public function getMyMessageInbox(){
-        $this->page_data['message_inbox'] = \App\Message::inbox();
+        $this->page_data['message_inbox'] = \App\User::find(1)->message()->inbox()->get();
         $this->page_data['open'] = 'open';
         return view('student.mymessage.index')->with($this->page_data);
     }

@@ -21,8 +21,8 @@
                              <tr>
                                  <th>#</th>
                                  <th>Question</th>
-                                 <th class="hidden-sm"><center>Tags</center></th>
-                                 <th class="hidden-sm"><center>Estimated Time</center></th>
+                                 <th class="hidden-sm">Tags</th>
+                                 <th class="hidden-sm">Estimated Time</th>
                                  <th class="hidden-sm">Average Time</th>
                                  <th class="hidden-sm">Average Score</th>
                                  <th class="hidden-sm">Actions</th>
@@ -34,10 +34,10 @@
                              <tr>
                                  <td><?php echo e($count); ?></td>
                                  <td><?php echo e($question->name); ?></td>
-                                 <td class="hidden-sm"><center>50</center></td>
-                                 <td class="hidden-sm"><center>50</center></td>
-                                 <td class="hidden-sm"><center>50</center></td>
-                                 <td><center>70%</center></td>
+                                 <td class="hidden-sm">50</td>
+                                 <td class="hidden-sm">50</td>
+                                 <td class="hidden-sm">50</td>
+                                 <td>70%</td>
                                  <td></td>
                              </tr>
                              <?php /**/$count++;/**/ ?>

@@ -63,7 +63,7 @@
                             <th>
                                 <input type="checkbox">
                             </th>
-                            <th>Sender</th>
+                            <th>From</th>
                             <th class="hidden-sm">Subject</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -72,12 +72,14 @@
                         <tbody>
                         <?php foreach($message_inbox as $message): ?>
                             <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td class="hidden-sm">Otto</td>
-                            <td>@mdo</td>
-                            <td><span class="label label-warning">Expiring</span></td>
-                        </tr>
+                                <td><input type="checkbox"></td>
+                                <td><?php echo e($message->sender->first_name); ?></td>
+                                <td class="hidden-sm"><?php echo e($message->subject); ?></td>
+                                <td><span class="label label-<?php echo e(($message->status == 0)? 'info' : ''); ?>">new</span></td>
+                                <td>
+                                    <a href="#"><span class="fa fa-trash-o"></span></a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                         </tbody>
                     </table>

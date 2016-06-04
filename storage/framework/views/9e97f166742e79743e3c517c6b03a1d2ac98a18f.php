@@ -25,7 +25,7 @@
                     <div class="menu-container">
                             <ul class="nav navbar-nav">
                                 <li class="active">
-                                    <a href="#">Dashboard</a>
+                                    <a href="<?php echo e(url('admin')); ?>">Dashboard</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo e(url('admin/student-manager')); ?>">
@@ -45,6 +45,11 @@
                                         <ul class="dropdown-menu">
                                                 <li><a href="page_about2.html">About Us </a></li>
                                         </ul>
+                                </li>
+                                <li>
+                                    <a href="<?php echo e(url('admin/news')); ?>">
+                                        News Manager
+                                    </a>
                                 </li>
                                 <li class="dropdown">
                                         <a href="javascript:void(0);" class="dropdown-toggle">

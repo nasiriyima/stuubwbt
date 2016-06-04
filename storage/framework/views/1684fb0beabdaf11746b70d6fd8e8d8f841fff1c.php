@@ -108,9 +108,9 @@
                                                     </div>
                                             </div>
                                             <div class="statistics">
-                                                    <h3 class="heading-xs">Statistics in Progress Bar <span class="pull-right"><?php echo e($attempt_percentage); ?>%</span></h3>
+                                                    <h3 class="heading-xs">Statistics in Progress Bar <span class="pull-right"><?php echo e(floor($attempt_percentage)); ?>%</span></h3>
                                                     <div class="progress progress-u progress-xxs">
-                                                            <div style="<?php echo e('width: '.$attempt_percentage.'%'); ?>" aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?php echo e($attempt_percentage); ?>" role="progressbar" class="progress-bar progress-bar-light">
+                                                            <div style="<?php echo e('width: '.$attempt_percentage.'%'); ?>" aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?php echo e(floor($attempt_percentage)); ?>" role="progressbar" class="progress-bar progress-bar-light">
                                                             </div>
                                                     </div>
                                                     <?php echo $attempt_phrase; ?>

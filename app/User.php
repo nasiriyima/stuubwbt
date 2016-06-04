@@ -28,7 +28,7 @@ class User extends Authenticatable
     }
 
     public function message(){
-        return $this->hasMany('\App\Message', 'sender_id', 'id');
+        return $this->hasMany('\App\Message', 'receiver_id', 'id');
     }
 
     public function scopeStudentUsers($query){

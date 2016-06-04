@@ -52,7 +52,7 @@
     <?php /**/array_push($redundantquestion,$question->id);/**/ ?>
     <div class="shadow-wrapper" id="question-<?php echo e($questionCount); ?>" style="<?php echo e(($questionCount==1)? '' : 'display:none;'); ?>">
         <blockquote  class="tag-box tag-box-v1 box-shadow shadow-effect-2">
-            <p><span class="dropcap-bg"><?php echo e($questionCount); ?></span><em id="question"><?php echo e($question->name); ?></em></p>
+            <p><span class="dropcap-bg"><?php echo e($questionCount); ?></span><em id="question"><?php echo $question->name; ?></em></p>
         </blockquote>
         <?php /**/$questionids[$question->id]= "0";/**/ ?>
         <?php if(count($question->option) > 0): ?>

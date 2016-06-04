@@ -12,6 +12,7 @@ class Message extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+    protected $fillable = ['subject', 'body', 'receiver_id', 'sender_id', 'status', 'deleted_at'];
 
     public function scopeInbox($query)
     {
@@ -41,5 +42,9 @@ class Message extends Model
     public function scopeTrash($query)
     {
         return $query->where('deleted_at','=', 'NOT NULL');
+    }
+
+    public function sender(){
+        return $this->belongsTo('\App\User', 'sender_id', 'id');
     }
 }

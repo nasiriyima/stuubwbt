@@ -109,9 +109,9 @@
                                                     </div>
                                             </div>
                                             <div class="statistics">
-                                                    <h3 class="heading-xs">Statistics in Progress Bar <span class="pull-right">{{ $attempt_percentage }}%</span></h3>
+                                                    <h3 class="heading-xs">Statistics in Progress Bar <span class="pull-right">{{ floor($attempt_percentage) }}%</span></h3>
                                                     <div class="progress progress-u progress-xxs">
-                                                            <div style="{{ 'width: '.$attempt_percentage.'%' }}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{ $attempt_percentage }}" role="progressbar" class="progress-bar progress-bar-light">
+                                                            <div style="{{ 'width: '.$attempt_percentage.'%' }}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{ floor($attempt_percentage) }}" role="progressbar" class="progress-bar progress-bar-light">
                                                             </div>
                                                     </div>
                                                     {!! $attempt_phrase !!}
