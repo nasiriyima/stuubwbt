@@ -281,7 +281,7 @@ class StudentController extends Controller
     }
 
     public function getMyMessageInbox(){
-
+        $this->page_data['message_inbox'] = \App\Message::inbox();
         return view('student.mymessage.index')->with($this->page_data);
     }
     
