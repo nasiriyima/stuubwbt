@@ -104,3 +104,11 @@
         </div>
     </div>
 @stop
+@section('pagejs')
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            $(".table").DataTable();
+        });
+    </script>
+@stop

@@ -25,14 +25,14 @@
             <!-- Inline Form -->
             <div class="panel panel-grey margin-bottom-40">
                     <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-tasks"></i>My Records</h3>
+                            <h3 class="panel-title"><i class="fa fa-tasks"></i></h3>
                     </div>
                     <div class="panel-body">
                             <!-- Datepicker Forms -->
                             <div class="tab-pane fade in active" id="home-1">
                                     <form id="sky-form" class="sky-form" method="post" action="{{ url('student/my-record') }}">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <header>Datepicker</header>
+                                            <header>My Records</header>
                                             <fieldset>
                                                     <label class="label">Select date range</label>
                                                     <div class="row">

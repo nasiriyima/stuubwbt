@@ -9,19 +9,24 @@ use \Carbon\Carbon;
 
 class StudentController extends Controller
 {
+    public $page_data = [];
     public function __construct(){
+        $this->page_data['inbox_count'] = \App\Message::inbox()->count();
+        $this->page_data['sent_count'] = \App\Message::sent()->count();
+        $this->page_data['saved_count'] = \App\Message::draft()->count();
+        $this->page_data['deleted_count'] = \App\Message::Trash()->count();
     }
     /*
      * Student Controller Dashboard
      */
     public function getIndex(){
-        $data['fname'] = 'UnAuthenticated User';
-        $data['leaders'] = $this->getLeaders(Carbon::now()->subMonth(),
+        $this->page_data['fname'] = 'UnAuthenticated User';
+        $this->page_data['leaders'] = $this->getLeaders(Carbon::now()->subMonth(),
             Carbon::now());
-        $data['startDate'] =Carbon::now()->subMonth();
-        $data['endDate'] =Carbon::now();
-        $data['series'] = $this->getSeries(\App\User::find(1), $data['startDate'], $data['endDate']);
-        return view('student.index', $data);
+        $this->page_data['startDate'] =Carbon::now()->subMonth();
+        $this->page_data['endDate'] =Carbon::now();
+        $this->page_data['series'] = $this->getSeries(\App\User::find(1), $this->page_data['startDate'], $this->page_data['endDate']);
+        return view('student.index', $this->page_data);
     }
 
     private function getLeaders($startDate, $endDate){
@@ -68,9 +73,9 @@ class StudentController extends Controller
     }
     
     public function getMyExam(){
-        $data['bodies'] = \App\ExamProvider::all();
-        $data['categories'] = \App\Category::all();
-        return view('student.myexam.index',$data);
+        $this->page_data['bodies'] = \App\ExamProvider::all();
+        $this->page_data['categories'] = \App\Category::all();
+        return view('student.myexam.index',$this->page_data);
     }
     
     public function postSubjects(){
@@ -276,38 +281,38 @@ class StudentController extends Controller
     }
 
     public function getMyMessageInbox(){
-        return view('student.mymessage.index');
+
+        return view('student.mymessage.index')->with($this->page_data);
     }
     
     public function getMyProfile(){
-        return view('student.myprofile.index');
+        return view('student.myprofile.index')->with($this->page_data);
     }
     
     public function getMyRecord($startDate = '', $endDate = ''){
-        $data = [];
         if($startDate && $endDate){
-            $data['histories'] = \App\History::where([
+            $this->page_data['histories'] = \App\History::where([
                 'user_id' => 1
             ])->whereBetween(
                 'created_at', [
                 Carbon::createFromTimestamp($startDate),
                 Carbon::createFromTimestamp($endDate)
             ])->get();
-            $data['startDate'] =  Carbon::createFromTimestamp($startDate);
-            $data['endDate'] = Carbon::createFromTimestamp($endDate);
+            $this->page_data['startDate'] =  Carbon::createFromTimestamp($startDate);
+            $this->page_data['endDate'] = Carbon::createFromTimestamp($endDate);
         } else {
-            $data['histories'] = \App\History::where([
+            $this->page_data['histories'] = \App\History::where([
                 'user_id' => 1
             ])->whereBetween(
                 'created_at', [
                 Carbon::now()->startOfMonth(),
                 Carbon::now()
             ])->get();
-            $data['startDate'] = Carbon::now()->startOfMonth();
-            $data['endDate'] = Carbon::now();
+            $this->page_data['startDate'] = Carbon::now()->startOfMonth();
+            $this->page_data['endDate'] = Carbon::now();
         }
 
-        return view('student.myrecords.index')->with($data);
+        return view('student.myrecords.index')->with($this->page_data);
     }
 
     public function postMyRecord(){

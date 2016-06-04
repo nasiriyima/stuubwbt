@@ -47,32 +47,26 @@
                         <ul class="dropdown-menu">
                             <li class="">
                                 <a href="{{ url('student/my-message-inbox') }}">
-                                    <span class="badge pull-right rounded-x">7</span>
+                                    <span class="badge badge-u pull-right rounded-2x">{{ $inbox_count }}</span>
                                     Inbox
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="badge pull-right rounded-2x">37</span>
-                                    Outbox
+                                <a href="{{ url('student/my-message-sent') }}">
+                                    <span class="badge  badge-green pull-right rounded-2x">{{ $sent_count }}</span>
+                                    Sent
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="badge pull-right rounded">3</span>
-                                    Draft
+                                <a href="{{ url('student/my-message-saved') }}">
+                                    <span class="badge badge-yellow pull-right rounded-2x">{{ $saved_count }}</span>
+                                    Saved
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="badge pull-right">37</span>
-                                    Junk
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="badge pull-right">37</span>
-                                    Trash
+                                <a href="{{ url('student/my-message-deleted') }}">
+                                    <span class="badge badge-red pull-right rounded-2x">{{ $deleted_count }}</span>
+                                    Deleted
                                 </a>
                             </li>
                         </ul>
