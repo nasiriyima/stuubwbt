@@ -1,18 +1,16 @@
-@extends('student_layout')
-
-@section('pagecss')
+<?php $__env->startSection('pagecss'); ?>
 <!-- CSS Page Style -->
-<link rel="stylesheet" href="{{ asset('public/assets/css/pages/profile.css') }}">
-<link rel="stylesheet" href="{{ asset('public/assets/css/pages/shortcode_timeline2.css') }}">
-@stop
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/profile.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/shortcode_timeline2.css')); ?>">
+<?php $__env->stopSection(); ?>
 
-@section('maincontent')
+<?php $__env->startSection('maincontent'); ?>
 <!--=== Profile ===-->
 <div class="container content profile">
         <div class="row">
                 <!--Left Sidebar-->
                 <div class="col-md-3 md-margin-bottom-40">
-                        <img class="img-responsive profile-img margin-bottom-20" src="{{ asset('public/assets/img/team/img32-md.jpg') }}" alt="">
+                        <img class="img-responsive profile-img margin-bottom-20" src="<?php echo e(asset('public/assets/img/team/img32-md.jpg')); ?>" alt="">
 
                         <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                                 <li class="list-group-item active">
@@ -36,19 +34,19 @@
                                         <a href="#"><i class="fa fa-cog pull-right"></i></a>
                                 </div>
                                 <div class="panel-body">
-                                        @if(isset($user->profile->social_contact))
-                                                {{--*/
+                                        <?php if(isset($user->profile->social_contact)): ?>
+                                                <?php /**/
                                                         $social_contact = $user->profile->social_contact;
                                                         $contacts = json_decode($social_contact);
-                                                 /*--}}
+                                                 /**/ ?>
                                                 <ul class="list-unstyled social-contacts-v2">
-                                                @foreach($contacts as $contact)
-                                                        <li><i class="{{ $contact->icon }}"></i> <a href="{{ $contact->address }}">{{ $contact->name }}</a></li>
-                                                @endforeach
+                                                <?php foreach($contacts as $contact): ?>
+                                                        <li><i class="<?php echo e($contact->icon); ?>"></i> <a href="<?php echo e($contact->address); ?>"><?php echo e($contact->name); ?></a></li>
+                                                <?php endforeach; ?>
                                                 </ul>
-                                        @else
+                                        <?php else: ?>
                                                 Social media contacts not yet available, please use the cog icon to add new social media contact information
-                                        @endif
+                                        <?php endif; ?>
                                 </div>
                         </div>
                         <!--End Social Icons v3-->
@@ -123,13 +121,13 @@
                                 <div class="profile-bio">
                                         <div class="row">
                                                 <div class="col-md-5">
-                                                        <img class="img-responsive md-margin-bottom-10" src="{{ asset('public/assets/img/team/img32-md.jpg') }}" alt="">
+                                                        <img class="img-responsive md-margin-bottom-10" src="<?php echo e(asset('public/assets/img/team/img32-md.jpg')); ?>" alt="">
                                                         <a class="btn-u btn-u-sm" href="#">Change Picture</a>
                                                 </div>
                                                 <div class="col-md-7">
-                                                        <h2>{{ $user->first_name }} {{ $user->last_name }}</h2>
+                                                        <h2><?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?></h2>
                                                         <hr>
-                                                        <p>{{ $user->profile->description or 'User profile description not available. Please use the cog icon in this box to add profile description' }}</p>
+                                                        <p><?php echo e(isset($user->profile->description) ? $user->profile->description : 'User profile description not available. Please use the cog icon in this box to add profile description'); ?></p>
                                                         <br>
                                                         <a href="#"><i class="fa fa-cog pull-right"></i></a>
                                         </div>
@@ -189,14 +187,14 @@
                                         <div class="panel-body">
                                                 <ul class="timeline-v2 timeline-me">
                                                         <li>
-                                                           @if(isset($user->profile->school))
+                                                           <?php if(isset($user->profile->school)): ?>
                                                                 <i class="cbp_tmicon rounded-x hidden-xs"></i>
                                                                 <div class="cbp_tmlabel">
-                                                                        <h2>{{ $user->profile->school->name }}</h2>
+                                                                        <h2><?php echo e($user->profile->school->name); ?></h2>
                                                                 </div>
-                                                           @else
+                                                           <?php else: ?>
                                                                    school information not yet available, please use the cog icon to add institutional information
-                                                           @endif
+                                                           <?php endif; ?>
                                                         </li>
                                                 </ul>
                                         </div>
@@ -208,7 +206,8 @@
         </div>
 </div>
 <!--=== End Profile ===-->
-@stop
-@section('pagejs')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagejs'); ?>
 
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('student_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

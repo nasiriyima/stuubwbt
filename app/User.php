@@ -15,6 +15,8 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $dates = ['last_login'];
+
     public function profile(){
         return $this->hasOne('\App\Profile');
     }

@@ -19,6 +19,7 @@ class CreateProfileTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->text('address')->nullable();
+            $table->text('social_contact')->nullable();
             $table->integer('school_id')->default(0);
             $table->string('image')->nullable();
             $table->timestamps();

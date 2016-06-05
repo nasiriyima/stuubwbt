@@ -16,9 +16,9 @@ class History extends Model
     }
 
     public function scopeLeadersBoard($query, $startDate, $endDate){
-        return $query->whereBetween('histories.created_at', [$startDate,$endDate])
-                     ->selectRaw('histories.*, SUM(histories.score) AS score')
-                     ->orderBy('score', 'desc');
+        return $query->selectRaw('*, SUM(score) as score')->whereBetween('created_at',[
+            $startDate, $endDate
+        ])->groupBy('user_id')->orderBy('score','dsc');
     }
 
     public function scopeAttempts($query, $startDate, $endDate){

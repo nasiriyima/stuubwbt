@@ -11,61 +11,73 @@ class StudentController extends Controller
 {
     public $page_data = [];
     public function __construct(){
-        $this->page_data['inbox_count'] = \App\User::find(1)->message()->inbox()->count();
-        $this->page_data['sent_count'] = \App\User::find(1)->message()->sent()->count();
-        $this->page_data['saved_count'] = \App\User::find(1)->message()->draft()->count();
-        $this->page_data['deleted_count'] = \App\User::find(1)->message()->Trash()->count();
+        if(!\Sentinel::check())
+            return redirect('web')->send();
+        $this->page_data['user'] = \Sentinel::check();
+        $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->message()->inbox()->count();
+        $this->page_data['sent_count'] = \App\User::find($this->page_data['user']->id)->message()->sent()->count();
+        $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->message()->draft()->count();
+        $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->message()->Trash()->count();
     }
     /*
      * Student Controller Dashboard
      */
     public function getIndex(){
-        $this->page_data['fname'] = 'UnAuthenticated User';
+        $user = \App\User::find($this->page_data['user']->id);
+        $this->page_data['fname'] = explode(' ',$user->first_name)[0];
         $this->page_data['leaders'] = $this->getLeaders(Carbon::now()->subMonth(),
             Carbon::now());
         $this->page_data['startDate'] =Carbon::now()->subMonth();
         $this->page_data['endDate'] =Carbon::now();
-        $this->page_data['series'] = $this->getSeries(\App\User::find(1), $this->page_data['startDate'], $this->page_data['endDate']);
+        $this->page_data['series'] = $this->getSeries($user, $this->page_data['startDate'], $this->page_data['endDate']);
         return view('student.index', $this->page_data);
     }
 
     private function getLeaders($startDate, $endDate){
-        return \App\History::leadersBoard($startDate, $endDate)->get();
+        return \App\History::leadersBoard($startDate, $endDate)->get()->take(4);
     }
 
     private function getSeries($user, $startDate, $endDate){
         $attempts = $user->history()->attempts($startDate, $endDate);
-        $month = 1;
+        $month = 0;
         $series['name'] = "Avg Score";
         $series['color'] = "green";
-        $data = [];
+        $data = [
+            (object)[
+                'x' => 0,
+                'y' => 0
+            ]
+        ];
         $axis = [];
         $exam_attempted = [];
         $divisors = [];
-        while($attempts->count() < 10 || $month < 13){
-            $startDate = Carbon::now()->subMonth($month);
-            $attempts = $user->history()->attempts($startDate, $endDate);
-            $month ++;
-        }
-        $histories = $attempts->get()->take(28);
-        foreach($histories as $history){
-            $date_time = date_format($history->created_at, 'd-m-Y');
-            $same_day = strtotime($date_time);
-            if(!in_array($same_day, $exam_attempted)){
-                array_push($exam_attempted, $same_day);
-                $axis['x'][$same_day] =  (int) $same_day;
-                $axis['y'][$same_day] = (double) $history->score;
-                $divisors[$same_day] = 1;
-            } else {
-                $axis['y'][$same_day] = $axis['y'][$same_day] + (double) $history->score;
-                $divisors[$same_day] = $divisors[$same_day] + 1;
+        if($attempts->count() > 0){
+            $data = [];
+            while($month < 12 && $attempts->count() < 10){
+                $startDate = Carbon::now()->subMonth($month);
+                $attempts = $user->history()->attempts($startDate, $endDate);
+                $month ++;
             }
-        }
+            $histories = $attempts->get()->take(28);
+            foreach($histories as $history){
+                $date_time = date_format($history->created_at, 'd-m-Y');
+                $same_day = strtotime($date_time);
+                if(!in_array($same_day, $exam_attempted)){
+                    array_push($exam_attempted, $same_day);
+                    $axis['x'][$same_day] =  (int) $same_day;
+                    $axis['y'][$same_day] = (double) $history->score;
+                    $divisors[$same_day] = 1;
+                } else {
+                    $axis['y'][$same_day] = $axis['y'][$same_day] + (double) $history->score;
+                    $divisors[$same_day] = $divisors[$same_day] + 1;
+                }
+            }
 
-        foreach($exam_attempted as $date){
-            $value['x'] = $axis['x'][$date];
-            $value['y'] = round((double)($axis['y'][$date] /$divisors[$date]), 2);
-            array_push($data, (object) $value);
+            foreach($exam_attempted as $date){
+                $value['x'] = $axis['x'][$date];
+                $value['y'] = round((double)($axis['y'][$date] /$divisors[$date]), 2);
+                array_push($data, (object) $value);
+            }
         }
 
         $series['data'] = $data;
@@ -207,7 +219,7 @@ class StudentController extends Controller
         $history->exam_id = \Session::get('exam');
         $history->elapsed_time = $data['elapsed_time'];
         $history->answers = json_encode($data);
-        $history->user_id = 1;
+        $history->user_id = $this->page_data['user']->id;
         $history->score = $passed;
         $history->status = 1;
         $history->save();
@@ -230,7 +242,7 @@ class StudentController extends Controller
             $data['systemselection'] = \Session::get('systemselection');
             $data['history_week_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
-                'user_id' => 1,
+                'user_id' => $this->page_data['user']->id,
             ])->whereBetween('created_at',[
                 Carbon::now()->subWeek(),
                 Carbon::now()
@@ -238,14 +250,14 @@ class StudentController extends Controller
             
             $data['history_month_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
-                'user_id' => 1,
+                'user_id' => $this->page_data['user']->id,
             ])->whereBetween('created_at', [
                 Carbon::now()->startOfMonth()->subMonth(),
                 Carbon::now()->startOfMonth()
             ])->count();
             $data['history_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
-                'user_id' => 1,
+                'user_id' => $this->page_data['user']->id,
             ])->count();
             $percentage = $this->evaluateAttempts(\App\History::class,'percentage');
             $inequality = $this->evaluateAttempts(\App\History::class,'inequalities');
@@ -281,7 +293,8 @@ class StudentController extends Controller
     }
 
     public function getMyMessageInbox(){
-        $this->page_data['message_inbox'] = \App\User::find(1)->message()->inbox()->get();
+        $this->page_data['message_inbox'] = \App\User::find($this->page_data['user']->id)->message()->inbox()->get();
+        $this->page_data['user'] = \App\User::find($this->page_data['user']->id);
         $this->page_data['open'] = 'open';
         return view('student.mymessage.index')->with($this->page_data);
     }
@@ -305,13 +318,14 @@ class StudentController extends Controller
     }
     
     public function getMyProfile(){
+        $this->page_data['user'] = \App\User::find($this->page_data['user']->id);
         return view('student.myprofile.index')->with($this->page_data);
     }
     
     public function getMyRecord($startDate = '', $endDate = ''){
         if($startDate && $endDate){
             $this->page_data['histories'] = \App\History::where([
-                'user_id' => 1
+                'user_id' => $this->page_data['user']->id
             ])->whereBetween(
                 'created_at', [
                 Carbon::createFromTimestamp($startDate),
@@ -321,7 +335,7 @@ class StudentController extends Controller
             $this->page_data['endDate'] = Carbon::createFromTimestamp($endDate);
         } else {
             $this->page_data['histories'] = \App\History::where([
-                'user_id' => 1
+                'user_id' => $this->page_data['user']->id
             ])->whereBetween(
                 'created_at', [
                 Carbon::now()->startOfMonth(),
@@ -379,14 +393,14 @@ class StudentController extends Controller
     
     private function evaluateAttempts($history,$option){
         $last_month_count = $history::where([
-            'user_id' => 1
+            'user_id' => $this->page_data['user']->id
         ])->whereBetween('created_at',[
             Carbon::now()->startOfMonth()->subMonth(),
             Carbon::now()->startOfMonth()
         ])->count();
 
         $this_month_count = $history::where([
-            'user_id' => 1
+            'user_id' => $this->page_data['user']->id
         ])->whereBetween('created_at',[
             Carbon::now()->startOfMonth(),
             Carbon::now()
@@ -410,7 +424,19 @@ class StudentController extends Controller
         return false;
     }
     
-    public function getTest(){
-        return Carbon::now()->startOfWeek()->subWeek();
+    public function getEncode(){
+        $data = [
+            'twitter' => [
+                'icon' => 'rounded-x tw fa fa-twitter',
+                'name' => 'amina.mustapha',
+                'address' => '#'
+            ],
+            'facebook' => [
+                'icon' => 'rounded-x fb fa fa-facebook',
+                'name' => 'Amina Mustapha',
+                'address' => '#'
+            ]
+        ];
+        return json_encode($data);
     }
 }

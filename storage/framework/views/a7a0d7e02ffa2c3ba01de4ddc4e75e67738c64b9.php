@@ -14,7 +14,7 @@
             <!-- Logo -->
             <div class="logo">
                 <a href="index.html">
-                    <img id="logo-header" src="{{ asset('public/assets/img/logo1-default.png')}}" alt="Logo">
+                    <img id="logo-header" src="<?php echo e(asset('public/assets/img/logo1-default.png')); ?>" alt="Logo">
                 </a>
             </div>
             <!-- End Logo -->
@@ -25,59 +25,59 @@
             <div class="menu-container">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="{{ url('student/index') }}">Dashboard</a>
+                        <a href="<?php echo e(url('student/index')); ?>">Dashboard</a>
                     </li>
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle">
                             My Exams
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('student/my-exam') }}">Take Exam </a></li>
+                            <li><a href="<?php echo e(url('student/my-exam')); ?>">Take Exam </a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ url('student/my-record') }}/{{ \Carbon\Carbon::now()->startOfMonth()->timestamp }}/{{ \Carbon\Carbon::now()->timestamp }}">
+                        <a href="<?php echo e(url('student/my-record')); ?>/<?php echo e(\Carbon\Carbon::now()->startOfMonth()->timestamp); ?>/<?php echo e(\Carbon\Carbon::now()->timestamp); ?>">
                             My Records
                         </a>
                     </li>
-                    <li class="dropdown {{ $open or '' }}">
+                    <li class="dropdown <?php echo e(isset($open) ? $open : ''); ?>">
                         <a href="javascript:void(0);" class="dropdown-toggle">
                             My Messages
                         </a>
                         <ul class="dropdown-menu">
                             <li class="">
-                                <a href="{{ url('student/my-message-inbox') }}">
-                                    <span class="badge badge-u pull-right rounded-2x">{{ $inbox_count }}</span>
+                                <a href="<?php echo e(url('student/my-message-inbox')); ?>">
+                                    <span class="badge badge-u pull-right rounded-2x"><?php echo e($inbox_count); ?></span>
                                     Inbox
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('student/my-message-sent') }}">
-                                    <span class="badge  badge-green pull-right rounded-2x">{{ $sent_count }}</span>
+                                <a href="<?php echo e(url('student/my-message-sent')); ?>">
+                                    <span class="badge  badge-green pull-right rounded-2x"><?php echo e($sent_count); ?></span>
                                     Sent
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('student/my-message-saved') }}">
-                                    <span class="badge badge-yellow pull-right rounded-2x">{{ $saved_count }}</span>
+                                <a href="<?php echo e(url('student/my-message-saved')); ?>">
+                                    <span class="badge badge-yellow pull-right rounded-2x"><?php echo e($saved_count); ?></span>
                                     Saved
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('student/my-message-deleted') }}">
-                                    <span class="badge badge-red pull-right rounded-2x">{{ $deleted_count }}</span>
+                                <a href="<?php echo e(url('student/my-message-deleted')); ?>">
+                                    <span class="badge badge-red pull-right rounded-2x"><?php echo e($deleted_count); ?></span>
                                     Deleted
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ url('student/my-profile') }}">
+                        <a href="<?php echo e(url('student/my-profile')); ?>">
                             My Profile
                         </a>
                     </li>
                     <li>
-                        <a href="{{url('auth/logout')}}">
+                        <a href="<?php echo e(url('auth/logout')); ?>">
                             Logout
                         </a>
                     </li>

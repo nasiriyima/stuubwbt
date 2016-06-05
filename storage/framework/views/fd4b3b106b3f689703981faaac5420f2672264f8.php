@@ -1,9 +1,8 @@
-@extends('student_layout')
-@section('pagecss')
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/chosen/chosen.min.css') }}">
-@stop
-@section('maincontent')
+<?php $__env->startSection('pagecss'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/chosen/chosen.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
     <div class="row">
         <div class="col-md-12">
             <!--Basic Table-->
@@ -30,9 +29,9 @@
                                             <section>
                                                 <label class="input">
                                                     <select data-placeholder="To" multiple style="width: 506px;" class="chosen-select">
-                                                        @foreach($user->friendship as $friend)
-                                                            <option value="{{ $friend->friend_id }}">{{ $friend->user->first_name }}</option>
-                                                        @endforeach
+                                                        <?php foreach($user->friendship as $friend): ?>
+                                                            <option value="<?php echo e($friend->friend_id); ?>"><?php echo e($friend->user->first_name); ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </label>
                                             </section>
@@ -78,19 +77,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($message_inbox as $message)
+                        <?php foreach($message_inbox as $message): ?>
                             <tr>
                                 <td><input type="checkbox"></td>
                                 <td>
-                                    {!! ($message->status == 0)? '<strong>'.$message->sender->first_name.'</strong>' : $message->sender->first_name !!}
+                                    <?php echo ($message->status == 0)? '<strong>'.$message->sender->first_name.'</strong>' : $message->sender->first_name; ?>
+
                                 </td>
-                                <td class="hidden-sm">{!!  ($message->status == 0)? '<strong>'.$message->subject.'</strong>' : $message->subject !!}</td>
-                                <td><span class="label label-{{ ($message->status == 0)? 'info' : '' }}">{{ ($message->status == 0)? 'new' : '' }}</span></td>
+                                <td class="hidden-sm"><?php echo ($message->status == 0)? '<strong>'.$message->subject.'</strong>' : $message->subject; ?></td>
+                                <td><span class="label label-<?php echo e(($message->status == 0)? 'info' : ''); ?>"><?php echo e(($message->status == 0)? 'new' : ''); ?></span></td>
                                 <td>
                                     <a href="#"><span class="fa fa-trash-o"></span></a>
                                 </td>
                             </tr>
-                        @endforeach
+                        <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -98,10 +98,10 @@
             <!--End Basic Table-->
         </div>
     </div>
-@stop
-@section('pagejs')
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/chosen/chosen.jquery.min.js') }}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagejs'); ?>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/chosen/chosen.jquery.min.js')); ?>"></script>
 
     <script type="text/javascript">
         $("#compose").on("shown.bs.modal", function () {
@@ -122,4 +122,5 @@
             }
         });
     </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('student_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

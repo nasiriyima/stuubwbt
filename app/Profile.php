@@ -11,7 +11,7 @@ class Profile extends Model
         return $this->belongsTo('\App\School');
     }
 
-    public function friendship(){
-        return $this->hasMany('\App\Friendship');
+    public function user(){
+        return $this->belongsTo('\App\User');
     }
 }

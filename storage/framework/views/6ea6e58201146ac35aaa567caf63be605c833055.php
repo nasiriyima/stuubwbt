@@ -1,9 +1,7 @@
-@extends('student_layout')
-
-@section('pagecss')
-<link rel="stylesheet" href="{{ asset('public/assets/css/pages/shortcode_timeline2.css') }}">
-<link rel="stylesheet" href="{{ asset('public/assets/css/pages/profile.css') }}">
-<link rel="stylesheet" href="{{ asset('public/assets/rickshaw/rickshaw.css') }}">
+<?php $__env->startSection('pagecss'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/shortcode_timeline2.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/profile.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/rickshaw/rickshaw.css')); ?>">
 <style type="text/css">
   #xaxis {
     margin-left:20px
@@ -19,14 +17,14 @@
     margin-left:20px;
   }
 </style>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('maincontent')
+<?php $__env->startSection('maincontent'); ?>
 <div class="profile_body">
     <!-- Interactive Slider -->
     <div class="interactive-slider-v1 img-v3">
         <div class="container">
-            <h2>Hi {{ $fname }}, </h2>
+            <h2>Hi <?php echo e($fname); ?>, </h2>
             <p>Welcome to STUUB - WBT Student user Dashboard.</p>
         </div>
     </div>
@@ -39,7 +37,7 @@
                 <!-- Dark Blue Panel -->
                 <div class="panel panel-dark-blue">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-tasks"></i> Most Recent Performance Chart as At {{ $endDate->format('F, Y')  }}</h3>
+                        <h3 class="panel-title"><i class="fa fa-tasks"></i> Most Recent Performance Chart as At <?php echo e($endDate->format('F, Y')); ?></h3>
                     </div>
                     <div class="panel-body">
                         <div style="margin-bottom:10px; margin-left:20px" id="legend"></div>
@@ -54,7 +52,7 @@
                 <!-- Turquoise Panel -->
                 <div class="panel panel-sea">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-tasks"></i>Leader's Board as at {{ \Carbon\Carbon::now()->subMonth()->format('F, Y') }} -  {{ \Carbon\Carbon::now()->format('M, Y') }}</h3>
+                        <h3 class="panel-title"><i class="fa fa-tasks"></i>Leader's Board as at <?php echo e(\Carbon\Carbon::now()->subMonth()->format('F, Y')); ?> -  <?php echo e(\Carbon\Carbon::now()->format('M, Y')); ?></h3>
                     </div>
                     <div class="panel-body">
                         <!--Timeline-->
@@ -65,17 +63,17 @@
                             </div>
                             <div class="panel-body margin-bottom-40">
                                 <ul class="timeline-v2 timeline-me">
-                                    @foreach($leaders as $leader)
+                                    <?php foreach($leaders as $leader): ?>
                                         <li>
-                                            <time datetime="" class="cbp_tmtime"><span>Last Seen</span> <span>{{ \Carbon\Carbon::createFromTimestamp(strtotime($leader->user->last_login))->diffForHumans()  }}</span></time>
+                                            <time datetime="" class="cbp_tmtime"><span>Last Seen</span> <span><?php echo e(\Carbon\Carbon::createFromTimestamp(strtotime($leader->user->last_login))->diffForHumans()); ?></span></time>
                                             <i class="cbp_tmicon rounded-x hidden-xs"></i>
                                             <div class="cbp_tmlabel">
-                                                <h2>{{ $leader->user->first_name  }} {{ $leader->user->last_name  }}</h2>
-                                                <p> Total Score: {{ $leader->score }}</p>
-                                                <p> Average Score: {{ number_format($leader->score / $leader->user->history()->attempts($startDate, $endDate)->count(), 2)  }}</p>
+                                                <h2><?php echo e($leader->user->first_name); ?> <?php echo e($leader->user->last_name); ?></h2>
+                                                <p> Total Score: <?php echo e($leader->score); ?></p>
+                                                <p> Average Score: <?php echo e(number_format($leader->score / $leader->user->history()->attempts($startDate, $endDate)->count(), 2)); ?></p>
                                             </div>
                                         </li>
-                                    @endforeach
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
@@ -88,12 +86,12 @@
     </div><!--/end container-->
     <!-- End Content Boxes v6 -->
 </div>
-@stop
-@section('pagejs')
-<script type="text/javascript" src="{{ asset('public/assets/rickshaw/vendor/d3.v3.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/rickshaw/rickshaw.js') }}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagejs'); ?>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/rickshaw/vendor/d3.v3.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/rickshaw/rickshaw.js')); ?>"></script>
 <script type="text/javascript">
-    var data = JSON.parse(JSON.stringify({!! $series !!}));
+    var data = JSON.parse(JSON.stringify(<?php echo $series; ?>));
     var graph = new Rickshaw.Graph({
     element: document.querySelector("#chart"),
         width: 780,
@@ -125,4 +123,5 @@
     });
     graph.render();
 </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('student_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
