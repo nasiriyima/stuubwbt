@@ -72,7 +72,7 @@
                                             <div class="cbp_tmlabel">
                                                 <h2>{{ $leader->user->first_name  }} {{ $leader->user->last_name  }}</h2>
                                                 <p> Total Score: {{ $leader->score }}</p>
-                                                <p> Average Score: {{ number_format($leader->score / $leader->user->history()->attempts($startDate, $endDate)->count(), 2)  }}</p>
+                                                <p> Average Score: {{ number_format($leader->average, 2)  }}</p>
                                             </div>
                                         </li>
                                     @endforeach

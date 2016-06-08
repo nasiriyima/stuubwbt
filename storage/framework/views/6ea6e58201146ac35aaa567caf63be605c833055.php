@@ -70,7 +70,7 @@
                                             <div class="cbp_tmlabel">
                                                 <h2><?php echo e($leader->user->first_name); ?> <?php echo e($leader->user->last_name); ?></h2>
                                                 <p> Total Score: <?php echo e($leader->score); ?></p>
-                                                <p> Average Score: <?php echo e(number_format($leader->score / $leader->user->history()->attempts($startDate, $endDate)->count(), 2)); ?></p>
+                                                <p> Average Score: <?php echo e(number_format($leader->average, 2)); ?></p>
                                             </div>
                                         </li>
                                     <?php endforeach; ?>

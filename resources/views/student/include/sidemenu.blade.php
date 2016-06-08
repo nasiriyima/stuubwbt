@@ -52,12 +52,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('student/my-message-sent') }}">
-                                    <span class="badge  badge-green pull-right rounded-2x">{{ $sent_count }}</span>
-                                    Sent
-                                </a>
-                            </li>
-                            <li>
                                 <a href="{{ url('student/my-message-saved') }}">
                                     <span class="badge badge-yellow pull-right rounded-2x">{{ $saved_count }}</span>
                                     Saved
