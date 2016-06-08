@@ -113,7 +113,7 @@
                                                             <div style="<?php echo e('width: '.$attempt_percentage.'%'); ?>" aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?php echo e(floor($attempt_percentage)); ?>" role="progressbar" class="progress-bar progress-bar-light">
                                                             </div>
                                                     </div>
-                                                    <?php echo $attempt_phrase; ?>
+                                                    <?php echo (gettype($attempt_phrase) == 'double')? floor($attempt_phrase)  : $attempt_phrase; ?>
 
                                             </div>
                                     </div>

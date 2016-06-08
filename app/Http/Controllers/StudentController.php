@@ -13,11 +13,11 @@ class StudentController extends Controller
     public function __construct(){
         if(!\Sentinel::check())
             return redirect('web')->send();
-        $this->page_data['user'] = \Sentinel::check();
-        $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->message()->inbox()->count();
-        $this->page_data['sent_count'] = \App\User::find($this->page_data['user']->id)->message()->sent()->count();
-        $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->message()->draft()->count();
-        $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->message()->Trash()->count();
+        $this->page_data['user'] = \App\User::find(\Sentinel::check()->id);
+        $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->count();
+        $this->page_data['sent_count'] = \App\User::find($this->page_data['user']->id)->sender()->sent()->count();
+        $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->count();
+        $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->sender()->Trash()->count();
     }
     /*
      * Student Controller Dashboard
@@ -27,8 +27,8 @@ class StudentController extends Controller
         $this->page_data['fname'] = explode(' ',$user->first_name)[0];
         $this->page_data['leaders'] = $this->getLeaders(Carbon::now()->subMonth(),
             Carbon::now());
-        $this->page_data['startDate'] =Carbon::now()->subMonth();
-        $this->page_data['endDate'] =Carbon::now();
+        $this->page_data['startDate'] = Carbon::now()->subMonth();
+        $this->page_data['endDate'] = Carbon::now();
         $this->page_data['series'] = $this->getSeries($user, $this->page_data['startDate'], $this->page_data['endDate']);
         return view('student.index', $this->page_data);
     }
@@ -293,26 +293,31 @@ class StudentController extends Controller
     }
 
     public function getMyMessageInbox(){
-        $this->page_data['message_inbox'] = \App\User::find($this->page_data['user']->id)->message()->inbox()->get();
-        $this->page_data['user'] = \App\User::find($this->page_data['user']->id);
+        $this->page_data['message_inbox'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->get();
         $this->page_data['open'] = 'open';
         return view('student.mymessage.index')->with($this->page_data);
     }
 
+    public function postMessageView(){
+        $request = \Request::except('_token');
+        $this->page_data['message'] = \App\Message::find(\Crypt::decrypt($request['id']));
+        return view('student.mymessage.view')->with($this->page_data);
+    }
+
     public function getMyMessageSent(){
-        $this->page_data['message_inbox'] = \App\Message::inbox();
+        $this->page_data['message_sent'] = \App\User::find($this->page_data['user']->id)->sender()->sent()->get();
         $this->page_data['open'] = 'open';
         return view('student.mymessage.sent')->with($this->page_data);
     }
 
     public function getMyMessageSaved(){
-        $this->page_data['message_inbox'] = \App\Message::inbox();
+        $this->page_data['message_saved'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->get();
         $this->page_data['open'] = 'open';
         return view('student.mymessage.Saved')->with($this->page_data);
     }
 
     public function getMyMessageDeleted(){
-        $this->page_data['message_inbox'] = \App\Message::inbox();
+        $this->page_data['message_deleted'] = \App\Message::inbox();
         $this->page_data['open'] = 'open';
         return view('student.mymessage.deleted')->with($this->page_data);
     }

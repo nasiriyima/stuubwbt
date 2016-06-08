@@ -114,7 +114,7 @@
                                                             <div style="{{ 'width: '.$attempt_percentage.'%' }}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{ floor($attempt_percentage) }}" role="progressbar" class="progress-bar progress-bar-light">
                                                             </div>
                                                     </div>
-                                                    {!! $attempt_phrase !!}
+                                                    {!! (gettype($attempt_phrase) == 'double')? floor($attempt_phrase)  : $attempt_phrase !!}
                                             </div>
                                     </div>
                                 </div>

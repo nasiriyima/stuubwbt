@@ -70,13 +70,17 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <?php foreach($message_inbox as $message): ?>
+                                                <?php foreach($message_sent as $message): ?>
                                                         <tr>
-                                                                <td>1</td>
-                                                                <td>Mark</td>
-                                                                <td class="hidden-sm">Otto</td>
-                                                                <td>@mdo</td>
-                                                                <td><span class="label label-warning">Expiring</span></td>
+                                                                <td><input type="checkbox"></td>
+                                                                <td>
+                                                                        <a href="#"><?php echo ($message->status == 0)? '<strong>'.$message->receiver->first_name.'</strong>' : $message->receiver->first_name; ?></a>
+                                                                </td>
+                                                                <td class="hidden-sm"><a href="#"><?php echo ($message->status == 0)? '<strong>'.$message->subject.'</strong>' : $message->subject; ?></a></td>
+                                                                <td><a href="#"><span class="label label-<?php echo e(($message->status == 0)? 'info' :(($message->status == 1)? 'success' : '')); ?>"><?php echo e(($message->status == 0)? 'new' :(($message->status == 1)? 'read' : '')); ?></span></a></td>
+                                                                <td>
+                                                                        <a href="#"><span class="fa fa-trash-o"></span></a>
+                                                                </td>
                                                         </tr>
                                                 <?php endforeach; ?>
                                                 </tbody>

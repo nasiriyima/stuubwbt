@@ -29,7 +29,11 @@ class User extends Authenticatable
         return $this->hasMany('\App\Friendship');
     }
 
-    public function message(){
+    public function sender(){
+        return $this->hasMany('\App\Message', 'sender_id', 'id');
+    }
+
+    public function receiver(){
         return $this->hasMany('\App\Message', 'receiver_id', 'id');
     }
 

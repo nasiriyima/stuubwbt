@@ -14,6 +14,17 @@ class Message extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['subject', 'body', 'receiver_id', 'sender_id', 'status', 'deleted_at'];
 
+    public function getBodyAttribute($value){
+        $sentence = explode(' ', $value);
+        $word = $sentence[0];
+        $first_letter = ucwords($word[0]);
+        $dropcap_first_letter = '<span class="dropcap-bg">'.$first_letter.'</span>';
+        $word = substr_replace($word, $dropcap_first_letter, 0, 1);
+        $sentence[0] = $word;
+        $body = implode(' ', $sentence);
+        return $body;
+    }
+
     public function scopeInbox($query)
     {
         return $query->whereIn('status',[0,1]);
@@ -46,5 +57,9 @@ class Message extends Model
 
     public function sender(){
         return $this->belongsTo('\App\User', 'sender_id', 'id');
+    }
+
+    public function receiver(){
+        return $this->belongsTo('\App\User', 'receiver_id', 'id');
     }
 }
