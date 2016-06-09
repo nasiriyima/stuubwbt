@@ -16,7 +16,7 @@ class Message extends Model
 
     public function getBodyAttribute($value){
         $sentence = explode(' ', $value);
-        $word = $sentence[0];
+        $word = strip_tags($sentence[0]);
         $first_letter = ucwords($word[0]);
         $dropcap_first_letter = '<span class="dropcap-bg">'.$first_letter.'</span>';
         $word = substr_replace($word, $dropcap_first_letter, 0, 1);

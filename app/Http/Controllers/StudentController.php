@@ -302,17 +302,18 @@ class StudentController extends Controller
         $status = '';
         if($request['action'] == 'Save'){
             $rules = [
-                'body' => 'required'
+                'subject' => 'required'
             ];
             $validator = \Validator::make($request, $rules);
             if($validator->passes()){
                 if(isset($request['to'])){
                     foreach($request['to'] as $id){
                         $message = new \App\Message();
-                        $message->subject = $request['subject'] or '';
-                        $message->body = $request['body'];
+                        $message->subject = $request['subject'];
+                        $message->body = $request['body'] or '';
                         $message->receiver_id = $id;
                         $message->sender_id = $this->page_data['user']->id;
+                        $message->status = 2;
                         $message->save();
                     }
                 } else {
@@ -321,7 +322,7 @@ class StudentController extends Controller
                     $message->body = $request['body'];
                     $message->receiver_id = 0;
                     $message->sender_id = $this->page_data['user']->id;
-                    $message->status = 3;
+                    $message->status = 2;
                     $message->save();
                 }
                 $status = 'Message was saved successfully';
@@ -329,7 +330,7 @@ class StudentController extends Controller
             }
             return redirect()->back()->withErrors($validator->errors());
         }
-        if($request['action'] == 'Send'){
+        if($request['action'] == 'Send' || $request['action'] == 'Reply' || $request['action'] == 'Forward'){
             $rules = [
                 'to' => 'required',
                 'subject' => 'required|max:255',
@@ -345,14 +346,13 @@ class StudentController extends Controller
                     $message->sender_id = $this->page_data['user']->id;
                     $message->status = 0;
                     $message->save();
-
                     if(!$message->save()){
                         $message = new \App\Message();
                         $message->subject = $request['subject'];
                         $message->body = $request['body'];
                         $message->receiver_id = $id;
                         $message->sender_id = $this->page_data['user']->id;
-                        $message->status = 4;
+                        $message->status = 3;
                         $message->save();
                     }
                 }
@@ -363,9 +363,41 @@ class StudentController extends Controller
         }
     }
 
+    public function postMessageDetails(){
+        $request = \Request::except('_token');
+        $message = \App\Message::find(\Crypt::decrypt($request['id']));
+        $sender =  \App\User::find($message->sender_id);
+        if($request['action'] == 'reply'){
+            return json_encode([
+                'sender' => $sender,
+                'message' => [
+                    'subject' => 'RE: '.$message->subject,
+                    'body' => $message->body
+                ]
+            ]);
+        }
+        if($request['action'] == 'forward'){
+            $friends = [];
+            $friendshipAccepted =  $this->page_data['user']->friendship()->requestAccepted()->get();
+            foreach($friendshipAccepted as $accepted){
+                array_push($friends, \App\User::find($accepted->friend_id));
+            }
+            return json_encode([
+                'friends' => $friends,
+                'message' => [
+                    'subject' => 'FW: '.$message->subject,
+                    'body' => $message->body
+                ]
+            ]);
+        }
+
+    }
+
     public function postMessageView(){
         $request = \Request::except('_token');
         $this->page_data['message'] = \App\Message::find(\Crypt::decrypt($request['id']));
+        $this->page_data['message']->status = 1;
+        $this->page_data['message']->save();
         return view('student.mymessage.view')->with($this->page_data);
     }
 

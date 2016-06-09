@@ -6,15 +6,21 @@
 @section('maincontent')
     @if($errors->all())
         <div class="alert alert-danger fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4>Oh snap! You got error(s) with your input!</h4>
-                @foreach($errors->all() as $error)
-                <p>{{ $error }}</p>
-                @endforeach
-                <p>
-                    <a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
-                </p>
-            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4>Oh snap! You got error(s) with your input!</h4>
+            @foreach($errors->all() as $error)
+            <p>{{ $error }}</p>
+            @endforeach
+            <p>
+                <a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
+            </p>
+        </div>
+    @endif
+    @if(\Session::has('message'))
+        <div class="alert alert-success fade in alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>{{ \Session::get('message') }}</strong>
+        </div>
     @endif
     <div class="row">
         <div class="col-md-12">
@@ -54,7 +60,8 @@
                                             <section>
                                                 <label class="input">
                                                     <select data-placeholder="To" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">
-                                                        @foreach($user->friendship as $friend)
+                                                        {{--*/$friends = $user->friendship()->requestAccepted()->get()/*--}}
+                                                        @foreach($friends as $friend)
                                                             <option value="{{ $friend->friend_id }}">{{ $friend->user->first_name }}</option>
                                                         @endforeach
                                                     </select>
@@ -114,14 +121,14 @@
                                         <a href="javascript:showMessage('{!! \Crypt::encrypt($message->id) !!}')">{!!  ($message->status == 0)? '<strong>'.$message->subject.'</strong>' : $message->subject !!}</a>
                                     </td>
                                     <td>
-                                        <a title="{{ $message->created_at->format('d-m-Y @ h:m:s') }}">{{ $message->created_at->diffForHumans() }}</a>
+                                        <span class="text-highlights text-highlights-purple rounded tooltips" data-toggle="tooltip" data-original-title="{{ $message->created_at->format('d-m-Y @ h:m:s') }}">{{ $message->created_at->diffForHumans() }}</span>
                                     </td>
                                     <td>
                                         <a href="javascript:showMessage('{!! \Crypt::encrypt($message->id) !!}')"><span class="label label-{{ ($message->status == 0)? 'info' :(($message->status == 1)? 'success' : '') }}">{{ ($message->status == 0)? 'new' :(($message->status == 1)? 'read' : '') }}</span></a>
                                     </td>
                                     <td>
-                                        <a href="#" title="reply"><span class="fa fa-reply"></span></a>
-                                        <a href="#" title="Forward"><span class="fa fa-forward"></span></a>
+                                        <a href="#" title="reply" onclick="replyShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-reply"></span></a>
+                                        <a href="#" title="Forward" onclick="forwardShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-forward"></span></a>
                                         <a href="javascript:void(0)" onclick="showDeleteModal('{{ $message->id }}');" title="trash"><span class="fa fa-trash-o"></span></a>
                                         <input type="hidden" class="messages" id="message_id{{ $message->id }}" name="messageId{{ $message->id }}" value="{{ $message->id }}"  disabled />
                                     </td>
@@ -135,6 +142,101 @@
             <!--End Basic Table-->
         </div>
     </div>
+    <div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 1000px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel4">Reply Message</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Review Form-->
+                    <form action="{{ url('student/process-message') }}" method="post" id="sky-form2" class="sky-form">
+                        <input type="hidden" value="{{ csrf_token() }}" name="_token" />
+                        <fieldset>
+                            <section>
+                                <label class="select">
+
+                                </label>
+                            </section>
+
+                            <section>
+                                <label class="input">
+                                    <i class="icon-append fa fa-pencil"></i>
+                                    <input type="text" name="subject" id="subject" placeholder="Subject">
+                                </label>
+                            </section>
+
+                            <section>
+                                <label class="label"></label>
+                                <label class="textarea">
+                                    <i class="icon-append fa fa-comment"></i>
+                                    <textarea rows="4" name="body" id="reply_body" placeholder="Message Body"></textarea>
+                                </label>
+                            </section>
+                            <section>
+                                <div class="pull-right">
+                                    <input type="submit" class="btn-u btn-primary" name="action" value="Reply" />
+                                    <input type="submit" class="btn btn-warning" name="action" value="Save" />
+                                    <a href="javascript:void(0)" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                    <!-- End Review Form-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="forward" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 1000px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel4">Forward Message</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Review Form-->
+                    <form action="{{ url('student/process-message') }}" method="post" id="sky-form2" class="sky-form">
+                        <input type="hidden" value="{{ csrf_token() }}" name="_token" />
+                        <fieldset>
+                            <section>
+                                <label class="select">
+
+                                </label>
+                            </section>
+
+                            <section>
+                                <label class="input">
+                                    <i class="icon-append fa fa-pencil"></i>
+                                    <input type="text" name="subject" id="subject" placeholder="Subject">
+                                </label>
+                            </section>
+
+                            <section>
+                                <label class="label"></label>
+                                <label class="textarea">
+                                    <i class="icon-append fa fa-comment"></i>
+                                    <textarea rows="4" name="body" id="forward_body" placeholder="Message Body"></textarea>
+                                </label>
+                            </section>
+                            <section>
+                                <div class="pull-right">
+                                    <input type="submit" class="btn-u btn-primary" name="action" value="Forward" />
+                                    <input type="submit" class="btn btn-warning" name="action" value="Save" />
+                                    <a href="javascript:void(0)" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                    <!-- End Review Form-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="modal fade" id="view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="width: 1000px">
             <div class="modal-content">
@@ -200,6 +302,58 @@
                     $("#view .modal-body").html(response);
                     $('#view').modal('show');
                 }
+            });
+        }
+
+        function replyShowMessage(id){
+            $.ajax({
+                url: '{!! url('student/message-details') !!}',
+                method: 'post',
+                data: {_token:'{!! csrf_token() !!}', id:id, action:'reply'},
+                success:function(response){
+                    var obj = JSON.parse(response);
+                    var select = '<select data-placeholder="Reply" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">';
+                    var option = ' <option value="'+obj.sender.id+'" selected>'+obj.sender.first_name+'</option></select>';
+                    select += option;
+                    $('#reply textarea[name=body]').text(obj.message.body);
+                    $('#reply input[name=subject]').val(obj.message.subject);
+                    $(".select").html(select);
+                    var editor = CKEDITOR.instances['reply_body'];
+                    if(editor){ editor.destroy(true);}
+                    CKEDITOR.replace('reply_body');
+                }
+            });
+            $("#reply").modal('show');
+            $("#reply").on("shown.bs.modal", function () {
+                $('.chosen-select', this).chosen('destroy').chosen();
+            });
+        }
+
+        function forwardShowMessage(id){
+            $.ajax({
+                url: '{!! url('student/message-details') !!}',
+                method: 'post',
+                data: {_token:'{!! csrf_token() !!}', id:id, action:'forward'},
+                success:function(response){
+                    var obj = JSON.parse(response);
+                    var select = '<select data-placeholder="Forward" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">';
+                    var option = '';
+                    for(var i in obj.friends){
+                        option += ' <option value="'+obj.friends[i].id+'">'+obj.friends[i].first_name+'</option>';
+                    }
+
+                    select += option+'</select>';
+                    $('#forward textarea[name=body]').text(obj.message.body);
+                    $('#forward input[name=subject]').val(obj.message.subject);
+                    $(".select").html(select);
+                    var editor = CKEDITOR.instances['forward_body'];
+                    if(editor){ editor.destroy(true);}
+                    CKEDITOR.replace('forward_body');
+                }
+            });
+            $("#forward").modal('show');
+            $("#forward").on("shown.bs.modal", function () {
+                $('.chosen-select', this).chosen('destroy').chosen();
             });
         }
 
