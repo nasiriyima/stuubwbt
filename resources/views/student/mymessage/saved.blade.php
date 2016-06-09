@@ -115,20 +115,19 @@
                                                                 <tr>
                                                                         <td><input class="checkbox" type="checkbox" onclick="enableElements('one', '{{ $message->id }}');" id="chk{{ $message->id }}"></td>
                                                                         <td>
-                                                                                <a href="javascript:showMessage('{!! \Crypt::encrypt($message->id) !!}')">{!! ($message->status == 0)? '<strong>'.(isset($message->receiver->first_name))? $message->receiver->first_name : ''.'</strong>' : (isset($message->receiver->first_name))? $message->receiver->first_name : '' !!}</a>
+                                                                                <a href="javascript:showEditMessage('{!! \Crypt::encrypt($message->id) !!}')">{!! ($message->status == 0)? '<strong>'.(isset($message->receiver->first_name))? $message->receiver->first_name : ''.'</strong>' : (isset($message->receiver->first_name))? $message->receiver->first_name : '' !!}</a>
                                                                         </td>
                                                                         <td class="hidden-sm">
-                                                                                <a href="javascript:showMessage('{!! \Crypt::encrypt($message->id) !!}')">{!!  ($message->status == 0)? '<strong>'.$message->subject.'</strong>' : $message->subject !!}</a>
+                                                                                <a href="javascript:showEditMessage('{!! \Crypt::encrypt($message->id) !!}')">{!!  ($message->status == 0)? '<strong>'.$message->subject.'</strong>' : $message->subject !!}</a>
                                                                         </td>
                                                                         <td>
-                                                                                <a href="javascript:showMessage('{!! \Crypt::encrypt($message->id) !!}')"><span class="label label-{{ ($message->status == 0)? 'info' :(($message->status == 1)? 'success' : '') }}">{{ ($message->status == 0)? 'new' :(($message->status == 1)? 'read' : '') }}</span></a>
+                                                                                <a href="javascript:showEditMessage('{!! \Crypt::encrypt($message->id) !!}')"><span class="label label-{{ ($message->status == 0)? 'info' :(($message->status == 1)? 'success' : '') }}">{{ ($message->status == 0)? 'new' :(($message->status == 1)? 'read' : '') }}</span></a>
                                                                         </td>
                                                                         <td>
                                                                                 <span class="text-highlights text-highlights-purple rounded tooltips" data-toggle="tooltip" data-original-title="{{ $message->created_at->format('d-m-Y @ h:m:s') }}">{{ $message->created_at->diffForHumans() }}</span>
                                                                         </td>
                                                                         <td>
-                                                                                <a href="#" title="reply" onclick="replyShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-reply"></span></a>
-                                                                                <a href="#" title="Forward" onclick="forwardShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-forward"></span></a>
+                                                                                <a href="#" title="Edit" onclick="showEditMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-edit"></span></a>
                                                                                 <a href="javascript:void(0)" onclick="showDeleteModal('{{ $message->id }}');" title="trash"><span class="fa fa-trash-o"></span></a>
                                                                                 <input type="hidden" class="messages" id="message_id{{ $message->id }}" name="messageId{{ $message->id }}" value="{{ $message->id }}"  disabled />
                                                                         </td>
@@ -142,12 +141,12 @@
                         <!--End Basic Table-->
                 </div>
         </div>
-        <div class="modal fade" id="reply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" style="width: 1000px">
                         <div class="modal-content">
                                 <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel4">Reply Message</h4>
+                                        <h4 class="modal-title" id="myModalLabel4">Edit Message</h4>
                                 </div>
                                 <div class="modal-body">
                                         <!-- Review Form-->
@@ -171,12 +170,12 @@
                                                                 <label class="label"></label>
                                                                 <label class="textarea">
                                                                         <i class="icon-append fa fa-comment"></i>
-                                                                        <textarea rows="4" name="body" id="reply_body" placeholder="Message Body"></textarea>
+                                                                        <textarea rows="4" name="body" id="edit_body" placeholder="Message Body"></textarea>
                                                                 </label>
                                                         </section>
                                                         <section>
                                                                 <div class="pull-right">
-                                                                        <input type="submit" class="btn-u btn-primary" name="action" value="Reply" />
+                                                                        <input type="submit" class="btn-u btn-primary" name="action" value="Send" />
                                                                         <input type="submit" class="btn btn-warning" name="action" value="Save" />
                                                                         <a href="javascript:void(0)" class="btn btn-default" data-dismiss="modal">Cancel</a>
                                                                 </div>
@@ -236,29 +235,12 @@
                 </div>
         </div>
 
-
-        <div class="modal fade" id="view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style="width: 1000px">
-                        <div class="modal-content">
-                                <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel4">View Message</h4>
-                                </div>
-                                <div class="modal-body">
-                                </div>
-                                <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                        </div>
-                </div>
-        </div>
-
         <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                         <div class="alert alert-danger fade in">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4>Warning !</h4>
-                                <p>You are about to delete message(s) from your inbox, are you sure you will like to delete selected Item(s)?</p>
+                                <p>You are about to delete message(s) from your saved messages, are you sure you will like to delete selected Item(s)?</p>
                                 <input type="hidden" name="delete_type" value="" />
                                 <p>
                                         <a class="btn-u btn-u-red" href="javascript:deleteMessage()">Continue</a>
@@ -293,38 +275,33 @@
                         }
                 });
 
-                function showMessage(id){
-                        $.ajax({
-                                url: '{!! url('student/message-view') !!}',
-                                data: {'_token':'{!! csrf_token() !!}', 'id':id},
-                                method: 'post',
-                                success:function(response){
-                                        $("#view .modal-body").html(response);
-                                        $('#view').modal('show');
-                                }
-                        });
-                }
-
-                function replyShowMessage(id){
+                function showEditMessage(id){
                         $.ajax({
                                 url: '{!! url('student/message-details') !!}',
                                 method: 'post',
-                                data: {_token:'{!! csrf_token() !!}', id:id, action:'reply'},
+                                data: {_token:'{!! csrf_token() !!}', id:id, action:'edit'},
                                 success:function(response){
                                         var obj = JSON.parse(response);
-                                        var select = '<select data-placeholder="Reply" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">';
-                                        var option = ' <option value="'+obj.sender.id+'" selected>'+obj.sender.first_name+'</option></select>';
-                                        select += option;
-                                        $('#reply textarea[name=body]').text(obj.message.body);
-                                        $('#reply input[name=subject]').val(obj.message.subject);
+                                        var select = '<select data-placeholder="To" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">';
+                                        var option = '';
+                                        for(var i in obj.friends){
+                                                if(obj.friends[i].id == parseInt(obj.receiver)){
+                                                        option += '<option value="'+obj.friends[i].id+'" selected>'+obj.friends[i].first_name+'</option>';
+                                                } else {
+                                                        option += '<option value="'+obj.friends[i].id+'">'+obj.friends[i].first_name+'</option>';
+                                                }
+                                        }
+                                        select += option+'</select>';
+                                        $('#edit textarea[name=body]').text(obj.message.body);
+                                        $('#edit input[name=subject]').val(obj.message.subject);
                                         $(".select").html(select);
-                                        var editor = CKEDITOR.instances['reply_body'];
+                                        var editor = CKEDITOR.instances['edit_body'];
                                         if(editor){ editor.destroy(true);}
-                                        CKEDITOR.replace('reply_body');
+                                        CKEDITOR.replace('edit_body');
                                 }
                         });
-                        $("#reply").modal('show');
-                        $("#reply").on("shown.bs.modal", function () {
+                        $("#edit").modal('show');
+                        $("#edit").on("shown.bs.modal", function () {
                                 $('.chosen-select', this).chosen('destroy').chosen();
                         });
                 }
@@ -397,7 +374,6 @@
                         }
 
                         formdata._token = "{!! csrf_token() !!}";
-                        console.log(formdata);
                         $.ajax({
                                 url: "{!! url('student/delete-message') !!}",
                                 data: formdata,

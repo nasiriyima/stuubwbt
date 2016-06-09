@@ -376,6 +376,23 @@ class StudentController extends Controller
                 ]
             ]);
         }
+
+        if($request['action'] == 'edit'){
+            $friends = [];
+            $friendshipAccepted =  $this->page_data['user']->friendship()->requestAccepted()->get();
+            foreach($friendshipAccepted as $accepted){
+                array_push($friends, \App\User::find($accepted->friend_id));
+            }
+            $receiver =  $message->receiver_id;
+            return json_encode([
+                'receiver' => $receiver,
+                'friends' => $friends,
+                'message' => [
+                    'subject' => $message->subject,
+                    'body' => $message->body
+                ]
+            ]);
+        }
         if($request['action'] == 'forward'){
             $friends = [];
             $friendshipAccepted =  $this->page_data['user']->friendship()->requestAccepted()->get();
