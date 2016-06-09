@@ -68,8 +68,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d0f78eb599098afc6d55887de90034334585c2c0.php" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d8d1ca62726b84705adc071707efaa7e3b8486ce.php" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e9c5e0777a79c2fa728f1960c88db351e0734e8b.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/mymessage/saved.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/mymessage/saved.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/2e22392aef675d4163bd552da79c95ddd29bfd14.php" afterPath="$PROJECT_DIR$/storage/framework/views/2e22392aef675d4163bd552da79c95ddd29bfd14.php" />
     </list>
@@ -128,16 +126,16 @@
       <file leaf-file-name="saved.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/student/mymessage/saved.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55535716">
-              <caret line="242" column="94" selection-start-line="242" selection-start-column="94" selection-end-line="242" selection-end-column="94" />
+            <state vertical-scroll-proportion="0.4125">
+              <caret line="124" column="77" selection-start-line="124" selection-start-column="77" selection-end-line="124" selection-end-column="77" />
               <folding>
                 <element signature="e#3282#3303#0#HTML" expanded="true" />
                 <element signature="e#4799#4820#0#HTML" expanded="true" />
-                <element signature="e#13814#13835#0#HTML" expanded="true" />
-                <element signature="e#17345#17366#0#HTML" expanded="true" />
-                <marker date="1465508048903" expanded="true" signature="10706:10911" placeholder="..." />
-                <marker date="1465508048903" expanded="true" signature="23687:23700" placeholder="..." />
-                <marker date="1465508048903" expanded="true" signature="25856:25869" placeholder="..." />
+                <element signature="e#13890#13911#0#HTML" expanded="true" />
+                <element signature="e#17421#17442#0#HTML" expanded="true" />
+                <marker date="1465508468724" expanded="true" signature="10706:10911" placeholder="..." />
+                <marker date="1465508468724" expanded="true" signature="23763:23776" placeholder="..." />
+                <marker date="1465508468724" expanded="true" signature="25932:25945" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -1009,16 +1007,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/mymessage/saved.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55535716">
-          <caret line="242" column="94" selection-start-line="242" selection-start-column="94" selection-end-line="242" selection-end-column="94" />
+        <state vertical-scroll-proportion="0.4125">
+          <caret line="124" column="77" selection-start-line="124" selection-start-column="77" selection-end-line="124" selection-end-column="77" />
           <folding>
             <element signature="e#3282#3303#0#HTML" expanded="true" />
             <element signature="e#4799#4820#0#HTML" expanded="true" />
-            <element signature="e#13814#13835#0#HTML" expanded="true" />
-            <element signature="e#17345#17366#0#HTML" expanded="true" />
-            <marker date="1465508048903" expanded="true" signature="10706:10911" placeholder="..." />
-            <marker date="1465508048903" expanded="true" signature="23687:23700" placeholder="..." />
-            <marker date="1465508048903" expanded="true" signature="25856:25869" placeholder="..." />
+            <element signature="e#13890#13911#0#HTML" expanded="true" />
+            <element signature="e#17421#17442#0#HTML" expanded="true" />
+            <marker date="1465508468724" expanded="true" signature="10706:10911" placeholder="..." />
+            <marker date="1465508468724" expanded="true" signature="23763:23776" placeholder="..." />
+            <marker date="1465508468724" expanded="true" signature="25932:25945" placeholder="..." />
           </folding>
         </state>
       </provider>

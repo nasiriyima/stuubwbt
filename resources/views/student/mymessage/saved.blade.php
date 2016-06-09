@@ -27,7 +27,7 @@
                         <!--Basic Table-->
                         <div class="panel panel-warning margin-bottom-40">
                                 <div class="panel-heading">
-                                        <h3 class="panel-title"><i class="fa fa-tasks"></i> Inbox</h3>
+                                        <h3 class="panel-title"><i class="fa fa-tasks"></i> Saved</h3>
                                 </div>
                                 <div class="panel-body">
                                         <div class="header pull-left">
@@ -121,10 +121,10 @@
                                                                                 <a href="javascript:showEditMessage('{!! \Crypt::encrypt($message->id) !!}')">{!!  ($message->status == 0)? '<strong>'.$message->subject.'</strong>' : $message->subject !!}</a>
                                                                         </td>
                                                                         <td>
-                                                                                <a href="javascript:showEditMessage('{!! \Crypt::encrypt($message->id) !!}')"><span class="label label-{{ ($message->status == 0)? 'info' :(($message->status == 1)? 'success' : '') }}">{{ ($message->status == 0)? 'new' :(($message->status == 1)? 'read' : '') }}</span></a>
+                                                                                <span class="text-highlights text-highlights-purple rounded tooltips" data-toggle="tooltip" data-original-title="{{ $message->created_at->format('d-m-Y @ h:m:s') }}">{{ $message->created_at->diffForHumans() }}</span>
                                                                         </td>
                                                                         <td>
-                                                                                <span class="text-highlights text-highlights-purple rounded tooltips" data-toggle="tooltip" data-original-title="{{ $message->created_at->format('d-m-Y @ h:m:s') }}">{{ $message->created_at->diffForHumans() }}</span>
+                                                                                <a href="javascript:showEditMessage('{!! \Crypt::encrypt($message->id) !!}')"><span class="label label-{{ ($message->status == 0)? 'info' :(($message->status == 1)? 'success' : (($message->status == 2)? 'warning' : '')) }}">{{ ($message->status == 0)? 'new' :(($message->status == 1)? 'read' : (($message->status == 2)? 'saved' : '')) }}</span></a>
                                                                         </td>
                                                                         <td>
                                                                                 <a href="#" title="Edit" onclick="showEditMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-edit"></span></a>
