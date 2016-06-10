@@ -6,16 +6,25 @@
         </ul>
 
         <div id="cd-login"> <!-- log in form -->
-            {!! Form::open(array('url' => url('auth/authenticate'),'class'=>'cd-form')) !!}
+            <?php echo Form::open(array('url' => url('auth/authenticate'),'class'=>'cd-form')); ?>
+
                 <p class="fieldset">
                         <label class="image-replace cd-email" for="signin-email">E-mail</label>
+<<<<<<< HEAD
+                        <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail" name="email">
+=======
                         <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail" name="email" required>
+>>>>>>> abbas-master
                         <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                         <label class="image-replace cd-password" for="signin-password">Password</label>
+<<<<<<< HEAD
+                        <input class="full-width has-padding has-border" id="signin-password" type="password" name="password"  placeholder="Password">
+=======
                         <input class="full-width has-padding has-border" id="signin-password" type="password" name="password"  placeholder="Password" required>
+>>>>>>> abbas-master
                         <span class="cd-error-message">Error message here!</span>
                 </p>
 
@@ -27,39 +36,58 @@
                 <p class="fieldset">
                         <input class="full-width" type="submit" value="Login">
                 </p>
-            {!! Form::close() !!}
+            <?php echo Form::close(); ?>
+
         <p class="cd-form-bottom-message"><a href="javascript:void(0);">Forgot your password?</a></p>
         </div>
 
         <div id="cd-signup">
-                {!! Form::open(array('url' => url('auth/registration'),'class'=>'cd-form')) !!}
+                <?php echo Form::open(array('url' => url('auth/registration'),'class'=>'cd-form')); ?>
+
                     <p class="fieldset">
                         <label class="image-replace cd-username" for="signup-username">Name</label>
+<<<<<<< HEAD
+                        <input class="full-width has-padding has-border" id="signup-username" type="text" name="name" placeholder="Name">
+=======
                         <input class="full-width has-padding has-border" id="signup-username" type="text" name="name" placeholder="Name" required>
+>>>>>>> abbas-master
                         <span class="cd-error-message">Error message here!</span>
                     </p>
                     
                     <p class="fieldset">
                         <label class="image-replace cd-email" for="signup-email">E-mail</label>
+<<<<<<< HEAD
+                        <input class="full-width has-padding has-border" id="signup-email" type="email" name="email" placeholder="E-mail">
+=======
                         <input class="full-width has-padding has-border" id="signup-email" type="email" name="email" placeholder="E-mail" required>
+>>>>>>> abbas-master
                         <span class="cd-error-message">Error message here!</span>
                     </p>
                     
                     <p class="fieldset">
                         <label class="image-replace cd-password" for="signup-password">Password</label>
+<<<<<<< HEAD
+                        <input class="full-width has-padding has-border" id="signup-password" type="password" name="password" placeholder="Password">
+=======
                         <input class="full-width has-padding has-border" id="signup-password" type="password" name="password" placeholder="Password" required>
+>>>>>>> abbas-master
                         <span class="cd-error-message">Error message here!</span>
                     </p>
                         
                     <p class="fieldset">
+<<<<<<< HEAD
+                        <input type="checkbox" id="accept-terms">
+=======
                         <input type="checkbox" id="accept-terms" required>
+>>>>>>> abbas-master
                         <label for="accept-terms">I agree to the <a href="#">Terms and Conditions</a></label>
                     </p>
 
                     <p class="fieldset">
                         <input class="full-width has-padding" type="submit" value="Register">
                     </p>
-                {!! Form::close() !!}
+                <?php echo Form::close(); ?>
+
 
                 <!-- <a href="javascript:void(0);" class="cd-close-form">Close</a> -->
         </div>

@@ -7,7 +7,7 @@
                                 <div class="service">
                                         <i class="fa fa-compress service-icon"></i>
                                         <div class="desc">
-                                                <h4>Activate Account</h4>
+                                                <h4>Email Confirmation</h4>
                                                 <br/>
                                                 <p>Dear <?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?>,</p>
                                                 <p>Thank you for Registration on STUUB WBT. A confirmation email has being sent to <strong><?php echo e($user->email); ?></strong> with an activation code to complete your registration.

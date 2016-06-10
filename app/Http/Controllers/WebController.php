@@ -67,18 +67,34 @@ class WebController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getLogin()
+    public function getSignIn(Request $request)
     {
-        return view('frontweb.login');
+        $page_data = [];
+        if($request->session()->get('message'));
+        $page_data['message'] = $request->session()->get('message');
+        return view('frontweb.signin', $page_data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getSignUp()
+    public function getSignUp(Request $request)
     {
-        return view('frontweb.register');
+        $page_data = [];
+        if($request->session()->get('message'));
+        $page_data['message'] = $request->session()->get('message');
+        return view('frontweb.signup', $page_data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTandC()
+    {
+        return view('frontweb.signup');
     }
 }

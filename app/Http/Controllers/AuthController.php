@@ -5,35 +5,47 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Mockery\CountValidator\Exception;
 
 class AuthController extends Controller
 {
      /*
      * Login and Authentication Function
      */
+    /**
+     * @return mixed
+     */
     public function postAuthenticate(){
-        $formdata = \Request::all(); 
+        $formdata = \Request::all();
+        $page_data['pagename'] = 'login';
         $credentials = [
             'email' => $formdata['email'],
             'password' => $formdata['password']
         ];
         $user = \Sentinel::findByCredentials($credentials);
         if($user){
-            if(!(\Activation::completed($user))){
-                //User is not Activated => Account Activation Page
-            }else{
-                //User is Activated
-                \Sentinel::logout($user, true);
-                if (\Sentinel::authenticate($credentials)){
-                    //User is Authenticated => Login
-                    return redirect('/');
+            if (\Sentinel::validateCredentials($user, $credentials)){
+                if(!(\Activation::completed($user))){
+                    //User is not Activated => Account Activation Page
+                    return redirect('auth/account-activation/'.\Crypt::encrypt($user->id));
+
                 }else{
-                    //Invalid user Credentials
-                } 
-            }    
+                    //User is Activated
+
+                    //Logout all other sessions
+                    \Sentinel::logout($user, true);
+
+                    //Login in User
+                    \Sentinel::authenticate($credentials);
+                    return redirect('/');
+                }
+            }else{
+
+                return redirect('web/sign-in')->with('message','Inavalid login credentials');
+            }
         }else{
             //User Doesnt Exist => Registration Page
-            dd('User doesnt Exists');
+            return redirect('web/sign-up')->with('message','Sorry! We have no record of this email found ');
         }
     }
     
@@ -49,7 +61,7 @@ class AuthController extends Controller
             'user_type' => 1,
        ];
        if(\Sentinel::findByCredentials($credentials)){
-          dd('User Exist Already- Login Page');
+           return redirect('web/sign-in')->with('message','A STUUBWBT account exits with this email');
        }else{
             $user = \Sentinel::register($credentials);      //Register User
             $activation = \Activation::create($user);       //Create User Activation
@@ -76,13 +88,13 @@ class AuthController extends Controller
                 if(!(\Activation::completed($page_data['user']))){
                     return view('frontweb.confirmationpage')->with($page_data);
                 }else{
-                    dd('Redirect to Login Page as User as an active account'); 
+                    dd('Redirect to Login Page as User as an active account');
                 }
             }else{
                 dd('No Activation code found, or Must have expired');
             }
         }else{
-            dd('user exist not');
+            return redirect('web/sign-up')->with('message','Sorry! We have no record of this email found ');
         }
     }
     
@@ -97,13 +109,14 @@ class AuthController extends Controller
                 if(!(\Activation::completed($page_data['user']))){
                     self::activateaccount($page_data['user'], $formdata['activationcode']);
                 }else{
-                    dd('Redirect to Login Page as User as an active account'); 
+                    return redirect('web/sign-in');
                 }
             }else{
-                dd('Redirect to Login Page as User as an active account');
+                return redirect('web/sign-in');
             }
         }else{
-            dd('user exist not');
+            //User Doesnot exist
+            return redirect('web/sign-up')->with('message','Sorry! We have no record of this email found ');
         }
     }
     
