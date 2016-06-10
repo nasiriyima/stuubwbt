@@ -367,6 +367,7 @@ class StudentController extends Controller
         $request = \Request::except('_token');
         $message = \App\Message::find(\Crypt::decrypt($request['id']));
         $sender =  \App\User::find($message->sender_id);
+        $receiver =  isset($message->receiver_id)? \App\User::find($message->receiver_id): '';
         if($request['action'] == 'reply'){
             return json_encode([
                 'sender' => $sender,
@@ -383,9 +384,9 @@ class StudentController extends Controller
             foreach($friendshipAccepted as $accepted){
                 array_push($friends, \App\User::find($accepted->friend_id));
             }
-            $receiver =  $message->receiver_id;
+
             return json_encode([
-                'receiver' => $receiver,
+                'receiver' => $message->receiver_id,
                 'friends' => $friends,
                 'message' => [
                     'subject' => $message->subject,
@@ -403,7 +404,11 @@ class StudentController extends Controller
                 'friends' => $friends,
                 'message' => [
                     'subject' => 'FW: '.$message->subject,
-                    'body' => $message->body
+                    'body' => '---------- Forwarded message ---------- <br />
+                                From: '.$sender->user->first_name.'<br />
+                                Date: '.$message->created_at->format('D, M d, Y @ h:m').'<br />
+                                Subject: '.$message->subject.'<br />
+                                To: '.$receiver->first_name.'<br /> '.$message->body
                 ]
             ]);
         }
@@ -478,11 +483,6 @@ class StudentController extends Controller
         return json_encode(['url' => url('student/my-message-inbox')]);
     }
     
-    public function getMyProfile(){
-        $this->page_data['user'] = \App\User::find($this->page_data['user']->id);
-        return view('student.myprofile.index')->with($this->page_data);
-    }
-    
     public function getMyRecord($startDate = '', $endDate = ''){
         if($startDate && $endDate){
             $this->page_data['histories'] = \App\History::where([
@@ -522,6 +522,26 @@ class StudentController extends Controller
             return $this->getMyRecord($startDate, $endDate);
         }
         return redirect()->back()->withErrors($validation)->withInput();
+    }
+
+    public function getMyProfile(){
+        $this->page_data['page_name'] = 'profile';
+        return view('student.myprofile.index')->with($this->page_data);
+    }
+
+    public function getMyFriends(){
+        $this->page_data['page_name'] = 'friends';
+        return view('student.myprofile.friends')->with($this->page_data);
+    }
+
+    public function getMyConversations(){
+        $this->page_data['page_name'] = 'messages';
+        return view('student.myprofile.conversations')->with($this->page_data);
+    }
+
+    public function getMySettings(){
+        $this->page_data['page_name'] = 'settings';
+        return view('student.myprofile.settings')->with($this->page_data);
     }
     
     public function getErrortest(){
