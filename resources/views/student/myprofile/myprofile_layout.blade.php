@@ -100,17 +100,41 @@
     <!-- Profile Content -->
     <div class="col-md-8">
         @yield('pagecontent')
+        <div class="profile-body margin-bottom-20">
+            <div class="headline headline-sm"><h2>Stats</h2></div>
+            <!-- Pie Charts v1 -->
+            <div class="row pie-progress-charts margin-bottom-60">
+                <div class="inner-pchart col-md-4">
+                    <div class="circle" id="circle-1"></div>
+                    <h3 class="circle-title">Profile</h3>
+                    <p>Profile must be at least 50% completed to send messages</p>
+                </div>
+                <div class="counters col-md-3 col-sm-3">
+                    <span class="counter-icon"><i class="fa fa-users rounded"></i></span>
+                    <span class="counter">{{ $friendsStats }}</span>
+                </div>
+                <div class="counters col-md-3 col-sm-3">
+                    <span class="counter-icon"><i class="fa fa-envelope rounded"></i></span>
+                    <span class="counter">{{ $messageStats }}</span>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- End Profile Content -->
-<!--=== End Profile ===-->
-
 </div>
 @stop
 @section('pagejs')
+    <script type="text/javascript">
+        var profileStats = "{!! $profileStats !!}";
+    </script>
     <script type="text/javascript" src="{{ asset('public/assets/js/plugins/datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/circles-master/circles.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/js/plugins/circles-master.js') }}"></script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             Datepicker.initDatepicker();
+            CirclesMaster.initCirclesMaster1();
+            CirclesMaster.initCirclesMaster2();
         });
     </script>
     @yield('pagescripts')

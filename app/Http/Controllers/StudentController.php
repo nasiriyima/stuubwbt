@@ -405,7 +405,7 @@ class StudentController extends Controller
                 'message' => [
                     'subject' => 'FW: '.$message->subject,
                     'body' => '---------- Forwarded message ---------- <br />
-                                From: '.$sender->user->first_name.'<br />
+                                From: '.$sender->first_name.'<br />
                                 Date: '.$message->created_at->format('D, M d, Y @ h:m').'<br />
                                 Subject: '.$message->subject.'<br />
                                 To: '.$receiver->first_name.'<br /> '.$message->body
@@ -526,21 +526,42 @@ class StudentController extends Controller
 
     public function getMyProfile(){
         $this->page_data['page_name'] = 'profile';
+        $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
+            $this->page_data['user']->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.index')->with($this->page_data);
+    }
+
+    public function postUploadProfileImage(){
+        $request = \Request::file('image');
+        dd($request);
     }
 
     public function getMyFriends(){
         $this->page_data['page_name'] = 'friends';
+        $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
+            $this->page_data['user']->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.friends')->with($this->page_data);
     }
 
     public function getMyConversations(){
         $this->page_data['page_name'] = 'messages';
+        $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
+            $this->page_data['user']->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.conversations')->with($this->page_data);
     }
 
     public function getMySettings(){
         $this->page_data['page_name'] = 'settings';
+        $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
+            $this->page_data['user']->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.settings')->with($this->page_data);
     }
     

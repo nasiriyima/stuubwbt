@@ -9,8 +9,12 @@
         <div class="profile-bio">
             <div class="row">
                 <div class="col-md-5">
-                    <img class="img-responsive md-margin-bottom-10" src="{{ asset('public/assets/img/team/img32-md.jpg') }}" alt="">
-                    <a class="btn-u btn-u-sm" href="#">Change Picture</a>
+                    <form id="file-upload" action="{{ url('student/upload-profile-image') }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <img class="img-responsive md-margin-bottom-10" src="{{ asset('public/assets/img/team/img32-md.jpg') }}" alt="">
+                        <a class="btn-u btn-u-sm" onclick="showFileChooser();" href="#">Change Picture</a>
+                        <input type="file" name="image" id="uploadfile" value="" style="display: none" />
+                    </form>
                 </div>
                 <div class="col-sm-7">
                     <div class="panel panel-profile">
@@ -80,4 +84,15 @@
         </div>
     </div>
     <!--=== End Profile ===-->
+@stop
+
+@section('pagescripts')
+    <script type="application/javascript">
+        $('#uploadfile').on('change',function(){
+            $("#file-upload").submit();
+        });
+        function showFileChooser(){
+            $('#uploadfile').click();
+        }
+    </script>
 @stop

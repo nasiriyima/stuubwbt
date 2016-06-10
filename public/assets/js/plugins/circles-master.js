@@ -7,10 +7,10 @@ var CirclesMaster = function () {
         	//Circles 1
 		    Circles.create({
 		        id:         'circle-1',
-		        percentage: 87,
+		        percentage: parseInt(profileStats),
 		        radius:     80,
 		        width:      8,
-		        number:     87,
+		        number:     parseInt(profileStats),
 		        text:       '%',
 		        colors:     ['#eee', '#72c02c'],
 		        duration:   2000
