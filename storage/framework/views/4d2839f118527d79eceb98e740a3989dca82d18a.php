@@ -9,7 +9,7 @@
 <div class="content profile">
     <!--Left Sidebar-->
     <div class="col-md-4 md-margin-bottom-40">
-        <img class="img-responsive profile-img margin-bottom-20" src="<?php echo e(asset('public/assets/img/team/img32-md.jpg')); ?>" alt="">
+        <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="<?php echo e(isset($user->profile->image)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg')); ?>" alt="<?php echo e($user->first_name); ?>">
 
         <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
             <li class="list-group-item <?php echo e(($page_name == 'profile')? 'active' : ''); ?>">
@@ -105,7 +105,7 @@
                 <div class="inner-pchart col-md-4">
                     <div class="circle" id="circle-1"></div>
                     <h3 class="circle-title">Profile</h3>
-                    <p>Profile must be at least 50% completed to send messages</p>
+                    <p>Profile must be at least 50% completed to send friendship requests</p>
                 </div>
                 <div class="counters col-md-3 col-sm-3">
                     <span class="counter-icon"><i class="fa fa-users rounded"></i></span>

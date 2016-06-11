@@ -11,7 +11,7 @@
                 <div class="col-md-5">
                     <form id="file-upload" action="{{ url('student/upload-profile-image') }}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <img class="img-responsive md-margin-bottom-10" src="{{ asset('public/assets/img/team/img32-md.jpg') }}" alt="">
+                        <img class="img-responsive md-margin-bottom-10" width="259.58" height="259.58" src="{{ isset($user->profile->image)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg') }}" alt="{{ $user->first_name }}">
                         <a class="btn-u btn-u-sm" onclick="showFileChooser();" href="#">Change Picture</a>
                         <input type="file" name="image" id="uploadfile" value="" style="display: none" />
                     </form>
@@ -36,12 +36,12 @@
             <div class="col-sm-12 sm-margin-bottom-30">
                 <div class="panel panel-profile">
                     <div class="panel-heading overflow-h">
-                        <h2 class="panel-title heading-sm pull-left"><i class="fa fa-pencil"></i> Social Contacts <small>(option 1)</small></h2>
+                        <h2 class="panel-title heading-sm pull-left"><i class="fa fa-pencil"></i> Social Contacts</h2>
                         <a href="#"><i class="fa fa-cog pull-right"></i></a>
                     </div>
                     <div class="panel-body">
                         <ul class="list-unstyled social-contacts-v2">
-                            @if(isset($user->profile->social_contact))
+                            @if(isset($user->profile->social_contact) && $user->profile->social_contact != "")
                                 {{--*/
                                         $social_contact = $user->profile->social_contact;
                                         $contacts = json_decode($social_contact);

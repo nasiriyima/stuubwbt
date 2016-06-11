@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use \Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 class StudentController extends Controller
 {
@@ -82,13 +83,13 @@ class StudentController extends Controller
         $series['data'] = $data;
         return json_encode([$series]);
     }
-    
+
     public function getMyExam(){
         $this->page_data['bodies'] = \App\ExamProvider::all();
         $this->page_data['categories'] = \App\Category::all();
         return view('student.myexam.index',$this->page_data);
     }
-    
+
     public function postSubjects(){
         $post = \Request::except('_token');
         $redundant = []; $group = [];
@@ -114,7 +115,7 @@ class StudentController extends Controller
         $data['category'] = $post['category_id'];
         return view('student.myexam.subjects',$data);
     }
-    
+
     public function getSession($body,$category,$subject){
         $data['body'] = $body;
         $data['bodyname'] = \App\ExamProvider::find($body)->name;
@@ -131,7 +132,7 @@ class StudentController extends Controller
         $data['sessions'] = \App\Session::all();
         return view('student.myexam.session',$data);
     }
-    
+
     public function postInstruction(){
         $post = \Request::except('_token');
         \Session::put('body', $post['body']);
@@ -143,7 +144,7 @@ class StudentController extends Controller
             'url' => url('student/instructions').'/'.$post['body'].'/'.$post['category'].'/'.$post['subject'].'/'.$post['month'].'/'.$post['session']
         ]);
     }
-    
+
     public function getInstructions($body,$category,$subject,$month,$session){
         $exam = \App\Exam::where([
             'subject_id' => $subject,
@@ -213,7 +214,7 @@ class StudentController extends Controller
         \Session::put('failedpercentage',  number_format($failed*100/count($data['selections']),2));
         \Session::put('userselection',  json_encode($data['selections']));
         \Session::put('systemselection',  json_encode($systemselection));
-        
+
         $history = new \App\History();
         $history->exam_id = \Session::get('exam');
         $history->elapsed_time = $data['elapsed_time'];
@@ -225,7 +226,7 @@ class StudentController extends Controller
         \Session::put('history',$history->id);
         return url('student/exam-complete');
     }
-    
+
     public function getExamComplete(){
         if(\Session::has('exam')){
             $data['bodyname'] = \Session::get('bodyname');
@@ -246,7 +247,7 @@ class StudentController extends Controller
                 Carbon::now()->subWeek(),
                 Carbon::now()
             ])->count();
-            
+
             $data['history_month_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
                 'user_id' => $this->page_data['user']->id,
@@ -261,14 +262,14 @@ class StudentController extends Controller
             $percentage = $this->evaluateAttempts(\App\History::class,'percentage');
             $inequality = $this->evaluateAttempts(\App\History::class,'inequalities');
             $data['attempt_phrase'] = ($percentage != 0)? '<small>'.$percentage.'% <strong>'.$inequality
-                                      .' last month</strong></small>' : 
+                                      .' last month</strong></small>' :
                                       '<small><strong>'.$inequality.' last month</strong></small>';
             $data['attempt_percentage'] = $percentage;
             return view('student.myexam.score')->with($data);
         }
         return redirect('student')->with('error','No exam session is active');
     }
-    
+
     public function getReview(){
         if(\Session::has('history') && \Session::has('exam')){
             $data['bodyname'] = \Session::get('bodyname');
@@ -482,7 +483,7 @@ class StudentController extends Controller
         }
         return json_encode(['url' => url('student/my-message-inbox')]);
     }
-    
+
     public function getMyRecord($startDate = '', $endDate = ''){
         if($startDate && $endDate){
             $this->page_data['histories'] = \App\History::where([
@@ -534,8 +535,45 @@ class StudentController extends Controller
     }
 
     public function postUploadProfileImage(){
-        $request = \Request::file('image');
-        dd($request);
+        $request = \Request::except('_token');
+        $rules = [
+            'image' => 'required|max:10000|mimes:png,jpg,jpeg,gif'
+        ];
+
+        $validator = \Validator::make($request, $rules);
+        if($validator->passes()){
+            $file = $request['image'];
+            $destination_path = str_replace('\\', '/', storage_path().'/profile_pictures/');
+            $file->move($destination_path, $this->page_data['user']->id.'.'.$file->getClientOriginalExtension());
+            if(!isset($this->page_data['user']->profile)){
+                $profile = new \App\Profile();
+                $profile->user_id = $this->page_data['user']->id;
+                $profile->save();
+            }
+
+            \App\Profile::where([
+                'user_id' => $this->page_data['user']->id
+            ])->update([
+                'image' => $this->page_data['user']->id.'.'.$file->getClientOriginalExtension()
+            ]);
+
+            return redirect()->back()->with('message', 'Profile picture changed successfully');
+        }
+        return redirect()->back()->withErrors($validator->errors())->withInput($request);
+    }
+
+    public function getFile($image){
+
+        if(file_exists(str_replace('\\', '/', storage_path().'/profile_pictures/').$image)){
+            $path = str_replace('\\', '/', storage_path().'/profile_pictures/').$image;
+        } else {
+            $path = str_replace('\\', '/', public_path().'/assets/img/team/img32-md.jpg');
+        }
+        $file = \File::get($path);
+        $type = \File::mimeType($path);
+        $response = \Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
     }
 
     public function getMyFriends(){
@@ -564,22 +602,22 @@ class StudentController extends Controller
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.settings')->with($this->page_data);
     }
-    
+
     public function getErrortest(){
         return redirect()->back()->with('error','error message');
     }
-    
+
     public static function generateOptionLable($optionCount){
         $labels = range('a', 'z');
         return $labels[$optionCount];
     }
-    
+
     public function aborted(){
         if(connection_aborted()){
-            
+
         }
     }
-    
+
     private function getTimeLeft($exam, $time_allowed){
         if(!\Session::has('time_left') && \Session::get('exam') != $exam){
             $time = explode(':',$time_allowed);
@@ -592,7 +630,7 @@ class StudentController extends Controller
         }
         return \Session::get('time_left');
     }
-    
+
     private function evaluateAttempts($history,$option){
         $last_month_count = $history::where([
             'user_id' => $this->page_data['user']->id
@@ -625,7 +663,7 @@ class StudentController extends Controller
         }
         return false;
     }
-    
+
     public function getEncode(){
         $data = [
             'twitter' => [
