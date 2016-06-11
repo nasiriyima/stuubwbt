@@ -2,95 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4e72792-6f94-4110-a16b-26dba3b8b596" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/03ce76f6e005d6f5a1e6ab72b1931575a35ac4d2.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/045bf4c52bb3aace0430987eff4e9eb534740358.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0c6848717f5d82b371f60c03d55ac18164d8c781.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0f97faad0d7d7085ca9301876a7a9cb64b7503a3.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1097f48e754adbdcaaafeae95acd9208b1fd0cee.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1684fb0beabdaf11746b70d6fd8e8d8f841fff1c.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1684fb0beabdaf11746b70d6fd8e8d8f841fff1c.php.orig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1790a519b3efb57333acfc1a17dba57c71e9de8d.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1cfb60ea884e5d2d20a2c94317d4658280eb88de.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/213fd15b84ea0e9acc487323b85a5ee8f542125b.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/25c64d2de8624bc3c4d24227e2ae99738f2074ce.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/2661a413d50c54b56fc45c16c2e3a966bd510af6.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/273e3f0f75e35959ad345bb217162c8a5ecb8d77.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/2e22392aef675d4163bd552da79c95ddd29bfd14.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/31221ef14563a368669f836664e511db0b521c73.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/31221ef14563a368669f836664e511db0b521c73.php.bak" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/32b0664ad52644a4cbf892473739c85843ebd7ab.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/32ba3270571410974bc42450eb68bf688196ab31.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3316bca60a9faee8427eae11ca2b7951783d1ee3.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3633f3a43ccc305e612a451960f2d76ac90ab298.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/37998d79895ef5dbbcf0352fe2a8647387cbab70.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/39ccc67923ce71259eac57929bfeef8db30dc463.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3bc7755225ec787bd1aafe148c33c5e11dafd8c8.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3d4705a39278c8922ef2d30e94b0becc46e0af06.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3e352f84069ebba6c51d592ac8225c591d453d1c.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/42dfa85b84af2d3f850436fd3270178d69f364ca.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/4dd4e8d71e9a0fb801edae08fd8f638b60bac02c.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/4fc4b54c84626c5dc6d80cee142a649f1591c065.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5253a384df1acf80b9a5de94456818fe47380807.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/53bd0b0de34839ce4ca15282cf0914fd7b4144c3.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5ab5ebd42b407aa6d56cce80e7de8a0be4da1027.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5ea651afcabb9047c1c99e5cc3d44e233a243581.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5ea651afcabb9047c1c99e5cc3d44e233a243581.php.bak" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5f3a65771d85c13b6e8ad04a8d58fd2eb4f1dbef.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/62f4900d795e4025f32cb69e50c88091fea11642.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/65b8a544cd1fe43a80c55d24c6e2b5427976f3a9.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/693a681b28764cb3df85d22dfddcfab5674f770b.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6e5a9923f0c1c6dbb25f2181876262fa40678f41.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6ea6e58201146ac35aaa567caf63be605c833055.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/7264622f1dabf0584b213cbea7744744877393b9.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/78efa60a62a9c1882dbe0c384b0766df54d70cea.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/79c51f9b3633d8eb48680040f4bcf00580a9f76b.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/7fb6f2f2fd72cbf41063c12f6ea960e041a5cfe3.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/86a0ab92396d81fe84d069f2686461a5f73fe394.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/8ea17860fb31fa28926b1ad191289f20e8e94653.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/8ecbea2a8528b7786a540e875dd71cab222f25d4.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/8ff3fd770863bb70068ee9e255903a7d0c4b5d53.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/93433c5300e5fcecf7fcc29b1a8b21dcb316cb31.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/96d6ea239ba1b8a3997b5f66567461e6cc39d575.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/981e2b420d2a78446fb47480e91212e1abd1ecea.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9abdad95f80d023be80a485a4cd19ccf5128ef07.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9b591dd2a4a34af9a9e304ffc97f622fc3efa01f.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9caf01410a4338680df6fe82d116abbd2dec6ac7.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9e97f166742e79743e3c517c6b03a1d2ac98a18f.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9e97f166742e79743e3c517c6b03a1d2ac98a18f.php.orig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a38990591f07cdd1158de67b6694001a51f272e7.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a4c101e9b7e2bdb54657467b42532f24b7d4ecf2.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a7a0d7e02ffa2c3ba01de4ddc4e75e67738c64b9.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a7a0d7e02ffa2c3ba01de4ddc4e75e67738c64b9.php.bak" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a811e3364039ea12e32d5c9d0df30da9f63dc61d.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a8db451187289cb89cc152096643c995d419b8e8.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a8db451187289cb89cc152096643c995d419b8e8.php.orig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b46051f19fa62442b95487bf536bc3f5ed301c5c.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b7771b259c2a84ab48b9ad01770d7c8d72ad19d1.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/bcf83fa82051ad8940cec702dc182d5acd45f82f.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/bcf83fa82051ad8940cec702dc182d5acd45f82f.php.orig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/c0e687f3e6791320d13feebfabbcafcf034ac1d2.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/c0e687f3e6791320d13feebfabbcafcf034ac1d2.php.orig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/c4439d00aab22f49d80072b76ef96851d244b9fa.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/cb78fecebd8972a8733387523d36254e42fb772f.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d076aa59c5db8e741dc23897a25d746c43171ba0.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d076aa59c5db8e741dc23897a25d746c43171ba0.php.orig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d11fbc9d516842b2dda267fecc64fa10684cc6e0.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/dbc7200762f029a3983a482d79176367a7efc7dd.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e5f4e8ac7c0f755e92a0c58c23e9edcba50ab903.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f15fc31203c4553473774737aa99acf25aeafc1b.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f88d782d2c7e8c577c7c0a8c9ecf4cd2ba90243f.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/fd4b3b106b3f689703981faaac5420f2672264f8.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/fd4b3b106b3f689703981faaac5420f2672264f8.php.bak" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/ffffe16a2b0d5ec71828c26f24e80d27e780bc15.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2016_06_01_131928_create_profile_table.php" afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_131928_create_profile_table.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/4d2839f118527d79eceb98e740a3989dca82d18a.php" afterPath="$PROJECT_DIR$/storage/framework/views/4d2839f118527d79eceb98e740a3989dca82d18a.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/6ba30daf9093de337496aec5ec86681df07a509c.php" afterPath="$PROJECT_DIR$/storage/framework/views/6ba30daf9093de337496aec5ec86681df07a509c.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/92445de265852a56a3a15c1c5ff06ded6b47b69c.php" afterPath="$PROJECT_DIR$/storage/framework/views/92445de265852a56a3a15c1c5ff06ded6b47b69c.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/9dccb25941c39538b98dbc57c25ec636e35e15d2.php" afterPath="$PROJECT_DIR$/storage/framework/views/9dccb25941c39538b98dbc57c25ec636e35e15d2.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/aa4890f1899f1d0c347b8b7aef2aea9a32769b71.php" afterPath="$PROJECT_DIR$/storage/framework/views/aa4890f1899f1d0c347b8b7aef2aea9a32769b71.php" />
     </list>
     <ignored path="stuubwbt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -115,8 +33,8 @@
       <file leaf-file-name="StudentController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.576923">
-              <caret line="569" column="87" selection-start-line="569" selection-start-column="87" selection-end-line="569" selection-end-column="87" />
+            <state vertical-scroll-proportion="-6.8846154">
+              <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -127,8 +45,18 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3321234">
-              <caret line="38" column="113" selection-start-line="38" selection-start-column="113" selection-end-line="38" selection-end-column="113" />
+            <state vertical-scroll-proportion="0.71034485">
+              <caret line="104" column="51" selection-start-line="104" selection-start-column="51" selection-end-line="104" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="14.872727">
+              <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -137,8 +65,8 @@
       <file leaf-file-name="myprofile_layout.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.1538463">
-              <caret line="13" column="218" selection-start-line="13" selection-start-column="189" selection-end-line="13" selection-end-column="218" />
+            <state vertical-scroll-proportion="-2.0384614">
+              <caret line="133" column="68" selection-start-line="133" selection-start-column="68" selection-end-line="133" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -147,7 +75,7 @@
       <file leaf-file-name="Profile.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Profile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.807693">
+            <state vertical-scroll-proportion="-3.3461537">
               <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
               <folding />
             </state>
@@ -204,6 +132,7 @@
         <option value="$PROJECT_DIR$/database/migrations/2016_06_01_131928_create_profile_table.php" />
         <option value="$PROJECT_DIR$/app/Profile.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" />
       </list>
@@ -257,6 +186,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -385,8 +316,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -517,6 +446,40 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="569" column="87" selection-start-line="569" selection-start-column="87" selection-end-line="569" selection-end-column="87" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="218" selection-start-line="13" selection-start-column="189" selection-end-line="13" selection-end-column="218" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -736,13 +699,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.5">
@@ -796,7 +752,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22413793">
           <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -804,7 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8672414">
           <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -812,7 +766,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.1396551">
           <caret line="154" column="66" selection-start-line="154" selection-start-column="66" selection-end-line="154" selection-end-column="66" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -820,40 +773,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1517241">
           <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Profile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693">
+        <state vertical-scroll-proportion="-3.3461537">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.1538463">
-          <caret line="13" column="218" selection-start-line="13" selection-start-column="189" selection-end-line="13" selection-end-column="218" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.576923">
-          <caret line="569" column="87" selection-start-line="569" selection-start-column="87" selection-end-line="569" selection-end-column="87" />
+        <state vertical-scroll-proportion="-6.8846154">
+          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0384614">
+          <caret line="133" column="68" selection-start-line="133" selection-start-column="68" selection-end-line="133" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="14.872727">
+          <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3321234">
-          <caret line="38" column="113" selection-start-line="38" selection-start-column="113" selection-end-line="38" selection-end-column="113" />
+        <state vertical-scroll-proportion="0.71034485">
+          <caret line="104" column="51" selection-start-line="104" selection-start-column="51" selection-end-line="104" selection-end-column="51" />
           <folding />
         </state>
       </provider>

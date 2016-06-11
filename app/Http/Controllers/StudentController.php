@@ -12,8 +12,15 @@ class StudentController extends Controller
 {
     public $page_data = [];
     public function __construct(){
-        if(!\Sentinel::check())
+        if(!\Sentinel::check()){
+            if(\Request::ajax()){
+                return \Response::json([
+                    'session_expired' => 'true',
+                    'url' => url('web')
+                ]);
+            }
             return redirect('web')->send();
+        }
         $this->page_data['user'] = \App\User::find(\Sentinel::check()->id);
         $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->count();
         $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->count();
@@ -574,6 +581,12 @@ class StudentController extends Controller
         $response = \Response::make($file, 200);
         $response->header("Content-Type", $type);
         return $response;
+    }
+
+    public function postEditView(){
+        $request = \Request::except('_token');
+        $this->page_data['type'] = $request['type'];
+        return view('student.myprofile.edit')->with($this->page_data);
     }
 
     public function getMyFriends(){
