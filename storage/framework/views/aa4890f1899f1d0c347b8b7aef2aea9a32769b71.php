@@ -95,7 +95,7 @@
                                                                                             <!-- Progress Bar Text -->
                                                                                             <div class="progress-bar-text">
                                                                                                     <p class="text-left">Percentage</p>
-                                                                                                    <p class="text-right"><?php echo e($x); ?>%</p>
+                                                                                                    <p class="text-right"><?php echo e(round($x, 2)); ?>%</p>
                                                                                                     <div class="progress progress-u progress-xs">
                                                                                                             <div class="progress-bar progress-bar-u progress-bar-u-success" role="progressbar" aria-valuenow="<?php echo e($x); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo e($x); ?>%">
                                                                                                             </div>

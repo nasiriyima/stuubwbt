@@ -1,6 +1,9 @@
 <?php $__env->startSection('pagecss'); ?>
         <!-- CSS Page Style -->
 <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/profile.css')); ?>">
+<style>
+    .hover-hand-cursor{ cursor: pointer; }
+</style>
 <?php echo $__env->yieldContent('pagestyles'); ?>
 <?php $__env->stopSection(); ?>
 
@@ -9,7 +12,7 @@
 <div class="content profile">
     <!--Left Sidebar-->
     <div class="col-md-4 md-margin-bottom-40">
-        <img class="img-responsive profile-img margin-bottom-20" src="<?php echo e(asset('public/assets/img/team/img32-md.jpg')); ?>" alt="">
+        <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="<?php echo e((isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg')); ?>" alt="<?php echo e($user->first_name); ?>">
 
         <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
             <li class="list-group-item <?php echo e(($page_name == 'profile')? 'active' : ''); ?>">
@@ -105,7 +108,7 @@
                 <div class="inner-pchart col-md-4">
                     <div class="circle" id="circle-1"></div>
                     <h3 class="circle-title">Profile</h3>
-                    <p>Profile must be at least 50% completed to send messages</p>
+                    <p>Profile must be at least 50% completed to send friendship requests</p>
                 </div>
                 <div class="counters col-md-3 col-sm-3">
                     <span class="counter-icon"><i class="fa fa-users rounded"></i></span>
@@ -120,6 +123,21 @@
     </div>
     <!-- End Profile Content -->
 </div>
+<!-- Large modal -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 id="myLargeModalLabel2" class="modal-title">EDIT <span id="edit-title"></span> </h4>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec mattis odio. In hac habitasse platea dictumst. Vestibulum volutpat pretium porta. Cras mattis metus non ipsum porttitor pulvinar. Proin tempus erat ac neque gravida suscipit. Morbi faucibus turpis a turpis hendrerit sodales sed vel nisl. Praesent vitae magna luctus, blandit quam eu, semper mi.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Large modal -->
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('pagejs'); ?>
     <script type="text/javascript">

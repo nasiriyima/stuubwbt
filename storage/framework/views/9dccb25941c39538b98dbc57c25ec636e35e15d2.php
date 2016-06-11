@@ -52,12 +52,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo e(url('student/my-message-sent')); ?>">
-                                    <span class="badge  badge-green pull-right rounded-2x"><?php echo e($sent_count); ?></span>
-                                    Sent
-                                </a>
-                            </li>
-                            <li>
                                 <a href="<?php echo e(url('student/my-message-saved')); ?>">
                                     <span class="badge badge-yellow pull-right rounded-2x"><?php echo e($saved_count); ?></span>
                                     Saved
@@ -77,7 +71,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="<?php echo e(url('auth/logout')); ?>">
                             Logout
                         </a>
                     </li>

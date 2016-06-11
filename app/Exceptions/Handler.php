@@ -45,6 +45,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof \Illuminate\Session\TokenMismatchException && $request->ajax()){
+
+            return \Response::json([
+                'session_expired' => 'true',
+                'url' => url('web')
+            ]);
+        }
         return parent::render($request, $e);
     }
 }
