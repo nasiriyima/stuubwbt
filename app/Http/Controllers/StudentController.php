@@ -13,13 +13,7 @@ class StudentController extends Controller
     public $page_data = [];
     public function __construct(){
         if(!\Sentinel::check()){
-            if(\Request::ajax()){
-                return \Response::json([
-                    'session_expired' => 'true',
-                    'url' => url('web')
-                ]);
-            }
-            return redirect('web')->send();
+           return redirect('web')->send();
         }
         $this->page_data['user'] = \App\User::find(\Sentinel::check()->id);
         $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->count();

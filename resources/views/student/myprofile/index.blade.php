@@ -100,13 +100,19 @@
                 url: "{!! url('student/edit-view') !!}",
                 method: "post",
                 data:{_token:"{!! csrf_token() !!}", type:type},
-                success:function(response){
-                    try {
-                        json = $.parseJSON(response);
-                    } catch (e) {
+                success:function(response, status, xhr){
+                    var header_content_type = xhr.getResponseHeader("content-type") || "";
+
+                    if (header_content_type.indexOf('html') > -1) {
                         $(".bs-example-modal-lg .modal-body").html(response);
                         $(".bs-example-modal-lg #edit-title").html(type.toString().toUpperCase());
                         $(".bs-example-modal-lg").modal("show");
+                    }
+
+                    if (header_content_type.indexOf('json') > -1) {
+                        if(response.session_expired){
+                            window.location = response.url;
+                        }
                     }
                 }
             });

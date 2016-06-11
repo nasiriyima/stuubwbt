@@ -98,10 +98,21 @@
                 url: "<?php echo url('student/edit-view'); ?>",
                 method: "post",
                 data:{_token:"<?php echo csrf_token(); ?>", type:type},
-                success:function(response){
-                    $(".bs-example-modal-lg .modal-body").html(response);
-                    $(".bs-example-modal-lg #edit-title").html(type.toString().toUpperCase());
-                    $(".bs-example-modal-lg").modal("show");
+                success:function(response, status, xhr){
+                    var ct = xhr.getResponseHeader("content-type") || "";
+
+                    if (ct.indexOf('html') > -1) {
+                        $(".bs-example-modal-lg .modal-body").html(response);
+                        $(".bs-example-modal-lg #edit-title").html(type.toString().toUpperCase());
+                        $(".bs-example-modal-lg").modal("show");
+                    }
+
+                    if (ct.indexOf('json') > -1) {
+                        console.log(response);
+                        if(response.session_expired){
+                            window.location = response.url;
+                        }
+                    }
                 }
             });
         }
