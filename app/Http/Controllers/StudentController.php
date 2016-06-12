@@ -580,6 +580,37 @@ class StudentController extends Controller
     public function postEditView(){
         $request = \Request::except('_token');
         $this->page_data['type'] = $request['type'];
+        $this->page_data['social_contact_types'] = [
+            (object)[
+                'id' => 1,
+                'code' => 'TWITTER',
+                'name' => 'Twitter',
+                'description' => 'twitter',
+                'icon' => 'rounded-x tw fa fa-twitter',
+                'api' => ''
+            ],(object)[
+                'id' => 2,
+                'code' => 'FB',
+                'name' => 'Facebook',
+                'description' => 'facebook',
+                'icon' => 'rounded-x fb fa fa-facebook',
+                'api' => ''
+            ],(object)[
+                'id' => 3,
+                'code' => 'Skype',
+                'name' => 'Skype',
+                'description' => 'skype',
+                'icon' => 'rounded-x sk fa fa-skype',
+                'api' => ''
+            ],(object)[
+                'id' => 4,
+                'code' => 'G+',
+                'name' => 'Google plus',
+                'description' => 'google-plus',
+                'icon' => 'rounded-x gp fa fa-google-plus',
+                'api' => ''
+            ]
+        ];
         return view('student.myprofile.edit')->with($this->page_data);
     }
 
