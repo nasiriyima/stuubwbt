@@ -41,10 +41,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getStudentProfile()
+    public function getStudentProfile($id)
     {
-        $this->page_data['students'] = \App\User::studentUsers();
-        return view('admin.studentmanager', $this->page_data);
+        $this->page_data['student'] = \App\User::find(\Crypt::decrypt($id));
+        $this->page_data['performances'] = \App\ExamProvider::all();
+        return view('admin.studentprofile', $this->page_data);
     }
     
     public function getUsersManagement()
@@ -118,5 +119,39 @@ class AdminController extends Controller
     public function getProviderManager()
     {
         return view('admin.providermanager');
+    }
+
+    public function getNews($id = NULL)
+    {
+        if(empty($id)){
+            $page_data['news'] = \App\News::withTrashed()->get()->chunk(4);
+            return view('admin.news.newsindex', $page_data);
+        }else{
+            $page_data['newsitem'] = \App\News::find(\Crypt::decrypt($id));
+            dd('item view');
+        }
+
+    }
+
+    public function getNewsItem($param1 = NULL)
+    {
+        if($param1 == 'add'){
+            $page_data['news'] = \App\News::withTrashed()->get()->chunk(4);
+            return view('admin.news.addnews', $page_data);
+        }
+
+    }
+
+    public function postAddNews()
+    {
+       $formData = \Request::all();
+
+        $news = new \App\News();
+        $news->user_id = 1;
+        $news->title = $formData['title'];
+        $news->caption = $formData['caption'];
+        $news->post = $formData['body'];
+        $news->status = 0;
+        $news->save();
     }
 }

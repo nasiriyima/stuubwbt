@@ -80,7 +80,7 @@
 /* Logo
 ------------------------------------*/
 .header-v7 .logo img {
-    width: 150px;
+    width: 100px;
 }
 
 @media (min-width: 768px) {
