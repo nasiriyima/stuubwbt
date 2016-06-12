@@ -1,6 +1,7 @@
 <div class="row">
     <div class="panel-body">
-        <form action="#" class="sky-form">
+        <form action="{{ url('student/edit-profile') }}" method="post" class="sky-form">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <header>{{ strtoupper($type) }}</header>
 
             <fieldset {{ ($type == 'description')? '': 'style=display:none'}}>
@@ -22,7 +23,7 @@
                                     $contacts = json_decode($social_contact);
                                     $existing = [];
                              /*--}}
-                            <select data-placeholder="Existing social contacts" multiple style="width: 806px;" name="social_contacts[]" aria-multiselectable="true" class="chosen-select">
+                            <select data-placeholder="Existing social contacts" multiple style="width: 806px;" name="existing_social_contacts[]" aria-multiselectable="true" class="chosen-select">
                                 @foreach($contacts as $contact_type => $contact)
                                     {{--*/ array_push($existing, strtolower($contact_type)); /*--}}
                                         <option value="{{ json_encode([$contact_type => $contact]) }}" selected>{{ $contact->name }}</option>
@@ -36,8 +37,8 @@
                     <label class="label">Social Contact Type</label>
                     <label class="select">
                         @if(isset($user->profile->social_contact) && $user->profile->social_contact != "")
-                            <select>
-                                <option value="0">Choose a social contact type</option>
+                            <select name="social_contact">
+                                <option value="">Choose a social contact type</option>
                                 @foreach($social_contact_types as $social_contact_type)
                                     @if(!in_array(strtolower($social_contact_type->name), $existing))
                                         <option value="{{ json_encode([$social_contact_type->name => [
@@ -48,8 +49,8 @@
                                 @endforeach
                             </select>
                         @else
-                            <select>
-                                <option value="0">Choose a social contact type</option>
+                            <select name="social_contact">
+                                <option value="">Choose a social contact type</option>
                                 @foreach($social_contact_types as $social_contact_type)
                                     <option value="{{ json_encode([$social_contact_type->name => [
                                         'icon' => $social_contact_type->icon
@@ -65,14 +66,14 @@
                         <label class="label">Social Contact Name</label>
                         <label class="input">
                             <i class="icon-append fa fa-user"></i>
-                            <input type="text" name="name" value="" placeholder="Social Media Name">
+                            <input type="text" name="social_contact_name" value="" placeholder="Social Media Name">
                         </label>
                     </section>
                     <section class="col col-6">
                         <label class="label">Social Contact Address</label>
                         <label class="input">
                             <i class="icon-append fa fa-globe"></i>
-                            <input type="text" name="address" value="" placeholder="Social contact address or link to page">
+                            <input type="url" name="social_contact_address" value="" placeholder="Social contact address or link to page">
                         </label>
                     </section>
                 </div>
@@ -84,7 +85,7 @@
                         <label class="select">
                             <i class="icon-append fa fa-mortar-board"></i>
                             <select>
-                                <option value="0">Choose a school</option>
+                                <option value="">Choose a school</option>
                                 @foreach($schools as $school)
                                     <option value="{{ $school->id }}">{{ $school->code }} - {{ $school->name }}</option>
                                 @endforeach

@@ -23,6 +23,7 @@ class CreateProfileTable extends Migration
             $table->date('dob')->nullable();
             $table->text('social_contact')->nullable();
             $table->integer('school_id')->default(0);
+            $table->text('education')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();

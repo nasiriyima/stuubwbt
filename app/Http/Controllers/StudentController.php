@@ -615,6 +615,55 @@ class StudentController extends Controller
         return view('student.myprofile.edit')->with($this->page_data);
     }
 
+    public function postEditProfile(){
+        $request = \Request::except('_token');
+        if(isset($this->page_data['user']->profile)){
+            $profile = \App\Profile::find($this->page_data['user']->profile->id);
+            if(isset($request['nick_name']) && $request['nick_name'] != '' && $request['nick_name'] != NULL){
+                $profile->nick_name = $request['nick_name'];
+            }
+            if(isset($request['description']) && $request['description'] != '' && $request['description'] != NULL){
+                $profile->description = $request['description'];
+            }
+            if(isset($request['phone']) && $request['phone'] != '' && $request['phone'] != NULL){
+                $profile->phone = $request['phone'];
+            }
+            if(isset($request['email']) && $request['email'] != '' && $request['email'] != NULL){
+                $profile->email = $request['email'];
+            }
+            if(isset($request['address']) && $request['address'] != '' && $request['address'] != NULL){
+                $profile->address = $request['address'];
+            }
+            if(isset($request['dob']) && $request['dob'] != '' && $request['dob'] != NULL){
+                $profile->dob = $request['dob'];
+            }
+            if(isset($request['social_contact']) && $request['social_contact'] != '' && $request['social_contact'] != NULL){
+                dd($request['social_contact']);
+                $profile->social_contact = $request['nick_name'];
+            }
+            if(isset($request['school_id']) && $request['school_id'] != '' && $request['school_id'] != NULL){
+                $profile->nick_name = $request['nick_name'];
+            }
+            if(isset($request['education']) && $request['education'] != '' && $request['education'] != NULL){
+                $profile->nick_name = $request['nick_name'];
+            }
+            $profile->save();
+        } else {
+            $profile = new \App\Profile();
+            $profile->user_id = $this->page_data['user']->id;
+            $profile->nick_name = isset($request['nick_name'])? $request['nick_name'] : '';
+            $profile->description = isset($request['description'])? $request['description'] : '';
+            $profile->phone = isset($request['phone'])? $request['phone'] : '';
+            $profile->email = isset($request['email'])? $request['email'] : '';
+            $profile->address = isset($request['address'])? $request['address'] : '';
+            $profile->dob = isset($request['dob'])? $request['dob'] : '';
+            $profile->social_contact = isset($request['social_contact'])? json_encode( $request['social_contact']) : '';
+            $profile->school_id = isset($request['school_id'])? $request['school_id'] : '';
+            $profile->education = isset($request['education'])? $request['education'] : '';
+            $profile->save();
+        }
+    }
+
     public function getMyFriends(){
         $this->page_data['page_name'] = 'friends';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?

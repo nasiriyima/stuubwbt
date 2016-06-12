@@ -17,8 +17,9 @@ class CreateSchoolTable extends Migration
             $table->string('code')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->integer('status')->default(0);
-            $table->integer('user')->default(0);
+            $table->integer('lga_id')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->integer('user_id')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
