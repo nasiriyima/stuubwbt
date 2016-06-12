@@ -13,21 +13,28 @@
 
                 <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                     <li class="list-group-item active">
-                            <a href="page_profile.html"><i class="fa fa-bar-chart-o"></i> Overall</a>
+                            <a href="javascript:window.close()"><i class="fa fa-bar-chart-o"></i> Close Scoreboard</a>
                     </li>
-                    <li class="list-group-item">
-                            <a href="page_profile_me.html"><i class="fa fa-user"></i> My Profile</a>
-                    </li>
-                    <li class="list-group-item">
-                            <a href="page_profile_users.html"><i class="fa fa-group"></i> My Relationship</a>
-                    </li>
-                    <li class="list-group-item">
-                            <a href="<?php echo e(url('student/my-record')); ?>"><i class="fa fa-history"></i> My Records</a>
-                    </li>
-                    <li class="list-group-item">
-                                <a href="page_profile_settings.html"><i class="fa fa-cog"></i> My Settings</a>
-                        </li>
                 </ul>
+                <div class="panel-heading-v2 overflow-h">
+                    <h2 class="heading-xs pull-left"><i class="fa fa-bar-chart-o"></i>Overall Progress</h2>
+                    <a href="#"><i class="fa fa-cog pull-right"></i></a>
+                </div>
+                <h3 class="heading-xs">Web Design <span class="pull-right">92%</span></h3>
+                <div class="progress progress-u progress-xxs">
+                    <div style="width: 92%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="92" role="progressbar" class="progress-bar progress-bar-u">
+                    </div>
+                </div>
+                <h3 class="heading-xs">Unify Project <span class="pull-right">85%</span></h3>
+                <div class="progress progress-u progress-xxs">
+                    <div style="width: 85%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="85" role="progressbar" class="progress-bar progress-bar-blue">
+                    </div>
+                </div>
+                <h3 class="heading-xs">Sony Corporation <span class="pull-right">64%</span></h3>
+                <div class="progress progress-u progress-xxs margin-bottom-40">
+                    <div style="width: 64%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="64" role="progressbar" class="progress-bar progress-bar-dark">
+                    </div>
+                </div>
             </div>
         </div> 
     </nav>

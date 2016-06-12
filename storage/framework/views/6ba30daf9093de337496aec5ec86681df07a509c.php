@@ -65,7 +65,7 @@
         <div class="panel panel-profile">
             <div class="panel-heading overflow-h">
                 <h2 class="panel-title heading-sm pull-left"><i class="fa fa-mortar-board"></i> Education</h2>
-                <a href="#"><i class="fa fa-cog hover-hand-cursor pull-right" onclick="showEditModal('school');"></i></a>
+                <a href="#"><i class="fa fa-cog hover-hand-cursor pull-right" onclick="showEditModal('education');"></i></a>
             </div>
             <div class="panel-body">
                 <ul class="timeline-v2 timeline-me">
@@ -99,16 +99,15 @@
                 method: "post",
                 data:{_token:"<?php echo csrf_token(); ?>", type:type},
                 success:function(response, status, xhr){
-                    var ct = xhr.getResponseHeader("content-type") || "";
+                    var header_content_type = xhr.getResponseHeader("content-type") || "";
 
-                    if (ct.indexOf('html') > -1) {
+                    if (header_content_type.indexOf('html') > -1) {
                         $(".bs-example-modal-lg .modal-body").html(response);
                         $(".bs-example-modal-lg #edit-title").html(type.toString().toUpperCase());
                         $(".bs-example-modal-lg").modal("show");
                     }
 
-                    if (ct.indexOf('json') > -1) {
-                        console.log(response);
+                    if (header_content_type.indexOf('json') > -1) {
                         if(response.session_expired){
                             window.location = response.url;
                         }

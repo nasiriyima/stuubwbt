@@ -67,7 +67,7 @@
         <div class="panel panel-profile">
             <div class="panel-heading overflow-h">
                 <h2 class="panel-title heading-sm pull-left"><i class="fa fa-mortar-board"></i> Education</h2>
-                <a href="#"><i class="fa fa-cog hover-hand-cursor pull-right" onclick="showEditModal('school');"></i></a>
+                <a href="#"><i class="fa fa-cog hover-hand-cursor pull-right" onclick="showEditModal('education');"></i></a>
             </div>
             <div class="panel-body">
                 <ul class="timeline-v2 timeline-me">
