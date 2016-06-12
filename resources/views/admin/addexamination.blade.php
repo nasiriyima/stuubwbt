@@ -53,10 +53,36 @@
                         <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <select>
-                                    <option value="1">test</option>
+                                <select class="gender">
+                                    <option value="" selected disabled>select - information</option>
+                                    @foreach($information as $info)
+                                    <option value="{{ $info->id }}">{{ $info->name }}</option>
+                                    @endforeach
+                                    <i></i>
                                 </select>
                             </label>
+                        </section>
+                        <section>
+                            <a class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
+                            <div class="modal fade" id="add_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel4">Enter Additional Information</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label class="textarea">
+                                                <textarea rows="4" name="question_name" placeholder="Question Text" id="question"></textarea>
+                                            </label>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn-u btn-u-default" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn-u btn-u-primary">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>
