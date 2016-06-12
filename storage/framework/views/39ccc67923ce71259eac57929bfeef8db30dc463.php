@@ -1,33 +1,31 @@
-@extends('student_layout')
-
-@section('pagecss')
+<?php $__env->startSection('pagecss'); ?>
         <!-- CSS Page Style -->
-<link rel="stylesheet" href="{{ asset('public/assets/css/pages/profile.css') }}">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/profile.css')); ?>">
 <style>
     .hover-hand-cursor{ cursor: pointer; }
 </style>
-@yield('pagestyles')
-@stop
+<?php echo $__env->yieldContent('pagestyles'); ?>
+<?php $__env->stopSection(); ?>
 
-@section('maincontent')
+<?php $__env->startSection('maincontent'); ?>
         <!--=== Profile ===-->
 <div class="content profile">
     <!--Left Sidebar-->
     <div class="col-md-4 profile-body md-margin-bottom-40">
-        <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg') }}" alt="{{ $user->first_name }}">
+        <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="<?php echo e((isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg')); ?>" alt="<?php echo e($user->first_name); ?>">
 
         <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
-            <li class="list-group-item {{ ($page_name == 'profile')? 'active' : '' }}">
-                <a href="{{ url('student/my-profile') }}"><i class="fa fa-user"></i> Profile</a>
+            <li class="list-group-item <?php echo e(($page_name == 'profile')? 'active' : ''); ?>">
+                <a href="<?php echo e(url('student/my-profile')); ?>"><i class="fa fa-user"></i> Profile</a>
             </li>
-            <li class="list-group-item {{ ($page_name == 'friends')? 'active' : '' }}">
-                <a href="{{ url('student/my-friends') }}"><i class="fa fa-group"></i> Friends</a>
+            <li class="list-group-item <?php echo e(($page_name == 'friends')? 'active' : ''); ?>">
+                <a href="<?php echo e(url('student/my-friends')); ?>"><i class="fa fa-group"></i> Friends</a>
             </li>
-            <li class="list-group-item {{ ($page_name == 'messages')? 'active' : '' }}">
-                <a href="{{ url('student/my-conversations') }}"><i class="fa fa-comments"></i> Messages</a>
+            <li class="list-group-item <?php echo e(($page_name == 'messages')? 'active' : ''); ?>">
+                <a href="<?php echo e(url('student/my-conversations')); ?>"><i class="fa fa-comments"></i> Messages</a>
             </li>
-            <li class="list-group-item {{ ($page_name == 'settings')? 'active' : '' }}">
-                <a href="{{ url('student/my-settings') }}"><i class="fa fa-cog"></i> Settings</a>
+            <li class="list-group-item <?php echo e(($page_name == 'settings')? 'active' : ''); ?>">
+                <a href="<?php echo e(url('student/my-settings')); ?>"><i class="fa fa-cog"></i> Settings</a>
             </li>
         </ul>
 
@@ -88,7 +86,7 @@
 
     <!-- Profile Content -->
     <div class="col-md-8">
-        @yield('pagecontent')
+        <?php echo $__env->yieldContent('pagecontent'); ?>
         <div class="profile-body margin-bottom-20">
             <div class="panel">
                 <div class="panel-heading headline headline-sm"><h2 class="heading-sm"><i class="fa fa-pie-chart"></i>Stats</h2></div>
@@ -101,11 +99,11 @@
                     </div>
                     <div class="counters col-md-3 col-sm-3">
                         <span class="counter-icon"><i class="fa fa-users rounded"></i></span>
-                        <span class="counter">{{ $friendsStats }}</span>
+                        <span class="counter"><?php echo e($friendsStats); ?></span>
                     </div>
                     <div class="counters col-md-3 col-sm-3">
                         <span class="counter-icon"><i class="fa fa-envelope rounded"></i></span>
-                        <span class="counter">{{ $messageStats }}</span>
+                        <span class="counter"><?php echo e($messageStats); ?></span>
                     </div>
                 </div>
             </div>
@@ -126,19 +124,20 @@
     </div>
 </div>
 <!-- Large modal -->
-@stop
-@section('pagejs')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagejs'); ?>
     <script type="text/javascript">
-        var profileStats = "{!! $profileStats !!}";
+        var profileStats = "<?php echo $profileStats; ?>";
     </script>
-    <script type="text/javascript" src="{{ asset('public/assets/js/plugins/datepicker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/circles-master/circles.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/js/plugins/circles-master.js') }}"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/datepicker.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/circles-master/circles.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/circles-master.js')); ?>"></script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             Datepicker.initDatepicker();
             CirclesMaster.initCirclesMaster1();
         });
     </script>
-    @yield('pagescripts')
-@stop
+    <?php echo $__env->yieldContent('pagescripts'); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('student_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

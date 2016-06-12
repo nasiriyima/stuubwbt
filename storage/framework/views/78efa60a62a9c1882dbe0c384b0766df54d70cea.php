@@ -1,17 +1,15 @@
-@extends('student.myprofile.myprofile_layout')
+<?php $__env->startSection('pagestyles'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/shortcode_timeline1.css')); ?>">
+<?php $__env->stopSection(); ?>
 
-@section('pagestyles')
-    <link rel="stylesheet" href="{{ asset('public/assets/css/pages/shortcode_timeline1.css') }}">
-@stop
-
-@section('pagecontent')
+<?php $__env->startSection('pagecontent'); ?>
     <div class="profile-body">
         <ul class="timeline-v1">
             <li>
                 <div class="timeline-badge primary"><i class="glyphicon glyphicon-record"></i></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <img class="img-responsive" src="{{ asset('public/assets/img/main/img10.jpg') }}" alt=""/>
+                        <img class="img-responsive" src="<?php echo e(asset('public/assets/img/main/img10.jpg')); ?>" alt=""/>
                     </div>
                     <div class="timeline-body text-justify">
                         <h2><a href="#">Timeline Heading</a></h2>
@@ -31,7 +29,7 @@
                 <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <img class="img-responsive" src="{{ asset('public/assets/img/main/img12.jpg') }}" alt=""/>
+                        <img class="img-responsive" src="<?php echo e(asset('public/assets/img/main/img12.jpg')); ?>" alt=""/>
                     </div>
                     <div class="timeline-body text-justify">
                         <h2><a href="#">Timeline Heading</a></h2>
@@ -163,8 +161,9 @@
             <li class="clearfix" style="float: none;"></li>
         </ul>
     </div>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('pagescripts')
+<?php $__env->startSection('pagescripts'); ?>
 
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('student.myprofile.myprofile_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

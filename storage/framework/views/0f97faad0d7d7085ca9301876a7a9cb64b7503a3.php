@@ -4,7 +4,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
     <head>
-        <title>Stuub - WBT | {{ $page_name or ''  }}</title>
+        <title>Stuub - WBT | <?php echo e(isset($page_name) ? $page_name : ''); ?></title>
         <!-- Meta -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
         <link rel="shortcut icon" href="favicon.ico">
         <!-- Web Fonts -->
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin">
-        @include('student.include.header_css')
+        <?php echo $__env->make('student.include.header_css', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </head>
     <body>
         <div id="fb-root"></div>
@@ -27,19 +27,19 @@
             }(document, 'script', 'facebook-jssdk'));
         </script>
         <div class="wrapper">
-            @include('student.include.sidemenu')
+            <?php echo $__env->make('student.include.sidemenu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             <!--=== Content Side Left Right ===-->
             <div class="content-side-right">
                 <div class="container content">
-                    @yield('maincontent')
+                    <?php echo $__env->yieldContent('maincontent'); ?>
                 </div>
-                @include('student.include.footer')
+                <?php echo $__env->make('student.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             </div>
             <!--=== End Content Side Left Right ===-->
         </div><!--/wrapper-->
         <script type="text/javascript"> var timeleft="00:00:00"; </script>
-        @include('student.include.scripts_js')
-        @yield('pagejs')
+        <?php echo $__env->make('student.include.scripts_js', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo $__env->yieldContent('pagejs'); ?>
 
     </body>
 </html>

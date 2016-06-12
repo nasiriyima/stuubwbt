@@ -580,6 +580,7 @@ class StudentController extends Controller
     public function postEditView(){
         $request = \Request::except('_token');
         $this->page_data['type'] = $request['type'];
+        $this->page_data['schools'] = \App\School::all();
         $this->page_data['social_contact_types'] = [
             (object)[
                 'id' => 1,

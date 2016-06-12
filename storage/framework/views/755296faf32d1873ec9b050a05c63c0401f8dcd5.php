@@ -1,63 +1,63 @@
 <div class="row">
     <div class="panel-body">
         <form action="#" class="sky-form">
-            <header>{{ strtoupper($type) }}</header>
+            <header><?php echo e(strtoupper($type)); ?></header>
 
-            <fieldset {{ ($type == 'description')? '': 'style=display:none'}}>
+            <fieldset <?php echo e(($type == 'description')? '': 'style=display:none'); ?>>
                 <section>
                     <label class="label">Edit Description</label>
                     <label class="textarea textarea-expandable">
-                        <textarea rows="3">{{ isset($user->profile->description)? $user->profile->description : ''}}</textarea>
+                        <textarea rows="3"><?php echo e(isset($user->profile->description)? $user->profile->description : ''); ?></textarea>
                     </label>
                     <div class="note"><strong>Note:</strong> expands on focus.</div>
                 </section>
             </fieldset>
-            <fieldset {{ ($type == 'social_contact')? '': 'style=display:none'}}>
-                @if(isset($user->profile->social_contact) && $user->profile->social_contact != "")
+            <fieldset <?php echo e(($type == 'social_contact')? '': 'style=display:none'); ?>>
+                <?php if(isset($user->profile->social_contact) && $user->profile->social_contact != ""): ?>
                 <section>
                     <label class="label">Existing Social Media Contacts</label>
                     <label class="select">
-                            {{--*/
+                            <?php /**/
                                     $social_contact = $user->profile->social_contact;
                                     $contacts = json_decode($social_contact);
                                     $existing = [];
-                             /*--}}
+                             /**/ ?>
                             <select data-placeholder="Existing social contacts" multiple style="width: 806px;" name="social_contacts[]" aria-multiselectable="true" class="chosen-select">
-                                @foreach($contacts as $contact_type => $contact)
-                                    {{--*/ array_push($existing, strtolower($contact_type)); /*--}}
-                                        <option value="{{ json_encode([$contact_type => $contact]) }}" selected>{{ $contact->name }}</option>
-                                @endforeach
+                                <?php foreach($contacts as $contact_type => $contact): ?>
+                                    <?php /**/ array_push($existing, strtolower($contact_type)); /**/ ?>
+                                        <option value="<?php echo e(json_encode([$contact_type => $contact])); ?>" selected><?php echo e($contact->name); ?></option>
+                                <?php endforeach; ?>
                             </select>
                     </label>
                     <div class="note"><strong>Note:</strong> Removing options from list deletes existing social contacts.</div>
                 </section>
-                @endif
+                <?php endif; ?>
                 <section>
                     <label class="label">Social Contact Type</label>
                     <label class="select">
-                        @if(isset($user->profile->social_contact) && $user->profile->social_contact != "")
+                        <?php if(isset($user->profile->social_contact) && $user->profile->social_contact != ""): ?>
                             <select>
                                 <option value="0">Choose a social contact type</option>
-                                @foreach($social_contact_types as $social_contact_type)
-                                    @if(!in_array(strtolower($social_contact_type->name), $existing))
-                                        <option value="{{ json_encode([$social_contact_type->name => [
+                                <?php foreach($social_contact_types as $social_contact_type): ?>
+                                    <?php if(!in_array(strtolower($social_contact_type->name), $existing)): ?>
+                                        <option value="<?php echo e(json_encode([$social_contact_type->name => [
                                         'icon' => $social_contact_type->icon
                                         ]
-                                        ]) }}">{{ $social_contact_type->name }}</option>
-                                    @endif
-                                @endforeach
+                                        ])); ?>"><?php echo e($social_contact_type->name); ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </select>
-                        @else
+                        <?php else: ?>
                             <select>
                                 <option value="0">Choose a social contact type</option>
-                                @foreach($social_contact_types as $social_contact_type)
-                                    <option value="{{ json_encode([$social_contact_type->name => [
+                                <?php foreach($social_contact_types as $social_contact_type): ?>
+                                    <option value="<?php echo e(json_encode([$social_contact_type->name => [
                                         'icon' => $social_contact_type->icon
                                         ]
-                                        ]) }}">{{ $social_contact_type->name }}</option>
-                                @endforeach
+                                        ])); ?>"><?php echo e($social_contact_type->name); ?></option>
+                                <?php endforeach; ?>
                             </select>
-                        @endif
+                        <?php endif; ?>
                     </label>
                 </section>
                 <div class="row">
@@ -77,7 +77,7 @@
                     </section>
                 </div>
             </fieldset>
-            <fieldset {{ ($type == 'education')? '': 'style=display:none'}}>
+            <fieldset <?php echo e(($type == 'education')? '': 'style=display:none'); ?>>
                 <div class="row">
                     <section class="col col-6">
                         <label class="label">School</label>
@@ -85,9 +85,9 @@
                             <i class="icon-append fa fa-mortar-board"></i>
                             <select>
                                 <option value="0">Choose a school</option>
-                                @foreach($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->code }} - {{ $school->name }}</option>
-                                @endforeach
+                                <?php foreach($schools as $school): ?>
+                                    <option value="<?php echo e($school->id); ?>"><?php echo e($school->code); ?> - <?php echo e($school->name); ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </label>
                     </section>
