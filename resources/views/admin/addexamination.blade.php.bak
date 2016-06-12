@@ -53,12 +53,17 @@
                         <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
+<<<<<<< HEAD
+                                <select>
+                                    <option value="1">test</option>
+=======
                                 <select class="gender">
                                     <option value="" selected disabled>select - information</option>
                                     @foreach($information as $info)
                                     <option value="{{ $info->id }}">{{ $info->name }}</option>
                                     @endforeach
                                     <i></i>
+>>>>>>> 74efd9f80a6b06a8109c4440d6ed9cda9d3e8f4e
                                 </select>
                             </label>
                         </section>
@@ -73,7 +78,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <label class="textarea">
-                                                <textarea rows="4" name="add_info" placeholder="Question Text" id="add_info"></textarea>
+                                                <textarea rows="4" name="question_name" placeholder="Question Text" id="question"></textarea>
                                             </label>
                                         </div>
                                         <div class="modal-footer">

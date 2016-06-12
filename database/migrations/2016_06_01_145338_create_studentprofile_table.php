@@ -29,5 +29,6 @@ class CreateStudentprofileTable extends Migration
     public function down()
     {
         //
+        Schema::drop('student_profiles');
     }
 }
