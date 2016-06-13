@@ -43,9 +43,18 @@ class AdminController extends Controller
      */
     public function getStudentProfile($id)
     {
-        $this->page_data['student'] = \App\User::find(\Crypt::decrypt($id));
-        $this->page_data['performances'] = \App\ExamProvider::all();
-        return view('admin.studentprofile', $this->page_data);
+        $this->page_data['user'] = \App\User::find(\Crypt::decrypt($id));
+        $this->page_data['inbox_count'] = 0;
+        $this->page_data['saved_count'] = 0;
+        $this->page_data['deleted_count'] = 0;
+        //$this->page_data['performances'] = \App\ExamProvider::all();
+       // return view('admin.studentprofile', $this->page_data);
+        $this->page_data['page_name'] = 'profile';
+        $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
+            $this->page_data['user']->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        return view('student.myprofile.index')->with($this->page_data);
     }
     
     public function getUsersManagement()

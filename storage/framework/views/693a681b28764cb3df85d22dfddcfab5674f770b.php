@@ -1,9 +1,7 @@
-@extends('admin_layout')
-
-@section('pagetitle')
+<?php $__env->startSection('pagetitle'); ?>
 NEWS MANAGEMENT
-@stop
-@section('maincontent')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
     <div class="row">
         <div class="col-md-12">
             <div class="row margin-bottom-40">
@@ -28,7 +26,7 @@ NEWS MANAGEMENT
                     </ul>
                 </div>
                 <div class="col-md-3 pull-right">
-                    <a href="{{url('admin/news-item/add')}}">
+                    <a href="<?php echo e(url('admin/news-item/add')); ?>">
                         <center>
                             <i class="icon-custom rounded-x icon-bg-grey icon-line  icon-plus"></i><br/>
                             <strong>ADD NEWS</strong>
@@ -41,39 +39,40 @@ NEWS MANAGEMENT
     </div>
     <div class="col-md-12">
         <div class="tab-content">
-            @foreach($news as $key => $group)
-                <div class="tab-pane fade in {{ ($key+1 == 1)? 'active': '' }}" id="page-{{ $key+1 }}">
-                    @foreach($group as $newsitem)
+            <?php foreach($news as $key => $group): ?>
+                <div class="tab-pane fade in <?php echo e(($key+1 == 1)? 'active': ''); ?>" id="page-<?php echo e($key+1); ?>">
+                    <?php foreach($group as $newsitem): ?>
                         <div class="row">
                             <div class="col-sm-12 news-v3">
                                 <div class="news-v3-in-sm no-padding">
                                     <ul class="list-inline posted-info">
-                                        <li>By {{$newsitem->user->first_name}} {{$newsitem->user->last_name}}</li>
-                                        <li>Posted {{$newsitem->created_at->format('F d, Y' )}}</li>
+                                        <li>By <?php echo e($newsitem->user->first_name); ?> <?php echo e($newsitem->user->last_name); ?></li>
+                                        <li>Posted <?php echo e($newsitem->created_at->format('F d, Y' )); ?></li>
                                     </ul>
-                                    <h2><a href="{{url('')}}">{{$newsitem->title}}</a><span class="label label-default">test</span></h2>
-                                    <p>{{$newsitem->caption}}</p>
+                                    <h2><a href="<?php echo e(url('')); ?>"><?php echo e($newsitem->title); ?></a><span class="label label-default">test</span></h2>
+                                    <p><?php echo e($newsitem->caption); ?></p>
                                 </div>
                             </div>
                         </div>
                         <div class="clearfix margin-bottom-20"><hr></div>
-                    @endforeach
+                    <?php endforeach; ?>
                 </div>
-            @endforeach
+            <?php endforeach; ?>
         </div>
 
         <div class="text-center">
             <ul class="pagination">
                 <li><a href="#page-1" data-toggle="tab">&laquo;</a></li>
-                @for($x=1;$x<=count($news);$x++)
-                    <li class="($x==1)?'active': '';"><a href="#page-{{$x}}" data-toggle="tab">{{ $x }}</a></li>
-                @endfor
-                <li><a href="#page-{{ count($news) }}" data-toggle="tab">&raquo;</a></li>
+                <?php for($x=1;$x<=count($news);$x++): ?>
+                    <li class="($x==1)?'active': '';"><a href="#page-<?php echo e($x); ?>" data-toggle="tab"><?php echo e($x); ?></a></li>
+                <?php endfor; ?>
+                <li><a href="#page-<?php echo e(count($news)); ?>" data-toggle="tab">&raquo;</a></li>
             </ul>
         </div>
 
     </div>
-@stop
-@section('pagejs')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagejs'); ?>
 
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
