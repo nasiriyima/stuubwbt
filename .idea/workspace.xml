@@ -44,10 +44,14 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e9c5e0777a79c2fa728f1960c88db351e0734e8b.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2016_06_01_131928_create_profile_table.php" afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_131928_create_profile_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2016_06_01_152555_create_school_table.php" afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_152555_create_school_table.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/39ccc67923ce71259eac57929bfeef8db30dc463.php" afterPath="$PROJECT_DIR$/storage/framework/views/39ccc67923ce71259eac57929bfeef8db30dc463.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/3d4705a39278c8922ef2d30e94b0becc46e0af06.php" afterPath="$PROJECT_DIR$/storage/framework/views/3d4705a39278c8922ef2d30e94b0becc46e0af06.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/755296faf32d1873ec9b050a05c63c0401f8dcd5.php" afterPath="$PROJECT_DIR$/storage/framework/views/755296faf32d1873ec9b050a05c63c0401f8dcd5.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/d11fbc9d516842b2dda267fecc64fa10684cc6e0.php" afterPath="$PROJECT_DIR$/storage/framework/views/d11fbc9d516842b2dda267fecc64fa10684cc6e0.php" />
     </list>
     <ignored path="stuubwbt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,8 +76,8 @@
       <file leaf-file-name="StudentController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.26923">
-              <caret line="640" column="47" selection-start-line="640" selection-start-column="47" selection-end-line="640" selection-end-column="47" />
+            <state vertical-scroll-proportion="-2.0">
+              <caret line="598" column="14" selection-start-line="598" selection-start-column="14" selection-end-line="598" selection-end-column="14" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -81,19 +85,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="friends.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.20512821">
+              <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+              <folding>
+                <element signature="e#296#500#0#HTML" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.765812">
-              <caret line="75" column="67" selection-start-line="75" selection-start-column="67" selection-end-line="75" selection-end-column="67" />
+            <state vertical-scroll-proportion="-4.1923075">
+              <caret line="25" column="141" selection-start-line="25" selection-start-column="117" selection-end-line="25" selection-end-column="141" />
               <folding>
                 <element signature="n#style#0;n#select#0;n#label#1;n#section#0;n#fieldset#1;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <marker date="1465769470159" expanded="true" signature="2870:3063" placeholder="..." />
-                <marker date="1465769470159" expanded="true" signature="2871:3062" placeholder="..." />
-                <marker date="1465769470159" expanded="true" signature="2902:3020" placeholder="..." />
-                <marker date="1465769470159" expanded="true" signature="3566:3759" placeholder="..." />
-                <marker date="1465769470159" expanded="true" signature="3567:3758" placeholder="..." />
-                <marker date="1465769470159" expanded="true" signature="3598:3716" placeholder="..." />
+                <marker date="1465827203302" expanded="true" signature="2884:3077" placeholder="..." />
+                <marker date="1465827203302" expanded="true" signature="2885:3076" placeholder="..." />
+                <marker date="1465827203302" expanded="true" signature="2916:3034" placeholder="..." />
+                <marker date="1465827203302" expanded="true" signature="3594:3787" placeholder="..." />
+                <marker date="1465827203302" expanded="true" signature="3595:3786" placeholder="..." />
+                <marker date="1465827203302" expanded="true" signature="3626:3744" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -112,8 +128,8 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-50.46154">
-              <caret line="128" column="35" selection-start-line="128" selection-start-column="35" selection-end-line="128" selection-end-column="35" />
+            <state vertical-scroll-proportion="-68.0">
+              <caret line="104" column="299" selection-start-line="104" selection-start-column="299" selection-end-line="104" selection-end-column="299" />
               <folding />
             </state>
           </provider>
@@ -122,10 +138,11 @@
       <file leaf-file-name="myprofile_layout.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.3076923">
-              <caret line="54" column="25" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="25" />
+            <state vertical-scroll-proportion="-4.6153846">
+              <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="44" />
               <folding>
-                <element signature="e#4623#5521#0#HTML" expanded="false" />
+                <element signature="e#1699#1806#0#HTML" expanded="false" />
+                <element signature="e#4624#5522#0#HTML" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -184,19 +201,19 @@
         <option value="$PROJECT_DIR$/resources/views/student/mymessage/saved.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student/profile/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myprofile/settings.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/js/plugins/circles-master.js" />
         <option value="$PROJECT_DIR$/app/Profile.php" />
         <option value="$PROJECT_DIR$/app/Exceptions/Handler.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myexam/score.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student_layout.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myprofile/conversations.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2016_06_01_131928_create_profile_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2016_06_01_152555_create_school_table.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
+        <option value="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
+        <option value="$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php" />
       </list>
     </option>
   </component>
@@ -357,38 +374,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuubwbt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuubwbt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuubwbt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuubwbt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -765,13 +750,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6803419">
-          <caret line="208" column="10" selection-start-line="208" selection-start-column="10" selection-end-line="208" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/settings.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.02905983">
@@ -865,12 +843,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/conversations.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.26923">
-          <caret line="640" column="47" selection-start-line="640" selection-start-column="47" selection-end-line="640" selection-end-column="47" />
+        <state vertical-scroll-proportion="-9.153846">
+          <caret line="169" column="5" selection-start-line="169" selection-start-column="5" selection-end-line="169" selection-end-column="5" />
           <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
+            <element signature="e#239#10339#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -883,46 +861,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-50.46154">
-          <caret line="128" column="35" selection-start-line="128" selection-start-column="35" selection-end-line="128" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3076923">
-          <caret line="54" column="25" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="25" />
+        <state vertical-scroll-proportion="-4.6153846">
+          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="44" />
           <folding>
-            <element signature="e#4623#5521#0#HTML" expanded="false" />
+            <element signature="e#1699#1806#0#HTML" expanded="false" />
+            <element signature="e#4624#5522#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/conversations.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.153846">
-          <caret line="169" column="5" selection-start-line="169" selection-start-column="5" selection-end-line="169" selection-end-column="5" />
-          <folding>
-            <element signature="e#239#10339#0#HTML" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-68.0">
+          <caret line="104" column="299" selection-start-line="104" selection-start-column="299" selection-end-line="104" selection-end-column="299" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.765812">
-          <caret line="75" column="67" selection-start-line="75" selection-start-column="67" selection-end-line="75" selection-end-column="67" />
+        <state vertical-scroll-proportion="-4.1923075">
+          <caret line="25" column="141" selection-start-line="25" selection-start-column="117" selection-end-line="25" selection-end-column="141" />
           <folding>
             <element signature="n#style#0;n#select#0;n#label#1;n#section#0;n#fieldset#1;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1465769470159" expanded="true" signature="2870:3063" placeholder="..." />
-            <marker date="1465769470159" expanded="true" signature="2871:3062" placeholder="..." />
-            <marker date="1465769470159" expanded="true" signature="2902:3020" placeholder="..." />
-            <marker date="1465769470159" expanded="true" signature="3566:3759" placeholder="..." />
-            <marker date="1465769470159" expanded="true" signature="3567:3758" placeholder="..." />
-            <marker date="1465769470159" expanded="true" signature="3598:3716" placeholder="..." />
+            <marker date="1465827203302" expanded="true" signature="2884:3077" placeholder="..." />
+            <marker date="1465827203302" expanded="true" signature="2885:3076" placeholder="..." />
+            <marker date="1465827203302" expanded="true" signature="2916:3034" placeholder="..." />
+            <marker date="1465827203302" expanded="true" signature="3594:3787" placeholder="..." />
+            <marker date="1465827203302" expanded="true" signature="3595:3786" placeholder="..." />
+            <marker date="1465827203302" expanded="true" signature="3626:3744" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0">
+          <caret line="598" column="14" selection-start-line="598" selection-start-column="14" selection-end-line="598" selection-end-column="14" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20512821">
+          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+          <folding>
+            <element signature="e#296#500#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>

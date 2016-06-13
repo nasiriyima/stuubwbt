@@ -51,10 +51,16 @@
                                     @foreach($contacts as $contact_type => $contact)
                                         <li>
                                             <i class="{{ $contact->icon }}"></i><a href="{{ $contact->address }}">{{ $contact->name }}</a>
+                                            @if(strtolower($contact_type) == 'twitter')
+                                                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.stuu">Tweet</a>
+                                            @endif
                                             @if(strtolower($contact_type) == 'facebook')
                                                 <div class="fb-share-button" data-href="http://www.stuub.com" data-layout="button" data-mobile-iframe="false">
                                                     <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.stuub.com%2F&amp;src=sdkpreparse">Share</a>
                                                 </div>
+                                            @endif
+                                            @if(strtolower($contact_type) == 'google plus')
+                                                <div class="g-plus" data-action="share" data-annotation="none"></div>
                                             @endif
                                         </li>
                                     @endforeach
@@ -96,6 +102,8 @@
 
 @section('pagescripts')
     <script type="text/javascript" src="{{ asset('public/assets/plugins/chosen/chosen.jquery.min.js') }}"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="application/javascript">
         $("#uploadfile").on("change",function(){
             $("#file-upload").submit();

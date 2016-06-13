@@ -598,13 +598,6 @@ class StudentController extends Controller
                 'api' => ''
             ],(object)[
                 'id' => 3,
-                'code' => 'Skype',
-                'name' => 'Skype',
-                'description' => 'skype',
-                'icon' => 'rounded-x sk fa fa-skype',
-                'api' => ''
-            ],(object)[
-                'id' => 4,
                 'code' => 'G+',
                 'name' => 'Google plus',
                 'description' => 'google-plus',
@@ -637,9 +630,30 @@ class StudentController extends Controller
             if(isset($request['dob']) && $request['dob'] != '' && $request['dob'] != NULL){
                 $profile->dob = $request['dob'];
             }
-            if(isset($request['social_contact']) && $request['social_contact'] != '' && $request['social_contact'] != NULL){
-                dd($request['social_contact']);
-                $profile->social_contact = $request['nick_name'];
+            if(isset($request['social_contact_type']) && $request['social_contact_type'] != '' && $request['social_contact_type'] != NULL){
+
+                if($request['existing_social_contacts'] != '' && $request['existing_social_contacts'] != NULL){
+                    foreach($request['existing_social_contacts'] as $existing_social_contacts){
+                        $existing_social_contact_type = get_object_vars(json_decode($existing_social_contacts));
+                        foreach($existing_social_contact_type as $name => $detail_obj){
+                            $details['name'] = $request['social_contact_name'];
+                            $details['address'] = $request['social_contact_address'];
+                            $details['icon'] = $detail_obj->icon;
+                            $existing_social_contact[$name] =  $details;
+                        }
+                    }
+                }
+                $social_contact_type = get_object_vars(json_decode($request['social_contact_type']));
+                foreach($social_contact_type as $name => $detail_obj){
+                    $details['name'] = $request['social_contact_name'];
+                    $details['address'] = $request['social_contact_address'];
+                    $details['icon'] = $detail_obj->icon;
+                    $social_contact = [
+                        $name => $details
+                    ];
+                    if(!in_array($name,$existing_social_contact))$social_contact = array_merge($existing_social_contact, $social_contact);
+                }
+                $profile->social_contact = json_encode($social_contact);
             }
             if(isset($request['school_id']) && $request['school_id'] != '' && $request['school_id'] != NULL){
                 $profile->nick_name = $request['nick_name'];
@@ -648,6 +662,7 @@ class StudentController extends Controller
                 $profile->nick_name = $request['nick_name'];
             }
             $profile->save();
+            return redirect()->back()->with('message', 'social contact added successfully');
         } else {
             $profile = new \App\Profile();
             $profile->user_id = $this->page_data['user']->id;
@@ -657,11 +672,13 @@ class StudentController extends Controller
             $profile->email = isset($request['email'])? $request['email'] : '';
             $profile->address = isset($request['address'])? $request['address'] : '';
             $profile->dob = isset($request['dob'])? $request['dob'] : '';
-            $profile->social_contact = isset($request['social_contact'])? json_encode( $request['social_contact']) : '';
+            $profile->social_contact = isset($request['social_contact_type'])? json_encode( $request['social_contact_type']) : '';
             $profile->school_id = isset($request['school_id'])? $request['school_id'] : '';
             $profile->education = isset($request['education'])? $request['education'] : '';
-            $profile->save();
+            $profile->save();return redirect()->back()->with('message', 'social contact added successfully');
+            return redirect()->back()->withErrors();
         }
+        return redirect()->back()->withErrors();
     }
 
     public function getMyFriends(){

@@ -37,7 +37,7 @@
                     <label class="label">Social Contact Type</label>
                     <label class="select">
                         @if(isset($user->profile->social_contact) && $user->profile->social_contact != "")
-                            <select name="social_contact">
+                            <select name="social_contact_type" required>
                                 <option value="">Choose a social contact type</option>
                                 @foreach($social_contact_types as $social_contact_type)
                                     @if(!in_array(strtolower($social_contact_type->name), $existing))
@@ -49,7 +49,7 @@
                                 @endforeach
                             </select>
                         @else
-                            <select name="social_contact">
+                            <select name="social_contact_type" required>
                                 <option value="">Choose a social contact type</option>
                                 @foreach($social_contact_types as $social_contact_type)
                                     <option value="{{ json_encode([$social_contact_type->name => [
@@ -66,14 +66,14 @@
                         <label class="label">Social Contact Name</label>
                         <label class="input">
                             <i class="icon-append fa fa-user"></i>
-                            <input type="text" name="social_contact_name" value="" placeholder="Social Media Name">
+                            <input type="text" name="social_contact_name" value="" placeholder="Social Media Name" required>
                         </label>
                     </section>
                     <section class="col col-6">
                         <label class="label">Social Contact Address</label>
                         <label class="input">
                             <i class="icon-append fa fa-globe"></i>
-                            <input type="url" name="social_contact_address" value="" placeholder="Social contact address or link to page">
+                            <input type="url" name="social_contact_address" value="" placeholder="Social contact address or link to page" required>
                         </label>
                     </section>
                 </div>
