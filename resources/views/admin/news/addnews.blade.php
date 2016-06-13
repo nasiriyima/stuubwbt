@@ -11,7 +11,7 @@ NEWS MANAGEMENT - <small>ADD NEWS ITEM</small>
                 <section>
                     <label class="input">
                         <span>NEWS TITLE</span>
-                        <input rows="2" name="title" placeholder="NEWS TITLE"  ></input>
+                        <input rows="2" name="title" placeholder="NEWS TITLE" required></input>
                     </label>
                 </section>
             </div>
@@ -21,7 +21,7 @@ NEWS MANAGEMENT - <small>ADD NEWS ITEM</small>
                 <section>
                     <label class="textarea">
                         <span>NEWS CAPTION</span>
-                        <textarea rows="2" name="caption" placeholder="NEWS CAPTION" ></textarea>
+                        <textarea rows="2" name="caption" placeholder="NEWS CAPTION" required></textarea>
                     </label>
                 </section>
             </div>
@@ -31,7 +31,7 @@ NEWS MANAGEMENT - <small>ADD NEWS ITEM</small>
                 <section>
                     <label class="textarea">
                         <span>NEWS BODY</span>
-                        <textarea rows="2" name="body" placeholder="Question Text" id="question" ></textarea>
+                        <textarea rows="2" name="body" placeholder="Question Text" id="question" required></textarea>
                     </label>
                 </section>
             </div>

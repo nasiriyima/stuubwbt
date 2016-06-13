@@ -26,8 +26,8 @@ class CreateQuestionTable extends Migration
         Schema::create('question_additional_informations',function($table){
             $table->increments('id');
             $table->text('name');
-            $table->integer('info_type_id');
-            $table->integer('question_id');
+            $table->integer('information_type_id');
+            $table->text('description');
             $table->timestamps();
             $table->softdeletes();
         });
