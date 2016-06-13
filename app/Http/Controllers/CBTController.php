@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -57,5 +59,13 @@ class CBTController extends Controller
            } 
         }
         return redirect('admin/exam-profile'.'/'.$formData['examid']);
+    }
+
+    public function postAdditionalInfo() {
+      $formData = Input::all();
+      $addInfo = new \App\QuestionAdditionalInformation();
+      $addInfo->name = $formData['question_name'];
+      $addInfo->question_id = null;
+      $addInfo->save();
     }
 }

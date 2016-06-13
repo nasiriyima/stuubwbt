@@ -1,9 +1,8 @@
-@extends('admin_layout')
+<?php $__env->startSection('pagetitle'); ?>
 
-@section('pagetitle')
-{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}
-@stop
-@section('maincontent')
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">Examination Profile</a></li>
@@ -30,40 +29,40 @@
                              </tr>
                          </thead>
                          <tbody>
-                             {{--*/$count=1;/*--}}
-                             @foreach($exam->question as $question)
+                             <?php /**/$count=1;/**/ ?>
+                             <?php foreach($exam->question as $question): ?>
                              <tr>
-                                 <td>{{$count}}</td>
-                                 <td>{{$question->name}}</td>
+                                 <td><?php echo e($count); ?></td>
+                                 <td><?php echo e($question->name); ?></td>
                                  <td class="hidden-sm">50</td>
                                  <td class="hidden-sm">50</td>
                                  <td class="hidden-sm">50</td>
                                  <td>70%</td>
                                  <td></td>
                              </tr>
-                             {{--*/$count++;/*--}}
-                             @endforeach
+                             <?php /**/$count++;/**/ ?>
+                             <?php endforeach; ?>
                      </table> 
                 </div>
             </div>
         </div>
         <div class="tab-pane fade in" id="addquestion">
-            @include('admin.addexamination')
+            <?php echo $__env->make('admin.addexamination', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
     </div>
 </div>
-@stop
-@section('pagecss')
-<link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')}}">
-<link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')}}">
-@stop
-@section('pageplugins')
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/js/forms/checkout.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/ckeditor/ckeditor.js')}}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagecss'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pageplugins'); ?>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/forms/checkout.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/ckeditor/ckeditor.js')); ?>"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
                         OrderForm.initOrderForm();
@@ -77,7 +76,7 @@
     /*$('form.add_info').submit(function( event ) {
         event.preventDefault();
         $.ajax({
-            url: '{{url("wbt/additional-info")}}',
+            url: '<?php echo e(url("wbt/additional-info")); ?>',
             type: 'post',
             data: $('form.addInfo').serialize(), // Remember that you need to have your csrf token included
             dataType: 'json',
@@ -91,4 +90,5 @@
     });*/
 
 </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        {!! Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
-        <input type="hidden" name="examid" value="{{\Crypt::encrypt($exam->id)}}">
+        <?php echo Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')); ?>
+
+        <input type="hidden" name="examid" value="<?php echo e(\Crypt::encrypt($exam->id)); ?>">
 <!--            <fieldset>
                 <div class="row">
                     <div class="col-md-6">
@@ -55,9 +56,9 @@
                                 <span>ADDITIONAL INFORMATION</span>
                                 <select class="gender">
                                     <option value="" selected disabled>select - information</option>
-                                    @foreach($information as $info)
-                                    <option value="{{ $info->id }}">{{ $info->name }}</option>
-                                    @endforeach
+                                    <?php foreach($information as $info): ?>
+                                    <option value="<?php echo e($info->id); ?>"><?php echo e($info->name); ?></option>
+                                    <?php endforeach; ?>
                                     <i></i>
                                 </select>
                             </label>
@@ -74,9 +75,9 @@
                         <section>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count=1;/*--}}
+                                    <?php /**/$count=1;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option1" placeholder="Option A">
@@ -85,9 +86,9 @@
                             </label>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count++;/*--}}
+                                    <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option2" placeholder="Option B">
@@ -96,9 +97,9 @@
                             </label>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count++;/*--}}
+                                    <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option3" placeholder="Sec.">
@@ -107,9 +108,9 @@
                             </label>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count++;/*--}}
+                                    <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option4" placeholder="Sec.">
@@ -118,9 +119,9 @@
                             </label>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count++;/*--}}
+                                    <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option5" placeholder="Sec.">
@@ -136,12 +137,13 @@
                     <button type="submit" class="btn-u">Save and Add Questions</button>
                 </div>
             </footer>
-        {!! Form::close() !!}
+        <?php echo Form::close(); ?>
+
         <div class="modal fade row" id="add_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="{{url('wbt/additional-info')}}" class="add_info">
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <form method="post" action="<?php echo e(url('wbt/additional-info')); ?>" class="add_info">
+                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel4">Enter Additional Information</h4>
