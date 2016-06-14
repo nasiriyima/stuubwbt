@@ -133,13 +133,19 @@ class AdminController extends Controller
     public function getNews($id = NULL)
     {
         if(empty($id)){
+            $page_data['Cnews'] = \App\News::withTrashed();
             $page_data['news'] = \App\News::withTrashed()->get()->chunk(4);
             return view('admin.news.newsindex', $page_data);
         }else{
             $page_data['newsitem'] = \App\News::find(\Crypt::decrypt($id));
-            dd('item view');
+            return view('admin.news.newsitem', $page_data);
         }
 
+    }
+
+    public function postPublishNewsItem($id = NULL)
+    {
+       return true;
     }
 
     public function getNewsItem($param1 = NULL)
