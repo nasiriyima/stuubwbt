@@ -2,9 +2,17 @@
     <div class="panel-body">
         <form action="{{ url('student/edit-profile') }}" method="post" class="sky-form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="type" value="{{ $type }}" >
             <header>{{ strtoupper($type) }}</header>
 
             <fieldset {{ ($type == 'description')? '': 'style=display:none'}}>
+                @if($hasProfilePicture)
+                <section>
+                    <img class="img-responsive md-margin-bottom-10" id="image_edit"  width="219.31" height="221.3" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg') }}" alt="{{ $user->first_name }}">
+                    <a class="btn-u btn-u-sm btn-u-red" onclick="removePicture();" href="#">Remove Picture</a>
+                    <input type="hidden" name="remove_picture" id="remove_picture" value="remove_picture" disabled />
+                </section>
+                @endif
                 <section>
                     <label class="label">Edit Description</label>
                     <label class="textarea textarea-expandable">
@@ -37,7 +45,7 @@
                     <label class="label">Social Contact Type</label>
                     <label class="select">
                         @if(isset($user->profile->social_contact) && $user->profile->social_contact != "")
-                            <select name="social_contact_type" required>
+                            <select name="social_contact_type">
                                 <option value="">Choose a social contact type</option>
                                 @foreach($social_contact_types as $social_contact_type)
                                     @if(!in_array(strtolower($social_contact_type->name), $existing))
@@ -49,7 +57,7 @@
                                 @endforeach
                             </select>
                         @else
-                            <select name="social_contact_type" required>
+                            <select name="social_contact_type">
                                 <option value="">Choose a social contact type</option>
                                 @foreach($social_contact_types as $social_contact_type)
                                     <option value="{{ json_encode([$social_contact_type->name => [
@@ -66,32 +74,62 @@
                         <label class="label">Social Contact Name</label>
                         <label class="input">
                             <i class="icon-append fa fa-user"></i>
-                            <input type="text" name="social_contact_name" value="" placeholder="Social Media Name" required>
+                            <input type="text" name="social_contact_name" value="" placeholder="Social Media Name">
                         </label>
                     </section>
                     <section class="col col-6">
                         <label class="label">Social Contact Address</label>
                         <label class="input">
                             <i class="icon-append fa fa-globe"></i>
-                            <input type="url" name="social_contact_address" value="" placeholder="Social contact address or link to page" required>
+                            <input type="url" name="social_contact_address" value="" placeholder="Social contact address or link to page">
                         </label>
                     </section>
                 </div>
             </fieldset>
             <fieldset {{ ($type == 'education')? '': 'style=display:none'}}>
-                <div class="row">
-                    <section class="col col-6">
-                        <label class="label">School</label>
+                @if(isset($user->profile->education) && $user->profile->education != "")
+                    <section>
+                        <label class="label">Existing Educational Information</label>
                         <label class="select">
-                            <i class="icon-append fa fa-mortar-board"></i>
-                            <select>
-                                <option value="">Choose a school</option>
-                                @foreach($schools as $school)
-                                    <option value="{{ $school->id }}">{{ $school->code }} - {{ $school->name }}</option>
+                            {{--*/
+                                    $education_information = $user->profile->education;
+                                    $education = json_decode($education_information);
+                                    $existing = [];
+                             /*--}}
+                            <select data-placeholder="Existing Educational Information" multiple style="width: 806px;" name="existing_education[]" aria-multiselectable="true" class="chosen-select">
+                                @foreach($education as $school => $estimated_date)
+                                    {{--*/ array_push($existing, strtolower($school)); /*--}}
+                                    <option value="{{ json_encode([$school => $estimated_date]) }}" selected>{{ $school }}</option>
                                 @endforeach
                             </select>
                         </label>
+                        <div class="note"><strong>Note:</strong> Removing options from list deletes existing educational information.</div>
                     </section>
+                @endif
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="label">School</label>
+                            <label class="select">
+                            @if(isset($user->profile->school_id) && $user->profile->school_id != "")
+                                <select name="school_id">
+                                    <option value="">Choose school</option>
+                                    @foreach($schools as $school)
+                                        @if(!in_array(strtolower($school->name), $existing))
+                                            <option value="{{ $school->id }}">{{ $school->code }} - {{ $school->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            @else
+                                <select name="school_id">
+                                    <option value="">Choose a school</option>
+                                    @foreach($schools as $school)
+                                        <option value="{{ $school->id }}">{{ $school->code }} - {{ $school->name }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
+                            </label>
+                    </section>
+
                     <section class="col col-6">
                         <label class="label">Estimated Completion Date</label>
                         <label class="input">
@@ -114,8 +152,36 @@
     <div class="margin-bottom-60"></div>
 </div>
 <script type="text/javascript">
+    function removePicture(){
+        $("#image_edit").prop("src", "{!! asset('public/assets/img/team/img32-md.jpg') !!}");
+        $("#image_edit").prop("width", "219.31");
+        $("#image_edit").prop("height", "221.3");
+        $("#remove_picture").prop("disabled", false);
+    }
     jQuery(document).ready(function() {
         $('.chosen-select', this).chosen('destroy').chosen();
+        $("#finish").datepicker({
+            minDate: 0,
+            dateFormat: 'dd.mm.yy'
+        });
         Datepicker.initDatepicker();
+
+        $("select[name=social_contact_type]").on("change", function(){
+            if($(this).val()){
+                $("input[name=social_contact_name]").prop("required", true);
+                $("input[name=social_contact_address]").prop("required", true);
+            } else {
+                $("input[name=social_contact_name]").prop("required", false);
+                $("input[name=social_contact_address]").prop("required", false);
+            }
+        });
+
+        $("select[name=school_id]").on("change", function(){
+            if($(this).val()){
+                $("input[name=endDate]").prop("required", true);
+            } else {
+                $("input[name=endDate]").prop("required", false);
+            }
+        });
     });
 </script>

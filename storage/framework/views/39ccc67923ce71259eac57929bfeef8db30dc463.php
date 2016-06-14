@@ -29,6 +29,16 @@
             </li>
         </ul>
 
+        <!--Datepicker-->
+        <form action="#" id="sky-form2" class="sky-form">
+            <div id="inline-start"></div>
+        </form>
+        <!--End Datepicker-->
+
+        <hr>
+
+        <div class="margin-bottom-50"></div>
+
         <!--Notification-->
         <div class="col-sm-12 sm-margin-bottom-30">
             <div class="panel panel-profile">
@@ -72,15 +82,6 @@
         </div>
         <!--End Notification-->
 
-        <hr>
-
-        <div class="margin-bottom-50"></div>
-
-        <!--Datepicker-->
-        <form action="#" id="sky-form2" class="sky-form">
-            <div id="inline-start"></div>
-        </form>
-        <!--End Datepicker-->
     </div>
     <!--End Left Sidebar-->
 

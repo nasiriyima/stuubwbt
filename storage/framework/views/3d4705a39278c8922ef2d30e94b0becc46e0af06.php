@@ -4,6 +4,17 @@
 
 <?php $__env->startSection('pagecontent'); ?>
     <div class="profile-body margin-bottom-20">
+        <form action="assets/php/demo-contacts-process.php" method="post" id="sky-form3" class="sky-form">
+           <fieldset>
+                <section>
+            <label class="input">
+                <i class="icon-append fa fa-search"></i>
+                <input type="text" name="search" id="search" />
+            </label>
+        </section>
+               </fieldset>
+        </form>
+        <div class="margin-bottom-50"></div>
         <!--Profile Blog-->
         <div class="row margin-bottom-20">
             <div class="col-sm-6 sm-margin-bottom-20">

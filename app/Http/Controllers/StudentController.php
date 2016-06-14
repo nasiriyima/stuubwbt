@@ -230,18 +230,18 @@ class StudentController extends Controller
 
     public function getExamComplete(){
         if(\Session::has('exam')){
-            $data['bodyname'] = \Session::get('bodyname');
-            $data['categoryname'] = \Session::get('categoryname');
-            $data['subjectname'] = \Session::get('subjectname');
-            $data['monthname'] = \Session::get('monthname');
-            $data['sessionname'] = \Session::get('sessionname');
-            $data['passed'] = (\Session::has('passed'))?  \Session::get('passed') : 0 ;
-            $data['failed'] = (\Session::has('failed'))?  \Session::get('failed') : 0 ;
-            $data['passedpercentage'] = (\Session::has('passedpercentage'))?  \Session::get('passedpercentage') : 0 ;
-            $data['failedpercentage'] = (\Session::has('failedpercentage'))?  \Session::get('failedpercentage') : 0 ;
-            $data['userselection'] = \Session::get('userselection');
-            $data['systemselection'] = \Session::get('systemselection');
-            $data['history_week_count'] = \App\History::where([
+            $this->page_data['bodyname'] = \Session::get('bodyname');
+            $this->page_data['categoryname'] = \Session::get('categoryname');
+            $this->page_data['subjectname'] = \Session::get('subjectname');
+            $this->page_data['monthname'] = \Session::get('monthname');
+            $this->page_data['sessionname'] = \Session::get('sessionname');
+            $this->page_data['passed'] = (\Session::has('passed'))?  \Session::get('passed') : 0 ;
+            $this->page_data['failed'] = (\Session::has('failed'))?  \Session::get('failed') : 0 ;
+            $this->page_data['passedpercentage'] = (\Session::has('passedpercentage'))?  \Session::get('passedpercentage') : 0 ;
+            $this->page_data['failedpercentage'] = (\Session::has('failedpercentage'))?  \Session::get('failedpercentage') : 0 ;
+            $this->page_data['userselection'] = \Session::get('userselection');
+            $this->page_data['systemselection'] = \Session::get('systemselection');
+            $this->page_data['history_week_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
                 'user_id' => $this->page_data['user']->id,
             ])->whereBetween('created_at',[
@@ -249,24 +249,24 @@ class StudentController extends Controller
                 Carbon::now()
             ])->count();
 
-            $data['history_month_count'] = \App\History::where([
+            $this->page_data['history_month_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
                 'user_id' => $this->page_data['user']->id,
             ])->whereBetween('created_at', [
                 Carbon::now()->startOfMonth()->subMonth(),
                 Carbon::now()->startOfMonth()
             ])->count();
-            $data['history_count'] = \App\History::where([
+            $this->page_data['history_count'] = \App\History::where([
                 'exam_id' => \Session::get('exam'),
                 'user_id' => $this->page_data['user']->id,
             ])->count();
             $percentage = $this->evaluateAttempts(\App\History::class,'percentage');
             $inequality = $this->evaluateAttempts(\App\History::class,'inequalities');
-            $data['attempt_phrase'] = ($percentage != 0)? '<small>'.$percentage.'% <strong>'.$inequality
+            $this->page_data['attempt_phrase'] = ($percentage != 0)? '<small>'.round($percentage).'% <strong>'.$inequality
                                       .' last month</strong></small>' :
                                       '<small><strong>'.$inequality.' last month</strong></small>';
-            $data['attempt_percentage'] = $percentage;
-            return view('student.myexam.score')->with($data);
+            $this->page_data['attempt_percentage'] = $percentage;
+            return view('student.myexam.score')->with($this->page_data);
         }
         return redirect('student')->with('error','No exam session is active');
     }
@@ -580,6 +580,8 @@ class StudentController extends Controller
     public function postEditView(){
         $request = \Request::except('_token');
         $this->page_data['type'] = $request['type'];
+        $this->page_data['hasProfilePicture'] = (isset($this->page_data['user']->profile) &&
+            $this->page_data['user']->profile->image !='')? true: false;
         $this->page_data['schools'] = \App\School::all();
         $this->page_data['social_contact_types'] = [
             (object)[
@@ -615,6 +617,11 @@ class StudentController extends Controller
             if(isset($request['nick_name']) && $request['nick_name'] != '' && $request['nick_name'] != NULL){
                 $profile->nick_name = $request['nick_name'];
             }
+            if(isset($request['remove_picture'])){
+                $filename = str_replace('\\', '/', storage_path().'/profile_pictures/'). $profile->image;
+                if(file_exists($filename)) unlink($filename);
+                $profile->image = NULL;
+            }
             if(isset($request['description']) && $request['description'] != '' && $request['description'] != NULL){
                 $profile->description = $request['description'];
             }
@@ -630,14 +637,32 @@ class StudentController extends Controller
             if(isset($request['dob']) && $request['dob'] != '' && $request['dob'] != NULL){
                 $profile->dob = $request['dob'];
             }
-            if(isset($request['social_contact_type']) && $request['social_contact_type'] != '' && $request['social_contact_type'] != NULL){
 
-                if($request['existing_social_contacts'] != '' && $request['existing_social_contacts'] != NULL){
+            if(!isset($request['existing_social_contacts']) && $request['type'] == 'social_contact'){
+                $profile->social_contact = '';
+            }
+
+            if(isset($request['existing_social_contacts']) && $request['existing_social_contacts'] != '' && $request['existing_social_contacts'] != NULL){
+                foreach($request['existing_social_contacts'] as $existing_social_contacts){
+                    $existing_social_contact_type = get_object_vars(json_decode($existing_social_contacts));
+                    foreach($existing_social_contact_type as $name => $detail_obj){
+                        $details['name'] = $detail_obj->name;
+                        $details['address'] = $detail_obj->address;
+                        $details['icon'] = $detail_obj->icon;
+                        $existing_social_contact[$name] =  $details;
+                    }
+                }
+                $profile->social_contact = json_encode($existing_social_contact);
+            }
+
+            if(isset($request['social_contact_type']) && $request['social_contact_type'] != '' && $request['social_contact_type'] != NULL){
+                $existing_social_contact = [];
+                if(isset($request['existing_social_contacts']) && $request['existing_social_contacts'] != '' && $request['existing_social_contacts'] != NULL){
                     foreach($request['existing_social_contacts'] as $existing_social_contacts){
                         $existing_social_contact_type = get_object_vars(json_decode($existing_social_contacts));
                         foreach($existing_social_contact_type as $name => $detail_obj){
-                            $details['name'] = $request['social_contact_name'];
-                            $details['address'] = $request['social_contact_address'];
+                            $details['name'] = $detail_obj->name;
+                            $details['address'] = $detail_obj->address;
                             $details['icon'] = $detail_obj->icon;
                             $existing_social_contact[$name] =  $details;
                         }
@@ -655,28 +680,85 @@ class StudentController extends Controller
                 }
                 $profile->social_contact = json_encode($social_contact);
             }
-            if(isset($request['school_id']) && $request['school_id'] != '' && $request['school_id'] != NULL){
-                $profile->nick_name = $request['nick_name'];
+
+            if(!isset($request['existing_education']) && $request['type'] == 'education'){
+                $profile->education = '';
+                $profile->school_id = 0;
             }
-            if(isset($request['education']) && $request['education'] != '' && $request['education'] != NULL){
-                $profile->nick_name = $request['nick_name'];
+
+            if(isset($request['school_id']) && $request['school_id'] != '' && $request['school_id'] != NULL){
+                $profile->school_id = $request['school_id'];
+            }
+
+            if(isset($request['existing_education']) && $request['existing_education'] != '' && $request['existing_education'] != NULL){
+                foreach($request['existing_education'] as $existing_education){
+                    $existing_education = get_object_vars(json_decode($existing_education));
+                    $count = 0;
+                    foreach($existing_education as $name => $detail_obj){
+                        if($count == 0)$profile->school_id = \App\School::where([
+                            'name' => $name
+                        ])->first()->id;
+                        $details['endDate'] = $detail_obj->endDate;
+                        $existing_education[$name] =  $details;
+                        $count++;
+                    }
+                }
+                $profile->education = json_encode($existing_education);
+            }
+
+            if(isset($request['school_id']) && $request['school_id'] != '' && $request['school_id'] != NULL){
+                $existing_education = [];
+                if(isset($request['existing_education']) && $request['existing_education'] != '' && $request['existing_education'] != NULL){
+                    foreach($request['existing_education'] as $existing_education){
+                        $existing_education = get_object_vars(json_decode($existing_education));
+                        foreach($existing_education as $name => $detail_obj){
+                            $details['endDate'] = $detail_obj->endDate;
+                            $existing_education[$name] =  $details;
+                        }
+                    }
+                }
+                $school_name = \App\School::find($request['school_id'])->name;
+                $details['endDate'] = $request['endDate'];
+                $education = [
+                    $school_name => $details
+                ];
+                if(!in_array($school_name,$existing_education))$education = array_merge($existing_education, $education);
+                $profile->education = json_encode($education);
             }
             $profile->save();
             return redirect()->back()->with('message', 'social contact added successfully');
         } else {
             $profile = new \App\Profile();
             $profile->user_id = $this->page_data['user']->id;
-            $profile->nick_name = isset($request['nick_name'])? $request['nick_name'] : '';
-            $profile->description = isset($request['description'])? $request['description'] : '';
-            $profile->phone = isset($request['phone'])? $request['phone'] : '';
-            $profile->email = isset($request['email'])? $request['email'] : '';
-            $profile->address = isset($request['address'])? $request['address'] : '';
-            $profile->dob = isset($request['dob'])? $request['dob'] : '';
-            $profile->social_contact = isset($request['social_contact_type'])? json_encode( $request['social_contact_type']) : '';
-            $profile->school_id = isset($request['school_id'])? $request['school_id'] : '';
-            $profile->education = isset($request['education'])? $request['education'] : '';
-            $profile->save();return redirect()->back()->with('message', 'social contact added successfully');
-            return redirect()->back()->withErrors();
+            $profile->nick_name = isset($request['nick_name'])? $request['nick_name'] : NULL;
+            $profile->description = isset($request['description'])? $request['description'] : NULL;
+            $profile->phone = isset($request['phone'])? $request['phone'] : NULL;
+            $profile->email = isset($request['email'])? $request['email'] : NULL;
+            $profile->address = isset($request['address'])? $request['address'] : NULL;
+            $profile->dob = isset($request['dob'])? $request['dob'] : NULL;
+            if(isset($request['social_contact_type']) && $request['social_contact_type'] != '' && $request['social_contact_type'] != NULL){
+                $social_contact_type = get_object_vars(json_decode($request['social_contact_type']));
+                foreach($social_contact_type as $name => $detail_obj){
+                    $details['name'] = $request['social_contact_name'];
+                    $details['address'] = $request['social_contact_address'];
+                    $details['icon'] = $detail_obj->icon;
+                    $social_contact = [
+                        $name => $details
+                    ];
+                }
+                $profile->social_contact = json_encode($social_contact);
+            }
+            if(isset($request['school_id']) && $request['school_id'] != '' && $request['school_id'] != NULL){
+                $profile->school_id = $request['school_id'];
+                $school_name = \App\School::find($request['school_id'])->name;
+                $details['endDate'] = $request['endDate'];
+                $education = [
+                    $school_name => $details
+                ];
+                $profile->education = $education;
+            }
+            $profile->save();
+            return redirect()->back()->with('message', 'social contact added successfully');
         }
         return redirect()->back()->withErrors();
     }

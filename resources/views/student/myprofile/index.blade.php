@@ -12,7 +12,7 @@
                 <div class="col-md-5">
                     <form id="file-upload" action="{{ url('student/upload-profile-image') }}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <img class="img-responsive md-margin-bottom-10" width="259.58" height="259.58" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg') }}" alt="{{ $user->first_name }}">
+                        <img class="img-responsive md-margin-bottom-10" width="219.31" height="221.3" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg') }}" alt="{{ $user->first_name }}">
                         <a class="btn-u btn-u-sm" onclick="showFileChooser();" href="#">Change Picture</a>
                         <input type="file" name="image" id="uploadfile" value="" style="display: none" />
                     </form>
@@ -84,16 +84,27 @@
                 <a href="#"><i class="fa fa-cog hover-hand-cursor pull-right" onclick="showEditModal('education');"></i></a>
             </div>
             <div class="panel-body">
+                @if(isset($user->profile->school))
                 <ul class="timeline-v2 timeline-me">
-                    @if(isset($user->profile->school))
-                        <i class="cbp_tmicon rounded-x hidden-xs"></i>
-                        <div class="cbp_tmlabel">
-                            <h2>{{ $user->profile->school->name }}</h2>
-                        </div>
-                    @else
-                        school information not yet available, please use the cog icon to add institutional information
-                    @endif
+
+                        {{--*/
+                                $education_information = $user->profile->education;
+                                $education = json_decode($education_information);
+                         /*--}}
+                        @foreach($education as $school => $estimated)
+                        <li>
+                            <time datetime="" class="cbp_tmtime"><span>{{ \Carbon\Carbon::createFromTimestamp(strtotime($estimated->endDate))->subYears(6)->format('Y') }} - {{ \Carbon\Carbon::createFromTimestamp(strtotime($estimated->endDate))->format('Y') }}</span></time>
+                            <i class="cbp_tmicon rounded-x hidden-xs"></i>
+                            <div class="cbp_tmlabel">
+                                <h2>{{ ucwords($school) }}</h2>
+                                <p></p>
+                            </div>
+                        </li>
+                        @endforeach
                 </ul>
+                @else
+                    school information not yet available, please use the cog icon to add institutional information
+                @endif
             </div>
         </div>
     </div>
