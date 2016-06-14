@@ -48,17 +48,7 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e9c5e0777a79c2fa728f1960c88db351e0734e8b.php" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/storage/profile_pictures/3.jpg" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/storage/profile_pictures/3.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/profile_pictures/1.jpg" afterPath="$PROJECT_DIR$/storage/profile_pictures/1.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Friendship.php" afterPath="$PROJECT_DIR$/app/Friendship.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2016_06_01_131928_create_profile_table.php" afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_131928_create_profile_table.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/myprofile_layout.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/39ccc67923ce71259eac57929bfeef8db30dc463.php" afterPath="$PROJECT_DIR$/storage/framework/views/39ccc67923ce71259eac57929bfeef8db30dc463.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/3d4705a39278c8922ef2d30e94b0becc46e0af06.php" afterPath="$PROJECT_DIR$/storage/framework/views/3d4705a39278c8922ef2d30e94b0becc46e0af06.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/d11fbc9d516842b2dda267fecc64fa10684cc6e0.php" afterPath="$PROJECT_DIR$/storage/framework/views/d11fbc9d516842b2dda267fecc64fa10684cc6e0.php" />
     </list>
     <ignored path="stuubwbt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,8 +73,8 @@
       <file leaf-file-name="friends.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6512821">
-              <caret line="269" column="23" selection-start-line="269" selection-start-column="23" selection-end-line="269" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.73846155">
+              <caret line="272" column="24" selection-start-line="272" selection-start-column="24" selection-end-line="272" selection-end-column="24" />
               <folding>
                 <element signature="e#640#661#0#HTML" expanded="true" />
                 <element signature="e#823#3340#0#HTML" expanded="false" />
@@ -930,8 +920,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6512821">
-          <caret line="269" column="23" selection-start-line="269" selection-start-column="23" selection-end-line="269" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.73846155">
+          <caret line="272" column="24" selection-start-line="272" selection-start-column="24" selection-end-line="272" selection-end-column="24" />
           <folding>
             <element signature="e#640#661#0#HTML" expanded="true" />
             <element signature="e#823#3340#0#HTML" expanded="false" />

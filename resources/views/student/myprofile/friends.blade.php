@@ -270,6 +270,7 @@
         $('#search').keyup(function () {
             oTable.fnFilter($(this).val());
             console.log($(".sTable").DataTable().page.info().recordsDisplay);
+            var count = 'http://stackoverflow.com/questions/31163428/how-to-get-filtered-row-count';
         });
     });
 </script>
