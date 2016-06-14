@@ -11,6 +11,10 @@ class Friendship extends Model
         return $this->belongsTo('\App\User', 'friend_id', 'id');
     }
 
+    public function scopeRequest($query){
+        return $query->where(['status' => 0]);
+    }
+
     public function scopeRequestAccepted($query){
         return $query->where(['status' => 1]);
     }

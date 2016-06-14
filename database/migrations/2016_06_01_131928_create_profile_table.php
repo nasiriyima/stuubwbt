@@ -25,6 +25,7 @@ class CreateProfileTable extends Migration
             $table->integer('school_id')->default(0);
             $table->text('education')->nullable();
             $table->string('image')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

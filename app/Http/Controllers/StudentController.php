@@ -19,6 +19,7 @@ class StudentController extends Controller
         $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->count();
         $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->count();
         $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->receiver()->onlyTrashed()->get()->count();
+        $this->page_data['notifications'] = $this->getNotifications();
     }
     /*
      * Student Controller Dashboard
@@ -803,6 +804,42 @@ class StudentController extends Controller
         if(connection_aborted()){
 
         }
+    }
+
+    public function getNotifications(){
+        $notifications = [];
+        $messages = $this->page_data['user']->receiver()->unread();
+        if($messages->count() > 0) $notifications['messages'] = $messages->orderBy('created_at', 'dsc')->first();
+
+        $friendshipRequest = $this->page_data['user']->friendship()->request();
+        if($friendshipRequest->count() > 0) $notifications['friendshipRequest'] = $friendshipRequest->orderBy('created_at', 'dsc')->first();
+
+        $otherNotifications = [];
+        $profileStats = 'Connect with friends and send private messages by updating your profile. A minimum '.
+                        'of 50% profile completion is required to enable messaging and friendship requests';
+        if($this->page_data['user']->profile){
+            if($this->page_data['user']->profile()->statistics() == 50){
+                $profileStats =
+                    'You can now send messages and friendship requests to your friends on STUUB-WBT. Go social by sharing your experience'.
+                    ' on with your friends on facebook, google plus and twitter';
+            }elseif($this->page_data['user']->profile()->statistics() > 50 && $this->page_data['user']->profile()->statistics() <= 61){
+                $profileStats =
+                    'Your profile information is low. if it goes below 50% you will loose the ability to send messages and friendship requests'.
+                    ' However you will still have access to your list of friends';
+
+            } elseif($this->page_data['user']->profile()->statistics() > 65){
+                $profileStats =
+                    'Challenge your friends by inviting them to STUUB-WBT to compete for the leaders board.'.
+                    ' Showcase your skills and prove you are the best';
+            }
+        } else {
+            $profileStats = 'Connect with friends and send private messages by updating your profile. A minimum '.
+                'of 50% profile completion is required to enable messaging and friendship requests';
+        }
+        $otherNotifications['profileStats'] = $profileStats;
+        $otherNotifications['time'] = \Carbon\Carbon::now()->diffForHumans();
+        if(count($otherNotifications) > 0)$notifications['otherNotifications'] =  (object)$otherNotifications;
+        return $notifications;
     }
 
     private function getTimeLeft($exam, $time_allowed){

@@ -14,7 +14,7 @@
 <div class="content profile">
     <!--Left Sidebar-->
     <div class="col-md-4 profile-body md-margin-bottom-40">
-        <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg') }}" alt="{{ $user->first_name }}">
+        <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $user->first_name }}">
 
         <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
             <li class="list-group-item {{ ($page_name == 'profile')? 'active' : '' }}">
@@ -48,37 +48,43 @@
                     <h2 class="heading-xs pull-left"><i class="fa fa-bell-o"></i> Notification</h2>
                     <a href="#"><i class="fa fa-cog pull-right"></i></a>
                 </div>
+                @if(count($notifications) > 0)
                 <ul class="list-unstyled mCustomScrollbar margin-bottom-20" data-mcs-theme="minimal-dark">
-                    <li class="notification">
-                        <i class="icon-custom icon-sm rounded-x icon-bg-red icon-line icon-envelope"></i>
-                        <div class="overflow-h">
-                            <span><strong>Albert Heller</strong> has sent you email.</span>
-                            <small>Two minutes ago</small>
-                        </div>
-                    </li>
-                    <li class="notification">
-                        <i class="icon-custom icon-sm rounded-x icon-bg-yellow icon-line fa fa-bolt"></i>
-                        <div class="overflow-h">
-                            <span><strong>Natasha Kolnikova</strong> accepted your invitation.</span>
-                            <small>Yesterday 1:07 pm</small>
-                        </div>
-                    </li>
-                    <li class="notification">
-                        <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line fa fa-comments"></i>
-                        <div class="overflow-h">
-                            <span><strong>Bruno Js.</strong> added you to group chating.</span>
-                            <small>Yesterday 1:07 pm</small>
-                        </div>
-                    </li>
-                    <li class="notification">
-                        <img class="rounded-x" src="assets/img/testimonials/img6.jpg" alt="">
-                        <div class="overflow-h">
-                            <span><strong>Taylor Lee</strong> changed profile picture.</span>
-                            <small>23/12 15:15 pm</small>
-                        </div>
-                    </li>
+                    @if(isset($notifications['otherNotifications']))
+                        <li class="notification">
+                            <i class="icon-custom icon-sm rounded-x icon-bg-red icon-line fa fa-bolt"></i>
+                            <div class="overflow-h">
+                                <span><strong>Profile Stats.</strong> {{ $notifications['otherNotifications']->profileStats }}</span>
+                                <small>{{ $notifications['otherNotifications']->time }}</small>
+                            </div>
+                        </li>
+                    @endif
+                    @if(isset($notifications['friendshipRequest']))
+                        <li class="notification">
+                            <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line fa fa-comments"></i>
+                            <div class="overflow-h">
+                                <span><strong>{{ $notifications['friendshipRequest']->user->first_name }}</strong> has sent you a friendship request.</span>
+                                <small>{{ $notifications['messages']->created_at->diffForHumans() }}</small>
+                            </div>
+                        </li>
+                    @endif
+                    @if(isset($notifications['messages']))
+                        <li class="notification">
+                            <img class="rounded-x" src="{{ (isset($notifications['messages']->sender->profile->image) &&
+                            $notifications['messages']->sender->profile->image !="" && $notifications['messages']->sender->profile->image !=NULL)?
+                             url('student/file').'/'.$notifications['messages']->sender->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $notifications['messages']->sender->first_name }}">
+                            <div class="overflow-h">
+                                <span><strong>{{ $notifications['messages']->sender->first_name }}</strong> has sent you a message.</span>
+                                <small>{{ $notifications['messages']->created_at->diffForHumans() }}</small>
+                            </div>
+                        </li>
+                    @endif
+
                 </ul>
                 <button type="button" class="btn-u btn-u-default btn-u-sm btn-block">Load More</button>
+                @else
+                    You have no notifications yet
+                @endif
 
             </div>
         </div>
