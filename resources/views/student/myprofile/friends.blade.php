@@ -10,7 +10,7 @@
            <fieldset>
                 <section>
             <label class="input">
-                <i class="icon-append fa fa-search"></i>
+                <i class="icon-append fa fa-search" onclick="searchQuery();"></i>
                 <input type="text" name="search" id="search" />
             </label>
         </section>
@@ -245,7 +245,7 @@
             </tbody>
         </table>
 
-        <button type="button" class="btn-u btn-u-default btn-block text-center">Load More</button>
+        <button type="button" class="btn-u btn-u-default btn-block text-center" id="load_more">Load More</button>
         <!--End Profile Blog-->
     </div>
 @stop
@@ -269,9 +269,24 @@
         });
         $('#search').keyup(function () {
             oTable.fnFilter($(this).val());
-            console.log($(".sTable").DataTable().page.info().recordsDisplay);
-            var count = 'http://stackoverflow.com/questions/31163428/how-to-get-filtered-row-count';
+            var displayRecordCount = $(".sTable").DataTable().page.info().recordsDisplay;
+            (displayRecordCount === 0)? $("#load_more").hide(): $("#load_more").show();
         });
     });
+
+    function searchQuery(){
+        var displayRecordCount = $(".sTable").DataTable().page.info().recordsDisplay;
+        if(displayRecordCount === 0){
+            $.ajax({
+                url: "{!! url('student/search') !!}",
+                method: "get",
+                data: {_token:"{!! csrf_token() !!}", searchString:$("search")},
+                success:function(response){
+
+                }
+            });
+        }
+    }
+
 </script>
 @stop

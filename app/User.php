@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Nqxcode\LuceneSearch\Model\SearchableInterface;
 
 class User extends Authenticatable
 {

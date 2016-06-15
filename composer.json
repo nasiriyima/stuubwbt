@@ -9,7 +9,7 @@
         "laravel/framework": "5.2.*",
         "cartalyst/sentinel": "2.0.*",
         "nesbot/carbon": "^1.20",
-        "nqxcode/laravel-lucene-search": "2.2.*",
+        "nqxcode/laravel-lucene-search": "^2.2",
         "laravelcollective/html": "5.2.*",
         "barryvdh/laravel-ide-helper": "^2.1"
     },

@@ -26,6 +26,11 @@ return [
 
         'models' => [
             // Add models descriptions here.
+            \App\User::class => [
+                'fields' => [
+                    'first_name', 'last_name'
+                ],
+            ]
         ],
     ],
 

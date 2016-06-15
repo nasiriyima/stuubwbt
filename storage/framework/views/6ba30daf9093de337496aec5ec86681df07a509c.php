@@ -1,5 +1,6 @@
 <?php $__env->startSection('pagestyles'); ?>
         <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/shortcode_timeline2.css')); ?>">
+        <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/chosen/chosen.min.css')); ?>">
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('pagecontent'); ?>
@@ -9,7 +10,7 @@
                 <div class="col-md-5">
                     <form id="file-upload" action="<?php echo e(url('student/upload-profile-image')); ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" />
-                        <img class="img-responsive md-margin-bottom-10" width="259.58" height="259.58" src="<?php echo e((isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg')); ?>" alt="<?php echo e($user->first_name); ?>">
+                        <img class="img-responsive md-margin-bottom-10" width="219.31" height="221.3" src="<?php echo e((isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($user->first_name); ?>">
                         <a class="btn-u btn-u-sm" onclick="showFileChooser();" href="#">Change Picture</a>
                         <input type="file" name="image" id="uploadfile" value="" style="display: none" />
                     </form>
@@ -45,8 +46,21 @@
                                         $contacts = json_decode($social_contact);
                                  /**/ ?>
                                 <ul class="list-unstyled social-contacts-v2">
-                                    <?php foreach($contacts as $contact): ?>
-                                        <li><i class="<?php echo e($contact->icon); ?>"></i> <a href="<?php echo e($contact->address); ?>"><?php echo e($contact->name); ?></a></li>
+                                    <?php foreach($contacts as $contact_type => $contact): ?>
+                                        <li>
+                                            <i class="<?php echo e($contact->icon); ?>"></i><a href="<?php echo e($contact->address); ?>"><?php echo e($contact->name); ?></a>
+                                            <?php if(strtolower($contact_type) == 'twitter'): ?>
+                                                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.stuu">Tweet</a>
+                                            <?php endif; ?>
+                                            <?php if(strtolower($contact_type) == 'facebook'): ?>
+                                                <div class="fb-share-button" data-href="http://www.stuub.com" data-layout="button" data-mobile-iframe="false">
+                                                    <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.stuub.com%2F&amp;src=sdkpreparse">Share</a>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if(strtolower($contact_type) == 'google plus'): ?>
+                                                <div class="g-plus" data-action="share" data-annotation="none"></div>
+                                            <?php endif; ?>
+                                        </li>
                                     <?php endforeach; ?>
                                 </ul>
                             <?php else: ?>
@@ -68,16 +82,27 @@
                 <a href="#"><i class="fa fa-cog hover-hand-cursor pull-right" onclick="showEditModal('education');"></i></a>
             </div>
             <div class="panel-body">
+                <?php if(isset($user->profile->school)): ?>
                 <ul class="timeline-v2 timeline-me">
-                    <?php if(isset($user->profile->school)): ?>
-                        <i class="cbp_tmicon rounded-x hidden-xs"></i>
-                        <div class="cbp_tmlabel">
-                            <h2><?php echo e($user->profile->school->name); ?></h2>
-                        </div>
-                    <?php else: ?>
-                        school information not yet available, please use the cog icon to add institutional information
-                    <?php endif; ?>
+
+                        <?php /**/
+                                $education_information = $user->profile->education;
+                                $education = json_decode($education_information);
+                         /**/ ?>
+                        <?php foreach($education as $school => $estimated): ?>
+                        <li>
+                            <time datetime="" class="cbp_tmtime"><span><?php echo e(\Carbon\Carbon::createFromTimestamp(strtotime($estimated->endDate))->subYears(6)->format('Y')); ?> - <?php echo e(\Carbon\Carbon::createFromTimestamp(strtotime($estimated->endDate))->format('Y')); ?></span></time>
+                            <i class="cbp_tmicon rounded-x hidden-xs"></i>
+                            <div class="cbp_tmlabel">
+                                <h2><?php echo e(ucwords($school)); ?></h2>
+                                <p></p>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
                 </ul>
+                <?php else: ?>
+                    school information not yet available, please use the cog icon to add institutional information
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -85,6 +110,9 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('pagescripts'); ?>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/chosen/chosen.jquery.min.js')); ?>"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="application/javascript">
         $("#uploadfile").on("change",function(){
             $("#file-upload").submit();
@@ -113,6 +141,10 @@
                         }
                     }
                 }
+            });
+
+            $(".bs-example-modal-lg").on("shown.bs.modal", function () {
+                $('.chosen-select', this).chosen('destroy').chosen();
             });
         }
     </script>

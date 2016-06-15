@@ -773,6 +773,10 @@ class StudentController extends Controller
         return view('student.myprofile.friends')->with($this->page_data);
     }
 
+    public function getSearch($string){
+        return \Search::query($string)->get()->where('user_type',1);
+    }
+
     public function getMyConversations(){
         $this->page_data['page_name'] = 'messages';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
