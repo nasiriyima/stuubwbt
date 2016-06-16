@@ -2,14 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4e72792-6f94-4110-a16b-26dba3b8b596" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/profile_pictures/1.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/User.php" afterPath="$PROJECT_DIR$/app/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/friends.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/17faec50ca996f6d618e8ec0025c417dc3bb5df3.php" afterPath="$PROJECT_DIR$/storage/framework/views/17faec50ca996f6d618e8ec0025c417dc3bb5df3.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/731ef9b808b016c4329bfa5f3580510ef12398c7.php" afterPath="$PROJECT_DIR$/storage/framework/views/731ef9b808b016c4329bfa5f3580510ef12398c7.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/cartalyst/sentinel/src/Users/EloquentUser.php" afterPath="$PROJECT_DIR$/vendor/cartalyst/sentinel/src/Users/EloquentUser.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PhpStorm-7fa7b85b-069e-44e2-b38c-0cc450d45f3e.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/admin/news/newsitem.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/storage/framework/views/3316bca60a9faee8427eae11ca2b7951783d1ee3.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/storage/framework/views/a811e3364039ea12e32d5c9d0df30da9f63dc61d.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/storage/framework/views/aae16521d11237f292ef7a059348d1c75994bbb5.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/private/private.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/project.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nbproject/project.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/stuubwbt.iml" afterPath="$PROJECT_DIR$/.idea/stuubwbt.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/News.php" afterPath="$PROJECT_DIR$/app/News.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/news/newsindex.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/news/newsindex.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/693a681b28764cb3df85d22dfddcfab5674f770b.php" afterPath="$PROJECT_DIR$/storage/framework/views/693a681b28764cb3df85d22dfddcfab5674f770b.php" />
     </list>
     <ignored path="stuubwbt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,8 +77,8 @@
       <file leaf-file-name="EloquentUser.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vendor/cartalyst/sentinel/src/Users/EloquentUser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.73275864">
-              <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.43965518">
+              <caret line="46" column="19" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
               <folding>
                 <element signature="e#473#529#0#PHP" expanded="true" />
               </folding>
@@ -892,8 +901,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/cartalyst/sentinel/src/Users/EloquentUser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73275864">
-          <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.43965518">
+          <caret line="46" column="19" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
           <folding>
             <element signature="e#473#529#0#PHP" expanded="true" />
           </folding>

@@ -16,4 +16,8 @@ class News extends Model
     public function scopePublishedNews($query){
         return $query->where('status', '=', '1')->get();
     }
+
+    public function scopeUnpublishedNews($query){
+        return $query->where('status', '=', '0')->get();
+    }
 }
