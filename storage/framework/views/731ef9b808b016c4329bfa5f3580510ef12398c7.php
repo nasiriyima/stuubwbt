@@ -273,23 +273,24 @@
                     var tr = '<tr class="row margin-bottom-20">';
                     var td1 = '<td class="col-sm-6 sm-margin-bottom-20 profile-body">';
                     var td2 = '<td class="col-sm-6 profile-body">';
-                    $.each(response, function(index, value){
-                        if(typeof index !== "undefined"){
-                            if(Math.abs(index) === 0){
-                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="assets/img/testimonials/img2.jpg" alt=""><div class="name-location"><strong>'+value.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">California,</a> <a href="#">US</a></span></div><div class="clearfix margin-bottom-20"></div><p>Donec non dignissim eros. Mauris faucibus turpis volutpat sagittis rhoncus. Pellentesque et rhoncus sapien, sed ullamcorper justo.</p><hr><ul class="list-inline share-list"><li><i class="fa fa-bell"></i><a href="#">3 Notifications</a></li><li><i class="fa fa-group"></i><a href="#">25 Followers</a></li><li><i class="fa fa-share"></i><a href="#">Share</a></li> </ul></div>' + '</td>';
-                                tr = tr + td1;
-                            }
-                            if(Math.abs(index) === 1){
-                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="assets/img/testimonials/img2.jpg" alt=""><div class="name-location"><strong>'+value.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">California,</a> <a href="#">US</a></span></div><div class="clearfix margin-bottom-20"></div><p>Donec non dignissim eros. Mauris faucibus turpis volutpat sagittis rhoncus. Pellentesque et rhoncus sapien, sed ullamcorper justo.</p><hr><ul class="list-inline share-list"><li><i class="fa fa-bell"></i><a href="#">3 Notifications</a></li><li><i class="fa fa-group"></i><a href="#">25 Followers</a></li><li><i class="fa fa-share"></i><a href="#">Share</a></li> </ul></div>' + '</td>';
-                                tr = tr + td2;
-                            }
-                            if(Math.abs(response.length) === 1 && index == (response.length - 1)){
-                                td2 = td2 + '' + '</td>';
-                                tr = tr + td2;
-                            }
+                    var index  = 0;
+                    for(var i in response){
+
+                        if(index%2 === 0){
+                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+response[i].profile.image+'" alt=""><div class="name-location"><strong>'+response[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+response[i].profile.school_id.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+response[i].profile.description+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-plus"></i><a href="#">Request</a></li><li><i class="fa fa-group"></i><a href="#">'+response[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
+                            tr = tr + td1;
+                        }
+                        if(index%2 === 1){
+                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+response[i].profile.image+'" alt=""><div class="name-location"><strong>'+response[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+response[i].profile.school_id.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+response[i].profile.description+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-plus"></i><a href="#">Request</a></li><li><i class="fa fa-group"></i><a href="#">'+response[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
+                            tr = tr + td2;
+                        }
+                        if(Object.keys(response).length%2 === 1 && index === (Object.keys(response).length-1)){
+                            td2 = td2 + '' + '</td>';
+                            tr = tr + td2;
                         }
                         table = table + tr + '</tr>';
-                    });
+                        index++;
+                    }
                     table = table + '</tbody></table>';
                     $(".sTable").replaceWith(table);
                     initializeTable(".sTable");

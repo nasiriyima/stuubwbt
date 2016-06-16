@@ -531,7 +531,7 @@ class StudentController extends Controller
         $this->page_data['page_name'] = 'profile';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
-        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.index')->with($this->page_data);
     }
@@ -768,21 +768,42 @@ class StudentController extends Controller
         $this->page_data['page_name'] = 'friends';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
-        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.friends')->with($this->page_data);
     }
 
     public function postSearch(){
         $request = \Request::except('_token');
-        return \Search::query($request['searchQuery'])->get()->where('user_type',1);
+        $result = \Search::query($request['searchQuery']);
+        $details = [];
+        if($result->count() > 0){
+            $users = $result->get();
+            foreach($users as $user){
+                $details[$user->id] = [
+                    'user' => $user
+                ];
+                if(isset($user->profile)){
+                    $user->profile->image = ($user->profile->image)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/user.jpg');
+                    $user->profile->school_id = ($user->profile->school_id)? $user->profile->school->name : 'N/A';
+                    $details[$user->id]['profile'] = $user->profile;
+                    $details[$user->id]['profileStats'] = $user->profile()->statistics();
+                }
+                if(isset($user->friendship)){
+                    $details[$user->id]['friendsStats'] = $user->friendship()->requestAccepted()->count();
+                    $details[$user->id]['friends'] = $user->friendship()->requestAccepted()->get();
+                }
+            }
+        }
+//        dd([(object) $details]);
+        return \Response::json($details);
     }
 
     public function getMyConversations(){
         $this->page_data['page_name'] = 'messages';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
-        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.conversations')->with($this->page_data);
     }
@@ -791,7 +812,7 @@ class StudentController extends Controller
         $this->page_data['page_name'] = 'settings';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
-        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->count();
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.settings')->with($this->page_data);
     }
