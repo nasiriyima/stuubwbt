@@ -2,7 +2,7 @@
     <div class="container">
         <!-- Logo -->
         <a class="logo" href="index.html">
-            <img src="{{ asset('public/assets/img/logo1-default.jpg')}}" width="220px" alt="Logo">
+            <img src="<?php echo e(asset('public/assets/img/logo1-default.jpg')); ?>" width="220px" alt="Logo">
         </a>
         <!-- End Logo -->
 
@@ -10,15 +10,15 @@
         <div class="topbar">
                 <ul class="loginbar pull-right">
                         <li><i class="fa fa-globe"></i><a href="page_faq.html"> FAQs</a></li>
-                        @if(\Sentinel::check())
+                        <?php if(\Sentinel::check()): ?>
                         <li class="topbar-devider"></li>
-                        <li><a href="{{(\Sentinel::check()->user_type == 1)? url('student'):url('admin')}}">{{\Sentinel::check()->first_name}} {{\Sentinel::check()->last_name}}</a></li>
+                        <li><a href="<?php echo e((\Sentinel::check()->user_type == 1)? url('student'):url('admin')); ?>"><?php echo e(\Sentinel::check()->first_name); ?> <?php echo e(\Sentinel::check()->last_name); ?></a></li>
                         <li class="topbar-devider"></li>
-                        <li><i class="fa fa-lock"></i><a href="{{url('auth/logout')}}"> Logout</a></li>
-                        @else
+                        <li><i class="fa fa-lock"></i><a href="<?php echo e(url('auth/logout')); ?>"> Logout</a></li>
+                        <?php else: ?>
                         <li class="topbar-devider"></li>
                         <li class="cd-log_reg"><a href="javascript:void(0);">Login</a></li>
-                        @endif
+                        <?php endif; ?>
 
                 </ul>
         </div>
@@ -36,29 +36,29 @@
     <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
         <div class="container">
                 <ul class="nav navbar-nav">
-                    <li class="{{($pagename == 'home')? 'active':' '}}">
-                        <a href="{{url('web')}}">
+                    <li class="<?php echo e(($pagename == 'home')? 'active':' '); ?>">
+                        <a href="<?php echo e(url('web')); ?>">
                                 Home
                         </a>
                     </li>
-                    <li class="{{($pagename == 'aboutus')? 'active':' '}}">
-                        <a href="{{url('web/about-us')}}">
+                    <li class="<?php echo e(($pagename == 'aboutus')? 'active':' '); ?>">
+                        <a href="<?php echo e(url('web/about-us')); ?>">
                                 About Us
                         </a>
                     </li>
                     <li>
 
-                        <a href="{{(\Sentinel::check())? url('student/my-exam'):url('web/sign-in')}}">
+                        <a href="<?php echo e((\Sentinel::check())? url('student/my-exam'):url('web/sign-in')); ?>">
                                 Take Exams
                         </a>
                     </li>
-                    <li class="{{($pagename == 'news')? 'active':' '}}">
-                        <a href="{{url('web/news')}}">
+                    <li class="<?php echo e(($pagename == 'news')? 'active':' '); ?>">
+                        <a href="<?php echo e(url('web/news')); ?>">
                                 News
                         </a>
                     </li>
-                    <li class="{{($pagename == 'contactus')? 'active':' '}}">
-                        <a href="{{url('web/contact-us')}}">
+                    <li class="<?php echo e(($pagename == 'contactus')? 'active':' '); ?>">
+                        <a href="<?php echo e(url('web/contact-us')); ?>">
                                 Contact Us
                         </a>
                     </li>

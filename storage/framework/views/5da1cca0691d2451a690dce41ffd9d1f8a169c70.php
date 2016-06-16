@@ -1,12 +1,10 @@
-@extends('admin_layout')
-
-@section('pagetitle')
+<?php $__env->startSection('pagetitle'); ?>
 STUDENT MANAGER
-@stop
-@section('pagecss')
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
-@stop
-@section('maincontent')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagecss'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">Registered Students</a></li>
@@ -26,15 +24,15 @@ STUDENT MANAGER
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($students as $student)
+                        <?php foreach($students as $student): ?>
                         <tr>
                             <td>1</td>
-                            <td><a href="{{url('admin/student-profile')}}/{{\Crypt::encrypt($student->id)}}">{{$student->first_name}}</a></td>
-                            <td>{{$student->email}}</td>
+                            <td><a href="<?php echo e(url('admin/student-profile')); ?>/<?php echo e(\Crypt::encrypt($student->id)); ?>"><?php echo e($student->first_name); ?></a></td>
+                            <td><?php echo e($student->email); ?></td>
                             <td></td>
                             <td><span class="label label-warning">Expiring</span></td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; ?>
                     </tbody>
                 </table> 
                 </div>
@@ -42,13 +40,15 @@ STUDENT MANAGER
         </div>
     </div>
 </div>
-@stop
-@section('pagejs')
-<script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagejs'); ?>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.js')); ?>"></script>
 <script>
     jQuery(document).ready(function() {
         $(".table").DataTable();
     });
+
 </script>
 
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

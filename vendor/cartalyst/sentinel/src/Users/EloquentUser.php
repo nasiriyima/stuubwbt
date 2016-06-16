@@ -26,13 +26,13 @@ use Cartalyst\Sentinel\Persistences\PersistableInterface;
 use Cartalyst\Sentinel\Roles\RoleableInterface;
 use Cartalyst\Sentinel\Roles\RoleInterface;
 use Illuminate\Database\Eloquent\Model;
-use Nqxcode\LuceneSearch\Model\SearchableInterface;
-use Nqxcode\LuceneSearch\Model\SearchTrait;
+/*use Nqxcode\LuceneSearch\Model\SearchableInterface;
+use Nqxcode\LuceneSearch\Model\SearchTrait;*/
 
-class EloquentUser extends Model implements RoleableInterface, PermissibleInterface, PersistableInterface, UserInterface, SearchableInterface
+class EloquentUser extends Model implements RoleableInterface, PermissibleInterface, PersistableInterface, UserInterface
 {
     use PermissibleTrait;
-    use SearchTrait;
+    /*use SearchTrait;*/
 
     /**
      * {@inheritDoc}

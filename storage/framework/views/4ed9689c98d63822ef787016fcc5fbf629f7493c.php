@@ -18,23 +18,23 @@
         <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
 
         <!-- CSS Global Compulsory -->
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('public/assets/css/style.css')}}">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/bootstrap/css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/style.css')); ?>">
 
         <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/animate.css')}}">
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/line-icons/line-icons.css')}}">
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/font-awesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/animate.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/line-icons/line-icons.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/font-awesome/css/font-awesome.min.css')); ?>">
 
     <!-- CSS Page Style -->
-    <link rel="stylesheet" href="{{ asset('public/assets/css/pages/page_log_reg_v2.css')}}">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/pages/page_log_reg_v2.css')); ?>">
 
         <!-- CSS Theme -->
-    <link rel="stylesheet" href="{{ asset('public/assets/css/theme-colors/default.css')}}" id="style_color">
-    <link rel="stylesheet" href="{{ asset('public/assets/css/theme-skins/dark.css')}}">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/theme-colors/default.css')); ?>" id="style_color">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/theme-skins/dark.css')); ?>">
 
         <!-- CSS Customization -->
-    <link rel="stylesheet" href="{{ asset('public/assets/css/custom.css')}}">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/custom.css')); ?>">
 </head>
 
 <body>
@@ -44,21 +44,22 @@
         <div class="reg-block">
                 <div class="reg-block-header">
                     <center>
-                        <a href="{{url('/')}}">
+                        <a href="<?php echo e(url('/')); ?>">
                             <img src="http://localhost/stuubwbt/public/assets/img/logo1-default.png" width="160px" class="rounded-4x">
                         </a>
                     </center>
                     <br>
                     <h2>Sign In</h2>
-                        <p>Don't Have Account? Click <a class="color-green" href="{{url('web/sign-up')}}">Sign Up</a> to registration.</p>
+                        <p>Don't Have Account? Click <a class="color-green" href="<?php echo e(url('web/sign-up')); ?>">Sign Up</a> to registration.</p>
                 </div>
-            @if(isset($message))
+            <?php if(isset($message)): ?>
                 <div class="alert alert-danger fade in alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <center>{{$message}}</center>
+                    <center><?php echo e($message); ?></center>
                 </div>
-            @endif
-            {!! Form::open(array('url' => url('auth/authenticate'),'class'=>'cd-form')) !!}
+            <?php endif; ?>
+            <?php echo Form::open(array('url' => url('auth/authenticate'),'class'=>'cd-form')); ?>
+
                 <div class="input-group margin-bottom-20">
                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                         <input type="text" class="form-control" placeholder="Email" name="email" required>
@@ -81,7 +82,8 @@
                                 <button type="submit" class="btn-u btn-block">Log In</button>
                         </div>
                 </div>
-            {!! Form::close() !!}
+            <?php echo Form::close(); ?>
+
             <br/>
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
@@ -94,14 +96,14 @@
 <!--=== End Content Part ===-->
 
 <!-- JS Global Compulsory -->
-<script type="text/javascript" src="{{ asset('public/assets/plugins/jquery/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/jquery/jquery-migrate.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/jquery/jquery.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/jquery/jquery-migrate.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/bootstrap/js/bootstrap.min.js')); ?>"></script>
 <!-- JS Implementing Plugins -->
-<script type="text/javascript" src="{{ asset('public/assets/plugins/back-to-top.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/backstretch/jquery.backstretch.min.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/back-to-top.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/backstretch/jquery.backstretch.min.js')); ?>"></script>
 <!-- JS Page Level -->
-<script type="text/javascript" src="{{ asset('public/assets/js/app.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/app.js')); ?>"></script>
 <script type="text/javascript">
         jQuery(document).ready(function() {
                 App.init();

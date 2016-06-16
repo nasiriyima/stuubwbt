@@ -1,18 +1,16 @@
-@extends('web_layout')
+<?php $__env->startSection('pagecss'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/parallax-slider/css/parallax-slider.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.css')); ?>">
+<?php $__env->stopSection(); ?>
 
-@section('pagecss')
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/parallax-slider/css/parallax-slider.css')}}">
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.css')}}">
-@stop
-
-@section('maincontent')
+<?php $__env->startSection('maincontent'); ?>
 <!--=== Slider ===-->
     <div class="slider-inner">
             <div id="da-slider" class="da-slider">
                     <div class="da-slide">
                             <h2><i>CLEAN &amp; FRESH</i> <br /> <i>FULLY RESPONSIVE</i> <br /> <i>DESIGN</i></h2>
                             <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
-                            <div class="da-img"><img class="img-responsive" src="{{ asset('public/assets/plugins/parallax-slider/img/1.png')}}" alt=""></div>
+                            <div class="da-img"><img class="img-responsive" src="<?php echo e(asset('public/assets/plugins/parallax-slider/img/1.png')); ?>" alt=""></div>
                     </div>
                     <div class="da-slide">
                             <h2><i>RESPONSIVE VIDEO</i> <br /> <i>SUPPORT AND</i> <br /> <i>MANY MORE</i></h2>
@@ -24,7 +22,7 @@
                     <div class="da-slide">
                             <h2><i>USING BEST WEB</i> <br /> <i>SOLUTIONS WITH</i> <br /> <i>HTML5/CSS3</i></h2>
                             <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
-                            <div class="da-img"><img src="{{ asset('public/assets/plugins/parallax-slider/img/html5andcss3.png')}}" alt="image01" /></div>
+                            <div class="da-img"><img src="<?php echo e(asset('public/assets/plugins/parallax-slider/img/html5andcss3.png')); ?>" alt="image01" /></div>
                     </div>
                     <div class="da-arrows">
                             <span class="da-arrows-prev"></span>
@@ -45,9 +43,9 @@
                                             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa</p>
 					</div>
                                         <div class="col-md-4 animated fadeInLeft">
-                                                <p><img src="{{ asset('public/assets/img/clients4/1.png')}}" alt="" width="100">
-                                                    <img src="{{ asset('public/assets/img/clients4/2.png')}}" alt="" width="100">
-                                                    <img src="{{ asset('public/assets/img/clients4/3.png')}}" alt="" width="100">
+                                                <p><img src="<?php echo e(asset('public/assets/img/clients4/1.png')); ?>" alt="" width="100">
+                                                    <img src="<?php echo e(asset('public/assets/img/clients4/2.png')); ?>" alt="" width="100">
+                                                    <img src="<?php echo e(asset('public/assets/img/clients4/3.png')); ?>" alt="" width="100">
                                                 </p>
 					</div>
 					<div class="col-md-3 btn-buy animated fadeInRight">
@@ -93,7 +91,7 @@
                         <div class="main-counters margin-bottom-40">
                             <div class="row margin-bottom-40">
                                     <div class="counters col-md-3 col-sm-3">
-                                            <span class="counter">{{$reg_student}}</span>
+                                            <span class="counter"><?php echo e($reg_student); ?></span>
                                             <h4>Candidates</h4>
                                     </div>
                                     <div class="counters col-md-3 col-sm-3">
@@ -112,18 +110,18 @@
                         </div>
 		</div><!--/container-->
 		<!-- End Content Part -->
-@stop
-@section('pagejs')
-<script type="text/javascript" src="{{ asset('public/assets/plugins/counter/waypoints.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/counter/jquery.counterup.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/js/app.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/js/plugins/owl-carousel.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/js/plugins/style-switcher.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/js/plugins/parallax-slider.js')}}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagejs'); ?>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/counter/waypoints.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/counter/jquery.counterup.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/app.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/owl-carousel.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/style-switcher.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/parallax-slider.js')); ?>"></script>
 
-<script type="text/javascript" src="{{ asset('public/assets/plugins/parallax-slider/js/modernizr.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/parallax-slider/js/jquery.cslider.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/parallax-slider/js/modernizr.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/parallax-slider/js/jquery.cslider.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.js')); ?>"></script>
 <script type="text/javascript">
         jQuery(document).ready(function() {
                 App.init();
@@ -133,4 +131,5 @@
                 ParallaxSlider.initParallaxSlider();
         });
 </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('web_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
