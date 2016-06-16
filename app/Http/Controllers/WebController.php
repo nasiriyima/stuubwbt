@@ -17,6 +17,7 @@ class WebController extends Controller
     public function getIndex()
     {
         $page_data['pagename'] = 'home';
+        $page_data['reg_student'] = 1000;
         return view('frontweb.index', $page_data);
     }
 
