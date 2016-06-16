@@ -773,8 +773,9 @@ class StudentController extends Controller
         return view('student.myprofile.friends')->with($this->page_data);
     }
 
-    public function getSearch($string){
-        return \Search::query($string)->get()->where('user_type',1);
+    public function postSearch(){
+        $request = \Request::except('_token');
+        return \Search::query($request['searchQuery'])->get()->where('user_type',1);
     }
 
     public function getMyConversations(){

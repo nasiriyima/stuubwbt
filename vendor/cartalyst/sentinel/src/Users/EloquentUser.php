@@ -26,10 +26,13 @@ use Cartalyst\Sentinel\Persistences\PersistableInterface;
 use Cartalyst\Sentinel\Roles\RoleableInterface;
 use Cartalyst\Sentinel\Roles\RoleInterface;
 use Illuminate\Database\Eloquent\Model;
+use Nqxcode\LuceneSearch\Model\SearchableInterface;
+use Nqxcode\LuceneSearch\Model\SearchTrait;
 
-class EloquentUser extends Model implements RoleableInterface, PermissibleInterface, PersistableInterface, UserInterface
+class EloquentUser extends Model implements RoleableInterface, PermissibleInterface, PersistableInterface, UserInterface, SearchableInterface
 {
     use PermissibleTrait;
+    use SearchTrait;
 
     /**
      * {@inheritDoc}
@@ -44,8 +47,14 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
         'password',
         'last_name',
         'first_name',
+        'user_type',
         'permissions',
     ];
+
+    public static function searchableIds()
+    {
+        return self::whereUserType(true)->lists('id');
+    }
 
     /**
      * {@inheritDoc}

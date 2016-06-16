@@ -4,11 +4,11 @@
 
 <?php $__env->startSection('pagecontent'); ?>
     <div class="profile-body margin-bottom-20">
-        <form action="assets/php/demo-contacts-process.php" method="post" id="sky-form3" class="sky-form">
+        <form action="javascript:searchQuery()" id="sky-form3" class="sky-form">
            <fieldset>
                 <section>
             <label class="input">
-                <i class="icon-append fa fa-search"></i>
+                <i class="icon-append fa fa-search" onclick="searchQuery();"></i>
                 <input type="text" name="search" id="search" />
             </label>
         </section>
@@ -18,8 +18,8 @@
         <table  class="sTable">
             <thead style="display:none;">
                 <tr>
-                    <th></th>
-                    <th></th>
+                    <th>Grid1</th>
+                    <th>Grid2</th>
                 </tr>
             </thead>
             <tbody>
@@ -254,7 +254,52 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        oTable = $(".sTable").dataTable({
+        initializeTable(".sTable");
+    });
+
+    function searchQuery(){
+        var sTable = $(".sTable").DataTable();
+        var displayRecordCount = sTable.page.info().recordsDisplay;
+        if(displayRecordCount === 0){
+            $.ajax({
+                url: "<?php echo url('student/search'); ?>",
+                method: "post",
+                data: {_token:"<?php echo csrf_token(); ?>", searchQuery:$("#search").val()},
+                success:function(response){
+
+                    if(response.session_expired)window.location = response.url;
+
+                    var table = '<table  class="sTable"><thead style="display:none;"><tr><th>Grid1</th><th>Grid2</th></tr></thead><tbody>';
+                    var tr = '<tr class="row margin-bottom-20">';
+                    var td1 = '<td class="col-sm-6 sm-margin-bottom-20 profile-body">';
+                    var td2 = '<td class="col-sm-6 profile-body">';
+                    $.each(response, function(index, value){
+                        if(typeof index !== "undefined"){
+                            if(Math.abs(index) === 0){
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="assets/img/testimonials/img2.jpg" alt=""><div class="name-location"><strong>'+value.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">California,</a> <a href="#">US</a></span></div><div class="clearfix margin-bottom-20"></div><p>Donec non dignissim eros. Mauris faucibus turpis volutpat sagittis rhoncus. Pellentesque et rhoncus sapien, sed ullamcorper justo.</p><hr><ul class="list-inline share-list"><li><i class="fa fa-bell"></i><a href="#">3 Notifications</a></li><li><i class="fa fa-group"></i><a href="#">25 Followers</a></li><li><i class="fa fa-share"></i><a href="#">Share</a></li> </ul></div>' + '</td>';
+                                tr = tr + td1;
+                            }
+                            if(Math.abs(index) === 1){
+                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="assets/img/testimonials/img2.jpg" alt=""><div class="name-location"><strong>'+value.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">California,</a> <a href="#">US</a></span></div><div class="clearfix margin-bottom-20"></div><p>Donec non dignissim eros. Mauris faucibus turpis volutpat sagittis rhoncus. Pellentesque et rhoncus sapien, sed ullamcorper justo.</p><hr><ul class="list-inline share-list"><li><i class="fa fa-bell"></i><a href="#">3 Notifications</a></li><li><i class="fa fa-group"></i><a href="#">25 Followers</a></li><li><i class="fa fa-share"></i><a href="#">Share</a></li> </ul></div>' + '</td>';
+                                tr = tr + td2;
+                            }
+                            if(Math.abs(response.length) === 1 && index == (response.length - 1)){
+                                td2 = td2 + '' + '</td>';
+                                tr = tr + td2;
+                            }
+                        }
+                        table = table + tr + '</tr>';
+                    });
+                    table = table + '</tbody></table>';
+                    $(".sTable").replaceWith(table);
+                    initializeTable(".sTable");
+                }
+            });
+        }
+    }
+
+    function initializeTable(className){
+        sTable = $(className).dataTable({
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": true,
@@ -266,11 +311,12 @@
             }
         });
         $('#search').keyup(function () {
-            oTable.fnFilter($(this).val());
-            var displayRecordCount = $(".sTable").DataTable().page.info().recordsDisplay;
+            sTable.fnFilter($(this).val());
+            var displayRecordCount = $(className).DataTable().page.info().recordsDisplay;
             (displayRecordCount === 0)? $("#load_more").hide(): $("#load_more").show();
         });
-    });
+    }
+
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('student.myprofile.myprofile_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

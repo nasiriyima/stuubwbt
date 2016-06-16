@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Nqxcode\LuceneSearch\Model\SearchableInterface;
+use Nqxcode\LuceneSearch\Model\SearchTrait;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements SearchableInterface
 {
+    use SearchTrait;
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -17,6 +20,11 @@ class User extends Authenticatable
     ];
 
     protected $dates = ['last_login'];
+
+    public static function searchableIds()
+    {
+        return self::whereUserType(true)->lists('id');
+    }
 
     public function profile(){
         return $this->hasOne('\App\Profile');
