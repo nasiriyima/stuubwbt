@@ -276,6 +276,7 @@
                     var td1 = '<td class="col-sm-6 sm-margin-bottom-20 profile-body">';
                     var td2 = '<td class="col-sm-6 profile-body">';
                     $.each(response, function(index, value){
+//                        console.log(value.profile);
                         if(typeof index !== "undefined"){
                             if(Math.abs(index) === 0){
                                 td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="assets/img/testimonials/img2.jpg" alt=""><div class="name-location"><strong>'+value.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">California,</a> <a href="#">US</a></span></div><div class="clearfix margin-bottom-20"></div><p>Donec non dignissim eros. Mauris faucibus turpis volutpat sagittis rhoncus. Pellentesque et rhoncus sapien, sed ullamcorper justo.</p><hr><ul class="list-inline share-list"><li><i class="fa fa-bell"></i><a href="#">3 Notifications</a></li><li><i class="fa fa-group"></i><a href="#">25 Followers</a></li><li><i class="fa fa-share"></i><a href="#">Share</a></li> </ul></div>' + '</td>';
