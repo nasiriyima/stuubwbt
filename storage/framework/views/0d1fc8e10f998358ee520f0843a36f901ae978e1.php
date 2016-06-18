@@ -46,38 +46,11 @@
                                 About Us
                         </a>
                     </li>
-                    <li class="dropdown mega-menu-fullwidth">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <li>
+
+                        <a href="<?php echo e((\Sentinel::check())? url('student/my-exam'):url('web/sign-in')); ?>">
                                 Take Exams
                         </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="mega-menu-content disable-icons">
-                                    <div class="container">
-                                        <div class="row equal-height">
-                                            <div class="col-md-4 equal-height-in">
-                                                <ul class="list-unstyled equal-height-list">
-                                                    <li><h3>Joint Admissions &amp; Matriculation Board</h3></li>
-                                                        <li><a href="#">Mathematics</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4 equal-height-in">
-                                                <ul class="list-unstyled equal-height-list">
-                                                    <li><h3>West African Examination Council</h3></li>
-                                                        <li><a href="#">Mathematics</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4 equal-height-in">
-                                                <ul class="list-unstyled equal-height-list">
-                                                    <li><h3>National Examination Council</h3></li>
-                                                        <li><a href="#">Mathematics</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
                     </li>
                     <li class="<?php echo e(($pagename == 'news')? 'active':' '); ?>">
                         <a href="<?php echo e(url('web/news')); ?>">

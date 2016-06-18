@@ -22,7 +22,7 @@
                 <a href="<?php echo e(url('student/my-friends')); ?>"><i class="fa fa-group"></i> Friends</a>
             </li>
             <li class="list-group-item <?php echo e(($page_name == 'messages')? 'active' : ''); ?>">
-                <a href="<?php echo e(url('student/my-conversations')); ?>"><i class="fa fa-comments"></i> Messages</a>
+                <a href="<?php echo e(url('student/my-conversations')); ?>"><i class="fa fa-comments"></i> Conversation</a>
             </li>
             <li class="list-group-item <?php echo e(($page_name == 'settings')? 'active' : ''); ?>">
                 <a href="<?php echo e(url('student/my-settings')); ?>"><i class="fa fa-cog"></i> Settings</a>

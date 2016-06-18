@@ -17,6 +17,7 @@ class StudentController extends Controller
         }
         $this->page_data['user'] = \App\User::find(\Sentinel::check()->id);
         $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->count();
+        $this->page_data['sent_count'] = \App\User::find($this->page_data['user']->id)->sender()->sent()->count();
         $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->count();
         $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->receiver()->onlyTrashed()->get()->count();
         $this->page_data['notifications'] = $this->getNotifications();
@@ -426,11 +427,17 @@ class StudentController extends Controller
         return view('student.mymessage.view')->with($this->page_data);
     }
 
-    public function getMyMessageSaved(){
-        $this->page_data['message_saved'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->get();
+    public function getMyMessageSent(){
+        $this->page_data['message_sent'] = \App\User::find($this->page_data['user']->id)->sender()->sent()->get();
         $this->page_data['open'] = 'open';
-        return view('student.mymessage.Saved')->with($this->page_data);
+        return view('student.mymessage.sent')->with($this->page_data);
     }
+
+    public function getMyMessageSaved(){
+    $this->page_data['message_saved'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->get();
+    $this->page_data['open'] = 'open';
+    return view('student.mymessage.saved')->with($this->page_data);
+}
 
     public function getMyMessageDeleted(){
         $this->page_data['message_deleted'] =  \App\User::find($this->page_data['user']->id)->receiver()->onlyTrashed()->get();
@@ -769,6 +776,7 @@ class StudentController extends Controller
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
+        $this->page_data['friends'] = $this->page_data['user']->friendship()->requestAccepted()->get();
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.friends')->with($this->page_data);
     }
@@ -781,7 +789,9 @@ class StudentController extends Controller
             $users = $result->get();
             foreach($users as $user){
                 $details[$user->id] = [
-                    'user' => $user
+                    'user' => $user,
+                    'profileStats' => 0,
+                    'friendsStats' => 0,
                 ];
                 if(isset($user->profile)){
                     $user->profile->image = ($user->profile->image)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/user.jpg');
@@ -804,6 +814,13 @@ class StudentController extends Controller
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
+        $this->page_data['conversations'] = $this->page_data['user']->sender()->sentConversation(
+            \Carbon\Carbon::now()->startOfMonth()->subMonths(2), \Carbon\Carbon::now()
+        )->get()->merge($this->page_data['user']->receiver()->receivedConversation(
+            \Carbon\Carbon::now()->startOfMonth()->subMonths(2), \Carbon\Carbon::now()
+        )->get());
+        $this->page_data['conversationStartDate'] = \Carbon\Carbon::now()->startOfMonth()->subMonths(2);
+        $this->page_data['conversationEndDate'] = \Carbon\Carbon::now();
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.conversations')->with($this->page_data);
     }

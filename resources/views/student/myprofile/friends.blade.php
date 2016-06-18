@@ -9,14 +9,15 @@
         <form action="javascript:searchQuery()" id="sky-form3" class="sky-form">
            <fieldset>
                 <section>
-            <label class="input">
-                <i class="icon-append fa fa-search" onclick="searchQuery();"></i>
-                <input type="text" name="search" id="search" />
-            </label>
-        </section>
-               </fieldset>
+                    <label class="input">
+                        <i class="hover-hand-cursor icon-append fa fa-search" onclick="searchQuery();"></i>
+                        <input type="text" name="search" id="search" />
+                    </label>
+                </section>
+           </fieldset>
         </form>
         <div class="margin-bottom-50"></div>
+        <button type="button" class="btn-u btn-block text-center" style="display: none;" onclick="returnFriendsList();" id="return">Return to Friends List</button>
         <table  class="sTable">
             <thead style="display:none;">
                 <tr>
@@ -271,7 +272,7 @@
 
                     if(response.session_expired)window.location = response.url;
 
-                    var table = '<table  class="sTable"><thead style="display:none;"><tr><th>Grid1</th><th>Grid2</th></tr></thead><tbody>';
+                    var table = '<table  class="oTable"><thead style="display:none;"><tr><th>Grid1</th><th>Grid2</th></tr></thead><tbody>';
                     var tr = '<tr class="row margin-bottom-20">';
                     var td1 = '<td class="col-sm-6 sm-margin-bottom-20 profile-body">';
                     var td2 = '<td class="col-sm-6 profile-body">';
@@ -279,11 +280,11 @@
                     for(var i in response){
 
                         if(index%2 === 0){
-                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+response[i].profile.image+'" alt=""><div class="name-location"><strong>'+response[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+response[i].profile.school_id.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+response[i].profile.description+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-plus"></i><a href="#">Request</a></li><li><i class="fa fa-group"></i><a href="#">'+response[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
+                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+response[i].profile.image+'" alt=""><div class="name-location"><strong>'+response[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+response[i].profile.school_id.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+response[i].profile.description+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', response[i].user.id, '{!! json_encode($friends) !!}')+'<li><i class="fa fa-group"></i><a href="#">'+response[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
                             tr = tr + td1;
                         }
                         if(index%2 === 1){
-                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+response[i].profile.image+'" alt=""><div class="name-location"><strong>'+response[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+response[i].profile.school_id.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+response[i].profile.description+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-plus"></i><a href="#">Request</a></li><li><i class="fa fa-group"></i><a href="#">'+response[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
+                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+response[i].profile.image+'" alt=""><div class="name-location"><strong>'+response[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+response[i].profile.school_id.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+response[i].profile.description+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', response[i].user.id, '{!! json_encode($friends) !!}')+'<li><i class="fa fa-group"></i><a href="#">'+response[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
                             tr = tr + td2;
                         }
                         if(Object.keys(response).length%2 === 1 && index === (Object.keys(response).length-1)){
@@ -294,6 +295,7 @@
                         index++;
                     }
                     table = table + '</tbody></table>';
+                    $("#return").show();
                     $(".sTable").replaceWith(table);
                     initializeTable(".sTable");
                 }
@@ -318,6 +320,54 @@
             var displayRecordCount = $(className).DataTable().page.info().recordsDisplay;
             (displayRecordCount === 0)? $("#load_more").hide(): $("#load_more").show();
         });
+    }
+    
+    function returnFriendsList(){
+        var friends = JSON.parse('{!! json_encode($friends->load('user', 'profile', 'school')) !!}');
+        var sTable = $(".sTable").DataTable();
+        var table = '<table  class="sTable"><thead style="display:none;"><tr><th>Grid1</th><th>Grid2</th></tr></thead><tbody>';
+        var tr = '<tr class="row margin-bottom-20">';
+        var td1 = '<td class="col-sm-6 sm-margin-bottom-20 profile-body">';
+        var td2 = '<td class="col-sm-6 profile-body">';
+        var index  = 0;
+        console.log(friends);
+        for(var i in friends){
+
+            if(index%2 === 0){
+                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+friends[i].profile[0].image+'" alt=""><div class="name-location"><strong>'+friends[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+friends[i].school[0].name.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+friends[i].profile[0].description+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', friends[i].user.id, '{!! json_encode($friends) !!}')+'<li><i class="fa fa-group"></i><a href="#">'+friends[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
+                tr = tr + td1;
+            }
+            if(index%2 === 1){
+                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+friends[i].profile[0].image+'" alt=""><div class="name-location"><strong>'+friends[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+friends[i].school[0].name.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+friends[i].profile[0].description+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', friends[i].user.id, '{!! json_encode($friends) !!}')+'<li><i class="fa fa-group"></i><a href="#">'+friends[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
+                tr = tr + td2;
+            }
+            if(Object.keys(friends).length%2 === 1 && index === (Object.keys(friends).length-1)){
+                td2 = td2 + '' + '</td>';
+                tr = tr + td2;
+            }
+            table = table + tr + '</tr>';
+            index++;
+        }
+        table = table + '</tbody></table>';
+        $(".sTable").replaceWith(table);
+        initializeTable(".sTable");
+        $("#return").hide();
+        $("#load_more").show();
+    }
+
+    function enableRequest(profileStats, user, friendships){
+        if(parseInt(profileStats) > 49){
+            if(!is_friend(user, JSON.parse(friendships)))return '<li><i class="fa fa-plus"></i><a href="#">Request</a></li>';
+            return '<li><i class="fa fa-ban"></i><a href="#">UnFriend</a></li>';
+        }
+        return '';
+    }
+
+    function is_friend(needle, haystack){
+        for(var i in haystack){
+            if(needle === haystack[i].friend_id) return true;
+        }
+        return false;
     }
 
 </script>

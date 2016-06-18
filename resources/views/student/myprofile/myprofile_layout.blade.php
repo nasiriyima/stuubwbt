@@ -24,7 +24,7 @@
                 <a href="{{ url('student/my-friends') }}"><i class="fa fa-group"></i> Friends</a>
             </li>
             <li class="list-group-item {{ ($page_name == 'messages')? 'active' : '' }}">
-                <a href="{{ url('student/my-conversations') }}"><i class="fa fa-comments"></i> Messages</a>
+                <a href="{{ url('student/my-conversations') }}"><i class="fa fa-comments"></i> Conversations</a>
             </li>
             <li class="list-group-item {{ ($page_name == 'settings')? 'active' : '' }}">
                 <a href="{{ url('student/my-settings') }}"><i class="fa fa-cog"></i> Settings</a>

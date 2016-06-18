@@ -35,14 +35,30 @@ class Message extends Model
         return $query->whereIn('status',[0])->orderBy('created_at', 'dsc');
     }
 
+    public function scopeSent($query){
+        return $query->whereIn('status',[2])->orderBy('created_at', 'dsc');
+    }
+
     public function scopeDraft($query)
     {
-        return $query->whereIn('status',[2,3])->orderBy('created_at', 'dsc');
+        return $query->whereIn('status',[3])->orderBy('created_at', 'dsc');
     }
 
     public function scopeTrash($query)
     {
         return $query->whereNotNull('deleted_at')->orderBy('created_at', 'dsc');
+    }
+
+    public function scopeSentConversation($query, $startDate, $endDate){
+        return $query->whereIn('status',[2])->whereBetween('created_at', [
+            $startDate, $endDate
+        ])->orderBy('created_at', 'dsc');
+    }
+
+    public function scopeReceivedConversation($query, $startDate, $endDate){
+        return $query->whereIn('status',[0,1])->whereBetween('created_at', [
+            $startDate, $endDate
+        ])->orderBy('created_at', 'dsc');
     }
 
     public function sender(){

@@ -64,26 +64,24 @@
 					<div class="service">
 						<i class="fa fa-compress service-icon"></i>
 						<div class="desc">
-							<h4>Fully Responsive</h4>
-							<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+							<h4>Admissions Processing</h4>
+							<p>
+                                We apply for prospective students who show interest in studying abroad. Students can send in their SSCE results and data age of travel passport. In the absence of SSCE, prospective students can send in their SS 1-3 academic transcript as a substitute.
+                            </p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-8">
 					<div class="service">
 						<i class="fa fa-cogs service-icon"></i>
 						<div class="desc">
-							<h4>HTML5 + CSS3</h4>
-							<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="service">
-						<i class="fa fa-rocket service-icon"></i>
-						<div class="desc">
-							<h4>Launch Ready</h4>
-							<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+							<h4>Post-Admissions Services</h4>
+							<p>
+                                At Stuub, we render lots of services to our students when they arrive cities where the schools reside. One of the services rendered is accommodation. Finding a good accommodation that suits one’s lifestyle and have a close proximity to campus is a daunting task. On this note, we have taken it upon our heads to make sure that all students we processed admissions for get good, affordable and proximal apartments/hostels to reside in. We offer a host of other services which includes health insurance processing, utility bill payment and so on.
+                            </p>
+                            <p>
+                                Getting an admission is one step forward in attending the University of your Dream. The next step is getting visa into the country which can be very tedious; that’s when you do it all on your own.
+                            </p>
 						</div>
 					</div>
 				</div>
@@ -91,23 +89,22 @@
                         
 			<!-- Owl Clients v1 -->
                         <div class="main-counters margin-bottom-40">
-			<div class="headline"><h2>Our Clients</h2></div>
                             <div class="row margin-bottom-40">
                                     <div class="counters col-md-3 col-sm-3">
-                                            <span class="counter">52147</span>
-                                            <h4>Registered Users</h4>
+                                            <span class="counter"><?php echo e($reg_student); ?></span>
+                                            <h4>Candidates</h4>
                                     </div>
                                     <div class="counters col-md-3 col-sm-3">
-                                            <span class="counter">24583</span>
-                                            <h4>Projects</h4>
+                                            <span class="counter">0</span>
+                                            <h4>Examination</h4>
                                     </div>
                                     <div class="counters col-md-3 col-sm-3">
-                                            <span class="counter">7349</span>
-                                            <h4>Working Hours</h4>
+                                            <span class="counter">0</span>
+                                            <h4>Questions</h4>
                                     </div>
                                     <div class="counters col-md-3 col-sm-3">
-                                            <span class="counter">87904</span>
-                                            <h4>Job Offers</h4>
+                                            <span class="counter">0</span>
+                                            <h4>Questions Solved</h4>
                                     </div>
                             </div>
                         </div>
