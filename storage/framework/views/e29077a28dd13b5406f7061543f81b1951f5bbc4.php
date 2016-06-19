@@ -58,13 +58,15 @@
                     <center><?php echo e($message); ?></center>
                 </div>
             <?php endif; ?>
+            <?php echo Form::open(array('url' => url('auth/authenticate'),'class'=>'cd-form')); ?>
+
                 <div class="input-group margin-bottom-20">
                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                        <input type="text" class="form-control" placeholder="Email">
+                        <input type="text" class="form-control" placeholder="Email" name="email" required>
                 </div>
                 <div class="input-group margin-bottom-20">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <input type="text" class="form-control" placeholder="Password">
+                        <input type="text" class="form-control" placeholder="Password" name="password" required>
                 </div>
                 <hr>
 
@@ -80,6 +82,8 @@
                                 <button type="submit" class="btn-u btn-block">Log In</button>
                         </div>
                 </div>
+            <?php echo Form::close(); ?>
+
             <br/>
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">

@@ -103,8 +103,34 @@
 
 <script type="text/javascript">
     var l = Ladda.create(document.querySelector('.ladda-btn button'));
-    $(document).ready(function(){
-        initializeTable(".sTable");
+    initialize(".sTable");
+    function initialize(tableName){
+        return $(tableName).DataTable({
+                    "bPaginate": false,
+                    "bLengthChange": false,
+                    "bFilter": true,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "sDom": "ltipr",
+                    "columns": [
+                        { "className": "col-sm-6 sm-margin-bottom-20 profile-body" },
+                        { "className": "col-sm-6 profile-body" }
+                    ],
+                    "language": {
+                        "zeroRecords": "No matching records found in your friends list - Please use the search button to find more friends.",
+                    }
+                });
+    }
+    $('#search').keyup(function () {
+        var displayRecordCount;
+        if((! $.fn.DataTable.isDataTable(".sTable"))){
+            displayRecordCount =  initialize(".sTable").page.info().recordsDisplay;
+            if(displayRecordCount === 0){ $("#load_more").hide() } else { $("#load_more").show(); }
+        } else {
+            $(".sTable").DataTable().page.info().recordsDisplay;
+            if(displayRecordCount === 0){ $("#load_more").hide() } else { $("#load_more").show(); }
+        }
+        $(".sTable").DataTable().fnFilter($(this).val());
     });
 
     $("#load_more").on("click", function(){
@@ -155,8 +181,8 @@
     });
 
     function searchQuery(){
-        var sTable = $(".sTable").DataTable();
-        var displayRecordCount = sTable.page.info().recordsDisplay;
+        var displayRecordCount;
+        displayRecordCount = (! $.fn.DataTable.isDataTable(".sTable"))? initialize(".sTable").page.info().recordsDisplay : $(".sTable").DataTable().page.info().recordsDisplay;
         if(displayRecordCount === 0){
             $.ajax({
                 url: "<?php echo url('student/search'); ?>",
@@ -192,37 +218,14 @@
                     });
                 }
             });
+
             return
         }
         showAlert('error', 'Advanced search can only be done, if friend is not found in list');
     }
-
-    function initializeTable(className){
-        sTable = $(className).dataTable({
-            "bPaginate": false,
-            "bLengthChange": false,
-            "bFilter": true,
-            "bInfo": false,
-            "bAutoWidth": false,
-            "sDom": "ltipr",
-            "columns": [
-                { "className": "col-sm-6 sm-margin-bottom-20 profile-body" },
-                { "className": "col-sm-6 profile-body" }
-            ],
-            "language": {
-                "zeroRecords": "No matching records found in your friends list - Please use the search button to find more friends.",
-            }
-        });
-        $('#search').keyup(function () {
-            sTable.fnFilter($(this).val());
-            var displayRecordCount = $(className).DataTable().page.info().recordsDisplay;
-            (displayRecordCount === 0)? $("#load_more").hide(): $("#load_more").show();
-        });
-    }
     
     function returnFriendsList(){
         var friends = JSON.parse('<?php echo json_encode($friends); ?>');
-        var sTable = $(".sTable").DataTable();
         var table = '<table  class="sTable"><thead style="display:none;"><tr><th>Grid1</th><th>Grid2</th></tr></thead><tbody>';
         var tr = '<tr class="row margin-bottom-20">';
         var td1 = '<td class="col-sm-6 sm-margin-bottom-20 profile-body">';
@@ -247,14 +250,14 @@
             index++;
         }
         table = table + '</tbody></table>';
-        $(".sTable").replaceWith(table);
-        initializeTable(".sTable");
+        sTable.replaceWith(table);
         $("#return").hide();
         $("#load_more").show();
     }
 
     function enableRequest(profileStats, user, friendships){
         if(parseInt(profileStats) > 49){
+            if(is_me(user)) return '<li><i class="fa fa-user"></i><a href="#">Me</a></li>';
             if(!is_friend(user, JSON.parse(friendships)))return '<li><i class="fa fa-plus"></i><a href="#">Request</a></li>';
             if(is_pendingFriend(user, JSON.parse(friendships)))return '<li><i class="fa fa-refresh"></i><a href="#">Pending</a></li>';
             return '<li><i class="fa fa-ban"></i><a href="#">UnFriend</a></li>';
@@ -271,7 +274,6 @@
 
     function is_friend(needle, haystack){
         for(var i in haystack){
-            console.log(haystack[i].friend_id);
             if(needle === haystack[i].friend_id && haystack[i].status === 1) return true;
         }
         return false;
@@ -282,6 +284,11 @@
             console.log(haystack[i].friend_id);
             if(needle === haystack[i].friend_id && haystack[i].status === 0) return true;
         }
+        return false;
+    }
+    function is_me(user){
+        var id = parseInt('<?php echo $user->id; ?>');
+        if(user === id)return true;
         return false;
     }
 

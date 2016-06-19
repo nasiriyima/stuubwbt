@@ -110,7 +110,7 @@
                     <section class="col col-6">
                         <label class="label">School</label>
                             <label class="select">
-                            @if(isset($user->profile->school_id) && $user->profile->school_id != "")
+                            @if(isset($user->profile->school_id) && $user->profile->school_id != "" && $user->profile->education != '' && $user->profile->education != null)
                                 <select name="school_id">
                                     <option value="">Choose school</option>
                                     @foreach($schools as $school)

@@ -84,7 +84,7 @@
                 <a href="#"><i class="fa fa-cog hover-hand-cursor pull-right" onclick="showEditModal('education');"></i></a>
             </div>
             <div class="panel-body">
-                @if(isset($user->profile->school))
+                @if(isset($user->profile->school) && $user->profile->education != '' && $user->profile->education != null)
                 <ul class="timeline-v2 timeline-me">
 
                         {{--*/

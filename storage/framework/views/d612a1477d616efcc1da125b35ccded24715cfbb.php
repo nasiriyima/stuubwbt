@@ -30,17 +30,17 @@
                         <div class="headline"><h2><?php echo $__env->yieldContent('pagetitle'); ?></h2></div>
                         <?php if(\Session::has('error')): ?>
                         <div class="alert alert-danger fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h4>Oh snap! You got an error!</h4>
-                            <p><?php echo e(\Session::get('error')); ?></p>
-                            <p>
-                                <?php if(\Session::has('actionAname') && \Session::has('actionBname')): ?>
-                                    <a class="btn-u btn-u-red" href="<?php echo e(\Session::get('actionA')); ?>"><?php echo e(\Session::get('actionAname')); ?></a>
-                                    <a class="btn-u btn-u-sea" href="<?php echo e(\Session::get('actionB')); ?>"><?php echo e(\Session::get('actionBname')); ?></a>
-                                <?php else: ?>
-                                    <a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
-                                <?php endif; ?>
-                            </p>
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4>Oh snap! You got an error!</h4>
+                                <p><?php echo e(\Session::get('error')); ?></p>
+                                <p>
+                                    <?php if(\Session::has('actionAname') && \Session::has('actionBname')): ?>
+                                        <a class="btn-u btn-u-red" href="<?php echo e(\Session::get('actionA')); ?>"><?php echo e(\Session::get('actionAname')); ?></a>
+                                        <a class="btn-u btn-u-sea" href="<?php echo e(\Session::get('actionB')); ?>"><?php echo e(\Session::get('actionBname')); ?></a>
+                                    <?php else: ?>
+                                        <a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
+                                    <?php endif; ?>
+                                </p>
                         </div>
                         <?php endif; ?>
                         <?php if(\Session::has('success')): ?>
