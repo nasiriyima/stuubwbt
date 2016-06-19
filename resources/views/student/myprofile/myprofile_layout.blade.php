@@ -10,6 +10,9 @@
 @stop
 
 @section('maincontent')
+        <div id="alert-message" style="display: none;">
+
+        </div>
         <!--=== Profile ===-->
 <div class="content profile">
     <!--Left Sidebar-->

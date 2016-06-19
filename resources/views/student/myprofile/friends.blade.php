@@ -123,17 +123,18 @@
                     nextPage = nextPage + 1;
                     $("#nextPage").val(nextPage);
                     $.each(response, function(index, row){
+                        console.log(row);
                         var tr = [];
                         var td1 = '';
                         var td2 = '';
                         var index = 0;
                         for(var i in row){
                             if(index%2 === 0){
-                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
                                 tr.push(td1);
                             }
                             if(index%2 === 1){
-                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
                                 tr.push(td2);
                             }
                             if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
@@ -156,47 +157,46 @@
     });
 
     function searchQuery(){
-//        var sTable = $(".sTable").DataTable();
-//        var displayRecordCount = sTable.page.info().recordsDisplay;
-//        if(displayRecordCount === 0){
-//
-//        }
-        $.ajax({
-            url: "{!! url('student/search') !!}",
-            method: "post",
-            data: {_token:"{!! csrf_token() !!}", searchQuery:$("#search").val()},
-            success:function(response){
+        var sTable = $(".sTable").DataTable();
+        var displayRecordCount = sTable.page.info().recordsDisplay;
+        if(displayRecordCount === 0){
+            $.ajax({
+                url: "{!! url('student/search') !!}",
+                method: "post",
+                data: {_token:"{!! csrf_token() !!}", searchQuery:$("#search").val()},
+                success:function(response){
+                    if(response.session_expired)window.location.replace(response.url);
+                    $.each(response, function(index, row){
 
-                if(response.session_expired)window.location.replace(response.url);
-
-                var table = '<table  class="oTable"><thead style="display:none;"><tr><th>Grid1</th><th>Grid2</th></tr></thead><tbody>';
-                var tr = '<tr class="row margin-bottom-20">';
-                var td1 = '<td class="col-sm-6 sm-margin-bottom-20 profile-body">';
-                var td2 = '<td class="col-sm-6 profile-body">';
-                var index  = 0;
-                for(var i in response){
-
-                    if(index%2 === 0){
-                        td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+response[i].profile.image+'" alt=""><div class="name-location"><strong>'+response[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+response[i].profile.school_id.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+response[i].profile.description+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', response[i].user.id, '{!! json_encode($friends) !!}')+'<li><i class="fa fa-group"></i><a href="#">'+response[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
-                        tr = tr + td1;
-                    }
-                    if(index%2 === 1){
-                        td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+response[i].profile.image+'" alt=""><div class="name-location"><strong>'+response[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+response[i].profile.school_id.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+response[i].profile.description+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', response[i].user.id, '{!! json_encode($friends) !!}')+'<li><i class="fa fa-group"></i><a href="#">'+response[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
-                        tr = tr + td2;
-                    }
-                    if(Object.keys(response).length%2 === 1 && index === (Object.keys(response).length-1)){
-                        td2 = td2 + '' + '</td>';
-                        tr = tr + td2;
-                    }
-                    table = table + tr + '</tr>';
-                    index++;
+                        var tr = [];
+                        var td1 = '';
+                        var td2 = '';
+                        var index = 0;
+                        for(var i in row){
+                            if(index%2 === 0){
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong>'+row[i].first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                tr.push(td1);
+                            }
+                            if(index%2 === 1){
+                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong>'+row[i].first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, '{!! $friendships !!}')+'</li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                tr.push(td2);
+                            }
+                            if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
+                                td2 = td2 + '';
+                                tr.push(td2);
+                            }
+                            index++;
+                        }
+                        $(".sTable").DataTable().row.add(tr).draw()
+                                .nodes()
+                                .to$()
+                                .addClass("row margin-bottom-20");
+                    });
                 }
-                table = table + '</tbody></table>';
-                $("#return").show();
-                $(".sTable").replaceWith(table);
-                initializeTable(".sTable");
-            }
-        });
+            });
+            return
+        }
+        showAlert('error', 'Advanced search can only be done, if friend is not found in list');
     }
 
     function initializeTable(className){
@@ -258,6 +258,7 @@
     function enableRequest(profileStats, user, friendships){
         if(parseInt(profileStats) > 49){
             if(!is_friend(user, JSON.parse(friendships)))return '<li><i class="fa fa-plus"></i><a href="#">Request</a></li>';
+            if(is_pendingFriend(user, JSON.parse(friendships)))return '<li><i class="fa fa-refresh"></i><a href="#">Pending</a></li>';
             return '<li><i class="fa fa-ban"></i><a href="#">UnFriend</a></li>';
         }
         return '';
@@ -265,16 +266,34 @@
 
     function getImageUrl(img){
         if(img && img !="" && img !=null){
-            return "{!! url('student/file') !!}/"+row[i].profile[0].image
+            return "{!! url('student/file') !!}/"+img;
         }
         return "{!!asset('public/assets/img/user.jpg')!!}";
     }
 
     function is_friend(needle, haystack){
         for(var i in haystack){
-            if(needle === haystack[i].friend_id) return true;
+            if(needle === haystack[i].friend_id && haystack[i].status === 1) return true;
         }
         return false;
+    }
+
+    function is_pendingFriend(needle, haystack){
+        for(var i in haystack){
+            console.log(haystack[i].friend_id);
+            if(needle === haystack[i].friend_id && haystack[i].status === 0) return true;
+        }
+        return false;
+    }
+
+    function showAlert(type, message){
+        if(type === 'error'){
+            $("div#alert-message").html('<div class="alert alert-danger fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><h4>Oh snap! You got an error!</h4> <p>'+message+'</p><p><a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a></p></div>');
+            $("div#alert-message").show("slow");
+            setTimeout(function(){
+                $("div#alert-message").hide("slow");
+            }, 10000);
+        }
     }
 
 </script>

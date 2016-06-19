@@ -8,6 +8,9 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('maincontent'); ?>
+        <div id="alert-message" style="display: none;">
+
+        </div>
         <!--=== Profile ===-->
 <div class="content profile">
     <!--Left Sidebar-->

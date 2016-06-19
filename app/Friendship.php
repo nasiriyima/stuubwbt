@@ -15,6 +15,10 @@ class Friendship extends Model
         return $this->belongsTo('\App\User', 'friend_id', 'id');
     }
 
+    public function friendship(){
+        return $this->hasManyThrough('\App\Friendship', '\App\User', 'id', 'user_id', 'user_id');
+    }
+
     public function profile(){
         return $this->hasManyThrough('\App\Profile', '\App\User', 'id', 'user_id', 'friend_id');
     }
@@ -23,10 +27,14 @@ class Friendship extends Model
         return $this->hasManyThrough('\App\School', '\App\Profile', 'user_id', 'id', 'friend_id');
     }
     public function scopeRequest($query){
-        return $query->with('friend', 'profile', 'school')->where(['status' => 0]);
+        return $query->with('friend', 'profile', 'school', 'friendship')->where(['status' => 0]);
     }
 
     public function scopeRequestAccepted($query){
-        return $query->with('friend', 'profile', 'school')->where(['status' => 1]);
+        return $query->with('friend', 'profile', 'school', 'friendship')->where(['status' => 1]);
+    }
+
+    public function scopeRequests($query){
+        return $query->whereIn('status', [0,1]);
     }
 }

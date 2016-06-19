@@ -38,6 +38,10 @@ class User extends Authenticatable implements SearchableInterface
         return $this->hasMany('\App\Friendship');
     }
 
+    public function school(){
+        return $this->hasManyThrough('\App\School', '\App\Profile', 'user_id', 'id', 'id');
+    }
+
     public function sender(){
         return $this->hasMany('\App\Message', 'sender_id', 'id');
     }

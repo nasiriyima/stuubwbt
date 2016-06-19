@@ -777,6 +777,7 @@ class StudentController extends Controller
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
         $this->page_data['friends'] = $this->page_data['user']->friendship()->requestAccepted()->paginate(6)->setPath('student/lazy-load');
+        $this->page_data['friendships'] = $this->page_data['user']->friendship()->requests()->get();
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.friends')->with($this->page_data);
     }
@@ -788,8 +789,13 @@ class StudentController extends Controller
 
     public function postSearch(){
         $request = \Request::except('_token');
-        $result = \Search::query($request['searchQuery'])->paginate(6)->setPath('student/lazy-load')->chunk(2);
-        dd($result);
+        $users = \Search::query($request['searchQuery'])->get('id');
+        $list = [];
+        foreach($users as $user){
+            array_push($list, $user->id);
+        }
+        $result =\App\User::with('profile', 'friendship', 'school')->whereIn('id', $list)->paginate(6)->chunk(2);
+        return $result;
     }
 
     public function getMyConversations(){
