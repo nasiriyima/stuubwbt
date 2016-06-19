@@ -47,7 +47,7 @@
                                         </ul>
                                 </li>
                                 <li>
-                                    <a href="{{url('admin/news')}}">
+                                    <a href="{{url('admin/schools-manager')}}">
                                         Schools Manager
                                     </a>
                                 </li>

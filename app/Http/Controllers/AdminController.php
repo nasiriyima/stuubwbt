@@ -43,12 +43,12 @@ class AdminController extends Controller
      */
     public function getStudentProfile($id)
     {
-        $this->page_data['user'] = \App\User::find(\Crypt::decrypt($id));
+        $this->page_data['student'] = \App\User::find(\Crypt::decrypt($id));
         $this->page_data['inbox_count'] = 0;
         $this->page_data['saved_count'] = 0;
+       return view('admin.studentprofile', $this->page_data);
         $this->page_data['deleted_count'] = 0;
         //$this->page_data['performances'] = \App\ExamProvider::all();
-       // return view('admin.studentprofile', $this->page_data);
         $this->page_data['page_name'] = 'profile';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
@@ -168,5 +168,18 @@ class AdminController extends Controller
         $news->post = $formData['body'];
         $news->status = 0;
         $news->save();
+    }
+
+    public function getSchoolsManager()
+    {
+        $this->page_data['schools'] = \App\School::all();
+        return view('admin.school.index', $this->page_data);
+    }
+
+    public function getSchoolProfile($id)
+    {
+        $this->page_data['school'] = \App\School::find(\Crypt::decrypt($id));
+        $this->page_data['students'] = $this->page_data['school']->profile;
+        return view('admin.school.schoolprofile', $this->page_data);
     }
 }

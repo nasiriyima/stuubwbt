@@ -47,7 +47,7 @@
                                         </ul>
                                 </li>
                                 <li>
-                                    <a href="<?php echo e(url('admin/news')); ?>">
+                                    <a href="<?php echo e(url('admin/schools-manager')); ?>">
                                         Schools Manager
                                     </a>
                                 </li>

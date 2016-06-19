@@ -1,12 +1,10 @@
-@extends('admin_layout')
-
-@section('pagetitle')
+<?php $__env->startSection('pagetitle'); ?>
 EXAMINATION RESOURCE MANAGER
-@stop
-@section('pagecss')
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
-@stop
-@section('maincontent')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagecss'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
 <div class="row">
     <div class="col-md-7">
         <div class="row margin-bottom-20">
@@ -14,8 +12,8 @@ EXAMINATION RESOURCE MANAGER
                 <center>
                     <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
                         <li>
-                            <a href="{{url('admin/provider-manager')}}"><i class="icon-line icon-pin"></i>Providers</a>
-                            <span class="badge badge-green rounded-x">{{$examcount}}</span>
+                            <a href="<?php echo e(url('admin/provider-manager')); ?>"><i class="icon-line icon-pin"></i>Providers</a>
+                            <span class="badge badge-green rounded-x"><?php echo e($examcount); ?></span>
                         </li>
                     </ul>
                 </center>
@@ -24,8 +22,8 @@ EXAMINATION RESOURCE MANAGER
                 <center>
                     <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
                         <li>
-                            <a href="{{url('admin/category-manager')}}"><i class="icon-line icon-layers"></i>Categories</a>
-                            <span class="badge badge-green rounded-x">{{$examcount}}</span>
+                            <a href="<?php echo e(url('admin/category-manager')); ?>"><i class="icon-line icon-layers"></i>Categories</a>
+                            <span class="badge badge-green rounded-x"><?php echo e($examcount); ?></span>
                         </li>
                     </ul>
                 </center>
@@ -34,8 +32,8 @@ EXAMINATION RESOURCE MANAGER
                 <center>
                     <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
                         <li>
-                            <a href="{{url('admin/subject-manager')}}"><i class="icon-line icon-note"></i>Subjects</a>
-                            <span class="badge badge-green rounded-x">{{$examcount}}</span>
+                            <a href="<?php echo e(url('admin/subject-manager')); ?>"><i class="icon-line icon-note"></i>Subjects</a>
+                            <span class="badge badge-green rounded-x"><?php echo e($examcount); ?></span>
                         </li>
                     </ul>
                 </center>
@@ -44,8 +42,8 @@ EXAMINATION RESOURCE MANAGER
                 <center>
                     <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
                         <li>
-                            <a href="{{url('admin/exam-manager')}}"><i class="fa fa-question"></i>Exams</a>
-                            <span class="badge badge-green rounded-x">{{$examcount}}</span>
+                            <a href="<?php echo e(url('admin/exam-manager')); ?>"><i class="fa fa-question"></i>Exams</a>
+                            <span class="badge badge-green rounded-x"><?php echo e($examcount); ?></span>
                         </li>
                     </ul>
                 </center>
@@ -69,14 +67,14 @@ EXAMINATION RESOURCE MANAGER
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($exams as $exam)
+                        <?php foreach($exams as $exam): ?>
                         <tr>
-                            <td>{{$exam->examProvider->code}}, {{$exam->subject->name}} ({{$exam->month->code}} {{$exam->session->name}})</td>
+                            <td><?php echo e($exam->examProvider->code); ?>, <?php echo e($exam->subject->name); ?> (<?php echo e($exam->month->code); ?> <?php echo e($exam->session->name); ?>)</td>
                             <td class="hidden-sm">50 QNS in 50 Min.</td>
                             <td>20</td>
                             <td><span class="label label-info">3 Months Ago</span></td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; ?>
                     </tbody>
                 </table> 
                 </div>
@@ -98,13 +96,14 @@ EXAMINATION RESOURCE MANAGER
         </div>
     </div>
 </div>
-@stop
-@section('pageplugins')
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pageplugins'); ?>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.js')); ?>"></script>
     <script>
         jQuery(document).ready(function() {
             $(".table").DataTable();
 
         });
     </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
