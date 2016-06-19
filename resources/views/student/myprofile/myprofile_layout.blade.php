@@ -81,7 +81,11 @@
                     @endif
 
                 </ul>
-                <button type="button" class="btn-u btn-u-default btn-u-sm btn-block">Load More</button>
+                    <div class="ladda-btn">
+                        <center>
+                            {{--<button type="button" class="btn-u btn-u-default btn-u-sm btn-block text-center ladda-button" data-style="contract" id="load_more">Load More</button>--}}
+                        </center>
+                    </div>
                 @else
                     You have no notifications yet
                 @endif

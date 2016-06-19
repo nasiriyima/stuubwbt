@@ -63,5 +63,5 @@
 @stop
 
 @section('pagescripts')
-
+    <script type="text/javascript" src="{{ asset('public/assets/js/plugins/jquery.lazyload.js') }}"></script>
 @stop

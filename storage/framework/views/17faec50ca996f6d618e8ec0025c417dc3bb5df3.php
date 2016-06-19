@@ -62,6 +62,6 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('pagescripts'); ?>
-
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/jquery.lazyload.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('student.myprofile.myprofile_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

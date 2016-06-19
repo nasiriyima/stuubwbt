@@ -776,37 +776,20 @@ class StudentController extends Controller
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
-        $this->page_data['friends'] = $this->page_data['user']->friendship()->requestAccepted()->get();
+        $this->page_data['friends'] = $this->page_data['user']->friendship()->requestAccepted()->paginate(6)->setPath('student/lazy-load');
         $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
         return view('student.myprofile.friends')->with($this->page_data);
     }
 
+    public function getLazyLoad(){
+        $data = $this->page_data['user']->friendship()->requestAccepted()->paginate(6)->chunk(2);
+        return \Response::json($data);
+    }
+
     public function postSearch(){
         $request = \Request::except('_token');
-        $result = \Search::query($request['searchQuery']);
-        $details = [];
-        if($result->count() > 0){
-            $users = $result->get();
-            foreach($users as $user){
-                $details[$user->id] = [
-                    'user' => $user,
-                    'profileStats' => 0,
-                    'friendsStats' => 0,
-                ];
-                if(isset($user->profile)){
-                    $user->profile->image = ($user->profile->image)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/user.jpg');
-                    $user->profile->school_id = ($user->profile->school_id)? $user->profile->school->name : 'N/A';
-                    $details[$user->id]['profile'] = $user->profile;
-                    $details[$user->id]['profileStats'] = $user->profile()->statistics();
-                }
-                if(isset($user->friendship)){
-                    $details[$user->id]['friendsStats'] = $user->friendship()->requestAccepted()->count();
-                    $details[$user->id]['friends'] = $user->friendship()->requestAccepted()->get();
-                }
-            }
-        }
-//        dd([(object) $details]);
-        return \Response::json($details);
+        $result = \Search::query($request['searchQuery'])->paginate(6)->setPath('student/lazy-load')->chunk(2);
+        dd($result);
     }
 
     public function getMyConversations(){
@@ -932,18 +915,62 @@ class StudentController extends Controller
     }
 
     public function getEncode(){
-        $data = [
-            'twitter' => [
-                'icon' => 'rounded-x tw fa fa-twitter',
-                'name' => 'amina.mustapha',
-                'address' => '#'
-            ],
-            'facebook' => [
-                'icon' => 'rounded-x fb fa fa-facebook',
-                'name' => 'Amina Mustapha',
-                'address' => '#'
-            ]
-        ];
-        return json_encode($data);
+        $count = 4;
+        for($x=0; $x < 50; $x++){
+            $faker = \Faker\Factory::create();
+            $user = new \App\User();
+            $user->email = 'test'.$count.'@stuub.com';
+            $user->password = '$2y$10$i8r.KFFGinjtdyQyFbVsc./5q6hpg8XVwqbEix2xibIcGoICAlHve';
+            $user->permissions = null;
+            $user->last_login = null;
+            $user->first_name = $faker->name;
+            $user->user_type = 1;
+            $user->save();
+
+            \DB::table('activations')->insert([
+                'user_id' => $user->id,
+                'code' => 'TCgsBav8naOqzdiEeMl9vzkuuKqBgfgj',
+                'completed' => 1,
+                'completed_at' => \Carbon\Carbon::now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now()
+            ]);
+            $profile = new \App\Profile();
+            $profile->user_id = $user->id;
+            $profile->nick_name = $faker->name;
+            $profile->description = $faker->text;
+            $profile->phone = $faker->phoneNumber;
+            $profile->email = $faker->email;
+            $profile->address = $faker->address;
+            $profile->dob = $faker->date('Y-m-d');
+            $profile->social_contact = null;
+            $profile->school_id = ($count < 102)? $count : $count = 4;
+            $profile->education = null;
+            $profile->image = null;
+            $profile->save();
+            $count++;
+
+            $friendship = new \App\Friendship();
+            $friendship->user_id = 1;
+            $friendship->friend_id = $user->id;
+            $friendship->message = $faker->text;
+            $friendship->status = 1;
+            $friendship->save();
+        }
+        return 'success';
+
+//        $data = [
+//            'twitter' => [
+//                'icon' => 'rounded-x tw fa fa-twitter',
+//                'name' => 'amina.mustapha',
+//                'address' => '#'
+//            ],
+//            'facebook' => [
+//                'icon' => 'rounded-x fb fa fa-facebook',
+//                'name' => 'Amina Mustapha',
+//                'address' => '#'
+//            ]
+//        ];
+//        return json_encode($data);
     }
 }

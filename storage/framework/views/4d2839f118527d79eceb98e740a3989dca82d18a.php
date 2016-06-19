@@ -22,7 +22,7 @@
                 <a href="<?php echo e(url('student/my-friends')); ?>"><i class="fa fa-group"></i> Friends</a>
             </li>
             <li class="list-group-item <?php echo e(($page_name == 'messages')? 'active' : ''); ?>">
-                <a href="<?php echo e(url('student/my-conversations')); ?>"><i class="fa fa-comments"></i> Conversation</a>
+                <a href="<?php echo e(url('student/my-conversations')); ?>"><i class="fa fa-comments"></i> Conversations</a>
             </li>
             <li class="list-group-item <?php echo e(($page_name == 'settings')? 'active' : ''); ?>">
                 <a href="<?php echo e(url('student/my-settings')); ?>"><i class="fa fa-cog"></i> Settings</a>
@@ -79,7 +79,11 @@
                     <?php endif; ?>
 
                 </ul>
-                <button type="button" class="btn-u btn-u-default btn-u-sm btn-block">Load More</button>
+                    <div class="ladda-btn">
+                        <center>
+                            <?php /*<button type="button" class="btn-u btn-u-default btn-u-sm btn-block text-center ladda-button" data-style="contract" id="load_more">Load More</button>*/ ?>
+                        </center>
+                    </div>
                 <?php else: ?>
                     You have no notifications yet
                 <?php endif; ?>
