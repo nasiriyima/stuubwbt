@@ -61,11 +61,31 @@ class CBTController extends Controller
         return redirect('admin/exam-profile'.'/'.$formData['examid']);
     }
 
-    public function postAdditionalInfo() {
-      $formData = Input::all();
-      $addInfo = new \App\QuestionAdditionalInformation();
-      $addInfo->name = $formData['question_name'];
-      $addInfo->question_id = null;
-      $addInfo->save();
+    Public function postAdditionalInfo() {
+      
+      if (\Request::input("image_description")) {
+        $info = new \App\QuestionAdditionalInformation();
+        $info->information_type_id = 1;
+        $info->name = \Request::input("image_description");
+        $info->save();
+
+        $file = \Request::input("image");
+        $extension = $file->getClientOriginalExtension();
+        $path = public_path()."/assets/img/additional_info/";
+        $image_name = $info->id. ".png";
+        $file_moved = $file->move($path, $image_name);
+        $path = $file_moved->getRealPath();
+      }
+
+      if (\Request::input("text_description")) {
+        $info = new \App\QuestionAdditionalInformation();
+        $info->information_type_id = 2;
+        $info->name = \Request::input("text_description");
+        $info->description = \Request::input("question_name");
+        $info->save();
+      }
+
+      $information = \App\QuestionAdditionalInformation::orderBy("created_at", "DESC")->get();
+      return $information;
     }
 }

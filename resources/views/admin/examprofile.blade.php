@@ -7,7 +7,7 @@
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">Examination Profile</a></li>
-        <li><a href="#addquestion" data-toggle="tab">Add Question</a></li>
+        <li><a href="#addquestion" data-toggle="tab" class="add-info-save">Add Question</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
@@ -73,22 +73,35 @@
     CKEDITOR.replace('question');
     // jQuery, bind an event handler or use some other way to trigger ajax call.
 
+    $(".add-info-save").click(function() {
 
-    /*$('form.add_info').submit(function( event ) {
-        event.preventDefault();
+        var url = '{!! url("wbt/additional-info") !!}';
+        var formData = $("#add_info_form").serialize();
+
         $.ajax({
-            url: '{{url("wbt/additional-info")}}',
             type: 'post',
-            data: $('form.addInfo').serialize(), // Remember that you need to have your csrf token included
-            dataType: 'json',
-            success: function( _response ){
-               console.log("SUCCESS");
+            url: url,
+            data: formData,
+            enctype: 'multipart/form-data',
+            success: function(informations) {
+                $.each(informations, function(key, value) {
+                    $.each(value, function(k, val) {
+                        console.log(k, val);
+                        if (k === "id") {
+                            var id = val;
+                        };
+                        if (k === "name") {
+                            var name = val;
+                        };
+                        $("#additional_info").append("<option value='" + id + "'>" + name + "</option>");
+                    });
+                });
             },
-            error: function( _response ){
-               console.log("ERROR");
+            error: function() {
+                console.log("ERROR");
             }
         });
-    });*/
+    });
 
 </script>
 @stop

@@ -54,13 +54,7 @@
                         <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <select class="gender">
-                                    <option value="" selected disabled>select - information</option>
-                                    <?php foreach($information as $info): ?>
-                                    <option value="<?php echo e($info->id); ?>"><?php echo e($info->name); ?></option>
-                                    <?php endforeach; ?>
-                                    <i></i>
-                                </select>
+                                <select class="gender" id="additional_info"></select>
                             </label>
                         </section>
                         <section>
@@ -142,21 +136,45 @@
         <div class="modal fade row" id="add_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="<?php echo e(url('wbt/additional-info')); ?>" class="add_info">
-                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel4">Enter Additional Information</h4>
-                    </div>
-                    <div class="modal-body">
-                        <label class="textarea">
-                            <textarea rows="4" name="question_name" placeholder="Question Text" id="question"></textarea>
-                        </label>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-u btn-u-default" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn-u btn-u-primary">Add</button>
-                    </div>
+                    <form action="javascript:void(0)" enctype="multipart/form-data" class="sky-form" id="add_info_form">
+                        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel4">Enter Additional Information</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center" class="img_button">
+                                <label for="file-upload" class="btn-u btn-brd btn-brd-hover rounded btn-u-sea btn-u-lg">
+                                    Upload a Picture
+                                </label>
+                            </div>
+                            <br>
+                            <div align="center" class="text_button">
+                                <button type="button" class="btn-u btn-brd btn-brd-hover rounded btn-u-blue btn-u-lg" onclick="$('.img_button,.text_button').hide();$('.text_area').show();">Enter Text</button> 
+                            </div>
+                            <div class="for_upload" style="display:none;">
+                                <input name="image" id="file-upload" type="file" class="for_upload" onChange="$('.text_button').hide();$('.for_upload').show()"/>
+                                <br>
+                                <label class="input">
+                                    <input type="text" name="image_description" placeholder="Image Title">
+                                </label>
+                            </div>
+                            <div class="text_area" style="display:none;">
+                                <label class="input">
+                                    <input type="text" name="text_description" placeholder="Text Title">
+                                </label>
+                                <label class="textarea">
+                                    <textarea rows="4" name="question_name" placeholder="Question Text" id="question"></textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="button" class="btn-u btn-u-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn-u btn-u-sea text_area add-info-save" style="display:none;">Add</button>
+                                <button type="submit" class="btn-u btn-u-sea for_upload add-info-save" style="display:none;">Upload</button> 
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

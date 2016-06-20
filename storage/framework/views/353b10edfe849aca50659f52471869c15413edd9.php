@@ -23,7 +23,7 @@ STUDENT MANAGER
                         <?php foreach($students as $student): ?>
                         <tr>
                             <td>1</td>
-                            <td><?php echo e($student->first_name); ?></td>
+                            <td><a href="<?php echo e(url('admin/student-profile')); ?>/<?php echo e(\Crypt::encrypt($student->id)); ?>"><?php echo e($student->first_name); ?></a></td>
                             <td><?php echo e($student->email); ?></td>
                             <td><span class="label label-warning">Expiring</span></td>
                         </tr>
