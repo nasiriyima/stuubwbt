@@ -14,12 +14,13 @@
             <div class="tab-content">
                 <div id="profile" class="profile-edit tab-pane fade in active">
                     <h2 class="heading-md">Manage your Name, ID and Email Addresses.</h2>
-                    <p>Below are the name and email addresses on file for your account.</p>
+                    <p>Below are the name and email addresses on file for your account. Please use the pencil icon to edit your information.</p>
                     <br>
                     <dl class="dl-horizontal">
                         <dt><strong>Your name </strong></dt>
                         <dd>
-                            Edward Rooster
+                           <?php echo e($user->first_name); ?>
+
 											<span>
 												<a class="pull-right" href="#">
                                                     <i class="fa fa-pencil"></i>
@@ -29,7 +30,8 @@
                         <hr>
                         <dt><strong>Your ID </strong></dt>
                         <dd>
-                            FKJ-032440
+                            <?php echo e(isset($user->profile->nick_name) ? $user->profile->nick_name : ''); ?>
+
 											<span>
 												<a class="pull-right" href="#">
                                                     <i class="fa fa-pencil"></i>
@@ -37,19 +39,10 @@
 											</span>
                         </dd>
                         <hr>
-                        <dt><strong>Company name </strong></dt>
+                        <dt><strong>Secondary Email Address </strong></dt>
                         <dd>
-                            Htmlstream
-											<span>
-												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-											</span>
-                        </dd>
-                        <hr>
-                        <dt><strong>Primary Email Address </strong></dt>
-                        <dd>
-                            edward-rooster@gmail.com
+                            <?php echo e(isset($user->profile->email) ? $user->profile->email : ''); ?>
+
 											<span>
 												<a class="pull-right" href="#">
                                                     <i class="fa fa-pencil"></i>
@@ -59,17 +52,8 @@
                         <hr>
                         <dt><strong>Phone Number </strong></dt>
                         <dd>
-                            (304) 33-2867-499
-											<span>
-												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-											</span>
-                        </dd>
-                        <hr>
-                        <dt><strong>Office Number </strong></dt>
-                        <dd>
-                            (304) 44-9810-296
+                            <?php echo e(isset($user->profile->phone) ? $user->profile->phone : ''); ?>
+
 											<span>
 												<a class="pull-right" href="#">
                                                     <i class="fa fa-pencil"></i>
@@ -79,7 +63,8 @@
                         <hr>
                         <dt><strong>Address </strong></dt>
                         <dd>
-                            California, US
+                            <?php echo e(isset($user->profile->address) ? $user->profile->address : ''); ?>
+
 											<span>
 												<a class="pull-right" href="#">
                                                     <i class="fa fa-pencil"></i>
@@ -88,8 +73,6 @@
                         </dd>
                         <hr>
                     </dl>
-                    <button type="button" class="btn-u btn-u-default">Cancel</button>
-                    <button type="button" class="btn-u">Save Changes</button>
                 </div>
 
                 <div id="passwordTab" class="profile-edit tab-pane fade">
@@ -103,7 +86,7 @@
                                 <section>
                                     <label class="input">
                                         <i class="icon-append fa fa-user"></i>
-                                        <input type="text" placeholder="Username" name="username">
+                                        <input type="text" placeholder="Username" name="username"  value="<?php echo e($user->email); ?>" readonly>
                                         <b class="tooltip tooltip-bottom-right">Needed to enter the website</b>
                                     </label>
                                 </section>
@@ -113,7 +96,7 @@
                                 <section>
                                     <label class="input">
                                         <i class="icon-append fa fa-envelope"></i>
-                                        <input type="email" placeholder="Email address" name="email">
+                                        <input type="email" placeholder="Email address" name="email" value="<?php echo e($user->email); ?>" readonly>
                                         <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
                                     </label>
                                 </section>

@@ -816,6 +816,7 @@ class StudentController extends Controller
 
     public function getMySettings(){
         $this->page_data['page_name'] = 'settings';
+        $this->page_data['preferences'] = $this->page_data['user']->preference;
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();

@@ -18,7 +18,6 @@
            </fieldset>
         </form>
         <div class="margin-bottom-50"></div>
-        <button type="button" class="btn-u btn-block text-center" style="display: none;" onclick="returnFriendsList();" id="return">Return to Friends List</button>
         <table  class="sTable">
             <thead style="display:none;">
                 <tr>
@@ -82,14 +81,15 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="ladda-btn">
+            <center>
+                <button type="button" class="btn-u btn-u-defaulttext-center ladda-button" data-style="contract" {{ ($friends->total() > 6)? 'style=display:block' : 'style=display:none' }} id="load_more">Load Friends</button>
+                <button type="submit" class="btn-u" style="display: none;" onclick="returnFriendsList();" id="return">Friend List</button>
+            </center>
+        </div>
         @if($friends->total() > 6)
             <input type="hidden" id="currentPage" name="currentPage" value="{{ $friends->currentPage() }}" />
             <input type="hidden" id="nextPage" name="nextPage" value="{{ $friends->currentPage() + 1 }}" />
-        <div class="ladda-btn">
-            <center>
-                <button type="button" class="btn-u btn-default btn-block text-center ladda-button center" data-style="contract" id="load_more">Load More</button>
-            </center>
-        </div>
         @endif
         <!--End Profile Blog-->
     </div>
@@ -105,6 +105,7 @@
 
 <script type="text/javascript">
     var l = Ladda.create(document.querySelector('.ladda-btn button'));
+    var savedTableStructure = getTableStructure();
     initialize(".sTable");
     function initialize(tableName){
         return $(tableName).DataTable({
@@ -119,20 +120,16 @@
                         { "className": "col-sm-6 profile-body" }
                     ],
                     "language": {
-                        "zeroRecords": "No matching records found in your friends list - Please use the search button to find more friends.",
+                        "zeroRecords": "No matching records found in your friends list - Please use the search button to find friends.",
                     }
                 });
     }
     $('#search').keyup(function () {
-        var displayRecordCount;
-        if((! $.fn.DataTable.isDataTable(".sTable"))){
-            displayRecordCount =  initialize(".sTable").page.info().recordsDisplay;
-            if(displayRecordCount === 0){ $("#load_more").hide() } else { $("#load_more").show(); }
-        } else {
-            $(".sTable").DataTable().page.info().recordsDisplay;
-            if(displayRecordCount === 0){ $("#load_more").hide() } else { $("#load_more").show(); }
+        $(".sTable").dataTable().fnFilter($(this).val());
+        var displayRecordCount = $(".sTable").DataTable().page.info().recordsDisplay;
+        if(displayRecordCount < 1){
+            $("#load_more").hide();$("#return").show();
         }
-        $(".sTable").DataTable().fnFilter($(this).val());
     });
 
     $("#load_more").on("click", function(){
@@ -149,7 +146,6 @@
                     nextPage = nextPage + 1;
                     $("#nextPage").val(nextPage);
                     $.each(response, function(index, row){
-                        console.log(row);
                         var tr = [];
                         var td1 = '';
                         var td2 = '';
@@ -174,6 +170,7 @@
                                 .to$()
                                 .addClass("row margin-bottom-20");
                     });
+                    savedTableStructure = getTableStructure();
                     l.stop();
                 }
             });
@@ -183,78 +180,43 @@
     });
 
     function searchQuery(){
-        var displayRecordCount;
-        displayRecordCount = (! $.fn.DataTable.isDataTable(".sTable"))? initialize(".sTable").page.info().recordsDisplay : $(".sTable").DataTable().page.info().recordsDisplay;
-        if(displayRecordCount === 0){
-            $.ajax({
-                url: "{!! url('student/search') !!}",
-                method: "post",
-                data: {_token:"{!! csrf_token() !!}", searchQuery:$("#search").val()},
-                success:function(response){
-                    if(response.session_expired)window.location.replace(response.url);
-                    $.each(response, function(index, row){
+        $(".sTable").DataTable().clear().draw();
+        $.ajax({
+            url: "{!! url('student/search') !!}",
+            method: "post",
+            data: {_token:"{!! csrf_token() !!}", searchQuery:$("#search").val()},
+            success:function(response){
+                if(response.session_expired)window.location.replace(response.url);
+                $.each(response, function(index, row){
 
-                        var tr = [];
-                        var td1 = '';
-                        var td2 = '';
-                        var index = 0;
-                        for(var i in row){
-                            if(index%2 === 0){
-                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong>'+row[i].first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
-                                tr.push(td1);
-                            }
-                            if(index%2 === 1){
-                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong>'+row[i].first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, '{!! $friendships !!}')+'</li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
-                                tr.push(td2);
-                            }
-                            if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
-                                td2 = td2 + '';
-                                tr.push(td2);
-                            }
-                            index++;
+                    var tr = [];
+                    var td1 = '';
+                    var td2 = '';
+                    var index = 0;
+                    for(var i in row){
+                        if(index%2 === 0){
+                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong>'+row[i].first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                            tr.push(td1);
                         }
-                        $(".sTable").DataTable().row.add(tr).draw()
-                                .nodes()
-                                .to$()
-                                .addClass("row margin-bottom-20");
-                    });
-                }
-            });
+                        if(index%2 === 1){
+                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong>'+row[i].first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, '{!! $friendships !!}')+'</li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                            tr.push(td2);
+                        }
+                        if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
+                            td2 = td2 + '';
+                            tr.push(td2);
+                        }
+                        index++;
+                    }
+                    $(".sTable").DataTable().row.add(tr).draw()
+                            .nodes()
+                            .to$()
+                            .addClass("row margin-bottom-20");
+                });
+                $("#return").show();
+            }
+        });
 
-            return
-        }
-        showAlert('error', 'Advanced search can only be done, if friend is not found in list');
-    }
-    
-    function returnFriendsList(){
-        var friends = JSON.parse('{!! json_encode($friends)!!}');
-        var table = '<table  class="sTable"><thead style="display:none;"><tr><th>Grid1</th><th>Grid2</th></tr></thead><tbody>';
-        var tr = '<tr class="row margin-bottom-20">';
-        var td1 = '<td class="col-sm-6 sm-margin-bottom-20 profile-body">';
-        var td2 = '<td class="col-sm-6 profile-body">';
-        var index  = 0;
-        console.log(friends);
-        for(var i in friends){
-
-            if(index%2 === 0){
-                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+friends[i].profile[0].image+'" alt=""><div class="name-location"><strong>'+friends[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+friends[i].school[0].name.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+friends[i].profile[0].description+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', friends[i].user.id, '{!! json_encode($friends) !!}')+'<li><i class="fa fa-group"></i><a href="#">'+friends[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
-                tr = tr + td1;
-            }
-            if(index%2 === 1){
-                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+friends[i].profile[0].image+'" alt=""><div class="name-location"><strong>'+friends[i].user.first_name.toUpperCase()+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+friends[i].school[0].name.toLowerCase()+',</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+friends[i].profile[0].description+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', friends[i].user.id, '{!! json_encode($friends) !!}')+'<li><i class="fa fa-group"></i><a href="#">'+friends[i].friendsStats+' Friend(s)</a></li></ul></div>' + '</td>';
-                tr = tr + td2;
-            }
-            if(Object.keys(friends).length%2 === 1 && index === (Object.keys(friends).length-1)){
-                td2 = td2 + '' + '</td>';
-                tr = tr + td2;
-            }
-            table = table + tr + '</tr>';
-            index++;
-        }
-        table = table + '</tbody></table>';
-        sTable.replaceWith(table);
-        $("#return").hide();
-        $("#load_more").show();
     }
 
     function enableRequest(profileStats, user, friendships){
@@ -283,7 +245,6 @@
 
     function is_pendingFriend(needle, haystack){
         for(var i in haystack){
-            console.log(haystack[i].friend_id);
             if(needle === haystack[i].friend_id && haystack[i].status === 0) return true;
         }
         return false;
@@ -302,6 +263,32 @@
                 $("div#alert-message").hide("slow");
             }, 10000);
         }
+    }
+
+    function getTableStructure(){
+        var tbl = $('.sTable tbody tr').get().map(function(row) {
+            return $(row).find('td').get().map(function(cell) {
+                return $(cell).html();
+            });
+        });
+        return tbl;
+    }
+
+
+    function returnFriendsList(){
+        $(".sTable").DataTable().clear().draw();
+        $("#search").val("");
+        $.each(savedTableStructure, function(index, value){
+            $(".sTable").DataTable().row.add(value).draw()
+                    .nodes()
+                    .to$()
+                    .addClass("row margin-bottom-20");
+        });
+        $(".sTable").DataTable().search('')
+                .columns().search('')
+                .draw();
+        $("#return").hide();
+        if(savedTableStructure.length > 6)$("#load_more").show();
     }
 
 </script>

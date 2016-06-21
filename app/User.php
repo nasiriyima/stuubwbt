@@ -50,6 +50,10 @@ class User extends Authenticatable implements SearchableInterface
         return $this->hasMany('\App\Message', 'receiver_id', 'id');
     }
 
+    public function preference(){
+        return $this->hasOne('\App\Preference');
+    }
+
     public function scopeStudentUsers($query){
         return $query->where('user_type', 1)->get();
     }

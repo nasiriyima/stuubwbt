@@ -326,6 +326,7 @@ class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
 
     public static $classMap = array (
         'CategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CategoryTableSeeder.php',
+        'CreatPreferencesTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_20_004233_creat_preferences_table.php',
         'CreateCategoryTable' => __DIR__ . '/../..' . '/database/migrations/2016_03_28_202851_create_category_table.php',
         'CreateExamProviderTable' => __DIR__ . '/../..' . '/database/migrations/2016_03_28_202946_create_exam_provider_table.php',
         'CreateExamTable' => __DIR__ . '/../..' . '/database/migrations/2016_03_29_164352_create_exam_table.php',
