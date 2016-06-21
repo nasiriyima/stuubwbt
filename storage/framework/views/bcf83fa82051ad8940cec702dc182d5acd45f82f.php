@@ -77,23 +77,26 @@
         var url = '<?php echo url("wbt/additional-info"); ?>';
         var formData = $("#add_info_form").serialize();
 
+        console.log(formData);
+
         $.ajax({
             type: 'post',
             url: url,
             data: formData,
             enctype: 'multipart/form-data',
             success: function(informations) {
+                $("#additional_info").empty();
                 $.each(informations, function(key, value) {
                     $.each(value, function(k, val) {
-                        console.log(k, val);
                         if (k === "id") {
                             var id = val;
                         };
                         if (k === "name") {
                             var name = val;
+                            $("#additional_info").append("<option value='" + id + "'>" + name + "</option>");
                         };
-                        $("#additional_info").append("<option value='" + id + "'>" + name + "</option>");
                     });
+                    $("#add_info").modal("hide");
                 });
             },
             error: function() {
