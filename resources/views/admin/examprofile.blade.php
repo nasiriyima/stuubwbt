@@ -89,7 +89,7 @@
     }
 
     $(".add-info-save").click(function() {
-        console.log($("textarea[name=question_name]"));
+        console.log($("textarea[name=question_description]").val());
 
         if ($(this).val() === "Upload") {
             if ($("input[name=image_description]").val() === "" || $("input[name=image]").val() === "") {
@@ -98,7 +98,7 @@
             }
         }
         if ($(this).val() === "Add") {
-            if ($("input[name=text_description]").val() === "" || $("textarea[name=question_name]").val() === "") {
+            if ($("input[name=text_description]").val() === "" || $("textarea[name=question_description]").val() === "") {
                 alert("Please fill the question name or description");
                 return false;
             }
@@ -110,7 +110,7 @@
             "image" : $("#img_preview").prop("src"),
             "image_description" : $("input[name=image_description]").val(),
             "text_description" : $("input[name=text_description]").val(),
-            "question_name" : $("textarea[name=question_name]").val()
+            "question_name" : $("textarea[name=question_description]").val()
         };
 
         $.ajax({

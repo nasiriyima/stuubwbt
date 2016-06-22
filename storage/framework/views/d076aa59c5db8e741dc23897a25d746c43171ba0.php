@@ -164,9 +164,14 @@
                                 <label class="input">
                                     <input type="text" name="text_description" placeholder="Text Title">
                                 </label>
-                                <label class="textarea">
-                                    <textarea rows="4" name="question_name" placeholder="Question Text" id="question"></textarea>
-                                </label>
+                                <section>
+                                    <label class="label">Textarea with placeholder and both icons</label>
+                                    <label class="textarea">
+                                        <i class="icon-prepend fa fa-user"></i>
+                                        <i class="icon-append fa fa-asterisk"></i>
+                                        <textarea rows="3" name="question_description" placeholder="Placeholder text"></textarea>
+                                    </label>
+                                </section>
                             </div>
                         </div>
                         <div class="modal-footer">
