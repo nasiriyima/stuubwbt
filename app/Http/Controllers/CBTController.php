@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -57,5 +59,45 @@ class CBTController extends Controller
            } 
         }
         return redirect('admin/exam-profile'.'/'.$formData['examid']);
+    }
+
+
+    private function base64_to_img($base64_string, $output_file) {
+
+      $data = explode(',', $base64_string);
+      $imgExt = $this->getImgExt($data[0]);
+      $ifp = fopen($output_file.'.'.$imgExt, "wb");
+      
+      fwrite($ifp, base64_decode($data[1])); 
+      fclose($ifp); 
+      return $output_file; 
+    }
+
+    private function getImgExt($data) {
+      $first = explode('/', $data)[1];
+      $imgExt = explode(';', $first)[0];
+      return $imgExt;
+    }
+
+    Public function postAdditionalInfo() {
+      if (\Request::input("image_description")) {
+        $info = new \App\QuestionAdditionalInformation();
+        $info->information_type_id = 1;
+        $info->name = \Request::input("image_description");
+        $info->save();
+
+        $this->base64_to_img(\Request::input("image"), storage_path()."/additional_info/$info->id");
+      }
+
+      if (\Request::input("text_description")) {
+        $info = new \App\QuestionAdditionalInformation();
+        $info->information_type_id = 2;
+        $info->name = \Request::input("text_description");
+        $info->description = \Request::input("question_name");
+        $info->save();
+      }
+
+      $information = \App\QuestionAdditionalInformation::orderBy("created_at", "DESC")->get();
+      return $information;
     }
 }
