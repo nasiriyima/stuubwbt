@@ -173,7 +173,7 @@
                         </div>
                         <div class="modal-footer">
                             <div>
-                                <button type="button" class="btn-u btn-u-default" data-dismiss="modal" onclick="$('.img_button,.text_button').show();$('.text_area,.for_upload,#back_btn').hide();$('#file-upload,input[name=image_description],input[name=text_description],textarea[name=question_name]').val('')">Cancel</button>
+                                <button type="button" class="btn-u btn-u-default" data-dismiss="modal" onclick="$('.img_button,.text_button').show();$('.text_area,.for_upload,#back_btn').hide();$('#file-upload,input[name=image_description],input[name=text_description],textarea[name=question_description]').val('')">Cancel</button>
                                 <button type="button" class="btn-u btn-u-orange" style="display:none;" id="back_btn" onclick="$('.img_button,.text_button').show();$('.text_area,.for_upload,#back_btn').hide();$('#file-upload').val('')">Back</button>
                                 <input type="submit" class="btn-u btn-u-sea text_area add-info-save" value="Add" style="display:none;">
                                 <input type="submit" class="btn-u btn-u-sea for_upload add-info-save" value="Upload" style="display:none;"> 
