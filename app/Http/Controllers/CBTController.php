@@ -33,7 +33,7 @@ class CBTController extends Controller
         $exam->save();
         return redirect('admin/exam-profile'.'/'.\Crypt::encrypt($exam->id));
     }
-    
+
     /*
      * Add Examination Question Function
      */
