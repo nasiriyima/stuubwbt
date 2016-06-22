@@ -2,23 +2,151 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4e72792-6f94-4110-a16b-26dba3b8b596" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/admin/school/addschool.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/admin/student/activestudents.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/admin/student/examhistory.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/User.php" afterPath="$PROJECT_DIR$/app/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/school/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/school/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/school/schoolprofile.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/school/schoolprofile.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/student/registered.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/student/registered.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/studentmanager.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/studentmanager.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/studentprofile.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/studentprofile.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/145902ccdbcc5897fa1d16d5974c5a469bdeb462.php" afterPath="$PROJECT_DIR$/storage/framework/views/145902ccdbcc5897fa1d16d5974c5a469bdeb462.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/4dbcff6099f276f932dc4d31eee9dfba5c43ce6d.php" afterPath="$PROJECT_DIR$/storage/framework/views/4dbcff6099f276f932dc4d31eee9dfba5c43ce6d.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/51c79317afb333fd6f8afc50af830859edd7d96f.php" afterPath="$PROJECT_DIR$/storage/framework/views/51c79317afb333fd6f8afc50af830859edd7d96f.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/5da1cca0691d2451a690dce41ffd9d1f8a169c70.php" afterPath="$PROJECT_DIR$/storage/framework/views/5da1cca0691d2451a690dce41ffd9d1f8a169c70.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/cee23ffc8e3a82d3da52b48125e176f4032e4936.php" afterPath="$PROJECT_DIR$/storage/framework/views/cee23ffc8e3a82d3da52b48125e176f4032e4936.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/02483c261a030495cc440ef92b4c89a87c30dfff.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/03ce76f6e005d6f5a1e6ab72b1931575a35ac4d2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/045bf4c52bb3aace0430987eff4e9eb534740358.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0a3b623286027ba71e9ac93a2dbadb4bc3f24a5b.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0c19a90d81d18c12f8990a7f5fd28c3d8413e221.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0c6848717f5d82b371f60c03d55ac18164d8c781.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0d1fc8e10f998358ee520f0843a36f901ae978e1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0f97faad0d7d7085ca9301876a7a9cb64b7503a3.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1097f48e754adbdcaaafeae95acd9208b1fd0cee.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/145902ccdbcc5897fa1d16d5974c5a469bdeb462.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/15909b63a9902c2e61303076a85c6e44ff423fc8.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1684fb0beabdaf11746b70d6fd8e8d8f841fff1c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1742ff28855a67f5875e250d4d604d060a8e50c4.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1790a519b3efb57333acfc1a17dba57c71e9de8d.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/17faec50ca996f6d618e8ec0025c417dc3bb5df3.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1cfb60ea884e5d2d20a2c94317d4658280eb88de.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1cfb60ea884e5d2d20a2c94317d4658280eb88de.php.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1d8b129dd70a37f6bf8d89cae5066e96a429f3fe.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1f169ef8d79932c53d4537733596d1527b417ac3.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/2100fbbf2b4d293f0e2857af5b36a1bb026b56f1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/213fd15b84ea0e9acc487323b85a5ee8f542125b.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/214d81c99e18113a623f9c349dc032faf48adcd1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/25c64d2de8624bc3c4d24227e2ae99738f2074ce.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/2661a413d50c54b56fc45c16c2e3a966bd510af6.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/269e1f384fb0d2d73296b8593bb1c1ea7e03593e.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/273e3f0f75e35959ad345bb217162c8a5ecb8d77.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/289864c66136f3f127422365a2f333f5e4ea1a5d.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/2d9e9f0265c32e3c1fa589631ba95b53e31064d3.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/31221ef14563a368669f836664e511db0b521c73.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/31221ef14563a368669f836664e511db0b521c73.php.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/32b0664ad52644a4cbf892473739c85843ebd7ab.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3316bca60a9faee8427eae11ca2b7951783d1ee3.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/353b10edfe849aca50659f52471869c15413edd9.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3633f3a43ccc305e612a451960f2d76ac90ab298.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/37998d79895ef5dbbcf0352fe2a8647387cbab70.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/39ccc67923ce71259eac57929bfeef8db30dc463.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3a0fa8879870827e37405f865b3297b60bb27171.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3a7113268b958766dc2a29d53f6dc96fa305b2db.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3bc7755225ec787bd1aafe148c33c5e11dafd8c8.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3d4705a39278c8922ef2d30e94b0becc46e0af06.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3e352f84069ebba6c51d592ac8225c591d453d1c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3e4ff818768106a2e7eed06bf040cbb1425245e9.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/437d0c0522907d0ce62c079f99edfd4f1ed0f4e2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/45e46b534d5e42e9d3c5d1f3b982bc91eb306126.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/4d2839f118527d79eceb98e740a3989dca82d18a.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/4dbcff6099f276f932dc4d31eee9dfba5c43ce6d.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/4dd4e8d71e9a0fb801edae08fd8f638b60bac02c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/4ed9689c98d63822ef787016fcc5fbf629f7493c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/4fc4b54c84626c5dc6d80cee142a649f1591c065.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/4fc4b54c84626c5dc6d80cee142a649f1591c065.php.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/51c79317afb333fd6f8afc50af830859edd7d96f.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5247c58aacab2ababf50fe666834119afd137c83.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/53d7842905345039bb3b0870f3a6accb0bf741f7.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/551477115bd421eb6f2056dd4bd4194b6e5857cf.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/58506b225b47f9d142227e6e22ee32a0b6d86dc6.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/58fb4f1fab3fe436587659e6aa8701606939d28e.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5ab5ebd42b407aa6d56cce80e7de8a0be4da1027.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5c4f08a525dd27131a8731a09fdbc4ac5d536ca0.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5da1cca0691d2451a690dce41ffd9d1f8a169c70.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5ea651afcabb9047c1c99e5cc3d44e233a243581.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5ea651afcabb9047c1c99e5cc3d44e233a243581.php.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/62f4900d795e4025f32cb69e50c88091fea11642.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/693a681b28764cb3df85d22dfddcfab5674f770b.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/698b7df533df13b26f67a2d7973a67115b279a72.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/69f9f60984c93247990443d768c8a30bb98047c1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6ab8ea063af367d076b7a299b11e19e3d5c32c6b.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6ba30daf9093de337496aec5ec86681df07a509c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6d51f78913ae04e02fd0ae8310adeb7d39ba6acb.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6d8a516923fe7f6cc0579c5da4dc2ac8bc24858a.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6e09531797001d4a00e9b597ed089e90735008dd.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6ea6e58201146ac35aaa567caf63be605c833055.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/713a0c0fe73d5e0dfcc4e0e022dd01c1a56a5143.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/7264622f1dabf0584b213cbea7744744877393b9.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/731ef9b808b016c4329bfa5f3580510ef12398c7.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/755296faf32d1873ec9b050a05c63c0401f8dcd5.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/7695e01adda43fba6b844e71a08d95f4286fcb57.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/76ecda115fa7d736f2b011271dbcffde0ebd6835.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/78efa60a62a9c1882dbe0c384b0766df54d70cea.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/79c51f9b3633d8eb48680040f4bcf00580a9f76b.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/7bbd1d22d6789decd83e685802000873731e9ce1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/7fb6f2f2fd72cbf41063c12f6ea960e041a5cfe3.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/85dfc2a5f266dd838bd97d85175cb29edb48b146.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/8992abe34483a9686a6447b9166d72533ece713a.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/8ff3fd770863bb70068ee9e255903a7d0c4b5d53.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/92445de265852a56a3a15c1c5ff06ded6b47b69c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/93433c5300e5fcecf7fcc29b1a8b21dcb316cb31.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9358a73cf19a280942a49b0b6659addb45eb0513.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/96d6ea239ba1b8a3997b5f66567461e6cc39d575.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/981e2b420d2a78446fb47480e91212e1abd1ecea.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/983b79fd8a4aa1edc25bb35da83b026058c2870f.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9abdad95f80d023be80a485a4cd19ccf5128ef07.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9ae0f641021d448c0b2d0289397be06365994e88.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9dccb25941c39538b98dbc57c25ec636e35e15d2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9e97f166742e79743e3c517c6b03a1d2ac98a18f.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a25fc32307ac5e1588d700259d7b4fcf0b00aa36.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a38990591f07cdd1158de67b6694001a51f272e7.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a4c101e9b7e2bdb54657467b42532f24b7d4ecf2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a531ac36d3e69df556ef46fda5bc7360179bf6a0.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a6ae5cd7804c7ec1b4cd6ea88b54d97274f4bde1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a7a0d7e02ffa2c3ba01de4ddc4e75e67738c64b9.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a811e3364039ea12e32d5c9d0df30da9f63dc61d.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a8db451187289cb89cc152096643c995d419b8e8.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/aa4890f1899f1d0c347b8b7aef2aea9a32769b71.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/aae16521d11237f292ef7a059348d1c75994bbb5.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/ac30cbedb5d019535a17ded9a6ecfaf49fa63e9e.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b0ef4a41418a8811ee9db2620337872a4bf1a31c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b230fc3999adc9c86c5c5e06be2c6c01b7b585af.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b46051f19fa62442b95487bf536bc3f5ed301c5c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b5a06e15371076edc5baff77b1b84c474debfcd1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b605661d16ced9267999eeaf3605a54f5d0397bd.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b836c56b8e262c7309a71e449e39d92719d4a0c6.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/bcf83fa82051ad8940cec702dc182d5acd45f82f.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/bcf83fa82051ad8940cec702dc182d5acd45f82f.php.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/bd012fe4e432c4b91f8e04decbae847d953ef68d.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/c3712b172fb26bf5a41922989408a57594a373b5.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/c4439d00aab22f49d80072b76ef96851d244b9fa.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/cb78fecebd8972a8733387523d36254e42fb772f.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/cd2822056af9e67b551efedcc63dc46c4832b189.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/cee23ffc8e3a82d3da52b48125e176f4032e4936.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d076aa59c5db8e741dc23897a25d746c43171ba0.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d076aa59c5db8e741dc23897a25d746c43171ba0.php.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d0f78eb599098afc6d55887de90034334585c2c0.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d11fbc9d516842b2dda267fecc64fa10684cc6e0.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d3b6382a011366e63249ea23f44e6ed880e386e5.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d5485c1ce82ab9c76e1661d84b620e2a6c5b3c88.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d612a1477d616efcc1da125b35ccded24715cfbb.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d721b60032ac7e8e02ec1598fd1ba5e897400e90.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d8d1ca62726b84705adc071707efaa7e3b8486ce.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d9372cdaf0f178260cf6c4424fcf0134129039c8.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/dbc7200762f029a3983a482d79176367a7efc7dd.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/dd40e69dc515bdc991be063eb907cf146980cf36.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/ddd2974f3fc0349a1e124ef93105e20cfbca24fa.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e29077a28dd13b5406f7061543f81b1951f5bbc4.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e5214d1456ccc334a35fdf7d375e96365f1d13e0.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e5f4e8ac7c0f755e92a0c58c23e9edcba50ab903.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e9c5e0777a79c2fa728f1960c88db351e0734e8b.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f15fc31203c4553473774737aa99acf25aeafc1b.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f164bbab3bba65e13e4a11c9aafe40b9d3476002.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f1d9437daa803077aac256e922d313f5d9114945.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f2202a81b810c3d67d167177d81fdc24d83db0f9.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f47931823102a190d6bcd094131cb9ece0ee563c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f5e338fb78929c0209dea0cbe114d5441bebdf77.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/fbe3456d9338e64b13d274b490abd2a173b5f097.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/fd4b3b106b3f689703981faaac5420f2672264f8.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/ffffe16a2b0d5ec71828c26f24e80d27e780bc15.php" afterPath="" />
     </list>
     <ignored path="stuubwbt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,11 +190,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="studentprofile.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="studentprofile.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/studentprofile.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.61880344">
+            <state vertical-scroll-proportion="-13.923077">
               <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addexamination.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/addexamination.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.482051">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="examprofile.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/examprofile.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="73.92308">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -423,10 +571,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21010248" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21010248" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -490,20 +638,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/student/mymessage/saved.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4125">
-          <caret line="124" column="77" selection-start-line="124" selection-start-column="77" selection-end-line="124" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Friendship.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37777779">
-          <caret line="13" column="40" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9863248">
@@ -853,8 +987,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/studentprofile.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61880344">
+        <state vertical-scroll-proportion="-13.923077">
           <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/examprofile.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="73.92308">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/addexamination.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.482051">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
