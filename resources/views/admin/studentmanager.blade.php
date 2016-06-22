@@ -7,61 +7,59 @@ STUDENT MANAGER
     <link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
 @stop
 @section('maincontent')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row margin-bottom-10">
+                <div class="col-md-3">
+                    <center>
+                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
+                            <li>
+                                <a href="{{url('admin/news-item/add')}}"><i class="icon-line icon-note"></i>Active Accounts</a>
+                                <span class="badge badge-green rounded-x"></span>
+                            </li>
+                        </ul>
+                    </center>
+                </div>
+                <div class="col-md-3">
+                    <center>
+                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
+                            <li>
+                                <a href="{{url('admin/provider-manager')}}"><i class="fa fa-check-circle-o"></i>Dormant Accounts</a>
+                                <span class="badge badge-green rounded-x"></span>
+                            </li>
+                        </ul>
+                    </center>
+                </div>
+                <div class="col-md-3">
+                    <center>
+                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
+                            <li>
+                                <a href="{{url('admin/provider-manager')}}"><i class="fa fa-ban"></i>Unpublished</a>
+                                <span class="badge badge-yellow rounded-x"></span>
+                            </li>
+                        </ul>
+                    </center>
+                </div>
+                <div class="col-md-3">
+                    <center>
+                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
+                            <li>
+                                <a href="{{url('admin/provider-manager')}}"><i class="fa fa-trash"></i>Thrashed</a>
+                                <span class="badge badge-red rounded-x">6</span>
+                            </li>
+                        </ul>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">Registered Students</a></li>
-        <li><a href="#active" data-toggle="tab">Active Accounts</a></li>
-        <li><a href="#" data-toggle="tab">In Active Accounts</a></li>
-        <li><a href="#" data-toggle="tab">Non Activated Accounts</a></li>
-        <li><a href="#" data-toggle="tab">Disabled Account</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
             @include('admin.student.registered')
-        </div>
-        <div class="tab-pane fade in" id="active">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Last Seen</th>
-                            <th>Profile</th>
-                            <th>School</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($students as $student)
-                            {{--*/
-                            $profileStats = ($student->profile)?
-                            $student->profile()->statistics() : 0;
-                            /*--}}
-
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <a href="{{url('admin/student-profile')}}/{{\Crypt::encrypt($student->id)}}">
-                                        {{$student->first_name}}
-                                        ({{$student->email}})
-                                    </a>
-                                </td>
-                                <td>{{$student->created_at->format('d-M-Y')}} ({{$student->created_at->diffForHumans()}})</td>
-                                <td>
-                                    <div class="progress progress-u progress-xxs">
-                                        <span class="progress-bar {{($profileStats < 30)? 'progress-bar-red':($profileStats < 70)? 'progress-bar-warning':'progress-bar-success'}}" style="width: {{$profileStats}}%">
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 </div>

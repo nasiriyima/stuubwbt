@@ -19,9 +19,23 @@
                     <td>
                         {{$student->email}}
                     </td>
-                    <td>{{$student->created_at->format('d-M-Y')}} ({{$student->created_at->diffForHumans()}})</td>
                     <td>
-                        <span class="label label-green rounded-2x">Active</span>
+                        @if($student->last_login != NULL)
+                        {{$student->last_login->format('d M, Y')}} ({{$student->last_login->diffForHumans()}})
+                        @endif
+                    </td>
+                    <td>
+                        @if($student->last_login != NULL)
+                            @if($student->userStatus(0,60)->find($student->id) != NULL)
+                                <span class="label label-green rounded-2x">Active</span>
+                            @elseif ($student->userStatus(60, 90)->find($student->id) != NULL)
+                                <span class="label label-yellow rounded-2x">Dormant</span>
+                            @else
+                                <span class="label label-red rounded-2x">In Active</span>
+                            @endif
+                        @else
+
+                        @endif
                     </td>
                 </tr>
                 {{--*/$count++/*--}}

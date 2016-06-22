@@ -30,10 +30,19 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getStudentManager()
+    public function getStudentManager($page = NULL)
     {
-        $this->page_data['students'] = \App\User::studentUsers();
-        return view('admin.studentmanager', $this->page_data);
+        if($page == NULL){
+            $this->page_data['students'] = \App\User::studentUsers();
+            return view('admin.studentmanager', $this->page_data);
+        }elseif($page = 'active-student'){
+            $this->page_data['students'] = \App\User::studentUsers();
+            return view('admin.studentmanager', $this->page_data);
+        }
+        else{
+            return redirect('admin/student-manager');
+        }
+
     }
 
     /**
@@ -170,8 +179,12 @@ class AdminController extends Controller
         $news->save();
     }
 
-    public function getSchoolsManager()
+    public function getSchoolsManager(Request $request)
     {
+        if($request->session()->get('message')){
+            $this->page_data['message'] = $request->session()->get('message');
+            $this->page_data['msgtype'] = $request->session()->get('type');
+        }
         $this->page_data['schools'] = \App\School::all();
         return view('admin.school.index', $this->page_data);
     }
@@ -181,5 +194,19 @@ class AdminController extends Controller
         $this->page_data['school'] = \App\School::find(\Crypt::decrypt($id));
         $this->page_data['students'] = $this->page_data['school']->profile;
         return view('admin.school.schoolprofile', $this->page_data);
+    }
+
+    public function postAddSchool(){
+        $formData = \Request::all();
+
+        $school = new \App\School();
+        $school->code = $formData['code'];
+        $school->name = $formData['name'];
+        $school->description = $formData['description'];
+        $school->status = 1;
+        $school->user_id = 1;
+        $school->save();
+
+        return redirect('admin/schools-manager')->with('message', 'School was added successfully');
     }
 }

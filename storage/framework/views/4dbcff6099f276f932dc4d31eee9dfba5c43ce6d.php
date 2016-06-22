@@ -20,9 +20,23 @@
                         <?php echo e($student->email); ?>
 
                     </td>
-                    <td><?php echo e($student->created_at->format('d-M-Y')); ?> (<?php echo e($student->created_at->diffForHumans()); ?>)</td>
                     <td>
-                        <span class="label label-green rounded-2x">Active</span>
+                        <?php if($student->last_login != NULL): ?>
+                        <?php echo e($student->last_login->format('d M, Y')); ?> (<?php echo e($student->last_login->diffForHumans()); ?>)
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if($student->last_login != NULL): ?>
+                            <?php if($student->userStatus(0,60)->find($student->id) != NULL): ?>
+                                <span class="label label-green rounded-2x">Active</span>
+                            <?php elseif($student->userStatus(60, 90)->find($student->id) != NULL): ?>
+                                <span class="label label-yellow rounded-2x">Dormant</span>
+                            <?php else: ?>
+                                <span class="label label-red rounded-2x">In Active</span>
+                            <?php endif; ?>
+                        <?php else: ?>
+
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php /**/$count++/**/ ?>
