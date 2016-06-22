@@ -72,12 +72,45 @@
     CKEDITOR.replace('question');
     // jQuery, bind an event handler or use some other way to trigger ajax call.
 
+    function loadImageFileAsURL()
+    {
+        var preview = document.querySelector('#img_preview');
+        var file    = document.querySelector('input[type=file]').files[0];
+        var reader  = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
     $(".add-info-save").click(function() {
+        console.log($("textarea[name=question_name]"));
+
+        if ($(this).val() === "Upload") {
+            if ($("input[name=image_description]").val() === "" || $("input[name=image]").val() === "") {
+                alert("Please select an image or fill the image description");
+                return false;
+            }
+        }
+        if ($(this).val() === "Add") {
+            if ($("input[name=text_description]").val() === "" || $("textarea[name=question_name]").val() === "") {
+                alert("Please fill the question name or description");
+                return false;
+            }
+        }
 
         var url = '<?php echo url("wbt/additional-info"); ?>';
-        var formData = $("#add_info_form").serialize();
-
-        console.log(formData);
+        var formData = {
+            "_token" : "<?php echo csrf_token(); ?>",
+            "image" : $("#img_preview").prop("src"),
+            "image_description" : $("input[name=image_description]").val(),
+            "text_description" : $("input[name=text_description]").val(),
+            "question_name" : $("textarea[name=question_name]").val()
+        };
 
         $.ajax({
             type: 'post',
@@ -96,6 +129,7 @@
                             $("#additional_info").append("<option value='" + id + "'>" + name + "</option>");
                         };
                     });
+                    $('.img_button,.text_button').show();$('.text_area,.for_upload').hide();
                     $("#add_info").modal("hide");
                 });
             },
@@ -104,7 +138,6 @@
             }
         });
     });
-
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
