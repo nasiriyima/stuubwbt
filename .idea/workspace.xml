@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e72792-6f94-4110-a16b-26dba3b8b596" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/CBTController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/CBTController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/addexamination.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/addexamination.blade.php" />
     </list>
     <ignored path="stuubwbt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -147,7 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/student/mymessage/sent.blade.php" />
         <option value="$PROJECT_DIR$/database/seeds/MessageTableSeeder.php" />
         <option value="$PROJECT_DIR$/resources/views/student/mymessage/view.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student/mymessage/table.blade.php" />
@@ -198,6 +195,7 @@
         <option value="$PROJECT_DIR$/resources/views/admin/studentprofile.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/addexamination.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/CBTController.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/examprofile.blade.php" />
       </list>
     </option>
   </component>
