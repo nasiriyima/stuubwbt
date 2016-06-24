@@ -3,6 +3,9 @@
 @section('pagetitle')
 EXAMINATION RESOURCE MANAGER
 @stop
+@section('pagecss')
+    <link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
+@stop
 @section('maincontent')
 <div class="row">
     <div class="col-md-7">
@@ -96,6 +99,12 @@ EXAMINATION RESOURCE MANAGER
     </div>
 </div>
 @stop
-@section('pagejs')
+@section('pageplugins')
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $(".table").DataTable();
 
+        });
+    </script>
 @stop

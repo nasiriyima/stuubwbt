@@ -30,7 +30,7 @@ EXAMINATION RESOURCES MANAGER - <small>Examination</small>
                          <tbody>
                              <?php foreach($exams as $exam): ?>
                              <tr>
-                                 <td><a href="<?php echo e(url('admin/exam-profile')); ?>/<?php echo e(\Crypt::encrypt($exam->id)); ?>"><?php echo e($exam->examProvider->code); ?>, <?php echo e($exam->subject->name); ?> (<?php echo e($exam->month->code); ?> <?php echo e($exam->session->name); ?>)</a></td>
+                                 <td><a href="<?php echo e(url('admin/exam-profile')); ?>/<?php echo e(\Crypt::encrypt($exam->id)); ?>"><?php echo e("Exam"); ?></a></td>
                                  <td class="hidden-sm"><center>50</center></td>
                                  <td><center>70%</center></td>
                                  <td><span class="label label-info">3 Months Ago</span></td>

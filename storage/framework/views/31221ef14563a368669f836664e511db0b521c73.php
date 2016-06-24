@@ -2,7 +2,7 @@
     <div class="container">
         <!-- Logo -->
         <a class="logo" href="index.html">
-            <img src="<?php echo e(asset('public/assets/img/logo1-default.jpg')); ?>" width="220px" alt="Logo">
+            <img src="<?php echo e(asset('public/assets/img/logo1-default.png')); ?>" width="220px" alt="Logo">
         </a>
         <!-- End Logo -->
 

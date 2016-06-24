@@ -10,13 +10,13 @@
 
                 <p class="fieldset">
                         <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                        <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail" name="email" required>
+                        <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail" name="email">
                         <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                         <label class="image-replace cd-password" for="signin-password">Password</label>
-                        <input class="full-width has-padding has-border" id="signin-password" type="password" name="password"  placeholder="Password" required>
+                        <input class="full-width has-padding has-border" id="signin-password" type="password" name="password"  placeholder="Password">
                         <span class="cd-error-message">Error message here!</span>
                 </p>
 
@@ -38,24 +38,24 @@
 
                     <p class="fieldset">
                         <label class="image-replace cd-username" for="signup-username">Name</label>
-                        <input class="full-width has-padding has-border" id="signup-username" type="text" name="name" placeholder="Name" required>
+                        <input class="full-width has-padding has-border" id="signup-username" type="text" name="name" placeholder="Name">
                         <span class="cd-error-message">Error message here!</span>
                     </p>
                     
                     <p class="fieldset">
                         <label class="image-replace cd-email" for="signup-email">E-mail</label>
-                        <input class="full-width has-padding has-border" id="signup-email" type="email" name="email" placeholder="E-mail" required>
+                        <input class="full-width has-padding has-border" id="signup-email" type="email" name="email" placeholder="E-mail">
                         <span class="cd-error-message">Error message here!</span>
                     </p>
                     
                     <p class="fieldset">
                         <label class="image-replace cd-password" for="signup-password">Password</label>
-                        <input class="full-width has-padding has-border" id="signup-password" type="password" name="password" placeholder="Password" required>
+                        <input class="full-width has-padding has-border" id="signup-password" type="password" name="password" placeholder="Password">
                         <span class="cd-error-message">Error message here!</span>
                     </p>
                         
                     <p class="fieldset">
-                        <input type="checkbox" id="accept-terms" required>
+                        <input type="checkbox" id="accept-terms">
                         <label for="accept-terms">I agree to the <a href="#">Terms and Conditions</a></label>
                     </p>
 

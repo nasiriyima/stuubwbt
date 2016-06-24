@@ -54,36 +54,11 @@
                         <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <select class="gender">
-                                    <option value="" selected disabled>select - information</option>
-                                    <?php foreach($information as $info): ?>
-                                    <option value="<?php echo e($info->id); ?>"><?php echo e($info->name); ?></option>
-                                    <?php endforeach; ?>
-                                    <i></i>
-                                </select>
+                                <select class="gender" id="additional_info"></select>
                             </label>
                         </section>
                         <section>
                             <a class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
-                            <div class="modal fade" id="add_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel4">Enter Additional Information</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <label class="textarea">
-                                                <textarea rows="4" name="add_info" placeholder="Question Text" id="add_info"></textarea>
-                                            </label>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn-u btn-u-default" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn-u btn-u-primary">Add</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </section>
                     </div>
                 </div>
@@ -158,5 +133,58 @@
             </footer>
         <?php echo Form::close(); ?>
 
+            <div class="modal fade row" id="add_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="javascript:void(0)" enctype="multipart/form-data" class="sky-form">
+                        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel4">Enter Additional Information</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center" class="img_button">
+                                <label for="file-upload" class="btn-u btn-brd btn-brd-hover rounded btn-u-sea btn-u-lg">
+                                    Upload a Picture
+                                </label>
+                            </div>
+                            <br>
+                            <div align="center" class="text_button">
+                                <button type="button" class="btn-u btn-brd btn-brd-hover rounded btn-u-blue btn-u-lg" onclick="$('.img_button,.text_button').hide();$('.text_area,#back_btn').show();">Enter Text</button> 
+                            </div>
+                            <div class="for_upload" style="display:none;">
+                                <input name="image" id="file-upload" type="file" onChange="$('.text_button').hide();$('.for_upload,#back_btn').show();loadImageFileAsURL();" style="display:none;"/>
+                                <br>
+                                <label class="input">
+                                    <input type="text" id="textAreaFileContents" name="image_description" placeholder="Image Title">
+                                </label>
+                                <img id="img_preview" src="" height="200" width="565" alt="Image preview...">
+                            </div>
+                            <div class="text_area" style="display:none;">
+                                <label class="input">
+                                    <input type="text" name="text_description" placeholder="Text Title">
+                                </label>
+                                <section>
+                                    <label class="textarea">
+                                        <i class="icon-prepend fa fa-file-word-o"></i>
+                                        <i class="icon-append fa fa-asterisk"></i>
+                                        <textarea rows="3" name="question_description" placeholder="Placeholder text"></textarea>
+                                    </label>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="button" class="btn-u btn-u-default" data-dismiss="modal" onclick="$('.img_button,.text_button').show();$('.text_area,.for_upload,#back_btn').hide();$('#file-upload,input[name=image_description],input[name=text_description],textarea[name=question_name]').val('')">Cancel</button>
+                                <button type="button" class="btn-u btn-u-orange" style="display:none;" id="back_btn" onclick="$('.img_button,.text_button').show();$('.text_area,.for_upload,#back_btn').hide();$('#file-upload').val('')">Back</button>
+                                <input type="submit" class="btn-u btn-u-sea text_area add-info-save" value="Add" style="display:none;">
+                                <input type="submit" class="btn-u btn-u-sea for_upload add-info-save" value="Upload" style="display:none;"> 
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+       </form>
     </div>
 </div>
