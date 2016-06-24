@@ -88,7 +88,7 @@
     }
 
     $(".add-info-save").click(function() {
-
+        $("#additional_info").append("<option value='0'> No additional info </option>");
         if ($(this).val() === "Upload") {
             if ($("input[name=image_description]").val() === "" || $("input[name=image]").val() === "") {
                 alert("Please select an image or fill the image description");
@@ -118,11 +118,17 @@
             enctype: 'multipart/form-data',
             success: function(informations) {
                 $("#additional_info").empty();
+                if (formData["image_description"] === "" && formData["text_description"] === "") {
+                    $("#additional_info").append("<option value='0'> No additional info </option>");
+                };
                 $.each(informations, function(key, value) {
                     var id = value["id"];
                     var name = value["name"];
                     $("#additional_info").append("<option value='" + id + "'>" + name + "</option>");
                 });
+                if (formData["image_description"] !== "" || formData["text_description"] !== "") {
+                    $("#additional_info").append("<option value='0'> No additional info </option>");
+                };
                 $('.img_button,.text_button').show();$('.text_area,.for_upload').hide();
                 $("#add_info").modal("hide");
                 $('#file-upload,input[name=image_description],input[name=text_description],textarea[name=question_description]').val('');

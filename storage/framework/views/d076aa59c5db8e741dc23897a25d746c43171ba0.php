@@ -54,11 +54,12 @@
                         <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <select class="gender" id="additional_info"></select>
+                                <select class="gender" id="additional_info">
+                                </select>
                             </label>
                         </section>
                         <section>
-                            <a class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
+                            <a rows="4" class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
                         </section>
                     </div>
                 </div>

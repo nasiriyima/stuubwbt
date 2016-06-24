@@ -53,11 +53,12 @@
                         <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <select class="gender" id="additional_info"></select>
+                                <select class="gender" id="additional_info">
+                                </select>
                             </label>
                         </section>
                         <section>
-                            <a class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
+                            <a rows="4" class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
                         </section>
                     </div>
                 </div>
@@ -186,3 +187,20 @@
        </form>
     </div>
 </div>
+
+    <script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/nicescroll/jquery.nicescroll.js') }}"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+    <!-- PLUGINS -->
+    <script src="{{ asset('js/plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/chosen/chosen.jquery.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/icheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/plugins/timepicker/bootstrap-timepicker.js') }}"></script>
+    <script src="{{ asset('js/plugins/mask/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/prettify/prettify.js') }}"></script>
+
+    <!-- MAIN APPS JS -->
+    <script src="{{ asset('js/plugins/apps.js') }}"></script>
