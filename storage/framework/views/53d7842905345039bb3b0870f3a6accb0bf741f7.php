@@ -16,7 +16,7 @@
                 <section>
                     <label class="label">Edit Description</label>
                     <label class="textarea textarea-expandable">
-                        <textarea rows="3"><?php echo e(isset($user->profile->description)? $user->profile->description : ''); ?></textarea>
+                        <textarea rows="3" name="description"><?php echo e(isset($user->profile->description)? $user->profile->description : ''); ?></textarea>
                     </label>
                     <div class="note"><strong>Note:</strong> expands on focus.</div>
                 </section>
@@ -123,7 +123,8 @@
                                 <select name="school_id">
                                     <option value="">Choose a school</option>
                                     <?php foreach($schools as $school): ?>
-                                        <option value="<?php echo e($school->id); ?>"><?php echo e($school->code); ?> - <?php echo e($school->name); ?></option>
+                                        <option value="<?php echo e($school->id); ?>"
+                                        <?php echo e((isset($user->profile) && $user->profile->school_id == $school->id)? 'selected' : ''); ?>><?php echo e($school->code); ?> - <?php echo e($school->name); ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             <?php endif; ?>
@@ -138,6 +139,60 @@
                         </label>
                     </section>
                 </div>
+            </fieldset>
+            <fieldset <?php echo e(($type == 'name')? '': 'style=display:none'); ?>>
+                <section>
+                    <label class="label">Name</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-user"></i>
+                        <input type="text" value="<?php echo e($user->first_name); ?>" name="first_name" placeholder="Placeholder text">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset <?php echo e(($type == 'nick_name')? '': 'style=display:none'); ?>>
+                <section>
+                    <label class="label">Nick Name</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-user"></i>
+                        <input type="text" value="<?php echo e(isset($user->profile->nick_name) ? $user->profile->nick_name : ''); ?>" name="nick_name" placeholder="Nick Name ">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset <?php echo e(($type == 'DofB')? '': 'style=display:none'); ?>>
+                <section>
+                    <label class="label">Date of Birth</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="dofb" id="start" value="<?php echo e(isset($user->profile->dofb)? \Carbon\Carbon::createFromTimestamp(strtotime($user->profile->dofb))->format('Y.m.d') : ''); ?>" placeholder="Date of Birth">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset <?php echo e(($type == 'email')? '': 'style=display:none'); ?>>
+                <section>
+                    <label class="label">Secondary Email Address</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-envelope"></i>
+                        <input type="email" value="<?php echo e(isset($user->profile->email) ? $user->profile->email : ''); ?>" name="email">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset <?php echo e(($type == 'phone')? '': 'style=display:none'); ?>>
+                <section>
+                    <label class="label">Phone</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-phone"></i>
+                        <input type="tel" name="phone" value="<?php echo e(isset($user->profile->phone) ? $user->profile->phone : ''); ?>" id="phone">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset <?php echo e(($type == 'address')? '': 'style=display:none'); ?>>
+                <section>
+                    <label class="label">Address</label>
+                    <label class="textarea">
+                        <i class="icon-append fa fa-university"></i>
+                        <textarea rows="3" placeholder="Placeholder text" name="address"><?php echo e(isset($user->profile->address) ? $user->profile->address : ''); ?></textarea>
+                    </label>
+                </section>
             </fieldset>
             <footer>
                 <div class="pull-right">

@@ -42,6 +42,7 @@
 
         <div class="margin-bottom-50"></div>
 
+        <?php if(!isset($user->preference) || $user->preference->options['show_notification'] == true): ?>
         <!--Notification-->
         <div class="col-sm-12 sm-margin-bottom-30">
             <div class="panel panel-profile">
@@ -50,38 +51,38 @@
                     <a href="#"><i class="fa fa-cog pull-right"></i></a>
                 </div>
                 <?php if(count($notifications) > 0): ?>
-                <ul class="list-unstyled mCustomScrollbar margin-bottom-20" data-mcs-theme="minimal-dark">
-                    <?php if(isset($notifications['otherNotifications'])): ?>
-                        <li class="notification">
-                            <i class="icon-custom icon-sm rounded-x icon-bg-red icon-line fa fa-bolt"></i>
-                            <div class="overflow-h">
-                                <span><strong>Profile Stats.</strong> <?php echo e($notifications['otherNotifications']->profileStats); ?></span>
-                                <small><?php echo e($notifications['otherNotifications']->time); ?></small>
-                            </div>
-                        </li>
-                    <?php endif; ?>
-                    <?php if(isset($notifications['friendshipRequest'])): ?>
-                        <li class="notification">
-                            <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line fa fa-comments"></i>
-                            <div class="overflow-h">
-                                <span><strong><?php echo e($notifications['friendshipRequest']->user->first_name); ?></strong> has sent you a friendship request.</span>
-                                <small><?php echo e($notifications['messages']->created_at->diffForHumans()); ?></small>
-                            </div>
-                        </li>
-                    <?php endif; ?>
-                    <?php if(isset($notifications['messages'])): ?>
-                        <li class="notification">
-                            <img class="rounded-x" src="<?php echo e((isset($notifications['messages']->sender->profile->image) &&
+                    <ul class="list-unstyled mCustomScrollbar margin-bottom-20" data-mcs-theme="minimal-dark">
+                        <?php if(isset($notifications['otherNotifications'])): ?>
+                            <li class="notification">
+                                <i class="icon-custom icon-sm rounded-x icon-bg-red icon-line fa fa-bolt"></i>
+                                <div class="overflow-h">
+                                    <span><strong>Profile Stats.</strong> <?php echo e($notifications['otherNotifications']->profileStats); ?></span>
+                                    <small><?php echo e($notifications['otherNotifications']->time); ?></small>
+                                </div>
+                            </li>
+                        <?php endif; ?>
+                        <?php if(isset($notifications['friendshipRequest'])): ?>
+                            <li class="notification">
+                                <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line fa fa-comments"></i>
+                                <div class="overflow-h">
+                                    <span><strong><a href="<?php echo e(url('student/friend-profile')); ?>/<?php echo e(\Crypt::encrypt($notifications['friendshipRequest']->user->id)); ?>"><?php echo e($notifications['friendshipRequest']->user->first_name); ?></a></strong> has sent you a friendship request.</span>
+                                    <small><?php echo e($notifications['friendshipRequest']->created_at->diffForHumans()); ?></small>
+                                </div>
+                            </li>
+                        <?php endif; ?>
+                        <?php if(isset($notifications['messages'])): ?>
+                            <li class="notification">
+                                <img class="rounded-x" src="<?php echo e((isset($notifications['messages']->sender->profile->image) &&
                             $notifications['messages']->sender->profile->image !="" && $notifications['messages']->sender->profile->image !=NULL)?
                              url('student/file').'/'.$notifications['messages']->sender->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($notifications['messages']->sender->first_name); ?>">
-                            <div class="overflow-h">
-                                <span><strong><?php echo e($notifications['messages']->sender->first_name); ?></strong> has sent you a message.</span>
-                                <small><?php echo e($notifications['messages']->created_at->diffForHumans()); ?></small>
-                            </div>
-                        </li>
-                    <?php endif; ?>
+                                <div class="overflow-h">
+                                    <span><strong><?php echo e($notifications['messages']->sender->first_name); ?></strong> has sent you a message.</span>
+                                    <small><?php echo e($notifications['messages']->created_at->diffForHumans()); ?></small>
+                                </div>
+                            </li>
+                        <?php endif; ?>
 
-                </ul>
+                    </ul>
                     <div class="ladda-btn">
                         <center>
                             <?php /*<button type="button" class="btn-u btn-u-default btn-u-sm btn-block text-center ladda-button" data-style="contract" id="load_more">Load More</button>*/ ?>
@@ -94,6 +95,7 @@
             </div>
         </div>
         <!--End Notification-->
+        <?php endif; ?>
 
     </div>
     <!--End Left Sidebar-->

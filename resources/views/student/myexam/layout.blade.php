@@ -68,7 +68,7 @@
                     document.write("======================================================================================================================================================================</center>");
                     setTimeout(function(){
                         window.location = "{!! url('student') !!}";
-                    },1000);
+                    },2000);
                 }
                 $(document).ready(function(){
                     $(document).keydown(function(e) { if (e.keyCode === 8) e.preventDefault(); });

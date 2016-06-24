@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/footers/footer-v1.css')); ?>">
 
 <!-- CSS Implementing Plugins -->
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/jquery/autocomplete/jquery-ui.css')); ?>" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/animate.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/line-icons/line-icons.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/font-awesome/css/font-awesome.min.css')); ?>">

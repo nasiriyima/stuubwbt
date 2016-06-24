@@ -42,7 +42,9 @@
                         </div>
                     </div>
                     <div class="header pull-right">
+                        @if($profileStats > 49)
                         <input type="submit" class="btn-u" name="compose" data-toggle="modal" data-target="#compose" value="Compose">
+                        @endif
                     </div>
                     <div class="margin-bottom-20"></div>
                     <div class="modal fade" id="compose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -62,7 +64,7 @@
                                                     <select data-placeholder="To" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">
                                                         {{--*/$friends = $user->friendship()->requestAccepted()->get()/*--}}
                                                         @foreach($friends as $friend)
-                                                            <option value="{{ $friend->friend_id }}">{{ $friend->user->first_name }}</option>
+                                                            <option value="{{ $friend->friend_id }}">{{ $friend->friend->first_name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </label>
@@ -127,8 +129,10 @@
                                         <a href="javascript:showMessage('{!! \Crypt::encrypt($message->id) !!}')"><span class="label label-{{ ($message->status == 0)? 'info' :(($message->status == 1)? 'success' : '') }}">{{ ($message->status == 0)? 'new' :(($message->status == 1)? 'read' : '') }}</span></a>
                                     </td>
                                     <td>
+                                        @if($profileStats > 49)
                                         <a href="#" title="reply" onclick="replyShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-reply"></span></a>
                                         <a href="#" title="Forward" onclick="forwardShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-forward"></span></a>
+                                        @endif
                                         <a href="javascript:void(0)" onclick="showDeleteModal('{{ $message->id }}');" title="trash"><span class="fa fa-trash-o"></span></a>
                                         <input type="hidden" class="messages" id="message_id{{ $message->id }}" name="messageId{{ $message->id }}" value="{{ $message->id }}"  disabled />
                                     </td>

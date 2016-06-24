@@ -17,6 +17,7 @@
         @include('student.include.header_css')
     </head>
     <body>
+    <div id="loading" class="loading" style="display: none;"></div>
         <div class="wrapper">
             @include('student.include.sidemenu')
             <!--=== Content Side Left Right ===-->

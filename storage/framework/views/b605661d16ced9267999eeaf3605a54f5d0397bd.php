@@ -17,6 +17,7 @@
         <?php echo $__env->make('student.include.header_css', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </head>
     <body>
+    <div id="loading" class="loading" style="display: none;"></div>
         <div class="wrapper">
             <?php echo $__env->make('student.include.sidemenu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             <!--=== Content Side Left Right ===-->

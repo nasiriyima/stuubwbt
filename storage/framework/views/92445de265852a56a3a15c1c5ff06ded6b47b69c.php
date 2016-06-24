@@ -41,7 +41,9 @@
                         </div>
                     </div>
                     <div class="header pull-right">
+                        <?php if($profileStats > 49): ?>
                         <input type="submit" class="btn-u" name="compose" data-toggle="modal" data-target="#compose" value="Compose">
+                        <?php endif; ?>
                     </div>
                     <div class="margin-bottom-20"></div>
                     <div class="modal fade" id="compose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -61,7 +63,7 @@
                                                     <select data-placeholder="To" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">
                                                         <?php /**/$friends = $user->friendship()->requestAccepted()->get()/**/ ?>
                                                         <?php foreach($friends as $friend): ?>
-                                                            <option value="<?php echo e($friend->friend_id); ?>"><?php echo e($friend->user->first_name); ?></option>
+                                                            <option value="<?php echo e($friend->friend_id); ?>"><?php echo e($friend->friend->first_name); ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </label>
@@ -126,8 +128,10 @@
                                         <a href="javascript:showMessage('<?php echo \Crypt::encrypt($message->id); ?>')"><span class="label label-<?php echo e(($message->status == 0)? 'info' :(($message->status == 1)? 'success' : '')); ?>"><?php echo e(($message->status == 0)? 'new' :(($message->status == 1)? 'read' : '')); ?></span></a>
                                     </td>
                                     <td>
+                                        <?php if($profileStats > 49): ?>
                                         <a href="#" title="reply" onclick="replyShowMessage('<?php echo e(\Crypt::encrypt($message->id)); ?>')"><span class="fa fa-reply"></span></a>
                                         <a href="#" title="Forward" onclick="forwardShowMessage('<?php echo e(\Crypt::encrypt($message->id)); ?>')"><span class="fa fa-forward"></span></a>
+                                        <?php endif; ?>
                                         <a href="javascript:void(0)" onclick="showDeleteModal('<?php echo e($message->id); ?>');" title="trash"><span class="fa fa-trash-o"></span></a>
                                         <input type="hidden" class="messages" id="message_id<?php echo e($message->id); ?>" name="messageId<?php echo e($message->id); ?>" value="<?php echo e($message->id); ?>"  disabled />
                                     </td>

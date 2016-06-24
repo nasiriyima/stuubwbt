@@ -1,6 +1,7 @@
 <?php $__env->startSection('pagestyles'); ?>
     <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/ladda-buttons/css/custom-lada-btn.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/hover-effects/css/custom-hover-effects.css')); ?>">
+
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('pagecontent'); ?>
@@ -8,9 +9,9 @@
         <form action="javascript:searchQuery()" id="sky-form3" class="sky-form">
            <fieldset>
                 <section>
-                    <label class="input">
+                    <label for="autocomplete" class="input">
                         <i class="hover-hand-cursor icon-append fa fa-search" onclick="searchQuery();"></i>
-                        <input type="text" name="search" id="search" />
+                        <input type="text" autocomplete="off" name="search" id="search" />
                     </label>
                 </section>
            </fieldset>
@@ -28,18 +29,19 @@
                 $rows = $friends->chunk(2);
             /**/ ?>
                 <?php foreach($rows as $row): ?>
-                    <?php /**/
-                        $index = 0;
-                    /**/ ?>
                     <tr class="row margin-bottom-20">
                     <?php foreach($row as $data): ?>
+                  <?php /**/
+                        $rows = $friends->chunk(2);
+                        $index = 0;
+                    /**/ ?>
                         <?php if($index%2 == 0): ?>
                             <td class="col-sm-6 sm-margin-bottom-20 profile-body">
                                 <div class="profile-blog">
                                     <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->profile->first_name); ?>">
                                     <div class="name-location">
-                                        <strong><?php echo e($data->friend->first_name); ?></strong>
-                                        <span><i class="fa fa-map-marker"></i><a href="#"><?php echo e(isset($data->profile[0]->address) ? $data->profile[0]->address : ''); ?></a></span>
+                                        <strong><a href="<?php echo e(url('student/friend-profile')); ?>/<?php echo e(\Crypt::encrypt($data->friend->id)); ?>"><?php echo e($data->friend->first_name); ?></a></strong>
+                                        <span><i class="fa fa-map-marker"></i><a href="#"><?php echo e(isset($data->profile->address) ? $data->profile->address : ''); ?></a></span>
                                     </div>
                                     <div class="clearfix margin-bottom-20"></div>
                                     <p><?php echo e(isset($data->friend->profile->school->name) ? $data->friend->profile->school->name : ''); ?></p>
@@ -58,7 +60,7 @@
                                     <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->first_name); ?>">
                                     <div class="name-location">
                                         <strong><?php echo e($data->friend->first_name); ?></strong>
-                                        <span><i class="fa fa-map-marker"></i><a href="#"><?php echo e($data->profile[0]->address); ?></a></span>
+                                        <span><i class="fa fa-map-marker"></i><a href="#"><?php echo e(isset($data->profile->address) ? $data->profile->address : ''); ?></a></span>
                                     </div>
                                     <div class="clearfix margin-bottom-20"></div>
                                     <p><?php echo e($data->friend->profile->school->name); ?></p>
@@ -69,6 +71,11 @@
                                         <li><i class="fa fa-share"></i><a href="#">Suggest</a></li>
                                     </ul>
                                 </div>
+                            </td>
+                        <?php endif; ?>
+                        <?php if(count($row)%2 == 1 && $index == count($row) -  1): ?>
+                            <td class="col-sm-6 profile-body">
+
                             </td>
                         <?php endif; ?>
                             <?php /**/
@@ -99,6 +106,7 @@
 <script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/jquery.lazyload.js')); ?>"></script>
 <script src="<?php echo e(asset('public/assets/plugins/ladda-buttons/js/spin.min.js')); ?>"></script>
 <script src="<?php echo e(asset('public/assets/plugins/ladda-buttons/js/ladda.min.js')); ?>"></script>
+<script src="<?php echo e(asset('public/assets/plugins/jquery/autocomplete/jquery-ui.js')); ?>"></script>
 <?php /*<script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/ladda-buttons.js')); ?>"></script>*/ ?>
 
 <script type="text/javascript">
@@ -126,7 +134,24 @@
         $(".sTable").dataTable().fnFilter($(this).val());
         var displayRecordCount = $(".sTable").DataTable().page.info().recordsDisplay;
         if(displayRecordCount < 1){
-            $("#load_more").hide();$("#return").show();
+            $("#load_more").hide();
+        }
+    });
+
+    $.ajax({
+        url: "<?php echo url('student/load-autocomplete'); ?>",
+        method: "post",
+        data:{ _token:"<?php echo csrf_token(); ?>" },
+        success: function(data){
+            if(data.session_expired)window.location.replace(data.url);
+            $("#search").autocomplete({
+                source: function( request, response ) {
+                    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                    response( $.grep( data, function( item ){
+                        return matcher.test( item );
+                    }) );
+                }
+            });
         }
     });
 
@@ -186,18 +211,17 @@
             success:function(response){
                 if(response.session_expired)window.location.replace(response.url);
                 $.each(response, function(index, row){
-
                     var tr = [];
                     var td1 = '';
                     var td2 = '';
                     var index = 0;
                     for(var i in row){
                         if(index%2 === 0){
-                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong>'+row[i].first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('<?php echo $profileStats; ?>', row[i].id, '<?php echo $friendships; ?>')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'<?php echo url("student/friend-profile"); ?>/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('<?php echo $profileStats; ?>', row[i].id, row[i].first_name, '<?php echo $friendships; ?>')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
                             tr.push(td1);
                         }
                         if(index%2 === 1){
-                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong>'+row[i].first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('<?php echo $profileStats; ?>', row[i].id, '<?php echo $friendships; ?>')+'</li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'<?php echo url("student/friend-profile"); ?>/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('<?php echo $profileStats; ?>', row[i].id, row[i].first_name, '<?php echo $friendships; ?>')+'</li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
                             tr.push(td2);
                         }
                         if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
@@ -217,11 +241,11 @@
 
     }
 
-    function enableRequest(profileStats, user, friendships){
+    function enableRequest(profileStats, user, name, friendships){
         if(parseInt(profileStats) > 49){
             if(is_me(user)) return '<li><i class="fa fa-user"></i><a href="#">Me</a></li>';
-            if(!is_friend(user, JSON.parse(friendships)))return '<li><i class="fa fa-plus"></i><a href="#">Request</a></li>';
-            if(is_pendingFriend(user, JSON.parse(friendships)))return '<li><i class="fa fa-refresh"></i><a href="#">Pending</a></li>';
+            if(is_pendingFriend(user, JSON.parse(friendships)))return '<li><i class="fa fa-hourglass-half"></i><a href="#">Pending</a></li>';
+            if(!is_friend(user, JSON.parse(friendships)))return '<li id="request'+user+'"><i class="fa fa-plus"></i><a href="#" onclick="sendFriendRequest('+user+', \''+name+'\');">Request</a></li>';
             return '<li><i class="fa fa-ban"></i><a href="#">UnFriend</a></li>';
         }
         return '';
@@ -255,12 +279,28 @@
 
     function showAlert(type, message){
         if(type === 'error'){
-            $("div#alert-message").html('<div class="alert alert-danger fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><h4>Oh snap! You got an error!</h4> <p>'+message+'</p><p><a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a></p></div>');
+            $("div#alert-message").html('<div class="alert alert-danger fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Oh snap!</strong> '+message+'.</div>');
             $("div#alert-message").show("slow");
-            setTimeout(function(){
-                $("div#alert-message").hide("slow");
-            }, 10000);
         }
+
+        if(type === 'success'){
+            $("div#alert-message").html('<div class="alert alert-success fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Well done</strong> '+message+'.</div>');
+            $("div#alert-message").show("slow");
+        }
+
+        if(type === 'warning'){
+            $("div#alert-message").html('<div class="alert alert-warning fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Warning!</strong> '+message+'.</div>');
+            $("div#alert-message").show("slow");
+        }
+
+        if(type === 'info'){
+            $("div#alert-message").html('<div class="alert alert-info fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Heads up!</strong> '+message+'.</div>');
+            $("div#alert-message").show("slow");
+        }
+
+        setTimeout(function(){
+            $("div#alert-message").hide("slow");
+        }, 10000);
     }
 
     function getTableStructure(){
@@ -286,7 +326,23 @@
                 .columns().search('')
                 .draw();
         $("#return").hide();
-        if(savedTableStructure.length > 6)$("#load_more").show();
+        if(parseInt("<?php echo $friends->count(); ?>") >= 6)$("#load_more").show();
+    }
+
+    function sendFriendRequest(id, name){
+        $.ajax({
+            url: "<?php echo url('student/friendship-request'); ?>",
+            method:"post",
+            data: {_token:"<?php echo csrf_token(); ?>", friend:id},
+            success:function(response){
+                console.log(response);
+                if(response.message === "success"){
+                    showAlert("info", "Friendship request sent to "+name);
+                    $("#request"+id).replaceWith('<li id="pending'+id+'"><i class="fa  fa-hourglass-end"></i><a href="#">Pending</a></li>');
+                    return;
+                }
+            }
+        });
     }
 
 </script>

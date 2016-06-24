@@ -24,9 +24,10 @@ class Friendship extends Model
     }
 
     public function school(){
-        return $this->hasManyThrough('\App\School', '\App\Profile', 'user_id', 'id', 'friend_id');
+        return $this->hasManyThrough('\App\School', '\App\Profile', 'id', 'id', 'friend_id');
     }
-    public function scopeRequest($query){
+
+    public function scopeRequestPending($query){
         return $query->with('friend', 'profile', 'school', 'friendship')->where(['status' => 0]);
     }
 
@@ -36,5 +37,9 @@ class Friendship extends Model
 
     public function scopeRequests($query){
         return $query->whereIn('status', [0,1]);
+    }
+
+    public function scopeSuggestion($query){
+        return $query->where('status', '=', 1);
     }
 }
