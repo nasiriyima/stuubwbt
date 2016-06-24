@@ -9,16 +9,13 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('maincontent'); ?>
-    <?php if(\Session::has('message')): ?>
-        <div class="alert alert-success fade in margin-bottom-40">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4>Well done!</h4>
-            <p><?php echo e(\Session::get('message')); ?></p>
-            <a class="btn-u btn-u-sea" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
-        </div>
-    <?php endif; ?>
-    <div id="alert-message" style="display: none;">
-
+    <div id="alert-message">
+        <?php if(\Session::has('error')): ?>
+            <div class="alert alert-danger fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Oh snap!</strong> <?php echo e(\Session::get('error')); ?></div>
+        <?php endif; ?>
+        <?php if(\Session::has('success')): ?>
+            <div class="alert alert-success fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Well done</strong> <?php echo e(\Session::get('success')); ?> </div>
+        <?php endif; ?>
     </div>
    <!--=== Profile ===-->
     <div class="content profile">
@@ -34,7 +31,7 @@
                     <a href="#"><i class="fa fa-group"></i> Friends</a>
                 </li>
             </ul>
-            
+
             <hr>
             <a href="<?php echo e(url('student/process-friend')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>/<?php echo e('accept'); ?>" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend)? '' : 'style=display:none;'); ?>>Accept Request</a>
             <a href="<?php echo e(url('student/my-friends')); ?>" class="btn-u btn-u-blue btn-u-sm btn-block">Friend List</a>

@@ -577,30 +577,29 @@ class StudentController extends Controller
     }
 
     public function getProcessFriend($id, $type){
-
         if($type == 'accept'){
-            $request = \App\Friendship::where([
-                'friend_id' => $this->page_data['user']->id,
+            $friendRequest = \App\Friendship::where([
                 'user_id' => \Crypt::decrypt($id),
+                'friend_id' => $this->page_data['user']->id,
                 'status' => 0
             ])->first();
-            $request->status == 1;
-            $request->save();
-            $friendAcceptance = \App\Friendship::where([
-                'user_id' => \Crypt::decrypt($id),
-                'friend_id' => $this->page_data['user']->id,
+
+            $friendRequest->status = 1;
+            $friendRequest->save();
+
+            $userAcceptance = \App\Friendship::where([
+                'user_id' => $this->page_data['user']->id,
+                'friend_id' => \Crypt::decrypt($id),
                 'status' => 0
-            ])->count();
-            if($friendAcceptance < 1){
-                \App\Friendship::insert([
-                    'friend_id' => $this->page_data['user']->id,
-                    'user_id' => \Crypt::decrypt($id),
-                    'status' => 1,
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now()
-                ]);
+            ])->first();
+
+            $userAcceptance->status = 1;
+            $userAcceptance->save();
+            if($friendRequest && $userAcceptance){
+                return redirect()->back()->with('success', 'you are now friends with '.$friendRequest->user->first_name);
             }
-            return redirect()->back()->with('message', 'you are now friends with '. $request->friend->first_name);
+            return redirect()->back()->with('error', 'Your friendship acceptance could not be resolved please contact a system administrator');
+
         }
 
         if($type == 'unfriend'){
@@ -644,7 +643,7 @@ class StudentController extends Controller
 
     private function is_friend($id, $haystack){
         foreach($haystack as $friend){
-            if($friend->id == $id) return true;
+            if($friend->user_id == $id || $friend->friend_id == $id) return true;
         }
         return false;
     }

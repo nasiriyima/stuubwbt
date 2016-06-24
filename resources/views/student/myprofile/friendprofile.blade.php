@@ -11,16 +11,13 @@
 @stop
 
 @section('maincontent')
-    @if(\Session::has('message'))
-        <div class="alert alert-success fade in margin-bottom-40">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4>Well done!</h4>
-            <p>{{ \Session::get('message') }}</p>
-            <a class="btn-u btn-u-sea" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
-        </div>
-    @endif
-    <div id="alert-message" style="display: none;">
-
+    <div id="alert-message">
+        @if(\Session::has('error'))
+            <div class="alert alert-danger fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Oh snap!</strong> {{ \Session::get('error') }}</div>
+        @endif
+        @if(\Session::has('success'))
+            <div class="alert alert-success fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Well done</strong> {{ \Session::get('success') }} </div>
+        @endif
     </div>
    <!--=== Profile ===-->
     <div class="content profile">
