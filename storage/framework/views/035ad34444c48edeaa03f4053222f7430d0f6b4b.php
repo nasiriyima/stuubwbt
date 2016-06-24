@@ -3,6 +3,9 @@
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('maincontent'); ?>
+    <div class="row">
+
+    </div>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">Examination Profile</a></li>
@@ -33,7 +36,7 @@
                              <?php foreach($exam->question as $question): ?>
                              <tr>
                                  <td><?php echo e($count); ?></td>
-                                 <td><?php echo e($question->name); ?></td>
+                                 <td><?php echo implode(' ', array_slice(explode(' ', $question->name), 0, 30)); ?></td>
                                  <td class="hidden-sm">50</td>
                                  <td class="hidden-sm">50</td>
                                  <td class="hidden-sm">50</td>
@@ -88,7 +91,6 @@
     }
 
     $(".add-info-save").click(function() {
-        console.log($("textarea[name=question_description]").val());
 
         if ($(this).val() === "Upload") {
             if ($("input[name=image_description]").val() === "" || $("input[name=image]").val() === "") {
@@ -120,18 +122,13 @@
             success: function(informations) {
                 $("#additional_info").empty();
                 $.each(informations, function(key, value) {
-                    $.each(value, function(k, val) {
-                        if (k === "id") {
-                            var id = val;
-                        };
-                        if (k === "name") {
-                            var name = val;
-                            $("#additional_info").append("<option value='" + id + "'>" + name + "</option>");
-                        };
-                    });
-                    $('.img_button,.text_button').show();$('.text_area,.for_upload').hide();
-                    $("#add_info").modal("hide");
+                    var id = value["id"];
+                    var name = value["name"];
+                    $("#additional_info").append("<option value='" + id + "'>" + name + "</option>");
                 });
+                $('.img_button,.text_button').show();$('.text_area,.for_upload').hide();
+                $("#add_info").modal("hide");
+                $('#file-upload,input[name=image_description],input[name=text_description],textarea[name=question_description]').val('');
             },
             error: function() {
                 console.log("ERROR");

@@ -4,6 +4,9 @@
 {{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}
 @stop
 @section('maincontent')
+    <div class="row">
+
+    </div>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">Examination Profile</a></li>
@@ -34,7 +37,7 @@
                              @foreach($exam->question as $question)
                              <tr>
                                  <td>{{$count}}</td>
-                                 <td>{{$question->name}}</td>
+                                 <td>{!! implode(' ', array_slice(explode(' ', $question->name), 0, 30)) !!}</td>
                                  <td class="hidden-sm">50</td>
                                  <td class="hidden-sm">50</td>
                                  <td class="hidden-sm">50</td>

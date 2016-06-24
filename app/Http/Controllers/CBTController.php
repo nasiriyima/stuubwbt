@@ -39,6 +39,7 @@ class CBTController extends Controller
      */
     Public function postAddExaminationQuestion(){
         $formData = \Request::all();
+
         $question = new \App\Question();
         $question->code = 'test';
         $question->exam_id = \Crypt::decrypt($formData['examid']);

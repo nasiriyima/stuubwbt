@@ -45,7 +45,7 @@
                         <section>
                             <label class="textarea">
                                 <span>QUESTION TEXT</span>
-                                <textarea rows="2" name="question_name" placeholder="Question Text" id="question" ></textarea>
+                                <textarea rows="2" name="question_name" placeholder="Question Text" id="question" required ></textarea>
                             </label>
                         </section>
                     </div>
