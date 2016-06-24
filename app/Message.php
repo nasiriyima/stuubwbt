@@ -27,22 +27,38 @@ class Message extends Model
 
     public function scopeInbox($query)
     {
-        return $query->whereIn('status',[0,1])->orderBy('created_at', 'dsc');
+        return $query->whereIn('store',[1])->orderBy('created_at', 'dsc');
     }
 
     public function scopeUnread($query)
     {
-        return $query->whereIn('status',[0])->orderBy('created_at', 'dsc');
+        return $query->where(['status' => 0])->whereIn('store',[0,1])->orderBy('created_at', 'dsc');
+    }
+
+    public function scopeSent($query){
+        return $query->where(['status' => 0])->whereIn('store',[2])->orderBy('created_at', 'dsc');
     }
 
     public function scopeDraft($query)
     {
-        return $query->whereIn('status',[2,3])->orderBy('created_at', 'dsc');
+        return $query->whereIn('store',[0])->orderBy('created_at', 'dsc');
     }
 
     public function scopeTrash($query)
     {
         return $query->whereNotNull('deleted_at')->orderBy('created_at', 'dsc');
+    }
+
+    public function scopeSentConversation($query, $startDate, $endDate){
+        return $query->whereIn('store',[2])->whereBetween('created_at', [
+            $startDate, $endDate
+        ])->orderBy('created_at', 'dsc');
+    }
+
+    public function scopeReceivedConversation($query, $startDate, $endDate){
+        return $query->whereIn('store',[1])->whereBetween('created_at', [
+            $startDate, $endDate
+        ])->orderBy('created_at', 'dsc');
     }
 
     public function sender(){

@@ -42,16 +42,20 @@
                                                 </div>
                                         </div>
                                         <div class="header pull-right">
+                                                @if($profileStats > 49)
                                                 <input type="submit" class="btn btn-warning" name="compose" data-toggle="modal" data-target="#compose" value="Compose">
+                                                @endif
                                         </div>
                                         <div class="margin-bottom-20"></div>
                                         <div class="modal fade" id="compose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" style="width: 1000px">
                                                         <div class="modal-content">
+                                                                @if($profileStats > 49)
                                                                 <div class="modal-header">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                                         <h4 class="modal-title" id="myModalLabel4">Compose Message</h4>
                                                                 </div>
+                                                                @endif
                                                                 <div class="modal-body">
                                                                         <!-- Review Form-->
                                                                         <form action="{{ url('student/process-message') }}" method="post" id="sky-form2" class="sky-form">
@@ -127,7 +131,9 @@
                                                                                 <a href="javascript:showEditMessage('{!! \Crypt::encrypt($message->id) !!}')"><span class="label label-{{ ($message->status == 0)? 'info' :(($message->status == 1)? 'success' : (($message->status == 2)? 'warning' : '')) }}">{{ ($message->status == 0)? 'new' :(($message->status == 1)? 'read' : (($message->status == 2)? 'saved' : '')) }}</span></a>
                                                                         </td>
                                                                         <td>
+                                                                                @if($profileStats > 49)
                                                                                 <a href="#" title="Edit" onclick="showEditMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-edit"></span></a>
+                                                                                @endif
                                                                                 <a href="javascript:void(0)" onclick="showDeleteModal('{{ $message->id }}');" title="trash"><span class="fa fa-trash-o"></span></a>
                                                                                 <input type="hidden" class="messages" id="message_id{{ $message->id }}" name="messageId{{ $message->id }}" value="{{ $message->id }}"  disabled />
                                                                         </td>

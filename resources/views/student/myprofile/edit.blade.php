@@ -16,7 +16,7 @@
                 <section>
                     <label class="label">Edit Description</label>
                     <label class="textarea textarea-expandable">
-                        <textarea rows="3">{{ isset($user->profile->description)? $user->profile->description : ''}}</textarea>
+                        <textarea rows="3" name="description">{{ isset($user->profile->description)? $user->profile->description : ''}}</textarea>
                     </label>
                     <div class="note"><strong>Note:</strong> expands on focus.</div>
                 </section>
@@ -110,7 +110,7 @@
                     <section class="col col-6">
                         <label class="label">School</label>
                             <label class="select">
-                            @if(isset($user->profile->school_id) && $user->profile->school_id != "")
+                            @if(isset($user->profile->school_id) && $user->profile->school_id != "" && $user->profile->education != '' && $user->profile->education != null)
                                 <select name="school_id">
                                     <option value="">Choose school</option>
                                     @foreach($schools as $school)
@@ -123,7 +123,8 @@
                                 <select name="school_id">
                                     <option value="">Choose a school</option>
                                     @foreach($schools as $school)
-                                        <option value="{{ $school->id }}">{{ $school->code }} - {{ $school->name }}</option>
+                                        <option value="{{ $school->id }}"
+                                        {{ (isset($user->profile) && $user->profile->school_id == $school->id)? 'selected' : '' }}>{{ $school->code }} - {{ $school->name }}</option>
                                     @endforeach
                                 </select>
                             @endif
@@ -138,6 +139,60 @@
                         </label>
                     </section>
                 </div>
+            </fieldset>
+            <fieldset {{ ($type == 'name')? '': 'style=display:none'}}>
+                <section>
+                    <label class="label">Name</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-user"></i>
+                        <input type="text" value="{{ $user->first_name }}" name="first_name" placeholder="Placeholder text">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset {{ ($type == 'nick_name')? '': 'style=display:none'}}>
+                <section>
+                    <label class="label">Nick Name</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-user"></i>
+                        <input type="text" value="{{ $user->profile->nick_name or '' }}" name="nick_name" placeholder="Nick Name ">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset {{ ($type == 'DofB')? '': 'style=display:none'}}>
+                <section>
+                    <label class="label">Date of Birth</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="dofb" id="start" value="{{ isset($user->profile->dofb)? \Carbon\Carbon::createFromTimestamp(strtotime($user->profile->dofb))->format('Y.m.d') : '' }}" placeholder="Date of Birth">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset {{ ($type == 'email')? '': 'style=display:none'}}>
+                <section>
+                    <label class="label">Secondary Email Address</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-envelope"></i>
+                        <input type="email" value="{{ $user->profile->email or '' }}" name="email">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset {{ ($type == 'phone')? '': 'style=display:none'}}>
+                <section>
+                    <label class="label">Phone</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-phone"></i>
+                        <input type="tel" name="phone" value="{{ $user->profile->phone or '' }}" id="phone">
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset {{ ($type == 'address')? '': 'style=display:none'}}>
+                <section>
+                    <label class="label">Address</label>
+                    <label class="textarea">
+                        <i class="icon-append fa fa-university"></i>
+                        <textarea rows="3" placeholder="Placeholder text" name="address">{{ $user->profile->address or '' }}</textarea>
+                    </label>
+                </section>
             </fieldset>
             <footer>
                 <div class="pull-right">

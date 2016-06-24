@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.34 on 2016-06-15.
+ * Generated for Laravel 5.2.34 on 2016-06-18.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11702,6 +11702,62 @@ namespace {
          */
         public static function disableDispatcher(){
             return \Cartalyst\Sentinel\Sentinel::disableDispatcher();
+        }
+        
+    }
+
+
+    class Search extends \Nqxcode\LuceneSearch\Facade{
+        
+        /**
+         * Get descriptor for open index.
+         *
+         * @return \ZendSearch\Lucene\SearchIndexInterface 
+         * @static 
+         */
+        public static function index(){
+            return \Nqxcode\LuceneSearch\Search::index();
+        }
+        
+        /**
+         * 
+         *
+         * @return \Nqxcode\LuceneSearch\Model\Config 
+         * @static 
+         */
+        public static function config(){
+            return \Nqxcode\LuceneSearch\Search::config();
+        }
+        
+        /**
+         * Update document in index for model
+         *
+         * @param \Nqxcode\LuceneSearch\Model $model
+         * @static 
+         */
+        public static function update($model){
+            return \Nqxcode\LuceneSearch\Search::update($model);
+        }
+        
+        /**
+         * Delete document for model from index.
+         *
+         * @param \Nqxcode\LuceneSearch\Model $model
+         * @static 
+         */
+        public static function delete($model){
+            return \Nqxcode\LuceneSearch\Search::delete($model);
+        }
+        
+        /**
+         * Highlight matches in html fragment.
+         *
+         * @param string $html
+         * @return string 
+         * @static 
+         */
+        public static function highlight($html){
+            return \Nqxcode\LuceneSearch\Search::highlight($html);
         }
         
     }

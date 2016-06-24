@@ -3,6 +3,7 @@
 <script type="text/javascript" src="{{ asset('public/assets/plugins/jquery/jquery-migrate.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/plugins/jquery.countdown.js')}}"></script>
+<script src="{{ asset('public/assets/js/loading.js') }}"></script>
 
 <!-- JS Implementing Plugins -->
 <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>

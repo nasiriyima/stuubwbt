@@ -10,6 +10,9 @@
 @stop
 
 @section('maincontent')
+        <div id="alert-message" style="display: none;">
+
+        </div>
         <!--=== Profile ===-->
 <div class="content profile">
     <!--Left Sidebar-->
@@ -24,7 +27,7 @@
                 <a href="{{ url('student/my-friends') }}"><i class="fa fa-group"></i> Friends</a>
             </li>
             <li class="list-group-item {{ ($page_name == 'messages')? 'active' : '' }}">
-                <a href="{{ url('student/my-conversations') }}"><i class="fa fa-comments"></i> Messages</a>
+                <a href="{{ url('student/my-conversations') }}"><i class="fa fa-comments"></i> Conversations</a>
             </li>
             <li class="list-group-item {{ ($page_name == 'settings')? 'active' : '' }}">
                 <a href="{{ url('student/my-settings') }}"><i class="fa fa-cog"></i> Settings</a>
@@ -41,6 +44,7 @@
 
         <div class="margin-bottom-50"></div>
 
+        @if(!isset($user->preference) || $user->preference->options['show_notification'] == true)
         <!--Notification-->
         <div class="col-sm-12 sm-margin-bottom-30">
             <div class="panel panel-profile">
@@ -49,39 +53,43 @@
                     <a href="#"><i class="fa fa-cog pull-right"></i></a>
                 </div>
                 @if(count($notifications) > 0)
-                <ul class="list-unstyled mCustomScrollbar margin-bottom-20" data-mcs-theme="minimal-dark">
-                    @if(isset($notifications['otherNotifications']))
-                        <li class="notification">
-                            <i class="icon-custom icon-sm rounded-x icon-bg-red icon-line fa fa-bolt"></i>
-                            <div class="overflow-h">
-                                <span><strong>Profile Stats.</strong> {{ $notifications['otherNotifications']->profileStats }}</span>
-                                <small>{{ $notifications['otherNotifications']->time }}</small>
-                            </div>
-                        </li>
-                    @endif
-                    @if(isset($notifications['friendshipRequest']))
-                        <li class="notification">
-                            <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line fa fa-comments"></i>
-                            <div class="overflow-h">
-                                <span><strong>{{ $notifications['friendshipRequest']->user->first_name }}</strong> has sent you a friendship request.</span>
-                                <small>{{ $notifications['messages']->created_at->diffForHumans() }}</small>
-                            </div>
-                        </li>
-                    @endif
-                    @if(isset($notifications['messages']))
-                        <li class="notification">
-                            <img class="rounded-x" src="{{ (isset($notifications['messages']->sender->profile->image) &&
+                    <ul class="list-unstyled mCustomScrollbar margin-bottom-20" data-mcs-theme="minimal-dark">
+                        @if(isset($notifications['otherNotifications']))
+                            <li class="notification">
+                                <i class="icon-custom icon-sm rounded-x icon-bg-red icon-line fa fa-bolt"></i>
+                                <div class="overflow-h">
+                                    <span><strong>Profile Stats.</strong> {{ $notifications['otherNotifications']->profileStats }}</span>
+                                    <small>{{ $notifications['otherNotifications']->time }}</small>
+                                </div>
+                            </li>
+                        @endif
+                        @if(isset($notifications['friendshipRequest']))
+                            <li class="notification">
+                                <i class="icon-custom icon-sm rounded-x icon-bg-blue icon-line fa fa-comments"></i>
+                                <div class="overflow-h">
+                                    <span><strong><a href="{{ url('student/friend-profile') }}/{{ \Crypt::encrypt($notifications['friendshipRequest']->user->id) }}">{{ $notifications['friendshipRequest']->user->first_name }}</a></strong> has sent you a friendship request.</span>
+                                    <small>{{ $notifications['friendshipRequest']->created_at->diffForHumans() }}</small>
+                                </div>
+                            </li>
+                        @endif
+                        @if(isset($notifications['messages']))
+                            <li class="notification">
+                                <img class="rounded-x" src="{{ (isset($notifications['messages']->sender->profile->image) &&
                             $notifications['messages']->sender->profile->image !="" && $notifications['messages']->sender->profile->image !=NULL)?
                              url('student/file').'/'.$notifications['messages']->sender->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $notifications['messages']->sender->first_name }}">
-                            <div class="overflow-h">
-                                <span><strong>{{ $notifications['messages']->sender->first_name }}</strong> has sent you a message.</span>
-                                <small>{{ $notifications['messages']->created_at->diffForHumans() }}</small>
-                            </div>
-                        </li>
-                    @endif
+                                <div class="overflow-h">
+                                    <span><strong>{{ $notifications['messages']->sender->first_name }}</strong> has sent you a message.</span>
+                                    <small>{{ $notifications['messages']->created_at->diffForHumans() }}</small>
+                                </div>
+                            </li>
+                        @endif
 
-                </ul>
-                <button type="button" class="btn-u btn-u-default btn-u-sm btn-block">Load More</button>
+                    </ul>
+                    <div class="ladda-btn">
+                        <center>
+                            {{--<button type="button" class="btn-u btn-u-default btn-u-sm btn-block text-center ladda-button" data-style="contract" id="load_more">Load More</button>--}}
+                        </center>
+                    </div>
                 @else
                     You have no notifications yet
                 @endif
@@ -89,6 +97,7 @@
             </div>
         </div>
         <!--End Notification-->
+        @endif
 
     </div>
     <!--End Left Sidebar-->

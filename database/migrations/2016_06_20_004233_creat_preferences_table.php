@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudentprofileTable extends Migration
+class CreatPreferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateStudentprofileTable extends Migration
     public function up()
     {
         //
-        Schema::create('student_profiles',function($table){
+        Schema::create('preferences', function(Blueprint $table){
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->default(0);
+            $table->text('options')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
-            $table->softdeletes();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +31,6 @@ class CreateStudentprofileTable extends Migration
     public function down()
     {
         //
-        Schema::drop('student_profiles');
+        Schema::drop('preferences');
     }
 }

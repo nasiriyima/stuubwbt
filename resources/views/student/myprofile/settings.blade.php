@@ -16,82 +16,70 @@
             <div class="tab-content">
                 <div id="profile" class="profile-edit tab-pane fade in active">
                     <h2 class="heading-md">Manage your Name, ID and Email Addresses.</h2>
-                    <p>Below are the name and email addresses on file for your account.</p>
+                    <p>Below are the name and email addresses on file for your account. Please use the pencil icon to edit your information.</p>
                     <br>
                     <dl class="dl-horizontal">
                         <dt><strong>Your name </strong></dt>
                         <dd>
-                            Edward Rooster
+                           {{ $user->first_name }}
 											<span>
 												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
+                                                    <i class="fa fa-pencil hover-hand-cursor" onclick="showEditModal('name')"></i>
                                                 </a>
 											</span>
                         </dd>
                         <hr>
                         <dt><strong>Your ID </strong></dt>
                         <dd>
-                            FKJ-032440
+                            {{ $user->profile->nick_name or '' }}
 											<span>
 												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
+                                                    <i class="fa fa-pencil hover-hand-cursor" onclick="showEditModal('nick_name')"></i>
                                                 </a>
 											</span>
                         </dd>
                         <hr>
-                        <dt><strong>Company name </strong></dt>
+                        <dt><strong>Date of Birth </strong></dt>
                         <dd>
-                            Htmlstream
-											<span>
+                            {{ $user->profile->dofb or '' }}
+                            <span>
 												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
+                                                    <i class="fa fa-pencil hover-hand-cursor" onclick="showEditModal('DofB')"></i>
                                                 </a>
 											</span>
                         </dd>
                         <hr>
-                        <dt><strong>Primary Email Address </strong></dt>
+                        <dt><strong>Secondary Email Address </strong></dt>
                         <dd>
-                            edward-rooster@gmail.com
+                            {{ $user->profile->email or '' }}
 											<span>
 												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
+                                                    <i class="fa fa-pencil hover-hand-cursor" onclick="showEditModal('email')"></i>
                                                 </a>
 											</span>
                         </dd>
                         <hr>
                         <dt><strong>Phone Number </strong></dt>
                         <dd>
-                            (304) 33-2867-499
+                            {{ $user->profile->phone or '' }}
 											<span>
 												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-											</span>
-                        </dd>
-                        <hr>
-                        <dt><strong>Office Number </strong></dt>
-                        <dd>
-                            (304) 44-9810-296
-											<span>
-												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
+                                                    <i class="fa fa-pencil hover-hand-cursor" onclick="showEditModal('phone')"></i>
                                                 </a>
 											</span>
                         </dd>
                         <hr>
                         <dt><strong>Address </strong></dt>
                         <dd>
-                            California, US
+                            {{ $user->profile->address or '' }}
 											<span>
 												<a class="pull-right" href="#">
-                                                    <i class="fa fa-pencil"></i>
+                                                    <i class="fa fa-pencil hover-hand-cursor" onclick="showEditModal('address')"></i>
                                                 </a>
 											</span>
                         </dd>
                         <hr>
                     </dl>
-                    <button type="button" class="btn-u btn-u-default">Cancel</button>
-                    <button type="button" class="btn-u">Save Changes</button>
                 </div>
 
                 <div id="passwordTab" class="profile-edit tab-pane fade">
@@ -105,7 +93,7 @@
                                 <section>
                                     <label class="input">
                                         <i class="icon-append fa fa-user"></i>
-                                        <input type="text" placeholder="Username" name="username">
+                                        <input type="text" placeholder="Username" name="username"  value="{{ $user->email }}" readonly>
                                         <b class="tooltip tooltip-bottom-right">Needed to enter the website</b>
                                     </label>
                                 </section>
@@ -115,7 +103,7 @@
                                 <section>
                                     <label class="input">
                                         <i class="icon-append fa fa-envelope"></i>
-                                        <input type="email" placeholder="Email address" name="email">
+                                        <input type="email" placeholder="Email address" name="email" value="{{ $user->email }}" readonly>
                                         <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
                                     </label>
                                 </section>
@@ -155,7 +143,7 @@
                     <h2 class="heading-md">Manage your Payment Settings</h2>
                     <p>Below are the payment options for your account.</p>
                     <br>
-                    <form class="sky-form" id="sky-form" action="#">
+                    <form class="sky-form" id="sky-form" action="{{ url('student/update-preferences') }}">
                         <!--Checkout-Form-->
                         <section>
                             <div class="inline-group">
@@ -222,18 +210,19 @@
                     <h2 class="heading-md">Manage your Notifications.</h2>
                     <p>Below are the notifications you may manage.</p>
                     <br>
-                    <form class="sky-form" id="sky-form3" action="#">
-                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i class="no-rounded"></i>Email notification</label>
+                    <form class="sky-form" id="sky-form3" method="post" action="{{ url('student/update-preferences') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <label class="toggle"><input type="checkbox" {{ (!isset($user->preference) || $user->preference->options['show_birth_date'])? 'checked' : '' }} name="show_birth_date"><i class="no-rounded"></i>Show my birth date</label>
                         <hr>
-                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i class="no-rounded"></i>Send me email notification when a user comments on my blog</label>
+                        <label class="toggle"><input type="checkbox" {{ (!isset($user->preference) || $user->preference->options['show_phone'])? 'checked' : '' }} name="show_phone"><i class="no-rounded"></i>Show my telephone number</label>
                         <hr>
-                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i class="no-rounded"></i>Send me email notification for the latest update</label>
+                        <label class="toggle"><input type="checkbox" {{ (!isset($user->preference) || $user->preference->options['show_address'])? 'checked' : '' }} name="show_address"><i class="no-rounded"></i>Show my address</label>
                         <hr>
-                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i class="no-rounded"></i>Send me email notification when a user sends me message</label>
+                        <label class="toggle"><input type="checkbox" {{ (!isset($user->preference) || $user->preference->options['show_notification'])? 'checked' : '' }} name="show_notification"><i class="no-rounded"></i>Show system notifications</label>
                         <hr>
-                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i class="no-rounded"></i>Receive our monthly newsletter</label>
+                        <label class="toggle"><input type="checkbox" {{ (!isset($user->preference) || $user->preference->options['send_email'])? 'checked' : '' }} name="send_email"><i class="no-rounded"></i>Send me email notification when a user sends me message</label>
                         <hr>
-                        <button type="button" class="btn-u btn-u-default">Reset</button>
+                        <button type="button" onclick="resetSettings()" class="btn-u btn-u-default">Reset</button>
                         <button class="btn-u" type="submit">Save Changes</button>
                     </form>
                 </div>
@@ -243,5 +232,42 @@
 @stop
 
 @section('pagescripts')
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/chosen/chosen.jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/js/plugins/datepicker.js')}}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            Datepicker.initDatepicker();
+        });
 
+        function resetSettings(){
+            $("#sky-form3 input[type=checkbox]").prop("checked", true);
+        }
+
+        function showEditModal(type){
+            $.ajax({
+                url: "{!! url('student/edit-view') !!}",
+                method: "post",
+                data:{_token:"{!! csrf_token() !!}", type:type},
+                success:function(response, status, xhr){
+                    var header_content_type = xhr.getResponseHeader("content-type") || "";
+
+                    if (header_content_type.indexOf('html') > -1) {
+                        $(".bs-example-modal-lg .modal-body").html(response);
+                        $(".bs-example-modal-lg #edit-title").html(type.toString().toUpperCase());
+                        $(".bs-example-modal-lg").modal("show");
+                    }
+
+                    if (header_content_type.indexOf('json') > -1) {
+                        if(response.session_expired){
+                            window.location = response.url;
+                        }
+                    }
+                }
+            });
+
+            $(".bs-example-modal-lg").on("shown.bs.modal", function () {
+                $('.chosen-select', this).chosen('destroy').chosen();
+            });
+        }
+    </script>
 @stop

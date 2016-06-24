@@ -30,17 +30,17 @@
                         <div class="headline"><h2>@yield('pagetitle')</h2></div>
                         @if(\Session::has('error'))
                         <div class="alert alert-danger fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h4>Oh snap! You got an error!</h4>
-                            <p>{{ \Session::get('error') }}</p>
-                            <p>
-                                @if(\Session::has('actionAname') && \Session::has('actionBname'))
-                                    <a class="btn-u btn-u-red" href="{{ \Session::get('actionA') }}">{{ \Session::get('actionAname') }}</a>
-                                    <a class="btn-u btn-u-sea" href="{{ \Session::get('actionB') }}">{{ \Session::get('actionBname') }}</a>
-                                @else
-                                    <a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
-                                @endif
-                            </p>
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4>Oh snap! You got an error!</h4>
+                                <p>{{ \Session::get('error') }}</p>
+                                <p>
+                                    @if(\Session::has('actionAname') && \Session::has('actionBname'))
+                                        <a class="btn-u btn-u-red" href="{{ \Session::get('actionA') }}">{{ \Session::get('actionAname') }}</a>
+                                        <a class="btn-u btn-u-sea" href="{{ \Session::get('actionB') }}">{{ \Session::get('actionBname') }}</a>
+                                    @else
+                                        <a class="btn-u btn-u-red" href="#" data-dismiss="alert" aria-hidden="true">OK</a>
+                                    @endif
+                                </p>
                         </div>
                         @endif
                         @if(\Session::has('success'))
@@ -68,7 +68,7 @@
                     document.write("======================================================================================================================================================================</center>");
                     setTimeout(function(){
                         window.location = "{!! url('student') !!}";
-                    },1000);
+                    },2000);
                 }
                 $(document).ready(function(){
                     $(document).keydown(function(e) { if (e.keyCode === 8) e.preventDefault(); });

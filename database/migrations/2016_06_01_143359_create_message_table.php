@@ -19,6 +19,7 @@ class CreateMessageTable extends Migration
             $table->text('body')->nullable();
             $table->integer('receiver_id')->nullable();
             $table->integer('sender_id');
+            $table->integer('store')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
