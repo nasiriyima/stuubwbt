@@ -314,23 +314,13 @@ class StudentController extends Controller
             if($validator->passes()){
                 if(isset($request['to'])){
                     foreach($request['to'] as $id){
-                        //Save Inbox with status unread
+                        //Send Inbox with status unread
                         $message = new \App\Message();
                         $message->subject = $request['subject'];
                         $message->body = $request['body'] or '';
                         $message->receiver_id = $id;
                         $message->sender_id = $this->page_data['user']->id;
-                        $message->store = 1;
-                        $message->status = 0;
-                        $message->save();
-
-                        //Save Sent with status 0
-                        $message = new \App\Message();
-                        $message->subject = $request['subject'];
-                        $message->body = $request['body'] or '';
-                        $message->receiver_id = $id;
-                        $message->sender_id = $this->page_data['user']->id;
-                        $message->store = 2;
+                        $message->store = 0;
                         $message->status = 0;
                         $message->save();
                     }
@@ -340,7 +330,7 @@ class StudentController extends Controller
                     $message->body = $request['body'];
                     $message->receiver_id = 0;
                     $message->sender_id = $this->page_data['user']->id;
-                    $message->store = 3;
+                    $message->store = 0;
                     $message->status = 0;
                     $message->save();
                 }
@@ -358,11 +348,23 @@ class StudentController extends Controller
             $validator = \Validator::make($request, $rules);
             if($validator->passes()){
                 foreach($request['to'] as $id){
+                    //Send Inbox with status unread
                     $message = new \App\Message();
                     $message->subject = $request['subject'];
                     $message->body = $request['body'];
                     $message->receiver_id = $id;
                     $message->sender_id = $this->page_data['user']->id;
+                    $message->store = 1;
+                    $message->status = 0;
+                    $message->save();
+
+                    //Save Sent with status 0
+                    $message = new \App\Message();
+                    $message->subject = $request['subject'];
+                    $message->body = $request['body'] or '';
+                    $message->receiver_id = $id;
+                    $message->sender_id = $this->page_data['user']->id;
+                    $message->store = 2;
                     $message->status = 0;
                     $message->save();
                     if(!$message->save()){
@@ -371,7 +373,8 @@ class StudentController extends Controller
                         $message->body = $request['body'];
                         $message->receiver_id = $id;
                         $message->sender_id = $this->page_data['user']->id;
-                        $message->status = 3;
+                        $message->store = 0;
+                        $message->status = 0;
                         $message->save();
                     }
                 }
@@ -392,7 +395,10 @@ class StudentController extends Controller
                 'sender' => $sender,
                 'message' => [
                     'subject' => 'RE: '.$message->subject,
-                    'body' => $message->body
+                    'body' => '<br /> ---------- Reply message ---------- <br />
+                                From: '.$sender->first_name.'<br />
+                                Date: '.$message->created_at->format('D, M d, Y @ h:m').'<br />
+                                Subject: '.$message->subject.'<br />'.$message->body
                 ]
             ]);
         }
@@ -522,7 +528,7 @@ class StudentController extends Controller
                 'created_at', [
                 Carbon::createFromTimestamp($startDate),
                 Carbon::createFromTimestamp($endDate)
-            ])->get();
+            ])->paginate(5);
             $this->page_data['startDate'] =  Carbon::createFromTimestamp($startDate);
             $this->page_data['endDate'] = Carbon::createFromTimestamp($endDate);
         } else {
@@ -532,7 +538,7 @@ class StudentController extends Controller
                 'created_at', [
                 Carbon::now()->startOfMonth(),
                 Carbon::now()
-            ])->get();
+            ])->paginate(5);
             $this->page_data['startDate'] = Carbon::now()->startOfMonth();
             $this->page_data['endDate'] = Carbon::now();
         }
@@ -574,6 +580,21 @@ class StudentController extends Controller
         $this->page_data['is_friend'] = $this->is_friend($friend->id, $userFriends);
         $this->page_data['friendsStats'] = $friend->friendship()->requestAccepted()->count();
         return view('student.myprofile.friendprofile')->with($this->page_data);
+    }
+
+    public function getFriendProfileList($id){
+        $friend = \App\User::find(\Crypt::decrypt($id));
+        $this->page_data['page_name'] = 'friends';
+        $this->page_data['friend'] = $friend;
+        $this->page_data['profileStats'] = ($friend->profile)?
+            $friend->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $friend->friendship()->requestAccepted()->count();
+        $this->page_data['friends'] = $friend->friendship()->requestAccepted()->paginate(6)->setPath('student/lazy-load');
+        $this->page_data['friendships'] = $friend->friendship()->requests()->get();
+        $userFriends = $this->page_data['user']->friendship()->requestAccepted()->get();
+        $this->page_data['user_friends'] = $this->page_data['user']->friendship();
+        $this->page_data['is_friend'] = $this->is_friend($friend->id, $userFriends);
+        return view('student.myprofile.friendprofilefriendslist')->with($this->page_data);
     }
 
     public function getProcessFriend($id, $type){

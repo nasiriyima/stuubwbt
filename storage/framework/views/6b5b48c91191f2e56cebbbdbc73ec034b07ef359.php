@@ -25,16 +25,16 @@
 
             <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                 <li class="list-group-item <?php echo e(($page_name == 'profile')? 'active' : ''); ?>">
-                    <a href="<?php echo e(url('student/my-profile')); ?>"><i class="fa fa-user"></i> Profile</a>
+                    <a href="<?php echo e(url('student/friend-profile')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>"><i class="fa fa-user"></i> Profile</a>
                 </li>
                 <li class="list-group-item <?php echo e(($page_name == 'friends')? 'active' : ''); ?>">
-                    <a href="#"><i class="fa fa-group"></i> Friends</a>
+                    <a href="<?php echo e(url('student/friend-profile-list')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>"><i class="fa fa-group"></i> Friends</a>
                 </li>
             </ul>
 
             <hr>
             <a href="<?php echo e(url('student/process-friend')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>/<?php echo e('accept'); ?>" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend)? '' : 'style=display:none;'); ?>>Accept Request</a>
-            <a href="<?php echo e(url('student/my-friends')); ?>" class="btn-u btn-u-blue btn-u-sm btn-block">Friend List</a>
+            <a href="<?php echo e(url('student/my-friends')); ?>" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friend List</a>
             <a href="<?php echo e(url('student/my-profile')); ?>" class="btn-u btn-u-green btn-u-sm btn-block">Return to Profile</a>
             <a href="javascript:showAlert('confirm', '', '<?php echo e(\Crypt::encrypt($friend->id)); ?>', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" <?php echo e(($is_friend)? '' : 'style=display:none;'); ?>>Unfriend</a>
 

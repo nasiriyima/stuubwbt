@@ -27,16 +27,16 @@
 
             <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                 <li class="list-group-item {{ ($page_name == 'profile')? 'active' : '' }}">
-                    <a href="{{ url('student/my-profile') }}"><i class="fa fa-user"></i> Profile</a>
+                    <a href="{{ url('student/friend-profile') }}/{{ \Crypt::encrypt($friend->id) }}"><i class="fa fa-user"></i> Profile</a>
                 </li>
                 <li class="list-group-item {{ ($page_name == 'friends')? 'active' : '' }}">
-                    <a href="#"><i class="fa fa-group"></i> Friends</a>
+                    <a href="{{ url('student/friend-profile-list') }}/{{ \Crypt::encrypt($friend->id) }}"><i class="fa fa-group"></i> Friends</a>
                 </li>
             </ul>
 
             <hr>
             <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/{{ 'accept' }}" class="btn-u btn-u-sm btn-block" {{ (!$is_friend)? '' : 'style=display:none;' }}>Accept Request</a>
-            <a href="{{ url('student/my-friends') }}" class="btn-u btn-u-blue btn-u-sm btn-block">Friend List</a>
+            <a href="{{ url('student/my-friends') }}" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friend List</a>
             <a href="{{ url('student/my-profile') }}" class="btn-u btn-u-green btn-u-sm btn-block">Return to Profile</a>
             <a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" {{ ($is_friend)? '' : 'style=display:none;' }}>Unfriend</a>
 

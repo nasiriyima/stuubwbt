@@ -63,7 +63,7 @@
                                                     <select data-placeholder="To" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">
                                                         <?php /**/$friends = $user->friendship()->requestAccepted()->get()/**/ ?>
                                                         <?php foreach($friends as $friend): ?>
-                                                            <option value="<?php echo e($friend->friend_id); ?>"><?php echo e($friend->user->first_name); ?></option>
+                                                            <option value="<?php echo e($friend->friend_id); ?>"><?php echo e($friend->friend->first_name); ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </label>

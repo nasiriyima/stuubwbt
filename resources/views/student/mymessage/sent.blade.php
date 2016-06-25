@@ -64,7 +64,7 @@
                                                     <select data-placeholder="To" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">
                                                         {{--*/$friends = $user->friendship()->requestAccepted()->get()/*--}}
                                                         @foreach($friends as $friend)
-                                                            <option value="{{ $friend->friend_id }}">{{ $friend->user->first_name }}</option>
+                                                            <option value="{{ $friend->friend_id }}">{{ $friend->friend->first_name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </label>
