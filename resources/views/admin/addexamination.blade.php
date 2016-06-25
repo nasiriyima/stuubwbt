@@ -51,14 +51,18 @@
                     </div>
                     <div class="col-md-4">
                         <section>
+                            <a rows="4" class="btn-u" data-toggle="modal" data-target="#add_info" style="padding:6px 70px; margin-top:20px;">New Additional Information</a>
+                        </section>
+                        <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <select class="gender" id="additional_info">
-                                </select>
+                                <select id="additional_info" data-placeholder="Choose a Additional Information..." class="form-control chosen-select" tabindex="2"></select>
                             </label>
                         </section>
                         <section>
-                            <a rows="4" class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
+                            <span class="icon-info" id="select_preview_title" style="display:none;"></span>
+                            <img id="img_select_preview" src="" height="250" width="310" alt="Image preview..." >
+                            <div id="desc_select_preview" style="display:none;"></div>
                         </section>
                     </div>
                 </div>
@@ -188,19 +192,3 @@
     </div>
 </div>
 
-    <script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/nicescroll/jquery.nicescroll.js') }}"></script>
-    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-    <!-- PLUGINS -->
-    <script src="{{ asset('js/plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/chosen/chosen.jquery.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/icheck/icheck.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('js/plugins/timepicker/bootstrap-timepicker.js') }}"></script>
-    <script src="{{ asset('js/plugins/mask/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/prettify/prettify.js') }}"></script>
-
-    <!-- MAIN APPS JS -->
-    <script src="{{ asset('js/plugins/apps.js') }}"></script>
