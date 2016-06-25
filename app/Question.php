@@ -16,6 +16,12 @@ class Question extends Model
     }
 
     public function questionAdditionalInformation(){
-        return $this->hasMany('\App\QuestionAdditionalInformation');
+        return $this->belongsTo('\App\QuestionAdditionalInformation');
+    }
+
+    public function getQuestionAdditionalInformationIdAttribute($value){
+        if($value)
+            return TRUE;
+        FALSE;
     }
 }

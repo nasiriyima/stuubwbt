@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exam extends Model
 {
-    //
+       //
     public function subject(){
         return $this->belongsTo('\App\Subject');
     }
-    
+
     public function month(){
         return $this->belongsTo('\App\Month');
     }
@@ -18,24 +18,26 @@ class Exam extends Model
     public function session(){
         return $this->belongsTo('\App\Session');
     }
-    
+
     public function examProvider(){
         return $this->belongsTo('\App\ExamProvider');
     }
-    
+
     public function instruction(){
         return $this->belongsTo('\App\Instruction');
     }
-    
+
     public function question(){
         return $this->hasMany('\App\Question');
     }
-    
+
     public function scopePublishedExams($query){
         return $query->where('status', '=', '1')->get();
     }
-    
+
     public function history(){
         return $this->hasMany('\App\History');
     }
+
+
 }

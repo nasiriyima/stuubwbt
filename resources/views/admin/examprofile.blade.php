@@ -5,7 +5,42 @@
 @stop
 @section('maincontent')
     <div class="row">
-
+        <div class="col-md-6">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6">
+                    <center>
+                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
+                            <li>
+                                <a href="{{url('admin/news-item/add')}}"><i class="fa fa-question"></i>Questions</a>
+                                <span class="badge badge-green rounded-x">{{$exam->question->count()}}</span>
+                            </li>
+                        </ul>
+                    </center>
+                </div>
+                <div class="col-md-6">
+                    <center>
+                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
+                            <li>
+                                <a href="{{url('admin/news-item/add')}}"><i class="fa fa-question"></i>Questions</a>
+                                <span class="badge badge-green rounded-x">{{$exam->question->count()}}</span>
+                            </li>
+                        </ul>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <a href="javascript:void(0);" onclick="trashexam()"><i class="fa fa-3x fa-trash pull-right"></i></a>
+            <a href="javascript:void(0);" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
+            @if($exam->status == 1)
+            <a href="javascript:void(0);" onclick="unpublishexam()"><i class="fa fa-3x fa-ban pull-right"></i></a>
+            @endif
+            @if($exam->status==0)
+            <a href="javascript:void(0);" onclick="publichexam()"><i class="fa fa-3x fa-check pull-right"></i></a>
+            @endif
+        </div>
+    </div>
+    <div class="row" id="message_div">
     </div>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
@@ -25,10 +60,8 @@
                              <tr>
                                  <th>#</th>
                                  <th>Question</th>
-                                 <th class="hidden-sm">Tags</th>
-                                 <th class="hidden-sm">Estimated Time</th>
-                                 <th class="hidden-sm">Average Time</th>
-                                 <th class="hidden-sm">Average Score</th>
+                                 <th class="hidden-sm">Answer</th>
+                                 <th class="hidden-sm">Info</th>
                                  <th class="hidden-sm">Actions</th>
                              </tr>
                          </thead>
@@ -37,12 +70,15 @@
                              @foreach($exam->question as $question)
                              <tr>
                                  <td>{{$count}}</td>
-                                 <td>{!! implode(' ', array_slice(explode(' ', $question->name), 0, 30)) !!}</td>
+                                 <td>{!! implode(' ', array_slice(explode(' ', $question->name), 0, 20)) !!}</td>
                                  <td class="hidden-sm">50</td>
-                                 <td class="hidden-sm">50</td>
-                                 <td class="hidden-sm">50</td>
-                                 <td>70%</td>
-                                 <td></td>
+                                 <td>
+                                     {{($question->question_additional_information_id)? $question->questionAdditionalInformation->name:' '}}
+                                 </td>
+                                 <td>
+                                     <i class="fa fa-edit"></i>
+                                     <i class="fa fa-trash"></i>
+                                 </td>
                              </tr>
                              {{--*/$count++;/*--}}
                              @endforeach
@@ -59,8 +95,10 @@
 @section('pagecss')
 <link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')}}">
 <link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')}}">
+<link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
 @stop
 @section('pageplugins')
+<script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
@@ -69,10 +107,11 @@
 <script type="text/javascript" src="{{ asset('public/assets/plugins/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
-                        OrderForm.initOrderForm();
+            OrderForm.initOrderForm();
 			ReviewForm.initReviewForm();
 			CheckoutForm.initCheckoutForm();
                     });
+            $(".table").DataTable();
     CKEDITOR.replace('question');
     // jQuery, bind an event handler or use some other way to trigger ajax call.
 
@@ -136,5 +175,41 @@
             }
         });
     });
+
+    function trashexam(){
+        $('#message_div').html(
+                '<div class="col-md-12">'+
+                    '<div class="alert alert-warning fade in text-center">'+
+                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                        '<h5>You are about to trash <strong>{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}</strong></h5>'+
+                        '<h4>DO YOU YOU WANT TO CONTINUE?</h4>'+
+                        '<p>'+
+                            '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
+                            ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
+                        '</p>'+
+                    '</div>'+
+                '</div>');
+    }
+
+    function publichexam(){
+        //Check Number of Questions != 0
+        //Check Each Question has Answer Selected
+        var qcount = {{$exam->question->count()}};
+        if(qcount == 0){
+            var message = '<strong>{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}</strong>';
+        }
+        $('#message_div').html(
+                '<div class="col-md-12">'+
+                '<div class="alert alert-danger fade in text-center">'+
+                '<h4>CANNOT PUBLISH EXAM</h4>'+
+                '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                '<h5>'+message+'</h5>'+
+                '<p>'+
+                '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
+                ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
+                '</p>'+
+                '</div>'+
+                '</div>');
+    }
 </script>
 @stop

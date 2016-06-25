@@ -4,7 +4,42 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('maincontent'); ?>
     <div class="row">
-
+        <div class="col-md-6">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6">
+                    <center>
+                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
+                            <li>
+                                <a href="<?php echo e(url('admin/news-item/add')); ?>"><i class="fa fa-question"></i>Questions</a>
+                                <span class="badge badge-green rounded-x"><?php echo e($exam->question->count()); ?></span>
+                            </li>
+                        </ul>
+                    </center>
+                </div>
+                <div class="col-md-6">
+                    <center>
+                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
+                            <li>
+                                <a href="<?php echo e(url('admin/news-item/add')); ?>"><i class="fa fa-question"></i>Questions</a>
+                                <span class="badge badge-green rounded-x"><?php echo e($exam->question->count()); ?></span>
+                            </li>
+                        </ul>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <a href="javascript:void(0);" onclick="trashexam()"><i class="fa fa-3x fa-trash pull-right"></i></a>
+            <a href="javascript:void(0);" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
+            <?php if($exam->status == 1): ?>
+            <a href="javascript:void(0);" onclick="unpublishexam()"><i class="fa fa-3x fa-ban pull-right"></i></a>
+            <?php endif; ?>
+            <?php if($exam->status==0): ?>
+            <a href="javascript:void(0);" onclick="publichexam()"><i class="fa fa-3x fa-check pull-right"></i></a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="row" id="message_div">
     </div>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
@@ -24,10 +59,8 @@
                              <tr>
                                  <th>#</th>
                                  <th>Question</th>
-                                 <th class="hidden-sm">Tags</th>
-                                 <th class="hidden-sm">Estimated Time</th>
-                                 <th class="hidden-sm">Average Time</th>
-                                 <th class="hidden-sm">Average Score</th>
+                                 <th class="hidden-sm">Answer</th>
+                                 <th class="hidden-sm">Info</th>
                                  <th class="hidden-sm">Actions</th>
                              </tr>
                          </thead>
@@ -36,12 +69,16 @@
                              <?php foreach($exam->question as $question): ?>
                              <tr>
                                  <td><?php echo e($count); ?></td>
-                                 <td><?php echo implode(' ', array_slice(explode(' ', $question->name), 0, 30)); ?></td>
+                                 <td><?php echo implode(' ', array_slice(explode(' ', $question->name), 0, 20)); ?></td>
                                  <td class="hidden-sm">50</td>
-                                 <td class="hidden-sm">50</td>
-                                 <td class="hidden-sm">50</td>
-                                 <td>70%</td>
-                                 <td></td>
+                                 <td>
+                                     <?php echo e(($question->question_additional_information_id)? $question->questionAdditionalInformation->name:' '); ?>
+
+                                 </td>
+                                 <td>
+                                     <i class="fa fa-edit"></i>
+                                     <i class="fa fa-trash"></i>
+                                 </td>
                              </tr>
                              <?php /**/$count++;/**/ ?>
                              <?php endforeach; ?>
@@ -58,8 +95,10 @@
 <?php $__env->startSection('pagecss'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.css')); ?>">
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('pageplugins'); ?>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')); ?>"></script>
@@ -68,10 +107,11 @@
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/ckeditor/ckeditor.js')); ?>"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
-                        OrderForm.initOrderForm();
+            OrderForm.initOrderForm();
 			ReviewForm.initReviewForm();
 			CheckoutForm.initCheckoutForm();
                     });
+            $(".table").DataTable();
     CKEDITOR.replace('question');
     // jQuery, bind an event handler or use some other way to trigger ajax call.
 
@@ -135,6 +175,42 @@
             }
         });
     });
+
+    function trashexam(){
+        $('#message_div').html(
+                '<div class="col-md-12">'+
+                    '<div class="alert alert-warning fade in text-center">'+
+                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                        '<h5>You are about to trash <strong><?php echo e($exam->examProvider->code); ?>, <?php echo e($exam->subject->name); ?>, <?php echo e($exam->month->code); ?> <?php echo e($exam->session->name); ?></strong></h5>'+
+                        '<h4>DO YOU YOU WANT TO CONTINUE?</h4>'+
+                        '<p>'+
+                            '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
+                            ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
+                        '</p>'+
+                    '</div>'+
+                '</div>');
+    }
+
+    function publichexam(){
+        //Check Number of Questions != 0
+        //Check Each Question has Answer Selected
+        var qcount = <?php echo e($exam->question->count()); ?>;
+        if(qcount == 0){
+            var message = '<strong><?php echo e($exam->examProvider->code); ?>, <?php echo e($exam->subject->name); ?>, <?php echo e($exam->month->code); ?> <?php echo e($exam->session->name); ?></strong>';
+        }
+        $('#message_div').html(
+                '<div class="col-md-12">'+
+                '<div class="alert alert-danger fade in text-center">'+
+                '<h4>CANNOT PUBLISH EXAM</h4>'+
+                '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                '<h5>'+message+'</h5>'+
+                '<p>'+
+                '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
+                ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
+                '</p>'+
+                '</div>'+
+                '</div>');
+    }
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

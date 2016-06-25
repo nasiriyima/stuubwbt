@@ -18,6 +18,7 @@ class CreateQuestionTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->integer('exam_id');
+            $table->integer('question_additional_information_id');
             $table->integer('average_time');
             $table->timestamps();
             $table->softdeletes();

@@ -1,5 +1,7 @@
 @extends('admin_layout')
-
+@section('pagecss')
+    <link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
+@stop
 @section('pagetitle')
 EXAMINATION RESOURCES MANAGER - <small>Examination</small>
 @stop
@@ -22,22 +24,28 @@ EXAMINATION RESOURCES MANAGER - <small>Examination</small>
                     <table class="table table-striped">
                          <thead>
                              <tr>
+                                 <th>#</th>
                                  <th>Examination</th>
                                  <th class="hidden-sm"><center>Questions</center></th>
+                                 <th># Attempts</th>
                                  <th class="hidden-sm"><center>Average Scores</center></th>
-                                 <th class="hidden-sm">Published</th>
+                                 <th class="hidden-sm">Status</th>
                                  <th class="hidden-sm">Actions</th>
                              </tr>
                          </thead>
                          <tbody>
+                            {{--*/$count = 1/*--}}
                              @foreach($exams as $exam)
                              <tr>
+                                 <td>{{$count}}</td>
                                  <td><a href="{{url('admin/exam-profile')}}/{{\Crypt::encrypt($exam->id)}}">{{$exam->examProvider->code}}, {{$exam->subject->name}} ({{$exam->month->code}} {{$exam->session->name}})</a></td>
-                                 <td class="hidden-sm"><center>50</center></td>
-                                 <td><center>70%</center></td>
-                                 <td><span class="label label-info">3 Months Ago</span></td>
-                                 <td>3 Months Ago</td>
+                                 <td class="hidden-sm"><center>{{$exam->question->count()}}</center></td>
+                                 <td><center>{{$exam->history->count()}}</center></td>
+                                 <td><center></center></td>
+                                 <td><span class="label {{($exam->status == 1)? 'label-success':'label-red'}}">{{($exam->status == 1)? 'Published':'Unpublished'}}</span></td>
+                                 <td></td>
                              </tr>
+                             {{--*/$count++/*--}}
                              @endforeach
                          </tbody>
                      </table> 
@@ -52,6 +60,12 @@ EXAMINATION RESOURCES MANAGER - <small>Examination</small>
     </div>
 </div>
 @stop
-@section('pagejs')
+@section('pageplugins')
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $(".table").DataTable();
 
+        });
+    </script>
 @stop

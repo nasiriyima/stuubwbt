@@ -38,6 +38,7 @@ class AdminController extends Controller
         }elseif($page = 'active-student'){
             $this->page_data['students'] = \App\User::studentUsers();
             return view('admin.studentmanager', $this->page_data);
+            return view('admin.studentmanager', $this->page_data);
         }
         else{
             return redirect('admin/student-manager');
@@ -117,6 +118,7 @@ class AdminController extends Controller
      */
     public function getExamProfile($id)
     {
+
         $this->page_data['exam'] = \App\Exam::find(\Crypt::decrypt($id));
         $this->page_data['information'] = \App\QuestionAdditionalInformation::all();
         return view('admin.examprofile',$this->page_data );
