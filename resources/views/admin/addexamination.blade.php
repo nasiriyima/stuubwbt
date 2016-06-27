@@ -19,11 +19,7 @@
                         <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-<<<<<<< HEAD
-                                <select class="gender" id="additional_info" name="add_info"></select>
-=======
                                 <select id="additional_info" data-placeholder="Choose a Additional Information..." class="form-control chosen-select" tabindex="2"></select>
->>>>>>> a64b891715d26fde3908c51e74e2ac2c98d5e995
                             </label>
                         </section>
                         <section>

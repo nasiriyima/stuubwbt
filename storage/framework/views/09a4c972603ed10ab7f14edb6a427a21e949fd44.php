@@ -3,43 +3,6 @@
         <?php echo Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')); ?>
 
         <input type="hidden" name="examid" value="<?php echo e(\Crypt::encrypt($exam->id)); ?>">
-<!--            <fieldset>
-                <div class="row">
-                    <div class="col-md-6">
-                        <section>
-                            <label class="input">
-                                <span>QUESTION TAGS</span>
-                                <input type="text" name="tags">
-                            </label>
-                        </section>
-                    </div>
-                    <div class="col-md-3">
-                        <section>
-                            <label class="select">
-                                <span>DIFFICULTY</span>
-                                <select name="difficulty_id">
-                                    <option value="0" selected disabled>Select Question Difficulty</option>
-                                </select>
-                            </label>
-                        </section>
-                    </div>
-                    <div class="col-md-3">
-                        <section>
-                            <label class="input">
-                                <span>ESTIMATED TIME TO COMPLETE</span>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" name="min" placeholder="Min.">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" name="sec" placeholder="Sec.">
-                                    </div>
-                                </div>
-                            </label>
-                        </section>
-                    </div>
-                </div>
-            </fieldset>-->
             <fieldset>
                 <div class="row">
                     <div class="col-md-8">
@@ -52,13 +15,18 @@
                     </div>
                     <div class="col-md-4">
                         <section>
+                            <a rows="4" class="btn-u" data-toggle="modal" data-target="#add_info" style="padding:6px 70px; margin-top:20px;">New Additional Information</a>
+                        </section>
+                        <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <select class="gender" id="additional_info" name="add_info"></select>
+                                <select id="additional_info" data-placeholder="Choose a Additional Information..." class="form-control chosen-select" tabindex="2"></select>
                             </label>
                         </section>
                         <section>
-                            <a class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
+                            <span class="icon-info" id="select_preview_title" style="display:none;"></span>
+                            <img id="img_select_preview" src="" height="250" width="310" alt="Image preview..." >
+                            <div id="desc_select_preview" style="display:none;"></div>
                         </section>
                     </div>
                 </div>
@@ -188,3 +156,4 @@
        </form>
     </div>
 </div>
+

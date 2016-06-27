@@ -3,7 +3,8 @@
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('maincontent'); ?>
-    <div class="row">
+<link rel="stylesheet" href="<?php echo e(asset('assets/js/plugins/chosen/chosen.min.css')); ?>">
+	<div class="row">
         <div class="col-md-6">
             <div class="row margin-bottom-10">
                 <div class="col-md-6">
@@ -101,7 +102,7 @@
 			ReviewForm.initReviewForm();
 			CheckoutForm.initCheckoutForm();
                     });
-            $(".table").DataTable();
+			$(".table").DataTable();
     CKEDITOR.replace('question');
     // jQuery, bind an event handler or use some other way to trigger ajax call.
 
@@ -121,7 +122,8 @@
     }
 
     $(".add-info-save").click(function() {
-
+        $("#img_select_preview,#desc_select_preview,#select_preview_title").hide();
+        $("#additional_info").append("<option value=''> No additional info </option>");
         if ($(this).val() === "Upload") {
             if ($("input[name=image_description]").val() === "" || $("input[name=image]").val() === "") {
                 alert("Please select an image or fill the image description");
@@ -151,14 +153,23 @@
             enctype: 'multipart/form-data',
             success: function(informations) {
                 $("#additional_info").empty();
+                if (formData["image_description"] === "" && formData["text_description"] === "") {
+                    $("#additional_info").append("<option value='0'> No additional info </option>");
+                };
                 $.each(informations, function(key, value) {
                     var id = value["id"];
                     var name = value["name"];
-                    $("#additional_info").append("<option value='" + id + "'>" + name + "</option>");
+                    var typ = value["information_type_id"];
+                    var desc = value["description"];
+                    $("#additional_info").append("<option value='" + id + "' data-typ='" + typ + "' data-desc='" + desc + "'>" + name + "</option>");
                 });
+                if (formData["image_description"] !== "" || formData["text_description"] !== "") {
+                    $("#additional_info").append("<option value='0'> No additional info </option>");
+                };
                 $('.img_button,.text_button').show();$('.text_area,.for_upload').hide();
                 $("#add_info").modal("hide");
                 $('#file-upload,input[name=image_description],input[name=text_description],textarea[name=question_description]').val('');
+                $("#additional_info").trigger("change");
             },
             error: function() {
                 console.log("ERROR");
@@ -166,7 +177,23 @@
         });
     });
 
-    function trashexam(){
+    $("#additional_info").change(function() {
+        $("#img_select_preview,#desc_select_preview,#select_preview_title").hide().empty();
+        if ($("option:selected", this).attr("data-typ") == 1) {
+            var img_id = $('option:selected', this).val();
+            var img_ext = $('option:selected', this).attr('data-desc');
+            var img_url = '<?php echo asset("storage/additional_info/' + img_id + '.' + img_ext + '"); ?>';
+            $("#img_select_preview").prop("src",img_url);
+            $("#select_preview_title,#img_select_preview").show();
+            $("#select_preview_title").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PREVIEW");
+        };
+        if ($("option:selected", this).attr("data-typ") == 2) {
+            $("#select_preview_title,#desc_select_preview").show();
+            $("#select_preview_title").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DESCRIPTION");
+            $("#desc_select_preview").append($("option:selected", this).attr("data-desc"));
+        };
+    });
+	function trashexam(){
         $('#message_div').html(
                 '<div class="col-md-12">'+
                     '<div class="alert alert-warning fade in text-center">'+
@@ -202,5 +229,22 @@
                 '</div>');
     }
 </script>
+</script>
+    <script src="<?php echo e(asset('assets/js/plugins/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/nicescroll/jquery.nicescroll.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js')); ?>"></script>
+
+    <!-- PLUGINS -->
+    <script src="<?php echo e(asset('assets/js/plugins/magnific-popup/jquery.magnific-popup.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/owl-carousel/owl.carousel.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/chosen/chosen.jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/icheck/icheck.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/datepicker/bootstrap-datepicker.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/timepicker/bootstrap-timepicker.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/mask/jquery.mask.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/plugins/prettify/prettify.js')); ?>"></script>
+
+    <!-- MAIN APPS JS -->
+    <script src="<?php echo e(asset('assets/js/plugins/apps.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
