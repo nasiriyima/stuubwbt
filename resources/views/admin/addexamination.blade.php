@@ -14,13 +14,22 @@
                     </div>
                     <div class="col-md-4">
                         <section>
+                            <a rows="4" class="btn-u" data-toggle="modal" data-target="#add_info" style="padding:6px 70px; margin-top:20px;">New Additional Information</a>
+                        </section>
+                        <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
+<<<<<<< HEAD
                                 <select class="gender" id="additional_info" name="add_info"></select>
+=======
+                                <select id="additional_info" data-placeholder="Choose a Additional Information..." class="form-control chosen-select" tabindex="2"></select>
+>>>>>>> a64b891715d26fde3908c51e74e2ac2c98d5e995
                             </label>
                         </section>
                         <section>
-                            <a class="btn-u" data-toggle="modal" data-target="#add_info">New Additional Information</a>
+                            <span class="icon-info" id="select_preview_title" style="display:none;"></span>
+                            <img id="img_select_preview" src="" height="250" width="310" alt="Image preview..." >
+                            <div id="desc_select_preview" style="display:none;"></div>
                         </section>
                     </div>
                 </div>
@@ -149,3 +158,4 @@
        </form>
     </div>
 </div>
+

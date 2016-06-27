@@ -5,7 +5,7 @@
 @stop
 @section('maincontent')
 <link rel="stylesheet" href="{{ asset('assets/js/plugins/chosen/chosen.min.css') }}">
-	<div class="row">
+   <div class="row">
         <div class="col-md-6">
             <div class="row margin-bottom-10">
                 <div class="col-md-6">
@@ -102,7 +102,7 @@
 			ReviewForm.initReviewForm();
 			CheckoutForm.initCheckoutForm();
                     });
-			$(".table").DataTable();
+            $(".table").DataTable();
     CKEDITOR.replace('question');
     // jQuery, bind an event handler or use some other way to trigger ajax call.
 
@@ -122,7 +122,7 @@
     }
 
     $(".add-info-save").click(function() {
-        $("#img_select_preview,#desc_select_preview,#select_preview_title").hide();
+		$("#img_select_preview,#desc_select_preview,#select_preview_title").hide();
         $("#additional_info").append("<option value=''> No additional info </option>");
         if ($(this).val() === "Upload") {
             if ($("input[name=image_description]").val() === "" || $("input[name=image]").val() === "") {
@@ -193,6 +193,7 @@
             $("#desc_select_preview").append($("option:selected", this).attr("data-desc"));
         };
     });
+
 	function trashexam(){
         $('#message_div').html(
                 '<div class="col-md-12">'+
@@ -229,21 +230,4 @@
                 '</div>');
     }
 </script>
-</script>
-    <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/nicescroll/jquery.nicescroll.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-    <!-- PLUGINS -->
-    <script src="{{ asset('assets/js/plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/chosen/chosen.jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/icheck/icheck.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/timepicker/bootstrap-timepicker.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/mask/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/prettify/prettify.js') }}"></script>
-
-    <!-- MAIN APPS JS -->
-    <script src="{{ asset('assets/js/plugins/apps.js') }}"></script>
 @stop

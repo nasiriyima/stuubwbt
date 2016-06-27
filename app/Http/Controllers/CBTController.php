@@ -10,6 +10,7 @@ use App\Http\Requests;
 
 class CBTController extends Controller
 {
+  private $img_ext;
     /*
      * Exam View Controller
      */
@@ -64,7 +65,6 @@ class CBTController extends Controller
 
 
     private function base64_to_img($base64_string, $output_file) {
-
       $data = explode(',', $base64_string);
       $imgExt = $this->getImgExt($data[0]);
       $ifp = fopen($output_file.'.'.$imgExt, "wb");
@@ -77,6 +77,7 @@ class CBTController extends Controller
     private function getImgExt($data) {
       $first = explode('/', $data)[1];
       $imgExt = explode(';', $first)[0];
+      $this->img_ext = $imgExt;
       return $imgExt;
     }
 
@@ -86,8 +87,11 @@ class CBTController extends Controller
         $info->information_type_id = 1;
         $info->name = \Request::input("image_description");
         $info->save();
-
         $this->base64_to_img(\Request::input("image"), storage_path()."/additional_info/$info->id");
+
+        $update = \App\QuestionAdditionalInformation::find($info->id);
+        $update->description = $this->img_ext;
+        $update->update();
       }
 
       if (\Request::input("text_description")) {
