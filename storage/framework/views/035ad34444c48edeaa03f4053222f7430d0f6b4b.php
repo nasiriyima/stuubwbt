@@ -229,22 +229,5 @@
                 '</div>');
     }
 </script>
-</script>
-    <script src="<?php echo e(asset('assets/js/plugins/bootstrap.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/nicescroll/jquery.nicescroll.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js')); ?>"></script>
-
-    <!-- PLUGINS -->
-    <script src="<?php echo e(asset('assets/js/plugins/magnific-popup/jquery.magnific-popup.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/owl-carousel/owl.carousel.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/chosen/chosen.jquery.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/icheck/icheck.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/datepicker/bootstrap-datepicker.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/timepicker/bootstrap-timepicker.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/mask/jquery.mask.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/plugins/prettify/prettify.js')); ?>"></script>
-
-    <!-- MAIN APPS JS -->
-    <script src="<?php echo e(asset('assets/js/plugins/apps.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

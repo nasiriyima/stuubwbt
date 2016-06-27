@@ -1,9 +1,7 @@
-@extends('admin_layout')
-
-@section('pagetitle')
+<?php $__env->startSection('pagetitle'); ?>
 SYSTEM USER MANAGEMENT
-@stop
-@section('maincontent')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">System Users</a></li>
@@ -24,14 +22,14 @@ SYSTEM USER MANAGEMENT
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($staffs as $staff)
+                        <?php foreach($staffs as $staff): ?>
                         <tr>
                             <td>1</td>
-                            <td>{{$staff->first_name}}</td>
-                            <td>{{$staff->email}}</td>
-                            <td><span class="label label-primary rounded-2x">{{$staff->last_login->diffForHumans()}}</span></td>
+                            <td><?php echo e($staff->first_name); ?></td>
+                            <td><?php echo e($staff->email); ?></td>
+                            <td><span class="label label-primary rounded-2x"><?php echo e($staff->last_login->diffForHumans()); ?></span></td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; ?>
                     </tbody>
                 </table> 
                 </div>
@@ -64,17 +62,17 @@ SYSTEM USER MANAGEMENT
                         </fieldset>
                         <fieldset>
                             <section>
-                                    @foreach($modules as $module)
-                                        <h4><strong>{{$module->name}}</strong></h4>
+                                    <?php foreach($modules as $module): ?>
+                                        <h4><strong><?php echo e($module->name); ?></strong></h4>
                                             <div class="inline-group">
-                                                @foreach($module->permission as $permission)
+                                                <?php foreach($module->permission as $permission): ?>
                                                     <div class="col-md-3">
-                                                        <label class="checkbox"><input type="checkbox" name="radio-inline" class="permission" value="{{$permission->slug}}"><i class="rounded-x" ></i>{{$permission->name}}</label>
+                                                        <label class="checkbox"><input type="checkbox" name="radio-inline" class="permission" value="<?php echo e($permission->slug); ?>"><i class="rounded-x" ></i><?php echo e($permission->name); ?></label>
                                                     </div>
-                                                @endforeach
+                                                <?php endforeach; ?>
                                             </div>
                                             <br/>
-                                    @endforeach
+                                    <?php endforeach; ?>
                             </section>
                         </fieldset>
 
@@ -89,22 +87,23 @@ SYSTEM USER MANAGEMENT
                     <div class="row tab-v3">
                         <div class="col-sm-3">
                             <ul class="nav nav-pills nav-stacked">
-                                {{--*/$count = 1/*--}}
-                                @foreach($roles as $role)
-                                <li class = "{{($count == 1)? 'active':''}}"><a href="#role-{{$count}}" data-toggle="tab"> {{$role->name}}</a></li>
-                                {{--*/$count++/*--}}
-                                @endforeach
+                                <?php /**/$count = 1/**/ ?>
+                                <?php foreach($roles as $role): ?>
+                                <li class = "<?php echo e(($count == 1)? 'active':''); ?>"><a href="#role-<?php echo e($count); ?>" data-toggle="tab"> <?php echo e($role->name); ?></a></li>
+                                <?php /**/$count++/**/ ?>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
                         <div class="col-sm-9">
                             <div class="tab-content">
-                                {{--*/$count = 1/*--}}
-                                @foreach($roles as $role)
-                                <div class="tab-pane fade in {{($count == 1)? 'active':''}}" id="role-{{$count}}">
-                                    {{$role->name}}
+                                <?php /**/$count = 1/**/ ?>
+                                <?php foreach($roles as $role): ?>
+                                <div class="tab-pane fade in <?php echo e(($count == 1)? 'active':''); ?>" id="role-<?php echo e($count); ?>">
+                                    <?php echo e($role->name); ?>
+
                                 </div>
-                                {{--*/$count++/*--}}
-                                @endforeach
+                                <?php /**/$count++/**/ ?>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -120,20 +119,20 @@ SYSTEM USER MANAGEMENT
         </div>
     </div>
 </div>
-@stop
-@section('pagecss')
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')}}">
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')}}">
-    <link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
-@stop
-@section('pageplugins')
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/js/forms/checkout.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('public/assets/plugins/ckeditor/ckeditor.js')}}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagecss'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pageplugins'); ?>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/js/forms/checkout.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/ckeditor/ckeditor.js')); ?>"></script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             CheckoutForm.initCheckoutForm();
@@ -158,14 +157,14 @@ SYSTEM USER MANAGEMENT
                 return false;
             }else{
                 $.ajax({
-                        url: '{{url('admin/add-role')}}',
+                        url: '<?php echo e(url('admin/add-role')); ?>',
                         method: 'POST',
                         dataType: 'json',
                         data:{
                             permissions: permissions,
                             rname: rname,
                             rslug: rslug,
-                            _token: '{{csrf_token()}}'
+                            _token: '<?php echo e(csrf_token()); ?>'
                         },
                         success: function(rsp){
                                 console.log(rsp);
@@ -177,4 +176,5 @@ SYSTEM USER MANAGEMENT
             }
         }
     </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -69,7 +69,9 @@ class AdminController extends Controller
     
     public function getUsersManagement()
     {
-        $this->page_data['students'] = \App\User::staffUsers();
+        $this->page_data['staffs'] = \App\User::staffUsers();
+        $this->page_data['roles'] = \Sentinel::getRoleRepository()->all();
+        $this->page_data['modules'] = \App\Module::get();
         return view('admin.settings.usermgt.index', $this->page_data);
     }
     
@@ -210,5 +212,16 @@ class AdminController extends Controller
         $school->save();
 
         return redirect('admin/schools-manager')->with('message', 'School was added successfully');
+    }
+
+    public function postAddRole(){
+        $formData = \Request::all();
+        $slug = \Sentinel::findRoleBySlug($formData['rslug']);
+        if($slug){
+        $data['validity'] = 'success';
+        }else{
+            $data['validity'] = 'failed';
+        }
+        return json_encode($data);
     }
 }
