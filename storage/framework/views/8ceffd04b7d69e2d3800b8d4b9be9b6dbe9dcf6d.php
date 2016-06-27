@@ -129,7 +129,6 @@
                                     </td>
                                     <td>
                                         <?php if($profileStats > 49): ?>
-                                        <a href="#" title="reply" onclick="replyShowMessage('<?php echo e(\Crypt::encrypt($message->id)); ?>')"><span class="fa fa-reply"></span></a>
                                         <a href="#" title="Forward" onclick="forwardShowMessage('<?php echo e(\Crypt::encrypt($message->id)); ?>')"><span class="fa fa-forward"></span></a>
                                         <?php endif; ?>
                                         <a href="javascript:void(0)" onclick="showDeleteModal('<?php echo e($message->id); ?>');" title="trash"><span class="fa fa-trash-o"></span></a>

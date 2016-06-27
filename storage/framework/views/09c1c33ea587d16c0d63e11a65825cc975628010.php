@@ -306,7 +306,7 @@
             if(is_me(user)) return '<li><i class="fa fa-user"></i><a href="#">Me</a></li>';
             if(is_pendingFriend(user, JSON.parse(friendships)))return '<li><i class="fa fa-hourglass-half"></i><a href="#">Pending</a></li>';
             if(!is_friend(user, JSON.parse(friendships)))return '<li id="request'+user+'"><i class="fa fa-plus"></i><a href="#" onclick="sendFriendRequest('+user+', \''+name+'\');">Request</a></li>';
-            return '<li><i class="fa fa-ban"></i><a href="#">UnFriend</a></li>';
+            return '<li><i class="fa fa-slideshare"></i><a href="#">Already Friends</a></li>';
         }
         return '';
     }

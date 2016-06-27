@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-md-5">
                             <form action="#">
-                                <img class="img-responsive md-margin-bottom-10" width="219.31" height="221.3" src="{{ (isset($friend->profile->image) && $friend->profile->image !="" && $friend->profile->image !=NULL)? url('student/file').'/'.$friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $friend->first_name }}">
+                                <img class="img-responsive md-margin-bottom-10" width="219.31" height="221.3" src="{{ (isset($friend->profile->image) && $friend->profile->image !="" && $friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $friend->first_name }}">
                             </form>
                         </div>
                         <div class="col-sm-7">

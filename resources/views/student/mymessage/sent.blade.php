@@ -130,7 +130,6 @@
                                     </td>
                                     <td>
                                         @if($profileStats > 49)
-                                        <a href="#" title="reply" onclick="replyShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-reply"></span></a>
                                         <a href="#" title="Forward" onclick="forwardShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-forward"></span></a>
                                         @endif
                                         <a href="javascript:void(0)" onclick="showDeleteModal('{{ $message->id }}');" title="trash"><span class="fa fa-trash-o"></span></a>

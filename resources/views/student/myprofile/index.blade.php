@@ -12,7 +12,7 @@
                 <div class="col-md-5">
                     <form id="file-upload" action="{{ url('student/upload-profile-image') }}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <img class="img-responsive md-margin-bottom-10" width="219.31" height="221.3" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $user->first_name }}">
+                        <img class="img-responsive md-margin-bottom-10" width="219.31" height="221.3" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$user->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $user->first_name }}">
                         <a class="btn-u btn-u-sm" onclick="showFileChooser();" href="#">Change Picture</a>
                         <input type="file" name="image" id="uploadfile" value="" style="display: none" />
                     </form>

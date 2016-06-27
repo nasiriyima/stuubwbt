@@ -24,7 +24,7 @@
     <div class="content profile">
         <!--Left Sidebar-->
         <div class="col-md-4 profile-body md-margin-bottom-40">
-            <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($friend->profile->image) && $friend->profile->image !="" && $friend->profile->image !=NULL)? url('student/file').'/'.$friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $friend->first_name }}">
+            <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($friend->profile->image) && $friend->profile->image !="" && $friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $friend->first_name }}">
 
             <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                 <li class="list-group-item {{ ($page_name == 'profile')? 'active' : '' }}">
@@ -89,7 +89,7 @@
                                 @if($index%2 == 0)
                                     <td class="col-sm-6 sm-margin-bottom-20 profile-body">
                                         <div class="profile-blog">
-                                            <img class="rounded-x" src="{{ (isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/'.$data->friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $data->friend->profile->first_name }}">
+                                            <img class="rounded-x" src="{{ (isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$data->friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $data->friend->profile->first_name }}">
                                             <div class="name-location">
                                                 <strong><a href="{{ url('student/friend-profile') }}/{{ \Crypt::encrypt($data->friend->id) }}">{{ $data->friend->first_name }}</a></strong>
                                                 <span><i class="fa fa-map-marker"></i><a href="#">{{ $data->profile->address or ''}}</a></span>
@@ -113,7 +113,7 @@
                                 @if($index%2 == 1)
                                     <td class="col-sm-6 profile-body">
                                         <div class="profile-blog">
-                                            <img class="rounded-x" src="{{ (isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/'.$data->friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $data->friend->first_name }}">
+                                            <img class="rounded-x" src="{{ (isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$data->friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $data->friend->first_name }}">
                                             <div class="name-location">
                                                 <strong>{{ $data->friend->first_name }}</strong>
                                                 <span><i class="fa fa-map-marker"></i><a href="#">{{ $data->profile->address or ''}}</a></span>
@@ -315,7 +315,7 @@
 
     function getImageUrl(img){
         if(img && img !="" && img !=null){
-            return "{!! url('student/file') !!}/"+img;
+            return "{!! url('student/file') !!}/profile_pictures/"+img;
         }
         return "{!!asset('public/assets/img/user.jpg')!!}";
     }

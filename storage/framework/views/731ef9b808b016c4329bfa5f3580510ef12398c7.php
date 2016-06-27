@@ -38,7 +38,7 @@
                         <?php if($index%2 == 0): ?>
                             <td class="col-sm-6 sm-margin-bottom-20 profile-body">
                                 <div class="profile-blog">
-                                    <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->profile->first_name); ?>">
+                                    <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->profile->first_name); ?>">
                                     <div class="name-location">
                                         <strong><a href="<?php echo e(url('student/friend-profile')); ?>/<?php echo e(\Crypt::encrypt($data->friend->id)); ?>"><?php echo e($data->friend->first_name); ?></a></strong>
                                         <span><i class="fa fa-map-marker"></i><a href="#"><?php echo e(isset($data->profile->address) ? $data->profile->address : ''); ?></a></span>
@@ -57,7 +57,7 @@
                         <?php if($index%2 == 1): ?>
                             <td class="col-sm-6 profile-body">
                                 <div class="profile-blog">
-                                    <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->first_name); ?>">
+                                    <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->first_name); ?>">
                                     <div class="name-location">
                                         <strong><?php echo e($data->friend->first_name); ?></strong>
                                         <span><i class="fa fa-map-marker"></i><a href="#"><?php echo e(isset($data->profile->address) ? $data->profile->address : ''); ?></a></span>
@@ -253,7 +253,7 @@
 
     function getImageUrl(img){
         if(img && img !="" && img !=null){
-            return "<?php echo url('student/file'); ?>/"+img;
+            return "<?php echo url('student/file'); ?>/profile_pictures/"+img;
         }
         return "<?php echo asset('public/assets/img/user.jpg'); ?>";
     }

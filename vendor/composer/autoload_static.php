@@ -344,7 +344,6 @@ class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
         'CreateQuestionTable' => __DIR__ . '/../..' . '/database/migrations/2016_03_28_203028_create_question_table.php',
         'CreateSchoolTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_01_152555_create_school_table.php',
         'CreateSessionTable' => __DIR__ . '/../..' . '/database/migrations/2016_03_28_202818_create_session_table.php',
-        'CreateStudentprofileTable' => __DIR__ . '/../..' . '/database/migrations/2016_06_01_145338_create_studentprofile_table.php',
         'CreateSubjectTable' => __DIR__ . '/../..' . '/database/migrations/2016_03_28_202916_create_subject_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'ExamProviderTableSeeder' => __DIR__ . '/../..' . '/database/seeds/ExamProviderTableSeeder.php',

@@ -25,7 +25,6 @@ return array(
     'CreateQuestionTable' => $baseDir . '/database/migrations/2016_03_28_203028_create_question_table.php',
     'CreateSchoolTable' => $baseDir . '/database/migrations/2016_06_01_152555_create_school_table.php',
     'CreateSessionTable' => $baseDir . '/database/migrations/2016_03_28_202818_create_session_table.php',
-    'CreateStudentprofileTable' => $baseDir . '/database/migrations/2016_06_01_145338_create_studentprofile_table.php',
     'CreateSubjectTable' => $baseDir . '/database/migrations/2016_03_28_202916_create_subject_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'ExamProviderTableSeeder' => $baseDir . '/database/seeds/ExamProviderTableSeeder.php',

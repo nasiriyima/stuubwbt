@@ -35,30 +35,83 @@
 
 @stop
 @section('content')
-<div class="col-md-9">
+<div class="col-md-12">
     {{--*/$questionCount=1;/*--}}
     {{--*/$questionids=[];/*--}}
     <input type="hidden" value="{{ $questionCount }}" name="active_question" />
     @foreach($questions->get() as $question)
     <div class="shadow-wrapper" id="question-{{ $questionCount }}" style="{{ ($questionCount==1)? '' : 'display:none;' }}">
-        <blockquote  class="tag-box tag-box-v1 box-shadow shadow-effect-2">
-            <p><span class="dropcap-bg">{{ $questionCount }}</span><em id="question">{!! $question->name !!}</em></p>
-        </blockquote>
-        {{--*/$questionids[$question->id]= "0";/*--}}
-        @if(count($question->option) > 0)
-        <div class="note note-success">
-            {{--*/$optionCount=0;/*--}}
-            @foreach($question->option as $option)
-            <label class="radio state-success"><input type="radio" class="options{{ $questionCount }}" name="option{{ $questionCount }}" value="{{ $option->id }}">{{ ucwords(\App\Http\Controllers\StudentController::generateOptionLable($optionCount)) }}.&nbsp;{{ $option->name }}</label>
-            {{--*/$optionCount++;/*--}}
-            @endforeach
-            <input type="hidden" name="selection" value="" />
+        <div class="col-sm-8">
+            <blockquote  class="tag-box tag-box-v1 box-shadow shadow-effect-2">
+                <p><span class="dropcap-bg">{{ $questionCount }}</span><em id="question">{!! $question->name !!}</em></p>
+            </blockquote>
         </div>
+        @if($question->question_additional_information_id)
+            <div class="col-sm-4">
+                <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                    <div class="thumbnail-img">
+                        <div class="overflow-hidden">
+                            @if($question->questionAdditionalInformation->information_type_id == 1 )
+                                <img class="img-responsive" src="{{ url('student/file/additional_info') }}/{{ $question->questionAdditionalInformation->description }}" width="200" height="50" alt="{{ $question->questionAdditionalInformation->name }}" />
+                            @else
+                                {{--*/ $description = explode(' ', $question->questionAdditionalInformation->description);/*--}}
+                                <p>{!! implode(' ', array_splice($description, 0, 25)) !!} ....</p>
+
+                            @endif
+                        </div>
+                        <a class="btn-more hover-effect" href="javascript:void(0)" onclick="$('#view{{ $questionCount }}').appendTo('body').modal('show');">more +</a>
+                    </div>
+                    <div class="caption">
+                        <h5><a class="hover-effect" href="#"><strong>{{ $question->questionAdditionalInformation->name }}</strong></a></h5>
+                        <p>{{ $question->questionAdditionalInformation->informationType->name or '' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="view{{ $questionCount }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="width: 700px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel4">{{ $question->questionAdditionalInformation->informationType->name }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="tag-box tag-box-v3">
+                                <div class="headline"><h2>{{ $question->questionAdditionalInformation->name }}</h2></div>
+                                <center>
+                                   @if($question->questionAdditionalInformation->information_type_id == 1 )
+                                       <img class="img-responsive" src="{{ url('student/file/additional_info') }}/{{ $question->questionAdditionalInformation->description }}" width="300" height="400" alt="{{ $question->questionAdditionalInformation->name }}" />
+                                   @else
+                                       <p style="height: 300px; overflow-y: scroll;">{!! $question->questionAdditionalInformation->description !!}</p>
+                                   @endif
+                               </center>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endif
-        <ul class="pager">
-            <li class="previous" style="{{ ($questionCount==1)? 'display:none' : '' }}"><a class="rounded-4x" href="javascript:void(0);" onclick="previousQuestion('{{ $questionCount }}','{{ $question->id }}');">← Older</a></li>
-            <li class="next"><a class="rounded-4x" href="javascript:void(0);" onclick="nextQuestion('{{ $questionCount }}','{{ $question->id }}');">{!! ($questionCount==count($questions->get()))? 'Finish &ofcir;' : 'Newer →' !!}</a></li>
-        </ul>
+        {{--*/$questionids[$question->id]= "0";/*--}}
+        <div class="col-sm-12">
+            @if(count($question->option) > 0)
+                <div class="note note-success">
+                    {{--*/$optionCount=0;/*--}}
+                    @foreach($question->option as $option)
+                        <label class="radio state-success"><input type="radio" class="options{{ $questionCount }}" name="option{{ $questionCount }}" value="{{ $option->id }}">{{ ucwords(\App\Http\Controllers\StudentController::generateOptionLable($optionCount)) }}.&nbsp;{{ $option->name }}</label>
+                        {{--*/$optionCount++;/*--}}
+                    @endforeach
+                    <input type="hidden" name="selection" value="" />
+                </div>
+            @endif
+        </div>
+       <div class="col-sm-10">
+           <ul class="pager">
+               <li class="previous" style="{{ ($questionCount==1)? 'display:none' : '' }}"><a class="rounded-4x" href="javascript:void(0);" onclick="previousQuestion('{{ $questionCount }}','{{ $question->id }}');">← Older</a></li>
+               <li class="next"><a class="rounded-4x" href="javascript:void(0);" onclick="nextQuestion('{{ $questionCount }}','{{ $question->id }}');">{!! ($questionCount==count($questions->get()))? 'Finish &ofcir;' : 'Newer →' !!}</a></li>
+           </ul>
+       </div>
     </div>
     {{--*/$questionCount++;/*--}}
     @endforeach
