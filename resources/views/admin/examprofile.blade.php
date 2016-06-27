@@ -17,19 +17,9 @@
                         </ul>
                     </center>
                 </div>
-                <div class="col-md-6">
-                    <center>
-                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
-                            <li>
-                                <a href="{{url('admin/news-item/add')}}"><i class="fa fa-question"></i>Questions</a>
-                                <span class="badge badge-green rounded-x">{{$exam->question->count()}}</span>
-                            </li>
-                        </ul>
-                    </center>
-                </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 margin-top-20">
             <a href="javascript:void(0);" onclick="trashexam()"><i class="fa fa-3x fa-trash pull-right"></i></a>
             <a href="javascript:void(0);" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
             @if($exam->status == 1)

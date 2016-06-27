@@ -2,43 +2,6 @@
     <div class="col-md-12">
         {!! Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
         <input type="hidden" name="examid" value="{{\Crypt::encrypt($exam->id)}}">
-<!--            <fieldset>
-                <div class="row">
-                    <div class="col-md-6">
-                        <section>
-                            <label class="input">
-                                <span>QUESTION TAGS</span>
-                                <input type="text" name="tags">
-                            </label>
-                        </section>
-                    </div>
-                    <div class="col-md-3">
-                        <section>
-                            <label class="select">
-                                <span>DIFFICULTY</span>
-                                <select name="difficulty_id">
-                                    <option value="0" selected disabled>Select Question Difficulty</option>
-                                </select>
-                            </label>
-                        </section>
-                    </div>
-                    <div class="col-md-3">
-                        <section>
-                            <label class="input">
-                                <span>ESTIMATED TIME TO COMPLETE</span>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" name="min" placeholder="Min.">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" name="sec" placeholder="Sec.">
-                                    </div>
-                                </div>
-                            </label>
-                        </section>
-                    </div>
-                </div>
-            </fieldset>-->
             <fieldset>
                 <div class="row">
                     <div class="col-md-8">
@@ -70,10 +33,10 @@
                                 <div class="row">
                                     {{--*/$count=1;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option1" placeholder="Option A">
+                                        <input type="text" name="option1" placeholder="Option A" required>
                                     </div>
                                 </div>
                             </label>
@@ -81,10 +44,10 @@
                                 <div class="row">
                                     {{--*/$count++;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option2" placeholder="Option B">
+                                        <input type="text" name="option2" placeholder="Option B" required>
                                     </div>
                                 </div>
                             </label>
@@ -92,10 +55,10 @@
                                 <div class="row">
                                     {{--*/$count++;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option3" placeholder="Sec.">
+                                        <input type="text" name="option3" placeholder="Option C">
                                     </div>
                                 </div>
                             </label>
@@ -103,10 +66,10 @@
                                 <div class="row">
                                     {{--*/$count++;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option4" placeholder="Sec.">
+                                        <input type="text" name="option4" placeholder="Option D">
                                     </div>
                                 </div>
                             </label>
@@ -114,10 +77,10 @@
                                 <div class="row">
                                     {{--*/$count++;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option5" placeholder="Sec.">
+                                        <input type="text" name="option5" placeholder="Option E">
                                     </div>
                                 </div>
                             </label>

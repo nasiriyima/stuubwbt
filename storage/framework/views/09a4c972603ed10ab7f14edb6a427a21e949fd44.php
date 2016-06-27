@@ -71,10 +71,10 @@
                                 <div class="row">
                                     <?php /**/$count=1;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option1" placeholder="Option A">
+                                        <input type="text" name="option1" placeholder="Option A" required>
                                     </div>
                                 </div>
                             </label>
@@ -82,10 +82,10 @@
                                 <div class="row">
                                     <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option2" placeholder="Option B">
+                                        <input type="text" name="option2" placeholder="Option B" required>
                                     </div>
                                 </div>
                             </label>
@@ -93,10 +93,10 @@
                                 <div class="row">
                                     <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option3" placeholder="Sec.">
+                                        <input type="text" name="option3" placeholder="Option C">
                                     </div>
                                 </div>
                             </label>
@@ -104,10 +104,10 @@
                                 <div class="row">
                                     <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option4" placeholder="Sec.">
+                                        <input type="text" name="option4" placeholder="Option D">
                                     </div>
                                 </div>
                             </label>
@@ -115,10 +115,10 @@
                                 <div class="row">
                                     <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>"><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option5" placeholder="Sec.">
+                                        <input type="text" name="option5" placeholder="Option E">
                                     </div>
                                 </div>
                             </label>
