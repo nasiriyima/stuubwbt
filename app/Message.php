@@ -27,12 +27,12 @@ class Message extends Model
 
     public function scopeInbox($query)
     {
-        return $query->whereIn('store',[1])->orderBy('created_at', 'dsc');
+        return $query->whereIn('store',[0,1])->orderBy('created_at', 'dsc');
     }
 
     public function scopeUnread($query)
     {
-        return $query->where(['status' => 0])->whereIn('store',[0,1])->orderBy('created_at', 'dsc');
+        return $query->where(['status' => 0])->whereIn('store',[1])->orderBy('created_at', 'dsc');
     }
 
     public function scopeSent($query){
@@ -67,5 +67,13 @@ class Message extends Model
 
     public function receiver(){
         return $this->belongsTo('\App\User', 'receiver_id', 'id');
+    }
+
+    public function senderProfile(){
+        return $this->hasManyThrough('\App\Profile','\App\User', 'id', 'user_id', 'sender_id');
+    }
+
+    public function receiverProfile(){
+        return $this->hasManyThrough('\App\Profile','\App\User', 'id', 'user_id', 'receiver_id');
     }
 }

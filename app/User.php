@@ -47,11 +47,11 @@ class User extends Authenticatable implements SearchableInterface
         return $this->hasManyThrough('\App\School', '\App\Profile', 'id', 'id', 'user_id');
     }
 
-    public function sender(){
+    public function senderMessage(){
         return $this->hasMany('\App\Message', 'sender_id', 'id');
     }
 
-    public function receiver(){
+    public function receiverMessage(){
         return $this->hasMany('\App\Message', 'receiver_id', 'id');
     }
 

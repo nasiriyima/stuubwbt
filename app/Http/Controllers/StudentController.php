@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+
 use App\Http\Requests;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\File;
@@ -16,10 +18,10 @@ class StudentController extends Controller
            return redirect('web')->send();
         }
         $this->page_data['user'] = \App\User::find(\Sentinel::check()->id);
-        $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->count();
-        $this->page_data['sent_count'] = \App\User::find($this->page_data['user']->id)->sender()->sent()->count();
-        $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->count();
-        $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->receiver()->onlyTrashed()->get()->count();
+        $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiverMessage()->inbox()->count();
+        $this->page_data['sent_count'] = \App\User::find($this->page_data['user']->id)->senderMessage()->sent()->count();
+        $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->senderMessage()->draft()->count();
+        $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->receiverMessage()->onlyTrashed()->get()->count();
         $this->page_data['notifications'] = $this->getNotifications();
     }
     /*
@@ -296,7 +298,7 @@ class StudentController extends Controller
     }
 
     public function getMyMessageInbox(){
-        $this->page_data['message_inbox'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->get();
+        $this->page_data['message_inbox'] = \App\User::find($this->page_data['user']->id)->receiverMessage()->inbox()->get();
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['open'] = 'open';
@@ -449,7 +451,7 @@ class StudentController extends Controller
     }
 
     public function getMyMessageSent(){
-        $this->page_data['message_sent'] = \App\User::find($this->page_data['user']->id)->sender()->sent()->get();
+        $this->page_data['message_sent'] = \App\User::find($this->page_data['user']->id)->senderMessage()->sent()->get();
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['open'] = 'open';
@@ -457,7 +459,7 @@ class StudentController extends Controller
     }
 
     public function getMyMessageSaved(){
-    $this->page_data['message_saved'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->get();
+    $this->page_data['message_saved'] = \App\User::find($this->page_data['user']->id)->senderMessage()->draft()->get();
     $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
         $this->page_data['user']->profile()->statistics() : 0;
     $this->page_data['open'] = 'open';
@@ -465,7 +467,7 @@ class StudentController extends Controller
 }
 
     public function getMyMessageDeleted(){
-        $this->page_data['message_deleted'] =  \App\User::find($this->page_data['user']->id)->receiver()->onlyTrashed()->get();
+        $this->page_data['message_deleted'] =  \App\User::find($this->page_data['user']->id)->receiverMessage()->onlyTrashed()->get();
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['open'] = 'open';
@@ -566,7 +568,7 @@ class StudentController extends Controller
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
-        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.index')->with($this->page_data);
     }
 
@@ -697,12 +699,20 @@ class StudentController extends Controller
         return redirect()->back()->withErrors($validator->errors())->withInput($request);
     }
 
-    public function getFile($image){
+    public function getFile($directory, $image){
 
-        if(file_exists(str_replace('\\', '/', storage_path().'/profile_pictures/').$image)){
-            $path = str_replace('\\', '/', storage_path().'/profile_pictures/').$image;
+        if($directory == 'profile_pictures'){
+            if(file_exists(str_replace('\\', '/', storage_path().'/profile_pictures/').$image)){
+                $path = str_replace('\\', '/', storage_path().'/profile_pictures/').$image;
+            } else {
+                $path = str_replace('\\', '/', public_path().'/assets/img/team/img32-md.jpg');
+            }
         } else {
-            $path = str_replace('\\', '/', public_path().'/assets/img/team/img32-md.jpg');
+            if(file_exists(str_replace('\\', '/', storage_path().'/additional_info/').$image)){
+                $path = str_replace('\\', '/', storage_path().'/additional_info/').$image;
+            } else {
+                $path = str_replace('\\', '/', public_path().'/assets/img/team/img32-md.jpg');
+            }
         }
         $file = \File::get($path);
         $type = \File::mimeType($path);
@@ -904,7 +914,7 @@ class StudentController extends Controller
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
         $this->page_data['friends'] = $this->page_data['user']->friendship()->requestAccepted()->paginate(6)->setPath('student/lazy-load');
         $this->page_data['friendships'] = $this->page_data['user']->friendship()->requests()->get();
-        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.friends')->with($this->page_data);
     }
 
@@ -958,14 +968,21 @@ class StudentController extends Controller
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
-        $this->page_data['conversations'] = $this->page_data['user']->sender()->sentConversation(
+
+
+        $collection = $this->page_data['user']->senderMessage()->sentConversation(
             \Carbon\Carbon::now()->startOfMonth()->subMonths(2), \Carbon\Carbon::now()
-        )->get()->merge($this->page_data['user']->receiver()->receivedConversation(
+        )->with('sender', 'senderProfile')->get()->merge($this->page_data['user']->receiverMessage()->receivedConversation(
             \Carbon\Carbon::now()->startOfMonth()->subMonths(2), \Carbon\Carbon::now()
-        )->get());
+        )->with('sender', 'senderProfile')->get());
+        $offset = (\Request::input('page'))? (\Request::input('page') * 4) - 4: (1 * 4) - 4;
+        $array = $collection->toArray();
+        $conversation = array_splice($array, $offset, 4, true);
+        $this->page_data['conversations'] = new Paginator($conversation, count($collection->toArray()), 4, \Request::input('page'));
+        $this->page_data['conversations']->setPath(url('student/my-conversations'));
         $this->page_data['conversationStartDate'] = \Carbon\Carbon::now()->startOfMonth()->subMonths(2);
         $this->page_data['conversationEndDate'] = \Carbon\Carbon::now();
-        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.conversations')->with($this->page_data);
     }
 
@@ -975,7 +992,7 @@ class StudentController extends Controller
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
-        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.settings')->with($this->page_data);
     }
 
@@ -1023,7 +1040,7 @@ class StudentController extends Controller
 
     public function getNotifications(){
         $notifications = [];
-        $messages = $this->page_data['user']->receiver()->unread();
+        $messages = $this->page_data['user']->receiverMessage()->unread();
         if($messages->count() > 0) $notifications['messages'] = $messages->orderBy('created_at', 'dsc')->first();
 
         $friendshipRequest = $this->page_data['user']->friend()->requestPending();

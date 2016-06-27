@@ -9,23 +9,23 @@
 
         </div>
         <ul class="timeline-v1">
-
-        <?php foreach($conversations as $conversation): ?>
-            <?php if($conversation->sender_id == $user->id && in_array($conversation->status, [2])): ?>
+<?php /*<?php echo e(dd($conversations)); ?>*/ ?>
+        <?php foreach($conversations->getCollection() as $conversation): ?>
+            <?php if($conversation['sender_id'] == $user->id && in_array($conversation['status'], [2])): ?>
                     <li>
                         <div class="timeline-badge primary"><i class="glyphicon glyphicon-record"></i></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <img class="img-responsive" src="<?php echo e((isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($user->first_name); ?>" alt=""/>
+                                <img class="img-responsive" src="<?php echo e((isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$user->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($user->first_name); ?>" alt=""/>
                             </div>
                             <div class="timeline-body text-justify">
-                                <h6><strong><a href="#"><?php echo e(ucfirst($conversation->subject)); ?></a></strong></h6>
-                                <p><?php echo implode(' ', array_slice(explode(' ', $conversation->body), 0, 30)); ?> ....
+                                <h6><strong><a href="#"><?php echo e(ucfirst($conversation['subject'])); ?></a></strong></h6>
+                                <p><?php echo implode(' ', array_slice(explode(' ', $conversation['body']), 0, 30)); ?> ....
                                     <a class="btn-u btn-u-sm" href="#">Read More</a>
                             </div>
                             <div class="timeline-footer">
                                 <ul class="list-unstyled list-inline blog-info">
-                                    <li><i class="fa fa-clock-o"></i> <?php echo e($conversation->created_at->format('F d, Y')); ?></li>
+                                    <li><i class="fa fa-clock-o"></i> <?php echo e(date('F d, Y', strtotime($conversation['created_at']))); ?></li>
                                     <li><i class="fa fa-comments-o"></i> <a href="#"> Me</a></li>
                                 </ul>
                                 <a class="likes" href="#"><i class="fa fa-heart"></i>239</a>
@@ -33,22 +33,22 @@
                         </div>
                     </li>
             <?php endif; ?>
-            <?php if($conversation->sender_id != $user->id && in_array($conversation->status, [0, 1])): ?>
+            <?php if($conversation['sender_id'] != $user->id && in_array($conversation['status'], [0, 1])): ?>
                     <li class="timeline-inverted">
                         <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <img class="img-responsive" src="<?php echo e((isset($conversation->sender->profile->image) && $conversation->sender->profile->image !="" && $conversation->sender->profile->image !=NULL)? url('student/file').'/'.$conversation->sender->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($conversation->sender->first_name); ?>" alt=""/>
+                                <img class="img-responsive" src="<?php echo e((isset($conversation['sender_profile'][0]['image']) && $conversation['sender_profile'][0]['image'] !="" && $conversation['sender_profile'][0]['image'] !=NULL)? url('student/file').'/profile_pictures/'.$conversation['sender_profile'][0]['image'] : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($conversation['sender']['first_name']); ?>" alt=""/>
                             </div>
                             <div class="timeline-body text-justify">
-                                <h6><strong><a href="#"><?php echo e(ucfirst($conversation->subject)); ?></a></strong></h6>
-                                <p><?php echo implode(' ', array_slice(explode(' ', $conversation->body), 0, 30)); ?> ....
+                                <h6><strong><a href="#"><?php echo e(ucfirst($conversation['subject'])); ?></a></strong></h6>
+                                <p><?php echo implode(' ', array_slice(explode(' ', $conversation['body']), 0, 30)); ?> ....
                                     <a class="btn-u btn-u-sm" href="#">Read More</a>
                             </div>
                             <div class="timeline-footer">
                                 <ul class="list-unstyled list-inline blog-info">
-                                    <li><i class="fa fa-clock-o"></i> <?php echo e($conversation->created_at->format('F d, Y')); ?></li>
-                                    <li><i class="fa fa-comments-o"></i> <a href="#"> <?php echo e(explode(',', $conversation->sender->first_name)[0]); ?></a></li>
+                                    <li><i class="fa fa-clock-o"></i> <?php echo e(date('F d, Y', strtotime($conversation['created_at']))); ?></li>
+                                    <li><i class="fa fa-comments-o"></i> <a href="#"> <?php echo e(explode(',', $conversation['sender']['first_name'])[0]); ?></a></li>
                                 </ul>
                                 <a class="likes" href="#"><i class="fa fa-heart"></i>87</a>
                             </div>
@@ -58,6 +58,12 @@
         <?php endforeach; ?>
             <li class="clearfix" style="float: none;"></li>
         </ul>
+        <center>
+            <div class="row">
+                <?php echo $conversations->links(); ?>
+
+            </div>
+        </center>
     </div>
 <?php $__env->stopSection(); ?>
 

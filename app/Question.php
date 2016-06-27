@@ -21,7 +21,7 @@ class Question extends Model
 
     public function getQuestionAdditionalInformationIdAttribute($value){
         if($value)
-            return TRUE;
+            return $value;
         FALSE;
     }
 }
