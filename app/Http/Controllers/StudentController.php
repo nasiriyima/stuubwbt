@@ -581,6 +581,7 @@ class StudentController extends Controller
             $friend->profile()->statistics() : 0;
         $userFriends = $this->page_data['user']->friendship()->requestAccepted()->get();
         $this->page_data['is_friend'] = $this->is_friend($friend->id, $userFriends);
+        $this->page_data['is_me'] = ($friend->id == $this->page_data['user']->id)? true: false;
         $userPendingRequests = $this->page_data['user']->friend()->requestPending()->get();
         $this->page_data['has_friend_request'] = $this->has_friend_request($friend->id, $userPendingRequests);
         $this->page_data['friendsStats'] = $friend->friendship()->requestAccepted()->count();
@@ -599,7 +600,8 @@ class StudentController extends Controller
         $userFriends = $this->page_data['user']->friendship()->requestAccepted()->get();
         $this->page_data['user_friends'] = $this->page_data['user']->friendship();
         $this->page_data['is_friend'] = $this->is_friend($friend->id, $userFriends);
-        $userPendingRequests = $this->page_data['user']->friend()->requestPending();
+        $this->page_data['is_me'] = ($friend->id == $this->page_data['user']->id)? true: false;
+        $userPendingRequests = $this->page_data['user']->friend()->requestPending()->get();
         $this->page_data['has_friend_request'] = $this->has_friend_request($friend->id, $userPendingRequests);
         return view('student.myprofile.friendprofilefriendslist')->with($this->page_data);
     }
@@ -624,6 +626,9 @@ class StudentController extends Controller
             $userAcceptance->status = 1;
             $userAcceptance->save();
             if($friendRequest && $userAcceptance){
+                if(\Request::ajax()){
+                    return \Response::json(['message' => 'success']);
+                }
                 return redirect()->back()->with('success', 'you are now friends with '.$friendRequest->user->first_name);
             }
             return redirect()->back()->with('error', 'Your friendship acceptance could not be resolved please contact a system administrator');
@@ -963,12 +968,12 @@ class StudentController extends Controller
         $friendship->status = 0;
         $friendship->save();
 
-        $friendship = new \App\Friendship();
-        $friendship->friend_id = $this->page_data['user']->id;
-        $friendship->user_id = $request['friend'];
-        $friendship->message = "";
-        $friendship->status = 0;
-        $friendship->save();
+//        $friendship = new \App\Friendship();
+//        $friendship->friend_id = $this->page_data['user']->id;
+//        $friendship->user_id = $request['friend'];
+//        $friendship->message = "";
+//        $friendship->status = 0;
+//        $friendship->save();
 
         return \Response::json([
             'message' => 'success'
@@ -996,6 +1001,24 @@ class StudentController extends Controller
         $this->page_data['conversationEndDate'] = \Carbon\Carbon::now();
         $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.conversations')->with($this->page_data);
+    }
+
+    public function postConversationView($requester = ''){
+        $request = \Request::except('_token');
+        $this->page_data['message'] = \App\Message::find(\Crypt::decrypt($request['id']));
+        $this->page_data['message']->save();
+        return view('student.myprofile.viewconversation')->with($this->page_data);
+    }
+
+    public function getMyRequests(){
+        $this->page_data['page_name'] = 'requests';
+        $this->page_data['preferences'] = $this->page_data['user']->preference;
+        $this->page_data['friendshipRequests'] = $this->page_data['user']->friend()->requestPending()->paginate(4);
+        $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
+            $this->page_data['user']->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
+        return view('student.myprofile.friendshiprequest')->with($this->page_data);
     }
 
     public function getMySettings(){

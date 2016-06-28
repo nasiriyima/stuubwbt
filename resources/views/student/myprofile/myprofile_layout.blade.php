@@ -29,6 +29,9 @@
             <li class="list-group-item {{ ($page_name == 'messages')? 'active' : '' }}">
                 <a href="{{ url('student/my-conversations') }}"><i class="fa fa-comments"></i> Conversations</a>
             </li>
+            <li class="list-group-item {{ ($page_name == 'requests')? 'active' : '' }}">
+                <a href="{{ url('student/my-requests') }}"><i class="fa fa-share-alt"></i> Friendship Requests</a>
+            </li>
             <li class="list-group-item {{ ($page_name == 'settings')? 'active' : '' }}">
                 <a href="{{ url('student/my-settings') }}"><i class="fa fa-cog"></i> Settings</a>
             </li>

@@ -33,12 +33,12 @@
             </ul>
 
             <hr>
-            <a href="<?php echo e(url('student/process-friend')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>/<?php echo e('accept'); ?>" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend && $has_friend_request)? '' : 'style=display:none;'); ?>>Accept Request</a>
+            <a href="<?php echo e(url('student/process-friend')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>/accept" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend && $has_friend_request && $friend->id != $user->id)? '' : 'style=display:none;'); ?>>Accept</a>
+            <a href="#" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend && $has_friend_request && $friend->id == $user->id)? '' : 'style=display:none;'); ?>>Friend Request Pending</a>
             <a href="javascript:void(0)" class="btn-u btn-u-info btn-u-sm btn-block" onclick="sendFriendRequest('<?php echo e($friend->id); ?>', '<?php echo e($friend->first_name); ?>');" <?php echo e((!$is_friend && !$has_friend_request)? '' : 'style=display:none;'); ?>>Send Friendship Request</a>
-
             <a href="<?php echo e(url('student/my-friends')); ?>" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friend List</a>
             <a href="<?php echo e(url('student/my-profile')); ?>" class="btn-u btn-u-green  btn-u-sm btn-block">Return to Profile</a>
-            <a href="javascript:showAlert('confirm', '', '<?php echo e(\Crypt::encrypt($friend->id)); ?>', 'unfriend');" class="btn-u btn-u-red btn-u-sm btn-block" <?php echo e(($is_friend)? '' : 'style=display:none;'); ?>>Unfriend</a>
+            <a href="javascript:showAlert('confirm', '', '<?php echo e(\Crypt::encrypt($friend->id)); ?>', 'unfriend');" class="btn-u btn-u-red btn-u-sm btn-block" <?php echo e(($is_friend && !$is_me)? '' : 'style=display:none;'); ?>>Unfriend</a>
 
             <hr>
             <!--Datepicker-->

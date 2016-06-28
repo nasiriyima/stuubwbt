@@ -35,12 +35,12 @@
             </ul>
 
             <hr>
-            <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/{{ 'accept' }}" class="btn-u btn-u-sm btn-block" {{ (!$is_friend && $has_friend_request)? '' : 'style=display:none;' }}>Accept Request</a>
+            <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/accept" class="btn-u btn-u-sm btn-block" {{ (!$is_friend && $has_friend_request && $friend->id != $user->id)? '' : 'style=display:none;' }}>Accept</a>
+            <a href="#" class="btn-u btn-u-sm btn-block" {{ (!$is_friend && $has_friend_request && $friend->id == $user->id)? '' : 'style=display:none;' }}>Friend Request Pending</a>
             <a href="javascript:void(0)" class="btn-u btn-u-info btn-u-sm btn-block" onclick="sendFriendRequest('{{ $friend->id }}', '{{ $friend->first_name }}');" {{ (!$is_friend && !$has_friend_request)? '' : 'style=display:none;' }}>Send Friendship Request</a>
-
             <a href="{{ url('student/my-friends') }}" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friend List</a>
             <a href="{{ url('student/my-profile') }}" class="btn-u btn-u-green  btn-u-sm btn-block">Return to Profile</a>
-            <a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');" class="btn-u btn-u-red btn-u-sm btn-block" {{ ($is_friend)? '' : 'style=display:none;' }}>Unfriend</a>
+            <a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');" class="btn-u btn-u-red btn-u-sm btn-block" {{ ($is_friend && !$is_me)? '' : 'style=display:none;' }}>Unfriend</a>
 
             <hr>
             <!--Datepicker-->

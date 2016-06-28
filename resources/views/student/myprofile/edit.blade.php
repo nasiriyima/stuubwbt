@@ -8,7 +8,7 @@
             <fieldset {{ ($type == 'description')? '': 'style=display:none'}}>
                 @if($hasProfilePicture)
                 <section>
-                    <img class="img-responsive md-margin-bottom-10" id="image_edit"  width="219.31" height="221.3" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg') }}" alt="{{ $user->first_name }}">
+                    <img class="img-responsive md-margin-bottom-10" id="image_edit"  width="219.31" height="221.3" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$user->profile->image : asset('public/assets/img/team/img32-md.jpg') }}" alt="{{ $user->first_name }}">
                     <a class="btn-u btn-u-sm btn-u-red" onclick="removePicture();" href="#">Remove Picture</a>
                     <input type="hidden" name="remove_picture" id="remove_picture" value="remove_picture" disabled />
                 </section>

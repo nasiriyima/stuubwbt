@@ -34,11 +34,13 @@
             </ul>
 
             <hr>
-            <a href="<?php echo e(url('student/process-friend')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>/<?php echo e('accept'); ?>" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend && $has_friend_request)? '' : 'style=display:none;'); ?>>Accept Request</a>
-            <a href="#" class="btn-u btn-u-info btn-u-sm btn-block" <?php echo e((!$is_friend && !$has_friend_request)? '' : 'style=display:none;'); ?>>Send Friendship Request</a>
+
+            <a href="<?php echo e(url('student/process-friend')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>/accept" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend && $has_friend_request && $friend->id != $user->id)? '' : 'style=display:none;'); ?>>Accept</a>
+            <a href="#" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend && $has_friend_request && $friend->id == $user->id)? '' : 'style=display:none;'); ?>>Friend Request Pending</a>
+            <a href="javascript:void(0)" class="btn-u btn-u-info btn-u-sm btn-block" onclick="sendFriendRequest('<?php echo e($friend->id); ?>', '<?php echo e($friend->first_name); ?>');" <?php echo e((!$is_friend && !$has_friend_request)? '' : 'style=display:none;'); ?>>Send Friendship Request</a>
             <a href="<?php echo e(url('student/my-friends')); ?>" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friends List</a>
             <a href="<?php echo e(url('student/my-profile')); ?>" class="btn-u btn-u-green btn-u-sm btn-block">Return to Profile</a>
-            <a href="javascript:showAlert('confirm', '', '<?php echo e(\Crypt::encrypt($friend->id)); ?>', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" <?php echo e(($is_friend)? '' : 'style=display:none;'); ?>>Unfriend</a>
+            <a href="javascript:showAlert('confirm', '', '<?php echo e(\Crypt::encrypt($friend->id)); ?>', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" <?php echo e(($is_friend && !$is_me)? '' : 'style=display:none;'); ?>>Unfriend</a>
 
             <hr>
             <!--Datepicker-->
@@ -101,10 +103,9 @@
                                                 <li><i class="fa fa-slideshare"></i><a href="#">Already Friends</a></li>
                                                 <?php endif; ?>
                                                 <?php if($user_friends->isMe($user->id, $data->friend->id) !== "false"): ?>
-                                                    <li><i class="fa fa-user"></i><a href="#">Me</a></li>
+                                                    <li><i class="fa fa-user"></i><a href="<?php echo e(url('student/my-profile')); ?>">Me</a></li>
                                                 <?php endif; ?>
-                                                <li><i class="fa fa-group"></i><a href="#"><?php echo e($data->friend->friendship()->requestAccepted()->count()); ?> Friends</a></li>
-                                                <li><i class="fa fa-share"></i><a href="#">Suggest</a></li>
+                                                <li><i class="fa fa-group"></i><a href="<?php echo e(url('student/friend-profile-list')); ?>/<?php echo e(\Crypt::encrypt($data->friend->id)); ?>"><?php echo e($data->friend->friendship()->requestAccepted()->count()); ?> Friends</a></li>
                                             </ul>
                                         </div>
                                     </td>
@@ -125,10 +126,9 @@
                                                     <li><i class="fa fa-slideshare"></i><a href="#">Already Friends</a></li>
                                                 <?php endif; ?>
                                                 <?php if($user_friends->isMe($user->id, $data->friend->id) !== "false"): ?>
-                                                    <li><i class="fa fa-user"></i><a href="#">Me</a></li>
+                                                    <li><i class="fa fa-user"></i><a href="<?php echo e(url('student/my-profile')); ?>">Me</a></li>
                                                 <?php endif; ?>
-                                                <li><i class="fa fa-group"></i><a href="#"><?php echo e($data->friend->friendship()->requestAccepted()->count()); ?> Friends</a></li>
-                                                <li><i class="fa fa-share"></i><a href="#">Suggest</a></li>
+                                                <li><i class="fa fa-group"></i><a href="<?php echo e(url('student/friend-profile-list')); ?>/<?php echo e(\Crypt::encrypt($data->friend->id)); ?>"><?php echo e($data->friend->friendship()->requestAccepted()->count()); ?> Friends</a></li>
                                             </ul>
                                         </div>
                                     </td>
@@ -276,11 +276,11 @@
                         var index = 0;
                         for(var i in row){
                             if(index%2 === 0){
-                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                                 tr.push(td1);
                             }
                             if(index%2 === 1){
-                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                                 tr.push(td2);
                             }
                             if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
@@ -362,6 +362,22 @@
         setTimeout(function(){
             $("div#alert-message").hide("slow");
         }, 10000);
+    }
+
+    function sendFriendRequest(id, name){
+        $.ajax({
+            url: "<?php echo url('student/friendship-request'); ?>",
+            method:"post",
+            data: {_token:"<?php echo csrf_token(); ?>", friend:id},
+            success:function(response){
+                console.log(response);
+                if(response.message === "success"){
+                    showAlert("info", "Friendship request sent to "+name);
+                    $("#request"+id).replaceWith('<li id="pending'+id+'"><i class="fa  fa-hourglass-end"></i><a href="#">Pending</a></li>');
+                    return;
+                }
+            }
+        });
     }
 
 </script>

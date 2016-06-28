@@ -36,11 +36,13 @@
             </ul>
 
             <hr>
-            <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/{{ 'accept' }}" class="btn-u btn-u-sm btn-block" {{ (!$is_friend && $has_friend_request)? '' : 'style=display:none;' }}>Accept Request</a>
+
+            <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/accept" class="btn-u btn-u-sm btn-block" {{ (!$is_friend && $has_friend_request && $friend->id != $user->id)? '' : 'style=display:none;' }}>Accept</a>
+            <a href="#" class="btn-u btn-u-sm btn-block" {{ (!$is_friend && $has_friend_request && $friend->id == $user->id)? '' : 'style=display:none;' }}>Friend Request Pending</a>
             <a href="javascript:void(0)" class="btn-u btn-u-info btn-u-sm btn-block" onclick="sendFriendRequest('{{ $friend->id }}', '{{ $friend->first_name }}');" {{ (!$is_friend && !$has_friend_request)? '' : 'style=display:none;' }}>Send Friendship Request</a>
             <a href="{{ url('student/my-friends') }}" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friends List</a>
             <a href="{{ url('student/my-profile') }}" class="btn-u btn-u-green btn-u-sm btn-block">Return to Profile</a>
-            <a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" {{ ($is_friend)? '' : 'style=display:none;' }}>Unfriend</a>
+            <a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" {{ ($is_friend && !$is_me)? '' : 'style=display:none;' }}>Unfriend</a>
 
             <hr>
             <!--Datepicker-->
@@ -103,10 +105,9 @@
                                                 <li><i class="fa fa-slideshare"></i><a href="#">Already Friends</a></li>
                                                 @endif
                                                 @if($user_friends->isMe($user->id, $data->friend->id) !== "false")
-                                                    <li><i class="fa fa-user"></i><a href="#">Me</a></li>
+                                                    <li><i class="fa fa-user"></i><a href="{{ url('student/my-profile') }}">Me</a></li>
                                                 @endif
-                                                <li><i class="fa fa-group"></i><a href="#">{{  $data->friend->friendship()->requestAccepted()->count() }} Friends</a></li>
-                                                <li><i class="fa fa-share"></i><a href="#">Suggest</a></li>
+                                                <li><i class="fa fa-group"></i><a href="{{ url('student/friend-profile-list') }}/{{ \Crypt::encrypt($data->friend->id) }}">{{  $data->friend->friendship()->requestAccepted()->count() }} Friends</a></li>
                                             </ul>
                                         </div>
                                     </td>
@@ -127,10 +128,9 @@
                                                     <li><i class="fa fa-slideshare"></i><a href="#">Already Friends</a></li>
                                                 @endif
                                                 @if($user_friends->isMe($user->id, $data->friend->id) !== "false")
-                                                    <li><i class="fa fa-user"></i><a href="#">Me</a></li>
+                                                    <li><i class="fa fa-user"></i><a href="{{ url('student/my-profile') }}">Me</a></li>
                                                 @endif
-                                                <li><i class="fa fa-group"></i><a href="#">{{  $data->friend->friendship()->requestAccepted()->count() }} Friends</a></li>
-                                                <li><i class="fa fa-share"></i><a href="#">Suggest</a></li>
+                                                <li><i class="fa fa-group"></i><a href="{{ url('student/friend-profile-list') }}/{{ \Crypt::encrypt($data->friend->id) }}">{{  $data->friend->friendship()->requestAccepted()->count() }} Friends</a></li>
                                             </ul>
                                         </div>
                                     </td>
@@ -278,11 +278,11 @@
                         var index = 0;
                         for(var i in row){
                             if(index%2 === 0){
-                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                                 tr.push(td1);
                             }
                             if(index%2 === 1){
-                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                                 tr.push(td2);
                             }
                             if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){

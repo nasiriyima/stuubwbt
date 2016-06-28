@@ -49,9 +49,8 @@
                                     <p>{{ $data->friend->profile->school->name  or ''}}</p>
                                     <hr>
                                     <ul class="list-inline share-list">
-                                        <li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li>
-                                        <li><i class="fa fa-group"></i><a href="#">{{  $data->friend->friendship()->requestAccepted()->count() }} Friends</a></li>
-                                        <li><i class="fa fa-share"></i><a href="#">Suggest</a></li>
+                                        <li><i class="fa fa-ban"></i><a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($data->friend->id) }}', 'unfriend');">Unfriend</a></li>
+                                        <li><i class="fa fa-group"></i><a href="{{ url('student/friend-profile-list') }}/{{ \Crypt::encrypt($data->friend->id) }}">{{  $data->friend->friendship()->requestAccepted()->count() }} Friends</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -68,9 +67,8 @@
                                     <p>{{ $data->friend->profile->school->name }}</p>
                                     <hr>
                                     <ul class="list-inline share-list">
-                                        <li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li>
-                                        <li><i class="fa fa-group"></i><a href="#">{{  $data->friend->friendship()->requestAccepted()->count() }} Friends</a></li>
-                                        <li><i class="fa fa-share"></i><a href="#">Suggest</a></li>
+                                        <li><i class="fa fa-ban"></i><a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');">Unfriend</a></li>
+                                        <li><i class="fa fa-group"></i><a href="{{ url('student/friend-profile-list') }}/{{ \Crypt::encrypt($data->friend->id) }}">{{  $data->friend->friendship()->requestAccepted()->count() }} Friends</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -99,6 +97,18 @@
             <input type="hidden" id="nextPage" name="nextPage" value="{{ $friends->currentPage() + 1 }}" />
         @endif
         <!--End Profile Blog-->
+    </div>
+    <!-- Large modal -->
+    <div class="modal fade bs-example-modal-sm rejection" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="alert alert-warning fade in text-center">
+                <h4>Warning!</h4>
+                <p><span id="confirm_message"></span></p>
+                <p>
+                    <a class="btn-u btn-u-xs btn-u-red" id="okoption" href="#">OK</a> <a class="btn-u btn-u-xs btn-u-sea" data-dismiss="modal" href="#">Cancels</a>
+                </p>
+            </div>
+        </div>
     </div>
 @stop
 
@@ -177,11 +187,11 @@
                         var index = 0;
                         for(var i in row){
                             if(index%2 === 0){
-                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                                 tr.push(td1);
                             }
                             if(index%2 === 1){
-                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                                td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile[0].image)+'" alt="'+row[i].friend.first_name+'"><div class="name-location"><strong>'+row[i].friend.first_name+'</strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile[0].address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list"><li><i class="fa fa-ban"></i><a href="#">Unfriend</a></li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                                 tr.push(td2);
                             }
                             if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
@@ -219,11 +229,11 @@
                     var index = 0;
                     for(var i in row){
                         if(index%2 === 0){
-                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                             tr.push(td1);
                         }
                         if(index%2 === 1){
-                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'</li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li><li><i class="fa fa-share"></i><a href="#">Suggest</a></li></ul></div>';
+                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'</li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                             tr.push(td2);
                         }
                         if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
@@ -305,6 +315,37 @@
         }, 10000);
     }
 
+    function showAlert(type, message, id, caller){
+        if(type === 'confirm'){
+            confirmRejection(caller, id, 'Are you sure you will like to reject/un-friend selected friend?');
+            $(".rejection").modal('show');
+        }
+
+        if(type === 'error'){
+            $("div#alert-message").html('<div class="alert alert-danger fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Oh snap!</strong> '+message+'.</div>');
+            $("div#alert-message").show("slow");
+        }
+
+        if(type === 'success'){
+            $("div#alert-message").html('<div class="alert alert-success fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Well done</strong> '+message+'.</div>');
+            $("div#alert-message").show("slow");
+        }
+
+        if(type === 'warning'){
+            $("div#alert-message").html('<div class="alert alert-warning fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Warning!</strong> '+message+'.</div>');
+            $("div#alert-message").show("slow");
+        }
+
+        if(type === 'info'){
+            $("div#alert-message").html('<div class="alert alert-info fade in alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Heads up!</strong> '+message+'.</div>');
+            $("div#alert-message").show("slow");
+        }
+
+        setTimeout(function(){
+            $("div#alert-message").hide("slow");
+        }, 10000);
+    }
+
     function getTableStructure(){
         var tbl = $('.sTable tbody tr').get().map(function(row) {
             return $(row).find('td').get().map(function(cell) {
@@ -346,6 +387,13 @@
             }
         });
     }
+
+    function confirmRejection(caller, id, message){
+        $("span#confirm_message").text(message);
+        (caller === 'reject')? $("#okoption").prop('href', "{!! url('student/process-friend/') !!}/"+id+"/reject"):
+                $("#okoption").prop('href', "{!! url('student/process-friend/') !!}/"+id+"/unfriend");
+    }
+
 
 </script>
 @stop

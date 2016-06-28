@@ -27,6 +27,9 @@
             <li class="list-group-item <?php echo e(($page_name == 'messages')? 'active' : ''); ?>">
                 <a href="<?php echo e(url('student/my-conversations')); ?>"><i class="fa fa-comments"></i> Conversations</a>
             </li>
+            <li class="list-group-item <?php echo e(($page_name == 'requests')? 'active' : ''); ?>">
+                <a href="<?php echo e(url('student/my-requests')); ?>"><i class="fa fa-share-alt"></i> Friendship Requests</a>
+            </li>
             <li class="list-group-item <?php echo e(($page_name == 'settings')? 'active' : ''); ?>">
                 <a href="<?php echo e(url('student/my-settings')); ?>"><i class="fa fa-cog"></i> Settings</a>
             </li>
