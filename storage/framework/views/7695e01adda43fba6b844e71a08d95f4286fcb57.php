@@ -44,6 +44,9 @@
         <div class="col-sm-8">
             <blockquote  class="tag-box tag-box-v1 box-shadow shadow-effect-2">
                 <p><span class="dropcap-bg"><?php echo e($questionCount); ?></span><em id="question"><?php echo $question->name; ?></em></p>
+                <?php /**/ $word_count = count(explode(' ', $question->name));/**/ ?>
+                <?php echo ($word_count < 18)? '<br />': ''; ?>
+
             </blockquote>
         </div>
         <?php if($question->question_additional_information_id): ?>

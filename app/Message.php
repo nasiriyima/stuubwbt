@@ -50,13 +50,13 @@ class Message extends Model
     }
 
     public function scopeSentConversation($query, $startDate, $endDate){
-        return $query->whereIn('store',[2])->whereBetween('created_at', [
+        return $query->with('sender', 'receiver')->whereIn('status', [0])->whereIn('store',[2])->whereBetween('created_at', [
             $startDate, $endDate
         ])->orderBy('created_at', 'dsc');
     }
 
     public function scopeReceivedConversation($query, $startDate, $endDate){
-        return $query->whereIn('store',[1])->whereBetween('created_at', [
+        return $query->with('sender', 'receiver')->whereIn('status', [0,1])->whereIn('store',[1])->whereBetween('created_at', [
             $startDate, $endDate
         ])->orderBy('created_at', 'dsc');
     }
@@ -70,10 +70,10 @@ class Message extends Model
     }
 
     public function senderProfile(){
-        return $this->hasManyThrough('\App\Profile','\App\User', 'id', 'user_id', 'sender_id');
+        return $this->hasManyThrough( '\App\Profile', '\App\User', 'id', 'user_id', 'sender_id');
     }
 
     public function receiverProfile(){
-        return $this->hasManyThrough('\App\Profile','\App\User', 'id', 'user_id', 'receiver_id');
+        return $this->hasManyThrough('\App\Profile', '\App\User', 'id', 'user_id', 'receiver_id');
     }
 }

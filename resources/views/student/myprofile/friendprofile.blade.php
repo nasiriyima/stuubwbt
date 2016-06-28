@@ -23,7 +23,7 @@
     <div class="content profile">
         <!--Left Sidebar-->
         <div class="col-md-4 profile-body md-margin-bottom-40">
-            <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($friend->profile->image) && $friend->profile->image !="" && $friend->profile->image !=NULL)? url('student/file').'/'.$friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $friend->first_name }}">
+            <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($friend->profile->image) && $friend->profile->image !="" && $friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$friend->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $friend->first_name }}">
 
             <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                 <li class="list-group-item {{ ($page_name == 'profile')? 'active' : '' }}">
@@ -35,10 +35,12 @@
             </ul>
 
             <hr>
-            <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/{{ 'accept' }}" class="btn-u btn-u-sm btn-block" {{ (!$is_friend)? '' : 'style=display:none;' }}>Accept Request</a>
+            <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/{{ 'accept' }}" class="btn-u btn-u-sm btn-block" {{ (!$is_friend && $has_friend_request)? '' : 'style=display:none;' }}>Accept Request</a>
+            <a href="javascript:void(0)" class="btn-u btn-u-info btn-u-sm btn-block" onclick="sendFriendRequest('{{ $friend->id }}', '{{ $friend->first_name }}');" {{ (!$is_friend && !$has_friend_request)? '' : 'style=display:none;' }}>Send Friendship Request</a>
+
             <a href="{{ url('student/my-friends') }}" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friend List</a>
-            <a href="{{ url('student/my-profile') }}" class="btn-u btn-u-green btn-u-sm btn-block">Return to Profile</a>
-            <a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" {{ ($is_friend)? '' : 'style=display:none;' }}>Unfriend</a>
+            <a href="{{ url('student/my-profile') }}" class="btn-u btn-u-green  btn-u-sm btn-block">Return to Profile</a>
+            <a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');" class="btn-u btn-u-red btn-u-sm btn-block" {{ ($is_friend)? '' : 'style=display:none;' }}>Unfriend</a>
 
             <hr>
             <!--Datepicker-->
@@ -177,7 +179,7 @@
     <div class="modal fade bs-example-modal-sm rejection" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="alert alert-warning fade in text-center">
-                <h4>Please Search Again!</h4>
+                <h4>Warning!</h4>
                 <p><span id="confirm_message"></span></p>
                 <p>
                     <a class="btn-u btn-u-xs btn-u-red" id="okoption" href="#">OK</a> <a class="btn-u btn-u-xs btn-u-sea" data-dismiss="modal" href="#">Cancels</a>
@@ -224,6 +226,22 @@
             $("span#confirm_message").text(message);
             (caller === 'reject')? $("#okoption").prop('href', "{!! url('student/process-friend/') !!}/"+id+"/reject"):
                     $("#okoption").prop('href', "{!! url('student/process-friend/') !!}/"+id+"/unfriend");
+        }
+
+        function sendFriendRequest(id, name){
+            $.ajax({
+                url: "{!! url('student/friendship-request') !!}",
+                method:"post",
+                data: {_token:"{!! csrf_token() !!}", friend:id},
+                success:function(response){
+                    console.log(response);
+                    if(response.message === "success"){
+                        showAlert("info", "Friendship request sent to "+name);
+                        $("#request"+id).replaceWith('<li id="pending'+id+'"><i class="fa  fa-hourglass-end"></i><a href="#">Pending</a></li>');
+                        return;
+                    }
+                }
+            });
         }
     </script>
     <script type="text/javascript" src="{{ asset('public/assets/js/plugins/datepicker.js') }}"></script>

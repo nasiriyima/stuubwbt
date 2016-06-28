@@ -36,7 +36,8 @@
             </ul>
 
             <hr>
-            <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/{{ 'accept' }}" class="btn-u btn-u-sm btn-block" {{ (!$is_friend)? '' : 'style=display:none;' }}>Accept Request</a>
+            <a href="{{ url('student/process-friend') }}/{{ \Crypt::encrypt($friend->id) }}/{{ 'accept' }}" class="btn-u btn-u-sm btn-block" {{ (!$is_friend && $has_friend_request)? '' : 'style=display:none;' }}>Accept Request</a>
+            <a href="javascript:void(0)" class="btn-u btn-u-info btn-u-sm btn-block" onclick="sendFriendRequest('{{ $friend->id }}', '{{ $friend->first_name }}');" {{ (!$is_friend && !$has_friend_request)? '' : 'style=display:none;' }}>Send Friendship Request</a>
             <a href="{{ url('student/my-friends') }}" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friends List</a>
             <a href="{{ url('student/my-profile') }}" class="btn-u btn-u-green btn-u-sm btn-block">Return to Profile</a>
             <a href="javascript:showAlert('confirm', '', '{{ \Crypt::encrypt($friend->id) }}', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" {{ ($is_friend)? '' : 'style=display:none;' }}>Unfriend</a>
@@ -363,6 +364,22 @@
         setTimeout(function(){
             $("div#alert-message").hide("slow");
         }, 10000);
+    }
+
+    function sendFriendRequest(id, name){
+        $.ajax({
+            url: "{!! url('student/friendship-request') !!}",
+            method:"post",
+            data: {_token:"{!! csrf_token() !!}", friend:id},
+            success:function(response){
+                console.log(response);
+                if(response.message === "success"){
+                    showAlert("info", "Friendship request sent to "+name);
+                    $("#request"+id).replaceWith('<li id="pending'+id+'"><i class="fa  fa-hourglass-end"></i><a href="#">Pending</a></li>');
+                    return;
+                }
+            }
+        });
     }
 
 </script>

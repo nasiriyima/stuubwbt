@@ -22,7 +22,7 @@
     <div class="content profile">
         <!--Left Sidebar-->
         <div class="col-md-4 profile-body md-margin-bottom-40">
-            <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="<?php echo e((isset($friend->profile->image) && $friend->profile->image !="" && $friend->profile->image !=NULL)? url('student/file').'/'.$friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($friend->first_name); ?>">
+            <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="<?php echo e((isset($friend->profile->image) && $friend->profile->image !="" && $friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($friend->first_name); ?>">
 
             <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
                 <li class="list-group-item <?php echo e(($page_name == 'profile')? 'active' : ''); ?>">
@@ -34,7 +34,8 @@
             </ul>
 
             <hr>
-            <a href="<?php echo e(url('student/process-friend')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>/<?php echo e('accept'); ?>" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend)? '' : 'style=display:none;'); ?>>Accept Request</a>
+            <a href="<?php echo e(url('student/process-friend')); ?>/<?php echo e(\Crypt::encrypt($friend->id)); ?>/<?php echo e('accept'); ?>" class="btn-u btn-u-sm btn-block" <?php echo e((!$is_friend && $has_friend_request)? '' : 'style=display:none;'); ?>>Accept Request</a>
+            <a href="#" class="btn-u btn-u-info btn-u-sm btn-block" <?php echo e((!$is_friend && !$has_friend_request)? '' : 'style=display:none;'); ?>>Send Friendship Request</a>
             <a href="<?php echo e(url('student/my-friends')); ?>" class="btn-u btn-u-blue btn-u-sm btn-block">Return to Friends List</a>
             <a href="<?php echo e(url('student/my-profile')); ?>" class="btn-u btn-u-green btn-u-sm btn-block">Return to Profile</a>
             <a href="javascript:showAlert('confirm', '', '<?php echo e(\Crypt::encrypt($friend->id)); ?>', 'unfriend');" class="btn-u btn-u-orange btn-u-sm btn-block" <?php echo e(($is_friend)? '' : 'style=display:none;'); ?>>Unfriend</a>
@@ -87,7 +88,7 @@
                                 <?php if($index%2 == 0): ?>
                                     <td class="col-sm-6 sm-margin-bottom-20 profile-body">
                                         <div class="profile-blog">
-                                            <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->profile->first_name); ?>">
+                                            <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->profile->first_name); ?>">
                                             <div class="name-location">
                                                 <strong><a href="<?php echo e(url('student/friend-profile')); ?>/<?php echo e(\Crypt::encrypt($data->friend->id)); ?>"><?php echo e($data->friend->first_name); ?></a></strong>
                                                 <span><i class="fa fa-map-marker"></i><a href="#"><?php echo e(isset($data->profile->address) ? $data->profile->address : ''); ?></a></span>
@@ -111,7 +112,7 @@
                                 <?php if($index%2 == 1): ?>
                                     <td class="col-sm-6 profile-body">
                                         <div class="profile-blog">
-                                            <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->first_name); ?>">
+                                            <img class="rounded-x" src="<?php echo e((isset($data->friend->profile->image) && $data->friend->profile->image !="" && $data->friend->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$data->friend->profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($data->friend->first_name); ?>">
                                             <div class="name-location">
                                                 <strong><?php echo e($data->friend->first_name); ?></strong>
                                                 <span><i class="fa fa-map-marker"></i><a href="#"><?php echo e(isset($data->profile->address) ? $data->profile->address : ''); ?></a></span>
@@ -313,7 +314,7 @@
 
     function getImageUrl(img){
         if(img && img !="" && img !=null){
-            return "<?php echo url('student/file'); ?>/"+img;
+            return "<?php echo url('student/file'); ?>/profile_pictures/"+img;
         }
         return "<?php echo asset('public/assets/img/user.jpg'); ?>";
     }

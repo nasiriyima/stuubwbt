@@ -44,6 +44,8 @@
         <div class="col-sm-8">
             <blockquote  class="tag-box tag-box-v1 box-shadow shadow-effect-2">
                 <p><span class="dropcap-bg">{{ $questionCount }}</span><em id="question">{!! $question->name !!}</em></p>
+                {{--*/ $word_count = count(explode(' ', $question->name));/*--}}
+                {!! ($word_count < 18)? '<br />': '' !!}
             </blockquote>
         </div>
         @if($question->question_additional_information_id)

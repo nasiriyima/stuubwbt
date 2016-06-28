@@ -573,6 +573,7 @@ class StudentController extends Controller
     }
 
     public function getFriendProfile($id){
+        if((int)$id != 0 ) return redirect('student/friend-profile/'. \Crypt::encrypt($id));
         $friend = \App\User::find(\Crypt::decrypt($id));
         $this->page_data['page_name'] = 'profile';
         $this->page_data['friend'] = $friend;
@@ -580,6 +581,8 @@ class StudentController extends Controller
             $friend->profile()->statistics() : 0;
         $userFriends = $this->page_data['user']->friendship()->requestAccepted()->get();
         $this->page_data['is_friend'] = $this->is_friend($friend->id, $userFriends);
+        $userPendingRequests = $this->page_data['user']->friend()->requestPending()->get();
+        $this->page_data['has_friend_request'] = $this->has_friend_request($friend->id, $userPendingRequests);
         $this->page_data['friendsStats'] = $friend->friendship()->requestAccepted()->count();
         return view('student.myprofile.friendprofile')->with($this->page_data);
     }
@@ -596,6 +599,8 @@ class StudentController extends Controller
         $userFriends = $this->page_data['user']->friendship()->requestAccepted()->get();
         $this->page_data['user_friends'] = $this->page_data['user']->friendship();
         $this->page_data['is_friend'] = $this->is_friend($friend->id, $userFriends);
+        $userPendingRequests = $this->page_data['user']->friend()->requestPending();
+        $this->page_data['has_friend_request'] = $this->has_friend_request($friend->id, $userPendingRequests);
         return view('student.myprofile.friendprofilefriendslist')->with($this->page_data);
     }
 
@@ -662,6 +667,13 @@ class StudentController extends Controller
             $request->forceDelete();
             return redirect()->back()->with('message', 'you just rejected '.$request->friend->first_name.'\'s friend request');
         }
+    }
+
+    private function has_friend_request($id, $haystack){
+        foreach($haystack as $friend){
+            if($friend->user_id == $id || $friend->friend_id == $id) return true;
+        }
+        return false;
     }
 
     private function is_friend($id, $haystack){
@@ -964,17 +976,17 @@ class StudentController extends Controller
     }
 
     public function getMyConversations(){
+
         $this->page_data['page_name'] = 'messages';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
 
-
         $collection = $this->page_data['user']->senderMessage()->sentConversation(
             \Carbon\Carbon::now()->startOfMonth()->subMonths(2), \Carbon\Carbon::now()
-        )->with('sender', 'senderProfile')->get()->merge($this->page_data['user']->receiverMessage()->receivedConversation(
+        )->get()->merge($this->page_data['user']->receiverMessage()->receivedConversation(
             \Carbon\Carbon::now()->startOfMonth()->subMonths(2), \Carbon\Carbon::now()
-        )->with('sender', 'senderProfile')->get());
+        )->get());
         $offset = (\Request::input('page'))? (\Request::input('page') * 4) - 4: (1 * 4) - 4;
         $array = $collection->toArray();
         $conversation = array_splice($array, $offset, 4, true);

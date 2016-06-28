@@ -10,9 +10,9 @@
             Showing all your conversations between {{ $conversationStartDate->format('d-m-Y') }} to {{ $conversationEndDate->format('d-m-Y') }}
         </div>
         <ul class="timeline-v1">
-{{--{{ dd($conversations) }}--}}
-        @foreach($conversations->getCollection() as $conversation)
-            @if($conversation['sender_id'] == $user->id && in_array($conversation['status'], [2]))
+{{--*/ $massages = $conversations->getCollection() /*--}}
+        @foreach($massages as $conversation)
+            @if(in_array($conversation['store'], [2]))
                     <li>
                         <div class="timeline-badge primary"><i class="glyphicon glyphicon-record"></i></div>
                         <div class="timeline-panel">
@@ -34,12 +34,15 @@
                         </div>
                     </li>
             @endif
-            @if($conversation['sender_id'] != $user->id && in_array($conversation['status'], [0, 1]))
+            @if(in_array($conversation['store'], [1]))
                     <li class="timeline-inverted">
                         <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
                         <div class="timeline-panel">
+                            {{--*/
+                                $sender_profile = \App\Profile::where(['user_id' =>  $conversation['sender']['id'] ])->first();
+                            /*--}}
                             <div class="timeline-heading">
-                                <img class="img-responsive" src="{{ (isset($conversation['sender_profile'][0]['image']) && $conversation['sender_profile'][0]['image'] !="" && $conversation['sender_profile'][0]['image'] !=NULL)? url('student/file').'/profile_pictures/'.$conversation['sender_profile'][0]['image'] : asset('public/assets/img/user.jpg') }}" alt="{{ $conversation['sender']['first_name'] }}" alt=""/>
+                                <img class="img-responsive" src="{{ (isset($sender_profile->image) && $sender_profile->image !="" && $sender_profile->image !=NULL)? url('student/file').'/profile_pictures/'.$sender_profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $conversation['sender']['first_name'] }}" alt=""/>
                             </div>
                             <div class="timeline-body text-justify">
                                 <h6><strong><a href="#">{{ ucfirst($conversation['subject']) }}</a></strong></h6>

@@ -9,9 +9,9 @@
 
         </div>
         <ul class="timeline-v1">
-<?php /*<?php echo e(dd($conversations)); ?>*/ ?>
-        <?php foreach($conversations->getCollection() as $conversation): ?>
-            <?php if($conversation['sender_id'] == $user->id && in_array($conversation['status'], [2])): ?>
+<?php /**/ $massages = $conversations->getCollection() /**/ ?>
+        <?php foreach($massages as $conversation): ?>
+            <?php if(in_array($conversation['store'], [2])): ?>
                     <li>
                         <div class="timeline-badge primary"><i class="glyphicon glyphicon-record"></i></div>
                         <div class="timeline-panel">
@@ -33,12 +33,15 @@
                         </div>
                     </li>
             <?php endif; ?>
-            <?php if($conversation['sender_id'] != $user->id && in_array($conversation['status'], [0, 1])): ?>
+            <?php if(in_array($conversation['store'], [1])): ?>
                     <li class="timeline-inverted">
                         <div class="timeline-badge primary"><i class="glyphicon glyphicon-record invert"></i></div>
                         <div class="timeline-panel">
+                            <?php /**/
+                                $sender_profile = \App\Profile::where(['user_id' =>  $conversation['sender']['id'] ])->first();
+                            /**/ ?>
                             <div class="timeline-heading">
-                                <img class="img-responsive" src="<?php echo e((isset($conversation['sender_profile'][0]['image']) && $conversation['sender_profile'][0]['image'] !="" && $conversation['sender_profile'][0]['image'] !=NULL)? url('student/file').'/profile_pictures/'.$conversation['sender_profile'][0]['image'] : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($conversation['sender']['first_name']); ?>" alt=""/>
+                                <img class="img-responsive" src="<?php echo e((isset($sender_profile->image) && $sender_profile->image !="" && $sender_profile->image !=NULL)? url('student/file').'/profile_pictures/'.$sender_profile->image : asset('public/assets/img/user.jpg')); ?>" alt="<?php echo e($conversation['sender']['first_name']); ?>" alt=""/>
                             </div>
                             <div class="timeline-body text-justify">
                                 <h6><strong><a href="#"><?php echo e(ucfirst($conversation['subject'])); ?></a></strong></h6>
