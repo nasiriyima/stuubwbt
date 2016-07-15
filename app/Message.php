@@ -25,8 +25,13 @@ class Message extends Model
         return $body;
     }
 
-    public function scopeInbox($query)
+    public function scopeInbox($query, $sender_id = '')
     {
+        if($sender_id){
+            return $query->where([
+                'sender_id' => $sender_id
+            ])->whereIn('store',[0,1])->orderBy('created_at', 'dsc');
+        }
         return $query->whereIn('store',[0,1])->orderBy('created_at', 'dsc');
     }
 

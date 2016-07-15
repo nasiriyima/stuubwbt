@@ -17,8 +17,6 @@
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js')); ?>"></script>
 <?php echo $__env->yieldContent('pageplugins'); ?>
-        <!-- JS Customization -->
-<script type="text/javascript" src="<?php echo e(asset('public/assets/js/custom.js')); ?>"></script>
 <!-- JS Page Level -->
 <script type="text/javascript" src="<?php echo e(asset('public/assets/js/app.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('public/assets/js/plugins/fancy-box.js')); ?>"></script>

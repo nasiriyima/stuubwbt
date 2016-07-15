@@ -60,8 +60,7 @@
     var subjectsurl = "<?php echo url('student/subjects'); ?>";
     var sessionsurl = "<?php echo url('student/session'); ?>";
     var csrf = "<?php echo csrf_token(); ?>";
-    var timeleft = '00:00:00';
 </script>
-<script type="text/javascript" src="<?php echo e(asset('public/assets/js/custom.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/myexams.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('student_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

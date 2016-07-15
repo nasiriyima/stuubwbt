@@ -151,6 +151,7 @@ class StudentController extends Controller
     }
 
     public function getInstructions($body,$category,$subject,$month,$session){
+        \Session::forget('time_left');
         $exam = \App\Exam::where([
             'subject_id' => $subject,
             'exam_provider_id' => $body,
@@ -169,6 +170,7 @@ class StudentController extends Controller
             $data['exam'] = $exam->id;
             $data['time_allowed'] = $exam->time_allowed;
             $data['time_left'] = $this->getTimeLeft($exam->id,$data['time_allowed']);
+            $data['warning_time'] = $this->getWarningTime($data['time_allowed']);
             $data['month'] = $month;
             $data['monthname'] = \App\Month::find($month)->name;
             \Session::put('monthname',$data['monthname']);
@@ -192,6 +194,7 @@ class StudentController extends Controller
             $data['time_allowed'] = \App\Question::where([
                 'exam_id' => $exam])->first()->exam->time_allowed;
             $data['time_left'] = $this->getTimeLeft($exam, $data['time_allowed']);
+            $data['warning_time'] = $this->getWarningTime($data['time_allowed']);
             $data['bodyname'] = \Session::get('bodyname');
             $data['categoryname'] = \Session::get('categoryname');
             $data['subjectname'] = \Session::get('subjectname');
@@ -201,6 +204,7 @@ class StudentController extends Controller
         }
         return redirect('student')->with('error','No active exam session was found');
     }
+
     public function postExamComplete(){
         $data = \Request::except('_token');
         $passed = 0;
@@ -219,7 +223,6 @@ class StudentController extends Controller
         \Session::put('failedpercentage',  number_format($failed*100/count($data['selections']),2));
         \Session::put('userselection',  json_encode($data['selections']));
         \Session::put('systemselection',  json_encode($systemselection));
-
         $history = new \App\History();
         $history->exam_id = \Session::get('exam');
         $history->elapsed_time = $data['elapsed_time'];
@@ -1109,13 +1112,12 @@ class StudentController extends Controller
     }
 
     private function getTimeLeft($exam, $time_allowed){
-        if(!\Session::has('time_left') && \Session::get('exam') != $exam){
+        if(\Session::get('time_left') == null || \Session::get('exam') != $exam){
             $time = explode(':',$time_allowed);
             $hr = $time[0];
             $min = $time[1];
             $sec = $time[2];
             \Session::put('time_left',date('Y/m/d H:i:s', strtotime("+$hr hour $min minute $sec second")));
-            \Session::put('exam', $exam);
             return date('Y/m/d H:i:s', strtotime("+$hr hour $min minute $sec second"));
         }
         return \Session::get('time_left');
@@ -1154,50 +1156,73 @@ class StudentController extends Controller
         return false;
     }
 
-    public function getEncode(){
-        $count = 4;
-        for($x=0; $x < 50; $x++){
-            $faker = \Faker\Factory::create();
-            $user = new \App\User();
-            $user->email = 'test'.$count.'@stuub.com';
-            $user->password = '$2y$10$i8r.KFFGinjtdyQyFbVsc./5q6hpg8XVwqbEix2xibIcGoICAlHve';
-            $user->permissions = null;
-            $user->last_login = null;
-            $user->first_name = $faker->name;
-            $user->user_type = 1;
-            $user->save();
-
-            \DB::table('activations')->insert([
-                'user_id' => $user->id,
-                'code' => 'TCgsBav8naOqzdiEeMl9vzkuuKqBgfgj',
-                'completed' => 1,
-                'completed_at' => \Carbon\Carbon::now(),
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ]);
-            $profile = new \App\Profile();
-            $profile->user_id = $user->id;
-            $profile->nick_name = $faker->name;
-            $profile->description = $faker->text;
-            $profile->phone = $faker->phoneNumber;
-            $profile->email = $faker->email;
-            $profile->address = $faker->address;
-            $profile->dob = $faker->date('Y-m-d');
-            $profile->social_contact = null;
-            $profile->school_id = ($count < 102)? $count : $count = 4;
-            $profile->education = null;
-            $profile->image = null;
-            $profile->save();
-            $count++;
-
-            $friendship = new \App\Friendship();
-            $friendship->user_id = 1;
-            $friendship->friend_id = $user->id;
-            $friendship->message = $faker->text;
-            $friendship->status = 1;
-            $friendship->save();
+    private function getWarningTime($time_left){
+        $warningTime = '00:05:00:00';
+        $hr = explode(':', $time_left)[0];
+        $min = explode(':', $time_left)[1];
+        $sec = explode(':', $time_left)[2];
+        $hrToSec = $hr * 60 * 60;
+        $minToSec = $min * 60;
+        $secTotal = $hrToSec + $minToSec + $sec;
+        if($secTotal < 301 ){
+            $halfTime = $secTotal/2;
+            if($halfTime < 60){
+                $warningTime = ($halfTime < 10)? '00:00:0'.floor($halfTime).':00': '00:00:'.floor($halfTime).':00';
+                return $warningTime;
+            }
+            $convertToMin = $halfTime/60;
+            $warningTime = ($convertToMin < 10)? '00:0'.floor($convertToMin).':00:00': '00:'.floor($convertToMin).':00:00';
+            return $warningTime;
         }
-        return 'success';
+        return $warningTime;
+    }
+
+    public function getEncode(){
+        $time_left = '00:01:00';
+        dd($this->getWarningTime($time_left));
+//        $count = 4;
+//        for($x=0; $x < 50; $x++){
+//            $faker = \Faker\Factory::create();
+//            $user = new \App\User();
+//            $user->email = 'test'.$count.'@stuub.com';
+//            $user->password = '$2y$10$i8r.KFFGinjtdyQyFbVsc./5q6hpg8XVwqbEix2xibIcGoICAlHve';
+//            $user->permissions = null;
+//            $user->last_login = null;
+//            $user->first_name = $faker->name;
+//            $user->user_type = 1;
+//            $user->save();
+//
+//            \DB::table('activations')->insert([
+//                'user_id' => $user->id,
+//                'code' => 'TCgsBav8naOqzdiEeMl9vzkuuKqBgfgj',
+//                'completed' => 1,
+//                'completed_at' => \Carbon\Carbon::now(),
+//                'created_at' => \Carbon\Carbon::now(),
+//                'updated_at' => \Carbon\Carbon::now()
+//            ]);
+//            $profile = new \App\Profile();
+//            $profile->user_id = $user->id;
+//            $profile->nick_name = $faker->name;
+//            $profile->description = $faker->text;
+//            $profile->phone = $faker->phoneNumber;
+//            $profile->email = $faker->email;
+//            $profile->address = $faker->address;
+//            $profile->dob = $faker->date('Y-m-d');
+//            $profile->social_contact = null;
+//            $profile->school_id = ($count < 102)? $count : $count = 4;
+//            $profile->education = null;
+//            $profile->image = null;
+//            $profile->save();
+//            $count++;
+//
+//            $friendship = new \App\Friendship();
+//            $friendship->user_id = 1;
+//            $friendship->friend_id = $user->id;
+//            $friendship->message = $faker->text;
+//            $friendship->status = 1;
+//            $friendship->save();
+//        }
+//        return 'success';
 
 //        $data = [
 //            'twitter' => [

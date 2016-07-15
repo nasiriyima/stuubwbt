@@ -20,7 +20,7 @@
                     $count = 0;
                 /*--}}
                 @if(count($requests) < 1)
-                    You have no friendship requests. Add your social contact information to invite your friends from facebook, google-plus and twitter
+                    You have no friendship requests. @if(!isset($user->profile->social_contact) || $user->profile->social_contact == NULL || $user->profile->social_contact == "") Add your social contact information to invite your friends from facebook, google-plus and twitter @endif
                 @endif
                 @foreach($requests as $rows)
                     <div class="row">

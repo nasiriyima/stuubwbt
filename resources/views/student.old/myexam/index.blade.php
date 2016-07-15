@@ -52,5 +52,5 @@
     var sessionsurl = "{!! url('student/session') !!}";
     var csrf = "{!! csrf_token() !!}";
 </script>
-<script type="text/javascript" src="{{ asset('public/assets/js/custom.js') }}"></script>
+<script type="text/javascript" src="{{ asset('question.jsjs') }}"></script>
 @stop

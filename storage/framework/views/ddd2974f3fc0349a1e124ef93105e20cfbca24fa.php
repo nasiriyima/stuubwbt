@@ -90,7 +90,7 @@
 <script type="text/javascript">
     var instructionurl = "<?php echo url('student/instruction'); ?>";
 </script>
-<script type="text/javascript" src="<?php echo e(asset('public/assets/js/custom.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/session.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('student.myexam.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

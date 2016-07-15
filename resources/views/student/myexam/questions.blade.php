@@ -54,7 +54,7 @@
                     <div class="thumbnail-img">
                         <div class="overflow-hidden">
                             @if($question->questionAdditionalInformation->information_type_id == 1 )
-                                <img class="img-responsive" src="{{ url('student/file/additional_info') }}/{{ $question->questionAdditionalInformation->description }}" width="200" height="50" alt="{{ $question->questionAdditionalInformation->name }}" />
+                                <img class="img-responsive" src="{{ (isset($trynow) && $trynow)? url('web/file/additional_info') : url('student/file/additional_info') }}/{{ $question->questionAdditionalInformation->description }}" width="200" height="50" alt="{{ $question->questionAdditionalInformation->name }}" />
                             @else
                                 {{--*/ $description = explode(' ', $question->questionAdditionalInformation->description);/*--}}
                                 <p>{!! implode(' ', array_splice($description, 0, 25)) !!} ....</p>
@@ -81,7 +81,7 @@
                                 <div class="headline"><h2>{{ $question->questionAdditionalInformation->name }}</h2></div>
                                 <center>
                                    @if($question->questionAdditionalInformation->information_type_id == 1 )
-                                       <img class="img-responsive" src="{{ url('student/file/additional_info') }}/{{ $question->questionAdditionalInformation->description }}" width="300" height="400" alt="{{ $question->questionAdditionalInformation->name }}" />
+                                       <img class="img-responsive" src="{{ (isset($trynow) && $trynow)? url('web/file/additional_info') : url('student/file/additional_info') }}/{{ $question->questionAdditionalInformation->description }}" width="300" height="400" alt="{{ $question->questionAdditionalInformation->name }}" />
                                    @else
                                        <p style="height: 300px; overflow-y: scroll;">{!! $question->questionAdditionalInformation->description !!}</p>
                                    @endif
@@ -158,7 +158,7 @@
                     </div>
                     <div class="modal-body alert alert-warning fade in text-center">
                         <p id="message"></p>
-                        <a class="btn-u btn-u-xs btn-u-default" data-dismiss="modal" href="javascript:void(0);">Cancel</a> <a class="btn-u btn-u-xs btn-u-default" onclick="finish();" href="javascript:void(0);">OK</a>
+                        <a class="btn-u btn-u-xs btn-u-default" data-dismiss="modal" href="javascript:void(0);" id="cancel">Cancel</a> <a class="btn-u btn-u-xs btn-u-default" onclick="finish();" href="javascript:void(0);" id="ok">OK</a>
                     </div>
             </div>
     </div>
@@ -169,10 +169,11 @@
 <script type="text/javascript">
     var totalQuestion = parseInt("{!! $questions->count() !!}");
     var timeleft = "{!! $time_left !!}";
+    var warningTime = "{!! $warning_time !!}"
     var questionids = JSON.parse('{!! json_encode($questionids) !!}');
     var csrf = "{!! csrf_token() !!}";
     var exam = "{!! $exam !!}";
-    var examcompleteurl = "{!! url('student/exam-complete') !!}";
+    var examcompleteurl = "{!! (isset($trynow) && $trynow)?  url('web/exam-complete') :  url('student/exam-complete') !!}";
 </script>
-<script type="text/javascript" src="{{ asset('public/assets/js/custom.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/assets/js/questions.js') }}"></script>
 @stop

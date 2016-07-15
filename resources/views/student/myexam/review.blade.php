@@ -94,8 +94,8 @@
                     </div>
                     <div class="modal-body alert alert-warning fade in text-center">
                         <p>If you want to retake this exam click YES on this dialog or click NO to return to exam score board</p>
-                        <a class="btn-u btn-u-xs btn-u-default" href="{{ url('student/instructions').'/'.\Session::get('body').'/'.\Session::get('category').'/'.\Session::get('subject').'/'.\Session::get('month').'/'.\Session::get('session') }}">YES</a>
-                        <a class="btn-u btn-u-xs btn-u-default" href="{{ url('student/exam-complete') }}">NO</a>
+                        <a class="btn-u btn-u-xs btn-u-default" href="{{ (isset($trynow) && $trynow)? url('web/try-now') : url('student/instructions') }}/{{  \Session::get('body') }}/{{  \Session::get('category') }}/{{  \Session::get('subject') }}/{{  \Session::get('month') }}/{{  \Session::get('session') }}">YES</a>
+                        <a class="btn-u btn-u-xs btn-u-default" href="{{ (isset($trynow) && $trynow)? url('web/exam-complete') : url('student/exam-complete') }}">NO</a>
 
                     </div>
             </div>

@@ -55,7 +55,7 @@
                     <div class="thumbnail-img">
                         <div class="overflow-hidden">
                             <?php if($question->questionAdditionalInformation->information_type_id == 1 ): ?>
-                                <img class="img-responsive" src="<?php echo e(url('student/file/additional_info')); ?>/<?php echo e($question->questionAdditionalInformation->description); ?>" width="200" height="50" alt="<?php echo e($question->questionAdditionalInformation->name); ?>" />
+                                <img class="img-responsive" src="<?php echo e((isset($trynow) && $trynow)? url('web/file/additional_info') : url('student/file/additional_info')); ?>/<?php echo e($question->questionAdditionalInformation->description); ?>" width="200" height="50" alt="<?php echo e($question->questionAdditionalInformation->name); ?>" />
                             <?php else: ?>
                                 <?php /**/ $description = explode(' ', $question->questionAdditionalInformation->description);/**/ ?>
                                 <p><?php echo implode(' ', array_splice($description, 0, 25)); ?> ....</p>
@@ -82,7 +82,7 @@
                                 <div class="headline"><h2><?php echo e($question->questionAdditionalInformation->name); ?></h2></div>
                                 <center>
                                    <?php if($question->questionAdditionalInformation->information_type_id == 1 ): ?>
-                                       <img class="img-responsive" src="<?php echo e(url('student/file/additional_info')); ?>/<?php echo e($question->questionAdditionalInformation->description); ?>" width="300" height="400" alt="<?php echo e($question->questionAdditionalInformation->name); ?>" />
+                                       <img class="img-responsive" src="<?php echo e((isset($trynow) && $trynow)? url('web/file/additional_info') : url('student/file/additional_info')); ?>/<?php echo e($question->questionAdditionalInformation->description); ?>" width="300" height="400" alt="<?php echo e($question->questionAdditionalInformation->name); ?>" />
                                    <?php else: ?>
                                        <p style="height: 300px; overflow-y: scroll;"><?php echo $question->questionAdditionalInformation->description; ?></p>
                                    <?php endif; ?>
@@ -159,7 +159,7 @@
                     </div>
                     <div class="modal-body alert alert-warning fade in text-center">
                         <p id="message"></p>
-                        <a class="btn-u btn-u-xs btn-u-default" data-dismiss="modal" href="javascript:void(0);">Cancel</a> <a class="btn-u btn-u-xs btn-u-default" onclick="finish();" href="javascript:void(0);">OK</a>
+                        <a class="btn-u btn-u-xs btn-u-default" data-dismiss="modal" href="javascript:void(0);" id="cancel">Cancel</a> <a class="btn-u btn-u-xs btn-u-default" onclick="finish();" href="javascript:void(0);" id="ok">OK</a>
                     </div>
             </div>
     </div>
@@ -170,11 +170,12 @@
 <script type="text/javascript">
     var totalQuestion = parseInt("<?php echo $questions->count(); ?>");
     var timeleft = "<?php echo $time_left; ?>";
+    var warningTime = "<?php echo $warning_time; ?>"
     var questionids = JSON.parse('<?php echo json_encode($questionids); ?>');
     var csrf = "<?php echo csrf_token(); ?>";
     var exam = "<?php echo $exam; ?>";
-    var examcompleteurl = "<?php echo url('student/exam-complete'); ?>";
+    var examcompleteurl = "<?php echo (isset($trynow) && $trynow)?  url('web/exam-complete') :  url('student/exam-complete'); ?>";
 </script>
-<script type="text/javascript" src="<?php echo e(asset('public/assets/js/custom.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/questions.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('student.myexam.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

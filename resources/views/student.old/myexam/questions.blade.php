@@ -143,5 +143,5 @@
     var exam = "{!! $exam !!}";
     var examcompleteurl = "{!! url('student/exam-complete') !!}";
 </script>
-<script type="text/javascript" src="{{ asset('public/assets/js/custom.js') }}"></script>
+<script type="text/javascript" src="{{ asset('questions.jss') }}"question.js>
 @stop

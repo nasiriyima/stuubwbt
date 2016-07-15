@@ -13,7 +13,7 @@
 <script type="text/javascript" src="{{ asset('public/assets/plugins/owl-carousel/owl-carousel/owl.carousel.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <!-- JS Customization -->
-<script type="text/javascript" src="{{ asset('public/assets/js/custom.js')}}"></script>
+<script type="text/javascript" src="{{ asset('questions.jss')}}">question.js
 <!-- JS Page Level -->
 <script type="text/javascript" src="{{ asset('public/assets/js/app.js')}}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/plugins/fancy-box.js')}}"></script>

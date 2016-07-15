@@ -49,7 +49,7 @@
                                                 </p>
 					</div>
 					<div class="col-md-3 btn-buy animated fadeInRight">
-						<a href="#" class="btn-u btn-block btn-u-lg"><i class="fa fa-cloud-download"></i> Try Now</a>
+						<a href="javascript:void(0)" onclick="openTestWindow();" class="btn-u btn-block btn-u-lg"><i class="fa fa-cloud-download"></i> Try Now</a>
 					</div>
 				</div>
 			</div>
@@ -130,6 +130,16 @@
                 StyleSwitcher.initStyleSwitcher();
                 ParallaxSlider.initParallaxSlider();
         });
+</script>
+<script type="text/javascript">
+    var examwindow = window;
+    function openTestWindow(){
+        var w = screen.width;
+        var h = screen.height;
+//        var s = w+"px "+h+"px";
+//        $("body").css("background-size",s);
+        examwindow.open("<?php echo url('web/try-now'); ?>",'winname','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width='+w+',height='+h);
+    }
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('web_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
