@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+
 use App\Http\Requests;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\File;
@@ -16,10 +18,10 @@ class StudentController extends Controller
            return redirect('web')->send();
         }
         $this->page_data['user'] = \App\User::find(\Sentinel::check()->id);
-        $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->count();
-        $this->page_data['sent_count'] = \App\User::find($this->page_data['user']->id)->sender()->sent()->count();
-        $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->count();
-        $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->receiver()->onlyTrashed()->get()->count();
+        $this->page_data['inbox_count'] = \App\User::find($this->page_data['user']->id)->receiverMessage()->inbox()->count();
+        $this->page_data['sent_count'] = \App\User::find($this->page_data['user']->id)->senderMessage()->sent()->count();
+        $this->page_data['saved_count'] = \App\User::find($this->page_data['user']->id)->senderMessage()->draft()->count();
+        $this->page_data['deleted_count'] = \App\User::find($this->page_data['user']->id)->receiverMessage()->onlyTrashed()->get()->count();
         $this->page_data['notifications'] = $this->getNotifications();
     }
     /*
@@ -149,6 +151,7 @@ class StudentController extends Controller
     }
 
     public function getInstructions($body,$category,$subject,$month,$session){
+        \Session::forget('time_left');
         $exam = \App\Exam::where([
             'subject_id' => $subject,
             'exam_provider_id' => $body,
@@ -167,6 +170,7 @@ class StudentController extends Controller
             $data['exam'] = $exam->id;
             $data['time_allowed'] = $exam->time_allowed;
             $data['time_left'] = $this->getTimeLeft($exam->id,$data['time_allowed']);
+            $data['warning_time'] = $this->getWarningTime($data['time_allowed']);
             $data['month'] = $month;
             $data['monthname'] = \App\Month::find($month)->name;
             \Session::put('monthname',$data['monthname']);
@@ -190,6 +194,7 @@ class StudentController extends Controller
             $data['time_allowed'] = \App\Question::where([
                 'exam_id' => $exam])->first()->exam->time_allowed;
             $data['time_left'] = $this->getTimeLeft($exam, $data['time_allowed']);
+            $data['warning_time'] = $this->getWarningTime($data['time_allowed']);
             $data['bodyname'] = \Session::get('bodyname');
             $data['categoryname'] = \Session::get('categoryname');
             $data['subjectname'] = \Session::get('subjectname');
@@ -199,6 +204,7 @@ class StudentController extends Controller
         }
         return redirect('student')->with('error','No active exam session was found');
     }
+
     public function postExamComplete(){
         $data = \Request::except('_token');
         $passed = 0;
@@ -217,7 +223,6 @@ class StudentController extends Controller
         \Session::put('failedpercentage',  number_format($failed*100/count($data['selections']),2));
         \Session::put('userselection',  json_encode($data['selections']));
         \Session::put('systemselection',  json_encode($systemselection));
-
         $history = new \App\History();
         $history->exam_id = \Session::get('exam');
         $history->elapsed_time = $data['elapsed_time'];
@@ -296,7 +301,7 @@ class StudentController extends Controller
     }
 
     public function getMyMessageInbox(){
-        $this->page_data['message_inbox'] = \App\User::find($this->page_data['user']->id)->receiver()->inbox()->get();
+        $this->page_data['message_inbox'] = \App\User::find($this->page_data['user']->id)->receiverMessage()->inbox()->get();
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['open'] = 'open';
@@ -314,23 +319,13 @@ class StudentController extends Controller
             if($validator->passes()){
                 if(isset($request['to'])){
                     foreach($request['to'] as $id){
-                        //Save Inbox with status unread
+                        //Send Inbox with status unread
                         $message = new \App\Message();
                         $message->subject = $request['subject'];
                         $message->body = $request['body'] or '';
                         $message->receiver_id = $id;
                         $message->sender_id = $this->page_data['user']->id;
-                        $message->store = 1;
-                        $message->status = 0;
-                        $message->save();
-
-                        //Save Sent with status 0
-                        $message = new \App\Message();
-                        $message->subject = $request['subject'];
-                        $message->body = $request['body'] or '';
-                        $message->receiver_id = $id;
-                        $message->sender_id = $this->page_data['user']->id;
-                        $message->store = 2;
+                        $message->store = 0;
                         $message->status = 0;
                         $message->save();
                     }
@@ -340,7 +335,7 @@ class StudentController extends Controller
                     $message->body = $request['body'];
                     $message->receiver_id = 0;
                     $message->sender_id = $this->page_data['user']->id;
-                    $message->store = 3;
+                    $message->store = 0;
                     $message->status = 0;
                     $message->save();
                 }
@@ -358,11 +353,23 @@ class StudentController extends Controller
             $validator = \Validator::make($request, $rules);
             if($validator->passes()){
                 foreach($request['to'] as $id){
+                    //Send Inbox with status unread
                     $message = new \App\Message();
                     $message->subject = $request['subject'];
                     $message->body = $request['body'];
                     $message->receiver_id = $id;
                     $message->sender_id = $this->page_data['user']->id;
+                    $message->store = 1;
+                    $message->status = 0;
+                    $message->save();
+
+                    //Save Sent with status 0
+                    $message = new \App\Message();
+                    $message->subject = $request['subject'];
+                    $message->body = $request['body'] or '';
+                    $message->receiver_id = $id;
+                    $message->sender_id = $this->page_data['user']->id;
+                    $message->store = 2;
                     $message->status = 0;
                     $message->save();
                     if(!$message->save()){
@@ -371,7 +378,8 @@ class StudentController extends Controller
                         $message->body = $request['body'];
                         $message->receiver_id = $id;
                         $message->sender_id = $this->page_data['user']->id;
-                        $message->status = 3;
+                        $message->store = 0;
+                        $message->status = 0;
                         $message->save();
                     }
                 }
@@ -392,7 +400,10 @@ class StudentController extends Controller
                 'sender' => $sender,
                 'message' => [
                     'subject' => 'RE: '.$message->subject,
-                    'body' => $message->body
+                    'body' => '<br /> ---------- Reply message ---------- <br />
+                                From: '.$sender->first_name.'<br />
+                                Date: '.$message->created_at->format('D, M d, Y @ h:m').'<br />
+                                Subject: '.$message->subject.'<br />'.$message->body
                 ]
             ]);
         }
@@ -443,7 +454,7 @@ class StudentController extends Controller
     }
 
     public function getMyMessageSent(){
-        $this->page_data['message_sent'] = \App\User::find($this->page_data['user']->id)->sender()->sent()->get();
+        $this->page_data['message_sent'] = \App\User::find($this->page_data['user']->id)->senderMessage()->sent()->get();
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['open'] = 'open';
@@ -451,7 +462,7 @@ class StudentController extends Controller
     }
 
     public function getMyMessageSaved(){
-    $this->page_data['message_saved'] = \App\User::find($this->page_data['user']->id)->sender()->draft()->get();
+    $this->page_data['message_saved'] = \App\User::find($this->page_data['user']->id)->senderMessage()->draft()->get();
     $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
         $this->page_data['user']->profile()->statistics() : 0;
     $this->page_data['open'] = 'open';
@@ -459,7 +470,7 @@ class StudentController extends Controller
 }
 
     public function getMyMessageDeleted(){
-        $this->page_data['message_deleted'] =  \App\User::find($this->page_data['user']->id)->receiver()->onlyTrashed()->get();
+        $this->page_data['message_deleted'] =  \App\User::find($this->page_data['user']->id)->receiverMessage()->onlyTrashed()->get();
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['open'] = 'open';
@@ -522,7 +533,7 @@ class StudentController extends Controller
                 'created_at', [
                 Carbon::createFromTimestamp($startDate),
                 Carbon::createFromTimestamp($endDate)
-            ])->get();
+            ])->paginate(5);
             $this->page_data['startDate'] =  Carbon::createFromTimestamp($startDate);
             $this->page_data['endDate'] = Carbon::createFromTimestamp($endDate);
         } else {
@@ -532,7 +543,7 @@ class StudentController extends Controller
                 'created_at', [
                 Carbon::now()->startOfMonth(),
                 Carbon::now()
-            ])->get();
+            ])->paginate(5);
             $this->page_data['startDate'] = Carbon::now()->startOfMonth();
             $this->page_data['endDate'] = Carbon::now();
         }
@@ -560,11 +571,12 @@ class StudentController extends Controller
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
-        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.index')->with($this->page_data);
     }
 
     public function getFriendProfile($id){
+        if((int)$id != 0 ) return redirect('student/friend-profile/'. \Crypt::encrypt($id));
         $friend = \App\User::find(\Crypt::decrypt($id));
         $this->page_data['page_name'] = 'profile';
         $this->page_data['friend'] = $friend;
@@ -572,8 +584,29 @@ class StudentController extends Controller
             $friend->profile()->statistics() : 0;
         $userFriends = $this->page_data['user']->friendship()->requestAccepted()->get();
         $this->page_data['is_friend'] = $this->is_friend($friend->id, $userFriends);
+        $this->page_data['is_me'] = ($friend->id == $this->page_data['user']->id)? true: false;
+        $userPendingRequests = $this->page_data['user']->friend()->requestPending()->get();
+        $this->page_data['has_friend_request'] = $this->has_friend_request($friend->id, $userPendingRequests);
         $this->page_data['friendsStats'] = $friend->friendship()->requestAccepted()->count();
         return view('student.myprofile.friendprofile')->with($this->page_data);
+    }
+
+    public function getFriendProfileList($id){
+        $friend = \App\User::find(\Crypt::decrypt($id));
+        $this->page_data['page_name'] = 'friends';
+        $this->page_data['friend'] = $friend;
+        $this->page_data['profileStats'] = ($friend->profile)?
+            $friend->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $friend->friendship()->requestAccepted()->count();
+        $this->page_data['friends'] = $friend->friendship()->requestAccepted()->paginate(6)->setPath('student/lazy-load');
+        $this->page_data['friendships'] = $friend->friendship()->requests()->get();
+        $userFriends = $this->page_data['user']->friendship()->requestAccepted()->get();
+        $this->page_data['user_friends'] = $this->page_data['user']->friendship();
+        $this->page_data['is_friend'] = $this->is_friend($friend->id, $userFriends);
+        $this->page_data['is_me'] = ($friend->id == $this->page_data['user']->id)? true: false;
+        $userPendingRequests = $this->page_data['user']->friend()->requestPending()->get();
+        $this->page_data['has_friend_request'] = $this->has_friend_request($friend->id, $userPendingRequests);
+        return view('student.myprofile.friendprofilefriendslist')->with($this->page_data);
     }
 
     public function getProcessFriend($id, $type){
@@ -596,6 +629,9 @@ class StudentController extends Controller
             $userAcceptance->status = 1;
             $userAcceptance->save();
             if($friendRequest && $userAcceptance){
+                if(\Request::ajax()){
+                    return \Response::json(['message' => 'success']);
+                }
                 return redirect()->back()->with('success', 'you are now friends with '.$friendRequest->user->first_name);
             }
             return redirect()->back()->with('error', 'Your friendship acceptance could not be resolved please contact a system administrator');
@@ -641,6 +677,13 @@ class StudentController extends Controller
         }
     }
 
+    private function has_friend_request($id, $haystack){
+        foreach($haystack as $friend){
+            if($friend->user_id == $id || $friend->friend_id == $id) return true;
+        }
+        return false;
+    }
+
     private function is_friend($id, $haystack){
         foreach($haystack as $friend){
             if($friend->user_id == $id || $friend->friend_id == $id) return true;
@@ -676,12 +719,20 @@ class StudentController extends Controller
         return redirect()->back()->withErrors($validator->errors())->withInput($request);
     }
 
-    public function getFile($image){
+    public function getFile($directory, $image){
 
-        if(file_exists(str_replace('\\', '/', storage_path().'/profile_pictures/').$image)){
-            $path = str_replace('\\', '/', storage_path().'/profile_pictures/').$image;
+        if($directory == 'profile_pictures'){
+            if(file_exists(str_replace('\\', '/', storage_path().'/profile_pictures/').$image)){
+                $path = str_replace('\\', '/', storage_path().'/profile_pictures/').$image;
+            } else {
+                $path = str_replace('\\', '/', public_path().'/assets/img/team/img32-md.jpg');
+            }
         } else {
-            $path = str_replace('\\', '/', public_path().'/assets/img/team/img32-md.jpg');
+            if(file_exists(str_replace('\\', '/', storage_path().'/additional_info/').$image)){
+                $path = str_replace('\\', '/', storage_path().'/additional_info/').$image;
+            } else {
+                $path = str_replace('\\', '/', public_path().'/assets/img/team/img32-md.jpg');
+            }
         }
         $file = \File::get($path);
         $type = \File::mimeType($path);
@@ -883,7 +934,7 @@ class StudentController extends Controller
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
         $this->page_data['friends'] = $this->page_data['user']->friendship()->requestAccepted()->paginate(6)->setPath('student/lazy-load');
         $this->page_data['friendships'] = $this->page_data['user']->friendship()->requests()->get();
-        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.friends')->with($this->page_data);
     }
 
@@ -920,12 +971,12 @@ class StudentController extends Controller
         $friendship->status = 0;
         $friendship->save();
 
-        $friendship = new \App\Friendship();
-        $friendship->friend_id = $this->page_data['user']->id;
-        $friendship->user_id = $request['friend'];
-        $friendship->message = "";
-        $friendship->status = 0;
-        $friendship->save();
+//        $friendship = new \App\Friendship();
+//        $friendship->friend_id = $this->page_data['user']->id;
+//        $friendship->user_id = $request['friend'];
+//        $friendship->message = "";
+//        $friendship->status = 0;
+//        $friendship->save();
 
         return \Response::json([
             'message' => 'success'
@@ -933,19 +984,44 @@ class StudentController extends Controller
     }
 
     public function getMyConversations(){
+
         $this->page_data['page_name'] = 'messages';
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
-        $this->page_data['conversations'] = $this->page_data['user']->sender()->sentConversation(
+
+        $collection = $this->page_data['user']->senderMessage()->sentConversation(
             \Carbon\Carbon::now()->startOfMonth()->subMonths(2), \Carbon\Carbon::now()
-        )->get()->merge($this->page_data['user']->receiver()->receivedConversation(
+        )->get()->merge($this->page_data['user']->receiverMessage()->receivedConversation(
             \Carbon\Carbon::now()->startOfMonth()->subMonths(2), \Carbon\Carbon::now()
         )->get());
+        $offset = (\Request::input('page'))? (\Request::input('page') * 4) - 4: (1 * 4) - 4;
+        $array = $collection->toArray();
+        $conversation = array_splice($array, $offset, 4, true);
+        $this->page_data['conversations'] = new Paginator($conversation, count($collection->toArray()), 4, \Request::input('page'));
+        $this->page_data['conversations']->setPath(url('student/my-conversations'));
         $this->page_data['conversationStartDate'] = \Carbon\Carbon::now()->startOfMonth()->subMonths(2);
         $this->page_data['conversationEndDate'] = \Carbon\Carbon::now();
-        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.conversations')->with($this->page_data);
+    }
+
+    public function postConversationView($requester = ''){
+        $request = \Request::except('_token');
+        $this->page_data['message'] = \App\Message::find(\Crypt::decrypt($request['id']));
+        $this->page_data['message']->save();
+        return view('student.myprofile.viewconversation')->with($this->page_data);
+    }
+
+    public function getMyRequests(){
+        $this->page_data['page_name'] = 'requests';
+        $this->page_data['preferences'] = $this->page_data['user']->preference;
+        $this->page_data['friendshipRequests'] = $this->page_data['user']->friend()->requestPending()->paginate(4);
+        $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
+            $this->page_data['user']->profile()->statistics() : 0;
+        $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
+        return view('student.myprofile.friendshiprequest')->with($this->page_data);
     }
 
     public function getMySettings(){
@@ -954,7 +1030,7 @@ class StudentController extends Controller
         $this->page_data['profileStats'] = ($this->page_data['user']->profile)?
             $this->page_data['user']->profile()->statistics() : 0;
         $this->page_data['friendsStats'] = $this->page_data['user']->friendship()->requestAccepted()->count();
-        $this->page_data['messageStats'] = $this->page_data['user']->receiver()->count();
+        $this->page_data['messageStats'] = $this->page_data['user']->receiverMessage()->inbox()->count();
         return view('student.myprofile.settings')->with($this->page_data);
     }
 
@@ -1002,7 +1078,7 @@ class StudentController extends Controller
 
     public function getNotifications(){
         $notifications = [];
-        $messages = $this->page_data['user']->receiver()->unread();
+        $messages = $this->page_data['user']->receiverMessage()->unread();
         if($messages->count() > 0) $notifications['messages'] = $messages->orderBy('created_at', 'dsc')->first();
 
         $friendshipRequest = $this->page_data['user']->friend()->requestPending();
@@ -1036,13 +1112,12 @@ class StudentController extends Controller
     }
 
     private function getTimeLeft($exam, $time_allowed){
-        if(!\Session::has('time_left') && \Session::get('exam') != $exam){
+        if(\Session::get('time_left') == null || \Session::get('exam') != $exam){
             $time = explode(':',$time_allowed);
             $hr = $time[0];
             $min = $time[1];
             $sec = $time[2];
             \Session::put('time_left',date('Y/m/d H:i:s', strtotime("+$hr hour $min minute $sec second")));
-            \Session::put('exam', $exam);
             return date('Y/m/d H:i:s', strtotime("+$hr hour $min minute $sec second"));
         }
         return \Session::get('time_left');
@@ -1081,50 +1156,73 @@ class StudentController extends Controller
         return false;
     }
 
-    public function getEncode(){
-        $count = 4;
-        for($x=0; $x < 50; $x++){
-            $faker = \Faker\Factory::create();
-            $user = new \App\User();
-            $user->email = 'test'.$count.'@stuub.com';
-            $user->password = '$2y$10$i8r.KFFGinjtdyQyFbVsc./5q6hpg8XVwqbEix2xibIcGoICAlHve';
-            $user->permissions = null;
-            $user->last_login = null;
-            $user->first_name = $faker->name;
-            $user->user_type = 1;
-            $user->save();
-
-            \DB::table('activations')->insert([
-                'user_id' => $user->id,
-                'code' => 'TCgsBav8naOqzdiEeMl9vzkuuKqBgfgj',
-                'completed' => 1,
-                'completed_at' => \Carbon\Carbon::now(),
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ]);
-            $profile = new \App\Profile();
-            $profile->user_id = $user->id;
-            $profile->nick_name = $faker->name;
-            $profile->description = $faker->text;
-            $profile->phone = $faker->phoneNumber;
-            $profile->email = $faker->email;
-            $profile->address = $faker->address;
-            $profile->dob = $faker->date('Y-m-d');
-            $profile->social_contact = null;
-            $profile->school_id = ($count < 102)? $count : $count = 4;
-            $profile->education = null;
-            $profile->image = null;
-            $profile->save();
-            $count++;
-
-            $friendship = new \App\Friendship();
-            $friendship->user_id = 1;
-            $friendship->friend_id = $user->id;
-            $friendship->message = $faker->text;
-            $friendship->status = 1;
-            $friendship->save();
+    private function getWarningTime($time_left){
+        $warningTime = '00:05:00:00';
+        $hr = explode(':', $time_left)[0];
+        $min = explode(':', $time_left)[1];
+        $sec = explode(':', $time_left)[2];
+        $hrToSec = $hr * 60 * 60;
+        $minToSec = $min * 60;
+        $secTotal = $hrToSec + $minToSec + $sec;
+        if($secTotal < 301 ){
+            $halfTime = $secTotal/2;
+            if($halfTime < 60){
+                $warningTime = ($halfTime < 10)? '00:00:0'.floor($halfTime).':00': '00:00:'.floor($halfTime).':00';
+                return $warningTime;
+            }
+            $convertToMin = $halfTime/60;
+            $warningTime = ($convertToMin < 10)? '00:0'.floor($convertToMin).':00:00': '00:'.floor($convertToMin).':00:00';
+            return $warningTime;
         }
-        return 'success';
+        return $warningTime;
+    }
+
+    public function getEncode(){
+        $time_left = '00:01:00';
+        dd($this->getWarningTime($time_left));
+//        $count = 4;
+//        for($x=0; $x < 50; $x++){
+//            $faker = \Faker\Factory::create();
+//            $user = new \App\User();
+//            $user->email = 'test'.$count.'@stuub.com';
+//            $user->password = '$2y$10$i8r.KFFGinjtdyQyFbVsc./5q6hpg8XVwqbEix2xibIcGoICAlHve';
+//            $user->permissions = null;
+//            $user->last_login = null;
+//            $user->first_name = $faker->name;
+//            $user->user_type = 1;
+//            $user->save();
+//
+//            \DB::table('activations')->insert([
+//                'user_id' => $user->id,
+//                'code' => 'TCgsBav8naOqzdiEeMl9vzkuuKqBgfgj',
+//                'completed' => 1,
+//                'completed_at' => \Carbon\Carbon::now(),
+//                'created_at' => \Carbon\Carbon::now(),
+//                'updated_at' => \Carbon\Carbon::now()
+//            ]);
+//            $profile = new \App\Profile();
+//            $profile->user_id = $user->id;
+//            $profile->nick_name = $faker->name;
+//            $profile->description = $faker->text;
+//            $profile->phone = $faker->phoneNumber;
+//            $profile->email = $faker->email;
+//            $profile->address = $faker->address;
+//            $profile->dob = $faker->date('Y-m-d');
+//            $profile->social_contact = null;
+//            $profile->school_id = ($count < 102)? $count : $count = 4;
+//            $profile->education = null;
+//            $profile->image = null;
+//            $profile->save();
+//            $count++;
+//
+//            $friendship = new \App\Friendship();
+//            $friendship->user_id = 1;
+//            $friendship->friend_id = $user->id;
+//            $friendship->message = $faker->text;
+//            $friendship->status = 1;
+//            $friendship->save();
+//        }
+//        return 'success';
 
 //        $data = [
 //            'twitter' => [

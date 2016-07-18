@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+<<<<<<< HEAD
+  <component name="PublishConfigData" serverName="stuubwbt">
+    <serverData>
+      <paths name="medapp">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="studio24">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+=======
+  <component name="PublishConfigData" serverName="stuubwbt" />
+>>>>>>> 7359b2e2eeb9778efab1c374138237a5010297c3
+</project>

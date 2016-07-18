@@ -138,6 +138,11 @@
                                             </ul>
                                             <!--End Timeline-->
                                     </div>
+                                    <div class="row">
+                                            <center>
+                                                    {!! $histories->links() !!}
+                                            </center>
+                                    </div>
                             </div>
                             <!-- End Profile Content -->
                     </div>

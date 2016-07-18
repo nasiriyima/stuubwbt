@@ -42,4 +42,17 @@ class Friendship extends Model
     public function scopeSuggestion($query){
         return $query->where('status', '=', 1);
     }
+
+    public function scopeIsMutualFriend($query, $friends_friend_id){
+        $friends = $query->where(['status' => 1])->get();
+        foreach($friends as $friend){
+            if($friend->friend_id == $friends_friend_id) return true;
+        }
+        return "false";
+    }
+
+    public function scopeIsMe($query, $user_id, $friends_friend_id){
+        if($user_id == $friends_friend_id) return true;
+        return "false";
+    }
 }

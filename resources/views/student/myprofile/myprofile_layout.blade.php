@@ -17,7 +17,7 @@
 <div class="content profile">
     <!--Left Sidebar-->
     <div class="col-md-4 profile-body md-margin-bottom-40">
-        <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/'.$user->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $user->first_name }}">
+        <img class="img-responsive profile-img margin-bottom-20" width="453" height="453" src="{{ (isset($user->profile->image) && $user->profile->image !="" && $user->profile->image !=NULL)? url('student/file').'/profile_pictures/'.$user->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $user->first_name }}">
 
         <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
             <li class="list-group-item {{ ($page_name == 'profile')? 'active' : '' }}">
@@ -28,6 +28,9 @@
             </li>
             <li class="list-group-item {{ ($page_name == 'messages')? 'active' : '' }}">
                 <a href="{{ url('student/my-conversations') }}"><i class="fa fa-comments"></i> Conversations</a>
+            </li>
+            <li class="list-group-item {{ ($page_name == 'requests')? 'active' : '' }}">
+                <a href="{{ url('student/my-requests') }}"><i class="fa fa-share-alt"></i> Friendship Requests</a>
             </li>
             <li class="list-group-item {{ ($page_name == 'settings')? 'active' : '' }}">
                 <a href="{{ url('student/my-settings') }}"><i class="fa fa-cog"></i> Settings</a>
@@ -76,7 +79,7 @@
                             <li class="notification">
                                 <img class="rounded-x" src="{{ (isset($notifications['messages']->sender->profile->image) &&
                             $notifications['messages']->sender->profile->image !="" && $notifications['messages']->sender->profile->image !=NULL)?
-                             url('student/file').'/'.$notifications['messages']->sender->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $notifications['messages']->sender->first_name }}">
+                             url('student/file').'/profile_pictures/'.$notifications['messages']->sender->profile->image : asset('public/assets/img/user.jpg') }}" alt="{{ $notifications['messages']->sender->first_name }}">
                                 <div class="overflow-h">
                                     <span><strong>{{ $notifications['messages']->sender->first_name }}</strong> has sent you a message.</span>
                                     <small>{{ $notifications['messages']->created_at->diffForHumans() }}</small>

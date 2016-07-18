@@ -58,7 +58,7 @@
                                 <div class="modal-body alert alert-warning fade in text-center">
                                     <p>By clicking the continue button on this dialog, It is assumed that you have read and understood all instruction, and have also accepted our terms of use (TOU). Also note that, After clicking the continue option, your exam session starts.</p>
                                     <p>
-                                    <a class="btn-u btn-u-xs btn-u-red" data-dismiss="modal" href="#">Cancel</a> <a class="btn-u btn-u-xs btn-u-sea" href="{{ url('student/questions') }}/{{ $exam }}">Continue</a>
+                                    <a class="btn-u btn-u-xs btn-u-red" data-dismiss="modal" href="#">Cancel</a> <a class="btn-u btn-u-xs btn-u-sea" href="{{ (isset($trynow) && $trynow)?  url('web/try-now') :  url('student/questions') }}/{{ $exam }}">Continue</a>
                                 </div>
                         </div>
                 </div>

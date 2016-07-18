@@ -25,7 +25,7 @@ class Message extends Model
         return $body;
     }
 
-    public function scopeInbox($query, $sender_id='')
+    public function scopeInbox($query, $sender_id = '')
     {
         if($sender_id){
             return $query->where([
@@ -37,7 +37,7 @@ class Message extends Model
 
     public function scopeUnread($query)
     {
-        return $query->where(['status' => 0])->whereIn('store',[0,1])->orderBy('created_at', 'dsc');
+        return $query->where(['status' => 0])->whereIn('store',[1])->orderBy('created_at', 'dsc');
     }
 
     public function scopeSent($query){
@@ -55,13 +55,13 @@ class Message extends Model
     }
 
     public function scopeSentConversation($query, $startDate, $endDate){
-        return $query->whereIn('store',[2])->whereBetween('created_at', [
+        return $query->with('sender', 'receiver')->whereIn('status', [0])->whereIn('store',[2])->whereBetween('created_at', [
             $startDate, $endDate
         ])->orderBy('created_at', 'dsc');
     }
 
     public function scopeReceivedConversation($query, $startDate, $endDate){
-        return $query->whereIn('store',[1])->whereBetween('created_at', [
+        return $query->with('sender', 'receiver')->whereIn('status', [0,1])->whereIn('store',[1])->whereBetween('created_at', [
             $startDate, $endDate
         ])->orderBy('created_at', 'dsc');
     }
@@ -72,5 +72,13 @@ class Message extends Model
 
     public function receiver(){
         return $this->belongsTo('\App\User', 'receiver_id', 'id');
+    }
+
+    public function senderProfile(){
+        return $this->hasManyThrough( '\App\Profile', '\App\User', 'id', 'user_id', 'sender_id');
+    }
+
+    public function receiverProfile(){
+        return $this->hasManyThrough('\App\Profile', '\App\User', 'id', 'user_id', 'receiver_id');
     }
 }

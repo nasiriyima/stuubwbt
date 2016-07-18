@@ -64,7 +64,7 @@
                                                     <select data-placeholder="To" multiple style="width: 906px;" name="to[]" aria-multiselectable="true" class="chosen-select">
                                                         {{--*/$friends = $user->friendship()->requestAccepted()->get()/*--}}
                                                         @foreach($friends as $friend)
-                                                            <option value="{{ $friend->friend_id }}">{{ $friend->user->first_name }}</option>
+                                                            <option value="{{ $friend->friend_id }}">{{ $friend->friend->first_name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </label>
@@ -130,7 +130,6 @@
                                     </td>
                                     <td>
                                         @if($profileStats > 49)
-                                        <a href="#" title="reply" onclick="replyShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-reply"></span></a>
                                         <a href="#" title="Forward" onclick="forwardShowMessage('{{ \Crypt::encrypt($message->id) }}')"><span class="fa fa-forward"></span></a>
                                         @endif
                                         <a href="javascript:void(0)" onclick="showDeleteModal('{{ $message->id }}');" title="trash"><span class="fa fa-trash-o"></span></a>

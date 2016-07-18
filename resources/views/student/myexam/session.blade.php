@@ -91,5 +91,5 @@
 <script type="text/javascript">
     var instructionurl = "{!! url('student/instruction') !!}";
 </script>
-<script type="text/javascript" src="{{ asset('public/assets/js/custom.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/assets/js/session.js') }}"></script>
 @stop

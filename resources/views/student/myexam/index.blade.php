@@ -62,7 +62,6 @@
     var subjectsurl = "{!! url('student/subjects') !!}";
     var sessionsurl = "{!! url('student/session') !!}";
     var csrf = "{!! csrf_token() !!}";
-    var timeleft = '00:00:00';
 </script>
-<script type="text/javascript" src="{{ asset('public/assets/js/custom.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/assets/js/myexams.js') }}"></script>
 @stop
