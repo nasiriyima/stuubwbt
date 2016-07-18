@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-5 margin-top-20">
             <a href="javascript:void(0);" onclick="trashexam()"><i class="fa fa-3x fa-trash pull-right"></i></a>
-            <a href="javascript:void(0);" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
+            <a href="{{url('admin/exam-profile')}}/{{\Crypt::encrypt($exam->id)}}/edit" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
             @if($exam->status == 1)
             <a href="javascript:void(0);" onclick="unpublishexam()"><i class="fa fa-3x fa-ban pull-right"></i></a>
             @endif
@@ -67,7 +67,7 @@
                                      {{($question->question_additional_information_id)? $question->questionAdditionalInformation->name:' '}}
                                  </td>
                                  <td>
-                                     <i class="fa fa-edit"></i>
+                                     <a href="{{url('admin/exam-question-edit')}}/{{\Crypt::encrypt($question->id)}}"><i class="fa fa-edit"></i> Edit|</a>
                                      <i class="fa fa-trash"></i>
                                  </td>
                              </tr>
@@ -211,22 +211,40 @@
     function publichexam(){
         //Check Number of Questions != 0
         //Check Each Question has Answer Selected
-        var qcount = {{$exam->question->count()}};
+        var qcount = '{{$exam->question->count()}}';
         if(qcount == 0){
-            var message = '<strong>{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}</strong>';
+            var message = 'Add Examination Question(s) Before Publishing';
+            $('#message_div').html(
+                    '<div class="col-md-12">'+
+                    '<div class="alert alert-danger fade in text-center">'+
+                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                    '<h4>CANNOT PUBLISH EXAM</h4>'+
+                    '<h5>'+message+'</h5>'+
+                    '</div>'+
+                    '</div>');
+        }else{
+            $.ajax({
+                url: '{{url("admin/publish-exam")}}',
+                method: 'POST',
+                data:{
+                    _token:'{{csrf_token()}}',
+                    exam: '{{$exam->id}}'
+                },
+                success:function(response){
+                    $('#message_div').html(
+                            '<div class="col-md-12">'+
+                            '<div class="alert alert-succes fade in text-center">'+
+                            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                            '<h4>Exam Was Successfully Published</h4>'+
+                            '</div>'+
+                            '</div>');
+                },
+                error:function(){
+
+                }
+            });
+
         }
-        $('#message_div').html(
-                '<div class="col-md-12">'+
-                '<div class="alert alert-danger fade in text-center">'+
-                '<h4>CANNOT PUBLISH EXAM</h4>'+
-                '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                '<h5>'+message+'</h5>'+
-                '<p>'+
-                '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
-                ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
-                '</p>'+
-                '</div>'+
-                '</div>');
     }
 </script>
 @stop

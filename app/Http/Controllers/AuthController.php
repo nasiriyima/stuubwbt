@@ -143,7 +143,13 @@ class AuthController extends Controller
     
     private static function activateaccount($user, $code){
         if (\Activation::complete($user, $code)){
-            dd('activated');
+            $friendship = new \App\Friendship();
+            $friendship->user_id = $user->id;
+            $friendship->friend_id = 1;
+            $friendship->message = "";
+            $friendship->status = 1;
+            $friendship->save();
+            dd('activated and friend established with Admin');
         }else{
             dd('not activated');
         }

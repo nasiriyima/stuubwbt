@@ -4,81 +4,106 @@
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('maincontent'); ?>
 <link rel="stylesheet" href="<?php echo e(asset('assets/js/plugins/chosen/chosen.min.css')); ?>">
-	<div class="row">
-        <div class="col-md-6">
-            <div class="row margin-bottom-10">
-                <div class="col-md-6">
-                    <center>
-                        <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
-                            <li>
-                                <a href="<?php echo e(url('admin/news-item/add')); ?>"><i class="fa fa-question"></i>Questions</a>
-                                <span class="badge badge-green rounded-x"><?php echo e($exam->question->count()); ?></span>
-                            </li>
-                        </ul>
-                    </center>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-5 margin-top-20">
-            <a href="javascript:void(0);" onclick="trashexam()"><i class="fa fa-3x fa-trash pull-right"></i></a>
-            <a href="<?php echo e(url('admin/exam-profile')); ?>/<?php echo e(\Crypt::encrypt($exam->id)); ?>/edit" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
-            <?php if($exam->status == 1): ?>
-            <a href="javascript:void(0);" onclick="unpublishexam()"><i class="fa fa-3x fa-ban pull-right"></i></a>
-            <?php endif; ?>
-            <?php if($exam->status==0): ?>
-            <a href="javascript:void(0);" onclick="publichexam()"><i class="fa fa-3x fa-check pull-right"></i></a>
-            <?php endif; ?>
-        </div>
-    </div>
     <div class="row" id="message_div">
     </div>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">Examination Profile</a></li>
-        <li><a href="#addquestion" data-toggle="tab" class="add-info-save">Add Question</a></li>
+        <li class="active"><a href="#home" data-toggle="tab">Examination Profile Edit</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
             <div class="row">
                 <div class="col-md-12">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped">
-                         <thead>
-                             <tr>
-                                 <th>#</th>
-                                 <th>Question</th>
-                                 <th class="hidden-sm">Answer</th>
-                                 <th class="hidden-sm">Info</th>
-                                 <th class="hidden-sm">Actions</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                             <?php /**/$count=1;/**/ ?>
-                             <?php foreach($exam->question as $question): ?>
-                             <tr>
-                                 <td><?php echo e($count); ?></td>
-                                 <td><?php echo implode(' ', array_slice(explode(' ', $question->name), 0, 20)); ?></td>
-                                 <td class="hidden-sm">50</td>
-                                 <td>
-                                     <?php echo e(($question->question_additional_information_id)? $question->questionAdditionalInformation->name:' '); ?>
+                    <?php echo Form::open(array('url' => url('wbt/add-examination'),'class'=>'sky-form', 'id'=>'sky-form')); ?>
 
-                                 </td>
-                                 <td>
-                                     <a href="<?php echo e(url('admin/exam-question-edit')); ?>/<?php echo e(\Crypt::encrypt($question->id)); ?>"><i class="fa fa-edit"></i> Edit|</a>
-                                     <i class="fa fa-trash"></i>
-                                 </td>
-                             </tr>
-                             <?php /**/$count++;/**/ ?>
-                             <?php endforeach; ?>
-                     </table> 
+                    <fieldset>
+                        <div class="row">
+                            <section class="col col-4">
+                                <label class="select">
+                                    <span>EXAM PROVIDER</span>
+                                    <select name="provider">
+                                        <option value="0" selected disabled>Exam Provider</option>
+                                        <?php foreach($providers as $provider): ?>
+                                            <option value="<?php echo e($provider->id); ?>" <?php echo e(($exam->exam_provider_id == $provider->id)? 'selected':''); ?>><?php echo e($provider->name); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </label>
+                            </section>
+                            <section class="col col-4">
+                                <label class="select">
+                                    <span>EXAM SUBJECT</span>
+                                    <select name="subject_id" class="select">
+                                        <option value="0" selected disabled>Exam Subject</option>
+                                        <?php foreach($subjects as $subject): ?>
+                                            <option value="<?php echo e($subject->id); ?>" <?php echo e(($exam->subject_id == $subject->id)? 'selected':''); ?>><?php echo e($subject->name); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </label>
+                            </section>
+                            <section class="col col-4">
+                                <label class="input">
+                                    <span>TOTAL TIME ALLOWED</span>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="hr" placeholder="Hr.">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="min" placeholder="Min.">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="sec" placeholder="Sec.">
+                                        </div>
+                                    </div>
+                                </label>
+                            </section>
+                        </div>
+                        <div class="row">
+                            <section class="col col-4">
+                                <label class="select">
+                                    <span>EXAM YEAR</span>
+                                    <select name="session_id" class="select">
+                                        <option value="0" selected disabled>Exam Year</option>
+                                        <?php foreach($sessions as $session): ?>
+                                            <option value="<?php echo e($session->id); ?>" <?php echo e(($exam->session_id == $session->id)? 'selected':''); ?>><?php echo e($session->name); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </label>
+                            </section>
+                            <section class="col col-4">
+                                <label class="select">
+                                    <span>EXAM MONTH</span>
+                                    <select name="month_id">
+                                        <option value="0" selected disabled>Exam Month</option>
+                                        <?php foreach($months as $month): ?>
+                                            <option value="<?php echo e($month->id); ?>" <?php echo e(($exam->month_id == $month->id)? 'selected':''); ?>><?php echo e($month->name); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </label>
+                            </section>
+                            <section class="col col-4">
+                                <label class="select">
+                                    <span>INSTRUCTION</span>
+                                    <select name="instruction" class="select">
+                                        <option value="0" selected disabled>Exam Instruction</option>
+                                        <?php foreach($instructions as $instruction): ?>
+                                            <option value="<?php echo e($instruction->id); ?>" <?php echo e(($exam->instruction_id == $instruction->id)? 'selected':''); ?>><?php echo e($instruction->title); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </label>
+                            </section>
+                        </div>
+                    </fieldset>
+                    <footer>
+                        <div class="pull-right">
+                            <a href="<?php echo e(url('admin/exam-profile')); ?>/<?php echo e(\Crypt::encrypt($exam->id)); ?>" type="submit" class="btn-u btn-u-red">Cancel</a>
+                            <button type="submit" class="btn-u">Update Question Profile</button>
+                        </div>
+                    </footer>
+                    <?php echo Form::close(); ?>
+
                 </div>
+
             </div>
-        </div>
-        <div class="tab-pane fade in" id="addquestion">
-            <?php echo $__env->make('admin.addexamination', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
     </div>
 </div>
@@ -211,40 +236,22 @@
     function publichexam(){
         //Check Number of Questions != 0
         //Check Each Question has Answer Selected
-        var qcount = '<?php echo e($exam->question->count()); ?>';
+        var qcount = <?php echo e($exam->question->count()); ?>;
         if(qcount == 0){
-            var message = 'Add Examination Question(s) Before Publishing';
-            $('#message_div').html(
-                    '<div class="col-md-12">'+
-                    '<div class="alert alert-danger fade in text-center">'+
-                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                    '<h4>CANNOT PUBLISH EXAM</h4>'+
-                    '<h5>'+message+'</h5>'+
-                    '</div>'+
-                    '</div>');
-        }else{
-            $.ajax({
-                url: '<?php echo e(url("admin/publish-exam")); ?>',
-                method: 'POST',
-                data:{
-                    _token:'<?php echo e(csrf_token()); ?>',
-                    exam: '<?php echo e($exam->id); ?>'
-                },
-                success:function(response){
-                    $('#message_div').html(
-                            '<div class="col-md-12">'+
-                            '<div class="alert alert-succes fade in text-center">'+
-                            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                            '<h4>Exam Was Successfully Published</h4>'+
-                            '</div>'+
-                            '</div>');
-                },
-                error:function(){
-
-                }
-            });
-
+            var message = '<strong><?php echo e($exam->examProvider->code); ?>, <?php echo e($exam->subject->name); ?>, <?php echo e($exam->month->code); ?> <?php echo e($exam->session->name); ?></strong>';
         }
+        $('#message_div').html(
+                '<div class="col-md-12">'+
+                '<div class="alert alert-danger fade in text-center">'+
+                '<h4>CANNOT PUBLISH EXAM</h4>'+
+                '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                '<h5>'+message+'</h5>'+
+                '<p>'+
+                '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
+                ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
+                '</p>'+
+                '</div>'+
+                '</div>');
     }
 </script>
 <?php $__env->stopSection(); ?>

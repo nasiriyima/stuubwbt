@@ -2,7 +2,9 @@
     <div class="col-md-12">
         <?php echo Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')); ?>
 
+<?php /*
         <input type="hidden" name="examid" value="<?php echo e(\Crypt::encrypt($exam->id)); ?>">
+*/ ?>
             <fieldset>
                 <div class="row">
                     <div class="col-md-8">

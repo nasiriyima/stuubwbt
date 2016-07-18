@@ -14,6 +14,8 @@ class AdminController extends Controller
         //$this->middleware('sentinel');
         //$this->page_data['pagegroup'] = 'Aviation';
         $this->page_data['currentuser'] = "User";
+        //The User must be someone that can read messages
+        $this->page_data['messageUser'] = \App\User::find(1);
     }
      /**
      * Display a listing of the resource.
@@ -56,6 +58,7 @@ class AdminController extends Controller
         $this->page_data['student'] = \App\User::find(\Crypt::decrypt($id));
         $this->page_data['inbox_count'] = 0;
         $this->page_data['saved_count'] = 0;
+        $this->page_data['inbox'] = $this->page_data['messageUser']->receiver()->inbox(\Crypt::decrypt($id))->get();
        return view('admin.studentprofile', $this->page_data);
         $this->page_data['deleted_count'] = 0;
         //$this->page_data['performances'] = \App\ExamProvider::all();
@@ -118,12 +121,55 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getExamProfile($id)
+    public function getExamProfile($id, $param = ' ')
     {
+        if($param == ' '){
+            $this->page_data['exam'] = \App\Exam::find(\Crypt::decrypt($id));
+            $this->page_data['information'] = \App\QuestionAdditionalInformation::all();
+            return view('admin.examprofile',$this->page_data );
+        }elseif($param == 'edit'){
+            $this->page_data['exam'] = \App\Exam::find(\Crypt::decrypt($id));
+            $this->page_data['months'] = \App\Month::get();
+            $this->page_data['sessions'] = \App\Session::get();
+            $this->page_data['providers'] = \App\ExamProvider::get();
+            $this->page_data['subjects'] = \App\Subject::get();
+            $this->page_data['instructions'] = \App\Instruction::get();
+            return view('admin.examprofileedit',$this->page_data );
+        }elseif($param == 'update'){
+            dd('test3');
+        }
+        else{
+            dd('nothing');
+        }
+    }
 
-        $this->page_data['exam'] = \App\Exam::find(\Crypt::decrypt($id));
-        $this->page_data['information'] = \App\QuestionAdditionalInformation::all();
-        return view('admin.examprofile',$this->page_data );
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getExamQuestionEdit($id)
+    {
+        $this->page_data['question'] = \App\Question::find(\Crypt::decrypt($id));
+        $this->page_data['exam'] = \App\Exam::find($this->page_data['question']->id);
+        $this->page_data['instructions'] = \App\Instruction::get();
+        return view('admin.examquestionedit',$this->page_data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function postPublishExam(Request $request)
+    {
+        $data = $request->only(
+            'exam'
+        );
+        $examU = \App\Exam::find($data['exam']);
+        $exam['status'] = 1;
+        $examU->update($exam);
+        return json_encode($data);
     }
     
     public function getSubjectManager()
@@ -218,9 +264,12 @@ class AdminController extends Controller
         $formData = \Request::all();
         $slug = \Sentinel::findRoleBySlug($formData['rslug']);
         if($slug){
-        $data['validity'] = 'success';
-        }else{
             $data['validity'] = 'failed';
+            $data['title'] = 'ROLE NOT CREATED';
+            $data['message'] = 'Invalid "Slug Name",';
+        }else{
+            $data['validity'] = 'sucess';
+
         }
         return json_encode($data);
     }

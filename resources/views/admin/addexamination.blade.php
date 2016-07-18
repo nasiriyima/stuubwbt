@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         {!! Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
+{{--
         <input type="hidden" name="examid" value="{{\Crypt::encrypt($exam->id)}}">
+--}}
             <fieldset>
                 <div class="row">
                     <div class="col-md-8">

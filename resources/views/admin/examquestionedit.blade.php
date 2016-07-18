@@ -1,7 +1,6 @@
 @extends('admin_layout')
 
 @section('pagetitle')
-{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}
 @stop
 @section('maincontent')
 <link rel="stylesheet" href="{{ asset('assets/js/plugins/chosen/chosen.min.css') }}">
@@ -9,100 +8,11 @@
     </div>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">Examination Profile Edit</a></li>
+        <li class="active"><a href="#home" data-toggle="tab">Examination Question Edit</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
-            <div class="row">
-                <div class="col-md-12">
-                    {!! Form::open(array('url' => url('wbt/add-examination'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
-                    <fieldset>
-                        <div class="row">
-                            <section class="col col-4">
-                                <label class="select">
-                                    <span>EXAM PROVIDER</span>
-                                    <select name="provider">
-                                        <option value="0" selected disabled>Exam Provider</option>
-                                        @foreach($providers as $provider)
-                                            <option value="{{$provider->id}}" {{($exam->exam_provider_id == $provider->id)? 'selected':''}}>{{$provider->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </label>
-                            </section>
-                            <section class="col col-4">
-                                <label class="select">
-                                    <span>EXAM SUBJECT</span>
-                                    <select name="subject_id" class="select">
-                                        <option value="0" selected disabled>Exam Subject</option>
-                                        @foreach($subjects as $subject)
-                                            <option value="{{$subject->id}}" {{($exam->subject_id == $subject->id)? 'selected':''}}>{{$subject->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </label>
-                            </section>
-                            <section class="col col-4">
-                                <label class="input">
-                                    <span>TOTAL TIME ALLOWED</span>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <input type="text" name="hr" placeholder="Hr.">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" name="min" placeholder="Min.">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" name="sec" placeholder="Sec.">
-                                        </div>
-                                    </div>
-                                </label>
-                            </section>
-                        </div>
-                        <div class="row">
-                            <section class="col col-4">
-                                <label class="select">
-                                    <span>EXAM YEAR</span>
-                                    <select name="session_id" class="select">
-                                        <option value="0" selected disabled>Exam Year</option>
-                                        @foreach($sessions as $session)
-                                            <option value="{{$session->id}}" {{($exam->session_id == $session->id)? 'selected':''}}>{{$session->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </label>
-                            </section>
-                            <section class="col col-4">
-                                <label class="select">
-                                    <span>EXAM MONTH</span>
-                                    <select name="month_id">
-                                        <option value="0" selected disabled>Exam Month</option>
-                                        @foreach($months as $month)
-                                            <option value="{{$month->id}}" {{($exam->month_id == $month->id)? 'selected':''}}>{{$month->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </label>
-                            </section>
-                            <section class="col col-4">
-                                <label class="select">
-                                    <span>INSTRUCTION</span>
-                                    <select name="instruction" class="select">
-                                        <option value="0" selected disabled>Exam Instruction</option>
-                                        @foreach($instructions as $instruction)
-                                            <option value="{{$instruction->id}}" {{($exam->instruction_id == $instruction->id)? 'selected':''}}>{{$instruction->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </label>
-                            </section>
-                        </div>
-                    </fieldset>
-                    <footer>
-                        <div class="pull-right">
-                            <a href="{{url('admin/exam-profile')}}/{{\Crypt::encrypt($exam->id)}}" type="submit" class="btn-u btn-u-red">Cancel</a>
-                            <button type="submit" class="btn-u">Update Question Profile</button>
-                        </div>
-                    </footer>
-                    {!! Form::close() !!}
-                </div>
-
-            </div>
+            @include('admin.addexamination')
         </div>
     </div>
 </div>
@@ -129,7 +39,6 @@
 			$(".table").DataTable();
     CKEDITOR.replace('question');
     // jQuery, bind an event handler or use some other way to trigger ajax call.
-
     function loadImageFileAsURL()
     {
         var preview = document.querySelector('#img_preview');
@@ -217,40 +126,5 @@
             $("#desc_select_preview").append($("option:selected", this).attr("data-desc"));
         };
     });
-	function trashexam(){
-        $('#message_div').html(
-                '<div class="col-md-12">'+
-                    '<div class="alert alert-warning fade in text-center">'+
-                        '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                        '<h5>You are about to trash <strong>{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}</strong></h5>'+
-                        '<h4>DO YOU YOU WANT TO CONTINUE?</h4>'+
-                        '<p>'+
-                            '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
-                            ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
-                        '</p>'+
-                    '</div>'+
-                '</div>');
-    }
-
-    function publichexam(){
-        //Check Number of Questions != 0
-        //Check Each Question has Answer Selected
-        var qcount = {{$exam->question->count()}};
-        if(qcount == 0){
-            var message = '<strong>{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}</strong>';
-        }
-        $('#message_div').html(
-                '<div class="col-md-12">'+
-                '<div class="alert alert-danger fade in text-center">'+
-                '<h4>CANNOT PUBLISH EXAM</h4>'+
-                '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                '<h5>'+message+'</h5>'+
-                '<p>'+
-                '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
-                ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
-                '</p>'+
-                '</div>'+
-                '</div>');
-    }
 </script>
 @stop

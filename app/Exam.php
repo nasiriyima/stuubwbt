@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exam extends Model
 {
+    protected $fillable = [
+        'status'
+    ];
        //
     public function subject(){
         return $this->belongsTo('\App\Subject');

@@ -150,8 +150,8 @@ SYSTEM USER MANAGEMENT
             $(".permission:checked").each(function() {
                 permissions.push(this.value);
             });
-            var rname = $("input[name=fname]").val();
-            var rslug = $("input[name=lname]").val();
+            var rslug = $("input[name=fname]").val();
+            var rname = $("input[name=lname]").val();
 
             if(rname == '' || rslug == ''){
                 return false;

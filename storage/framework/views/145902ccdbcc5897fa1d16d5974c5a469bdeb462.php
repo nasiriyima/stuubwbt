@@ -58,6 +58,9 @@
                                 <?php echo $__env->make('admin.student.examhistory', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                             </div>
                             <div class="tab-pane fade in" id="comhis">
+                                <?php
+                                    dd($inbox);
+                                ?>
                             </div>
                         </div>
                     </div>
