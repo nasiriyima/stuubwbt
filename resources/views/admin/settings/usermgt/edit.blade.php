@@ -6,23 +6,46 @@ SYSTEM USER MANAGEMENT
 @section('maincontent')
 <div class="tab-v1">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">System Users</a></li>
-        <li><a href="#role" data-toggle="tab">System Roles</a></li>
-        <li><a href="#log" data-toggle="tab">Activity Log</a></li>
+        <li class="active"><a href="#home" data-toggle="tab">Edit Staff Details</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
-            @include('admin.settings.usermgt.users')
-        </div>
-        <div class="tab-pane fade in" id="role">
-            @include('admin.settings.usermgt.roles')
-        </div>
-        <div class="tab-pane fade in" id="log">
-            <div class="row">
-                <div class="col-md-12">
-               
+            {!! Form::open(array('url' => url('admin/update-staff-profile'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
+            <input type="hidden" name="staffid"  value="{{Crypt::encrypt($staff->id)}}">
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input">
+                            <span>STAFF NAME</span>
+                            <input type="text" name="first_name" placeholder="Full Name" value="{{$staff->first_name}}">
+                        </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input">
+                            <span>EMAIL</span>
+                            <input type="text" name="email" placeholder="Email Address" value="{{$staff->email}}">
+                        </label>
+                    </section>
                 </div>
-            </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <h5>USER ROLE(S)</h5>
+                    <div class="inline-group">
+                        @foreach($roles as $role)
+                            <div class="col-md-3">
+                                <label class="checkbox"><input type="checkbox" name="userroles[]" value="{{$role->slug}}"><i class="rounded-x" ></i>{{$role->name}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </fieldset>
+            <footer>
+                <div class="pull-right">
+                    <button type="submit" class="btn-u">Update Staff Details</button>
+                </div>
+            </footer>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
@@ -63,14 +86,14 @@ SYSTEM USER MANAGEMENT
             $(".permission:checked").each(function() {
                 permissions.push(this.value);
             });
-            var rslug = $("input[name=rslug]").val();
-            var rname = $("input[name=rname]").val();
+            var rslug = $("input[name=fname]").val();
+            var rname = $("input[name=lname]").val();
 
-            if(rname == ' ' || rslug == ' '){
+            if(rname == '' || rslug == ''){
                 return false;
             }else{
                 $.ajax({
-                        url: '{{url('auth/add-role')}}',
+                        url: '{{url('admin/add-role')}}',
                         method: 'POST',
                         dataType: 'json',
                         data:{
@@ -80,7 +103,7 @@ SYSTEM USER MANAGEMENT
                             _token: '{{csrf_token()}}'
                         },
                         success: function(rsp){
-                                location.reload();
+                                console.log(rsp);
                         },
                         error: function(err){
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class AdminController extends Controller
 {
@@ -70,12 +71,28 @@ class AdminController extends Controller
         return view('student.myprofile.index')->with($this->page_data);
     }
     
-    public function getUsersManagement()
+    public function getUsersManagement($id = ' ', $param = ' ')
     {
-        $this->page_data['staffs'] = \App\User::staffUsers();
         $this->page_data['roles'] = \Sentinel::getRoleRepository()->all();
         $this->page_data['modules'] = \App\Module::get();
-        return view('admin.settings.usermgt.index', $this->page_data);
+        if($id == ' ' && $param == ' '){
+            $this->page_data['staffs'] = \App\User::staffUsers();
+            return view('admin.settings.usermgt.index', $this->page_data);
+        }elseif ($param == 'edit'){
+            $this->page_data['staff'] = \Sentinel::findUserById(Crypt::decrypt($id));
+            return view('admin.settings.usermgt.edit', $this->page_data);
+        }elseif($param == 'disable'){
+
+        }else{
+            return redirect('admin/users-management');
+        }
+    }
+
+    public function postUpdateStaffProfile(Request $request){
+        $data = $request->only(['staffid', 'first_name', 'email', 'userroles']);
+        $user = \Sentinel::findUserById(Crypt::decrypt($data['staffid']));
+        $user = \Sentinel::update($user, $data);
+        return redirect('admin/users-management');
     }
     
     /**
@@ -258,19 +275,5 @@ class AdminController extends Controller
         $school->save();
 
         return redirect('admin/schools-manager')->with('message', 'School was added successfully');
-    }
-
-    public function postAddRole(){
-        $formData = \Request::all();
-        $slug = \Sentinel::findRoleBySlug($formData['rslug']);
-        if($slug){
-            $data['validity'] = 'failed';
-            $data['title'] = 'ROLE NOT CREATED';
-            $data['message'] = 'Invalid "Slug Name",';
-        }else{
-            $data['validity'] = 'sucess';
-
-        }
-        return json_encode($data);
     }
 }

@@ -1,8 +1,7 @@
-@extends('admin_layout')
-@section('pagetitle')
+<?php $__env->startSection('pagetitle'); ?>
     ADMIN DASHBOARD
-@stop
-@section('maincontent')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
     <div class="row">
         <div class="col-sm-7">
             <div class="row content-boxes-v2 content-boxes-v2-o margin-bottom-40">
@@ -36,4 +35,5 @@
             </div>
         </div>
     </div>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

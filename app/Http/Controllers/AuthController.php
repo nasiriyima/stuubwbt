@@ -154,6 +154,60 @@ class AuthController extends Controller
             dd('not activated');
         }
     }
+
+    public function postCreateStaff(Request $request){
+        $data = $request->only([
+           'fname', 'email', 'password', 'userroles'
+        ]);
+
+        $credentials = [
+            'email'    => $data['email'],
+            'password' => $data['password'],
+            'first_name' => $data['fname'],
+            'user_type' => 2,
+        ];
+        if(\Sentinel::findByCredentials($credentials)){
+           dd('user exist');
+        }else {
+            $user = \Sentinel::registerAndActivate($credentials);      //Register User
+            if(isset($data['userroles'])){
+                foreach($data['userroles'] as $roleslug){
+                    $role = \Sentinel::findRoleBySlug($roleslug);
+                    $role->users()->attach($user);
+                }
+            }
+            return redirect('admin/users-management');
+        }
+    }
+
+    public function postAddRole(){
+        $formData = \Request::all();
+        $slug = \Sentinel::findRoleBySlug($formData['rslug']);
+        if($slug){
+            $data['validity'] = 'failed';
+            $data['title'] = 'ROLE NOT CREATED';
+            $data['message'] = 'Invalid "Slug Name",';
+        }
+        else{
+            $permissions = [];
+            if(isset($formData['permissions'])){
+                foreach($formData['permissions'] as $permission){
+                    $perm[$permission] = true;
+                }
+                $role = \Sentinel::getRoleRepository()->createModel()->create([
+                    'name' => $formData['rname'],
+                    'slug' => $formData['rslug'],
+                    'permissions'=> $perm,
+                ]);
+            }
+            $role = \Sentinel::getRoleRepository()->createModel()->create([
+                'name' => $formData['rname'],
+                'slug' => $formData['rslug']
+            ]);
+            $data['validity'] = 'success';
+        }
+        return json_encode($data);
+    }
     
     public function getLogout(){
         \Sentinel::logout();

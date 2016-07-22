@@ -4,23 +4,48 @@ SYSTEM USER MANAGEMENT
 <?php $__env->startSection('maincontent'); ?>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">System Users</a></li>
-        <li><a href="#role" data-toggle="tab">System Roles</a></li>
-        <li><a href="#log" data-toggle="tab">Activity Log</a></li>
+        <li class="active"><a href="#home" data-toggle="tab">Edit Staff Details</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
-            <?php echo $__env->make('admin.settings.usermgt.users', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        </div>
-        <div class="tab-pane fade in" id="role">
-            <?php echo $__env->make('admin.settings.usermgt.roles', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-        </div>
-        <div class="tab-pane fade in" id="log">
-            <div class="row">
-                <div class="col-md-12">
-               
+            <?php echo Form::open(array('url' => url('admin/update-staff-profile'),'class'=>'sky-form', 'id'=>'sky-form')); ?>
+
+            <input type="hidden" name="staffid"  value="<?php echo e(Crypt::encrypt($staff->id)); ?>">
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input">
+                            <span>STAFF NAME</span>
+                            <input type="text" name="first_name" placeholder="Full Name" value="<?php echo e($staff->first_name); ?>">
+                        </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input">
+                            <span>EMAIL</span>
+                            <input type="text" name="email" placeholder="Email Address" value="<?php echo e($staff->email); ?>">
+                        </label>
+                    </section>
                 </div>
-            </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <h5>USER ROLE(S)</h5>
+                    <div class="inline-group">
+                        <?php foreach($roles as $role): ?>
+                            <div class="col-md-3">
+                                <label class="checkbox"><input type="checkbox" name="userroles[]" value="<?php echo e($role->slug); ?>"><i class="rounded-x" ></i><?php echo e($role->name); ?></label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </fieldset>
+            <footer>
+                <div class="pull-right">
+                    <button type="submit" class="btn-u">Update Staff Details</button>
+                </div>
+            </footer>
+            <?php echo Form::close(); ?>
+
         </div>
     </div>
 </div>
@@ -61,14 +86,14 @@ SYSTEM USER MANAGEMENT
             $(".permission:checked").each(function() {
                 permissions.push(this.value);
             });
-            var rslug = $("input[name=rslug]").val();
-            var rname = $("input[name=rname]").val();
+            var rslug = $("input[name=fname]").val();
+            var rname = $("input[name=lname]").val();
 
-            if(rname == ' ' || rslug == ' '){
+            if(rname == '' || rslug == ''){
                 return false;
             }else{
                 $.ajax({
-                        url: '<?php echo e(url('auth/add-role')); ?>',
+                        url: '<?php echo e(url('admin/add-role')); ?>',
                         method: 'POST',
                         dataType: 'json',
                         data:{
@@ -78,7 +103,7 @@ SYSTEM USER MANAGEMENT
                             _token: '<?php echo e(csrf_token()); ?>'
                         },
                         success: function(rsp){
-                                location.reload();
+                                console.log(rsp);
                         },
                         error: function(err){
 
