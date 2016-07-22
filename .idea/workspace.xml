@@ -2,69 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4e72792-6f94-4110-a16b-26dba3b8b596" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/js/myexams.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/js/session.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/035ad34444c48edeaa03f4053222f7430d0f6b4b.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/03ce76f6e005d6f5a1e6ab72b1931575a35ac4d2.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/09a4c972603ed10ab7f14edb6a427a21e949fd44.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/09c1c33ea587d16c0d63e11a65825cc975628010.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0e3f4e1c1e2edcfee559b6f0d93d8365f89b6413.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1790a519b3efb57333acfc1a17dba57c71e9de8d.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/17faec50ca996f6d618e8ec0025c417dc3bb5df3.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/1d8b129dd70a37f6bf8d89cae5066e96a429f3fe.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/22fc558ad10a28ce4e35ca18519e0fe98eb552c0.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/273e3f0f75e35959ad345bb217162c8a5ecb8d77.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/30bd1675e8ca650d5555419de34805bbf8658a9b.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/53d7842905345039bb3b0870f3a6accb0bf741f7.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5ab5ebd42b407aa6d56cce80e7de8a0be4da1027.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/5d55ef2f3232d1b7cb37d5f900a820a14394a61d.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/693a681b28764cb3df85d22dfddcfab5674f770b.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6b5b48c91191f2e56cebbbdbc73ec034b07ef359.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6d6f3fa686cc3ac8c5d4b792ca2c7718015f07b0.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/7264622f1dabf0584b213cbea7744744877393b9.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/8992abe34483a9686a6447b9166d72533ece713a.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/8ceffd04b7d69e2d3800b8d4b9be9b6dbe9dcf6d.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/92445de265852a56a3a15c1c5ff06ded6b47b69c.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9abdad95f80d023be80a485a4cd19ccf5128ef07.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a38990591f07cdd1158de67b6694001a51f272e7.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/a4c101e9b7e2bdb54657467b42532f24b7d4ecf2.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b230fc3999adc9c86c5c5e06be2c6c01b7b585af.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b7771b259c2a84ab48b9ad01770d7c8d72ad19d1.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/bcf83fa82051ad8940cec702dc182d5acd45f82f.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/c4439d00aab22f49d80072b76ef96851d244b9fa.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/cb78fecebd8972a8733387523d36254e42fb772f.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d076aa59c5db8e741dc23897a25d746c43171ba0.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d9372cdaf0f178260cf6c4424fcf0134129039c8.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f164bbab3bba65e13e4a11c9aafe40b9d3476002.php" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/assets/js/custom.js" afterPath="$PROJECT_DIR$/public/assets/js/questions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Exam.php" afterPath="$PROJECT_DIR$/app/Exam.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/WebController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/WebController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Message.php" afterPath="$PROJECT_DIR$/app/Message.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/app.php" afterPath="$PROJECT_DIR$/config/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/frontweb/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/frontweb/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/includes/admin/scripts_js.blade.php" afterPath="$PROJECT_DIR$/resources/views/includes/admin/scripts_js.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student.old/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/student.old/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student.old/myexam/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/student.old/myexam/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student.old/myexam/questions.blade.php" afterPath="$PROJECT_DIR$/resources/views/student.old/myexam/questions.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student.old/myexam/session.blade.php" afterPath="$PROJECT_DIR$/resources/views/student.old/myexam/session.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/include/scripts_js.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/include/scripts_js.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myexam/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myexam/index.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myexam/instructions.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myexam/instructions.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myexam/questions.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myexam/questions.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myexam/review.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myexam/review.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myexam/score.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myexam/score.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myexam/session.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myexam/session.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/student/myprofile/friendshiprequest.blade.php" afterPath="$PROJECT_DIR$/resources/views/student/myprofile/friendshiprequest.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/0c19a90d81d18c12f8990a7f5fd28c3d8413e221.php" afterPath="$PROJECT_DIR$/storage/framework/views/0c19a90d81d18c12f8990a7f5fd28c3d8413e221.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/2100fbbf2b4d293f0e2857af5b36a1bb026b56f1.php" afterPath="$PROJECT_DIR$/storage/framework/views/2100fbbf2b4d293f0e2857af5b36a1bb026b56f1.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/269e1f384fb0d2d73296b8593bb1c1ea7e03593e.php" afterPath="$PROJECT_DIR$/storage/framework/views/269e1f384fb0d2d73296b8593bb1c1ea7e03593e.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/698b7df533df13b26f67a2d7973a67115b279a72.php" afterPath="$PROJECT_DIR$/storage/framework/views/698b7df533df13b26f67a2d7973a67115b279a72.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/7695e01adda43fba6b844e71a08d95f4286fcb57.php" afterPath="$PROJECT_DIR$/storage/framework/views/7695e01adda43fba6b844e71a08d95f4286fcb57.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/bd012fe4e432c4b91f8e04decbae847d953ef68d.php" afterPath="$PROJECT_DIR$/storage/framework/views/bd012fe4e432c4b91f8e04decbae847d953ef68d.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/d8d1ca62726b84705adc071707efaa7e3b8486ce.php" afterPath="$PROJECT_DIR$/storage/framework/views/d8d1ca62726b84705adc071707efaa7e3b8486ce.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/ddd2974f3fc0349a1e124ef93105e20cfbca24fa.php" afterPath="$PROJECT_DIR$/storage/framework/views/ddd2974f3fc0349a1e124ef93105e20cfbca24fa.php" />
     </list>
     <ignored path="stuubwbt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -89,8 +30,8 @@
       <file leaf-file-name="StudentController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.2909093">
-              <caret line="1178" column="0" selection-start-line="1178" selection-start-column="0" selection-end-line="1178" selection-end-column="0" />
+            <state vertical-scroll-proportion="-3.581818">
+              <caret line="159" column="10" selection-start-line="159" selection-start-column="10" selection-end-line="159" selection-end-column="28" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -101,10 +42,9 @@
       <file leaf-file-name="score.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myexam/score.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.9636364">
+            <state vertical-scroll-proportion="-0.65384614">
               <caret line="38" column="115" selection-start-line="38" selection-start-column="115" selection-end-line="38" selection-end-column="115" />
               <folding>
-                <element signature="e#6720#6767#0#HTML" expanded="true" />
                 <marker date="1468512898969" expanded="true" signature="7805:7999" placeholder="..." />
                 <marker date="1468512898969" expanded="true" signature="7817:7998" placeholder="..." />
               </folding>
@@ -115,17 +55,17 @@
       <file leaf-file-name="WebController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/WebController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.2909093">
-              <caret line="283" column="5" selection-start-line="264" selection-start-column="4" selection-end-line="283" selection-end-column="5" />
+            <state vertical-scroll-proportion="-9.807693">
+              <caret line="252" column="32" selection-start-line="252" selection-start-column="32" selection-end-line="252" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="questions.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="questions.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myexam/questions.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.6">
+            <state vertical-scroll-proportion="0.02977233">
               <caret line="83" column="93" selection-start-line="83" selection-start-column="93" selection-end-line="83" selection-end-column="93" />
               <folding />
             </state>
@@ -135,21 +75,31 @@
       <file leaf-file-name="review.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/student/myexam/review.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-39.615383">
+            <state vertical-scroll-proportion="-0.65384614">
               <caret line="96" column="215" selection-start-line="96" selection-start-column="215" selection-end-line="96" selection-end-column="215" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="questions.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="questions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/assets/js/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46126762">
-              <caret line="107" column="33" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Exam.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Exam.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.115385">
+              <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -212,14 +162,14 @@
         <option value="$PROJECT_DIR$/../test/resources/views/layouts/layout-default.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/frontweb/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
-        <option value="$PROJECT_DIR$/app/Exam.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myexam/instructions.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myexam/review.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myexam/score.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/student/myexam/questions.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/js/questions.js" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/WebController.php" />
+        <option value="$PROJECT_DIR$/app/Exam.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/WebController.php" />
       </list>
     </option>
   </component>
@@ -239,7 +189,7 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="1378" />
+    <option name="width" value="1370" />
     <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -270,6 +220,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -647,7 +598,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -712,11 +662,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1378" height="735" extended-state="0" />
+    <frame x="-7" y="0" width="1370" height="735" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20998532" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2097489" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1092,19 +1042,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Exam.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02977233">
-          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/frontweb/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5831874">
           <caret line="137" column="27" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1112,63 +1053,69 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8809107">
           <caret line="60" column="184" selection-start-line="60" selection-start-column="184" selection-end-line="60" selection-end-column="184" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/myexam/score.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.9636364">
+        <state vertical-scroll-proportion="-0.65384614">
           <caret line="38" column="115" selection-start-line="38" selection-start-column="115" selection-end-line="38" selection-end-column="115" />
           <folding>
-            <element signature="e#6720#6767#0#HTML" expanded="true" />
             <marker date="1468512898969" expanded="true" signature="7805:7999" placeholder="..." />
             <marker date="1468512898969" expanded="true" signature="7817:7998" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Exam.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.115385">
+          <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/questions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/student/myexam/review.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-39.615383">
+        <state vertical-scroll-proportion="-0.65384614">
           <caret line="96" column="215" selection-start-line="96" selection-start-column="215" selection-end-line="96" selection-end-column="215" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/student/myexam/questions.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.6">
-          <caret line="83" column="93" selection-start-line="83" selection-start-column="93" selection-end-line="83" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/WebController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.2909093">
-          <caret line="283" column="5" selection-start-line="264" selection-start-column="4" selection-end-line="283" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.2909093">
-          <caret line="1178" column="0" selection-start-line="1178" selection-start-column="0" selection-end-line="1178" selection-end-column="0" />
+        <state vertical-scroll-proportion="-3.581818">
+          <caret line="159" column="10" selection-start-line="159" selection-start-column="10" selection-end-line="159" selection-end-column="28" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/questions.js">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/WebController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46126762">
-          <caret line="107" column="33" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="33" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-9.807693">
+          <caret line="252" column="32" selection-start-line="252" selection-start-column="32" selection-end-line="252" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/student/myexam/questions.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02977233">
+          <caret line="83" column="93" selection-start-line="83" selection-start-column="93" selection-end-line="83" selection-end-column="93" />
+          <folding />
         </state>
       </provider>
     </entry>

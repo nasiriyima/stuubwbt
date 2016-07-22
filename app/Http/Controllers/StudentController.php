@@ -157,7 +157,7 @@ class StudentController extends Controller
             'exam_provider_id' => $body,
             'month_id' => $month,
             'session_id' => $session,
-        ])->first();
+        ])->publishedExams()->first();
         if($exam && isset($exam) && !is_null($exam) && count($exam->question) > 0 ){
             $data['questions'] = count($exam->question);
             $data['instruction'] = $exam->instruction;

@@ -250,7 +250,7 @@ class WebController extends Controller
         foreach($coreSubjects as $subject){
             $exams = \App\Exam::where([
                 'subject_id' => $subject->id
-            ])->get();
+            ])->publishedExams();
             foreach($exams as $exam){
                 if(count($exam->question) > 0 && $count < 11){
                     $examDetails[$count] = $exam;
