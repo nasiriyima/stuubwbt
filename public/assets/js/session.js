@@ -2,7 +2,8 @@
  * Created by Asibi on 7/2/2016.
  */
 function submitform(){
-    if($("input[name=month]").val() && $("input[name=session]").val()){
+    if($("input[name=month]").val() !== "" && $("input[name=session]").val() !== "" &&
+        typeof $("input[name=month]").val() !== "undefined" && typeof $("input[name=session]").val() !== "undefined"){
         $.ajax({
             url:instructionurl,
             method:"post",

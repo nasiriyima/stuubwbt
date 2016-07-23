@@ -104,7 +104,6 @@ function nextQuestion(previous,question_id){
     $("#remaining").countdown(timeleft, function(event) {
       $(this).html(event.strftime('%Hh %Mm %Ss'));
         //console.log(event.strftime('%H:%M:%S:00'));
-        console.log(warningTime);
         if(warningTime === event.strftime('%H:%M:%S:00')){
             var message = "Exam time allowed has almost elapsed please tidy up your work";
             $("#message").html(message);
@@ -112,7 +111,9 @@ function nextQuestion(previous,question_id){
             $(".finish-waring-message #cancel").text("OK");
             $(".finish-waring-message").modal("show");
             setTimeout(function(){
-                $(".finish-waring-message").modal("toggle");
+                $(".finish-waring-message").modal("hide");
+                $(".finish-waring-message #ok").show();
+                $(".finish-waring-message #cancel").text("cancel");
             },5000);
         }
     }).on("finish.countdown", function(evt){
@@ -122,7 +123,7 @@ function nextQuestion(previous,question_id){
         $(".finish-waring-message #cancel").text("OK");
         $(".finish-waring-message").modal("show");
         setTimeout(function(){
-            $(".finish-waring-message").modal("toggle");
+            $(".finish-waring-message").modal("hide");
             finish();
         },10000);
 
@@ -207,4 +208,12 @@ function nextQuestion(previous,question_id){
             selections[index] = "0";
         });
         return selections;
+    }
+
+    function dismissModal(className){
+        $("."+className).modal("hide");
+        if(className == "finish-waring-message"){
+            $(".finish-waring-message #ok").show();
+            $(".finish-waring-message #cancel").text("cancel");
+        }
     }
