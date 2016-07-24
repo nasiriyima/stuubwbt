@@ -158,7 +158,7 @@
                     </div>
                     <div class="modal-body alert alert-warning fade in text-center">
                         <p id="message"></p>
-                        <a class="btn-u btn-u-xs btn-u-default" data-dismiss="modal" href="javascript:void(0);" id="cancel">Cancel</a> <a class="btn-u btn-u-xs btn-u-default" onclick="finish();" href="javascript:void(0);" id="ok">OK</a>
+                        <a class="btn-u btn-u-xs btn-u-default" href="javascript:dismissModal('finish-waring-message');" id="cancel">Cancel</a> <a class="btn-u btn-u-xs btn-u-default" onclick="finish();" href="javascript:void(0);" id="ok">OK</a>
                     </div>
             </div>
     </div>

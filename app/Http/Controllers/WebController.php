@@ -134,33 +134,37 @@ class WebController extends Controller
 
     private function getInstructions(){
         $exam = $this->generateRandomExam();
-        \Session::put('body', $exam->examProvider->id);
-        \Session::put('bodyname', $exam->examProvider->name);
-        \Session::put('category', $exam->subject->category_id);
-        \Session::put('categoryname', $exam->subject->category->name);
-        \Session::put('subject', $exam->subject_id);
-        \Session::put('subjectname', $exam->subject->name);
-        \Session::put('month', $exam->month_id);
-        \Session::put('monthname', $exam->month->name);
-        \Session::put('session', $exam->session_id);
-        \Session::put('sessionname', $exam->session->name);
-        \Session::put('exam', $exam->id);
+        if(isset($exam) && !empty($exam) && count($exam) > 0){
+            \Session::put('body', $exam->examProvider->id);
+            \Session::put('bodyname', $exam->examProvider->name);
+            \Session::put('category', $exam->subject->category_id);
+            \Session::put('categoryname', $exam->subject->category->name);
+            \Session::put('subject', $exam->subject_id);
+            \Session::put('subjectname', $exam->subject->name);
+            \Session::put('month', $exam->month_id);
+            \Session::put('monthname', $exam->month->name);
+            \Session::put('session', $exam->session_id);
+            \Session::put('sessionname', $exam->session->name);
+            \Session::put('exam', $exam->id);
 
-        $data['questions'] = count($exam->question);
-        $data['instruction'] = $exam->instruction;
-        $data['body'] = \Session::get('body');
-        $data['bodyname'] = \Session::get('bodyname');
-        $data['category'] = \Session::get('category');
-        $data['categoryname'] = \Session::get('categoryname');
-        $data['subject'] = \Session::get('subject');
-        $data['subjectname'] = \Session::get('subjectname');
-        $data['exam'] = $exam->id;
-        $data['time_allowed'] = '00:05:00:00';
-        $data['monthname'] = \Session::get('monthname');
-        $data['session'] = \Session::get('session');
-        $data['sessionname'] = \Session::get('sessionname');
-        $data['trynow'] = true;
-        return view('student.myexam.instructions',$data);
+            $data['questions'] = count($exam->question);
+            $data['instruction'] = $exam->instruction;
+            $data['body'] = \Session::get('body');
+            $data['bodyname'] = \Session::get('bodyname');
+            $data['category'] = \Session::get('category');
+            $data['categoryname'] = \Session::get('categoryname');
+            $data['subject'] = \Session::get('subject');
+            $data['subjectname'] = \Session::get('subjectname');
+            $data['exam'] = $exam->id;
+            $data['time_allowed'] = '00:05:00:00';
+            $data['monthname'] = \Session::get('monthname');
+            $data['session'] = \Session::get('session');
+            $data['sessionname'] = \Session::get('sessionname');
+            $data['trynow'] = true;
+            return view('student.myexam.instructions',$data);
+        }
+        return 'No exams have been published yet, <a href="'.url('web/sign-up').'">signup</a> and we shall notify you when exams are available or
+             you can <a href="javascript:window.close();">close this window</a> at anytime';
     }
 
     private function getQuestions(){
@@ -247,19 +251,19 @@ class WebController extends Controller
         $coreSubjects = \App\Subject::where([
             'category_id' => 1
         ])->get();
-        foreach($coreSubjects as $subject){
-            $exams = \App\Exam::where([
-                'subject_id' => $subject->id
-            ])->publishedExams();
-            foreach($exams as $exam){
-                if(count($exam->question) > 0 && $count < 11){
-                    $examDetails[$count] = $exam;
-                    $count++;
-                }
-            }
-        }
+        $offset = rand(0, 1);
+        $subject = $coreSubjects[$offset];
+        $exams = \App\Exam::where([
+            'subject_id' => $subject->id
+        ])->publishedExams();
+//        foreach($exams as $exam){
+//            if(count($exam->question) > 0 && $count < 11){
+//                $examDetails[$count] = $exam;
+//                $count++;
+//            }
+//        }
         $index = rand(1, count($examDetails));
-        return $examDetails[$index];
+        return (count($examDetails) > 0)? $examDetails[$index] : [];
     }
 
     private function getWarningTime($time_left){
