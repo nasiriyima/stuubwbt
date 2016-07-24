@@ -81,7 +81,10 @@ class AuthController extends Controller
     public function getAccountActivation($user)
     {
         \Activation::removeExpired(); // Remove all Expired Activations
-        $page_data['user'] = \Sentinel::findById(\Crypt::decrypt($user));
+        $userid = \Crypt::decrypt($user);
+        $page_data['user'] = \Sentinel::findById($userid);
+/*        $page_data['user'] = \Sentinel::findById($userid);*/
+/*        $page_data['user'] = \Sentinel::findById(\Crypt::decrypt($user));*/
         $page_data['pagename'] = "home";
         if($page_data['user']){
             if(\Activation::exists($page_data['user'])){

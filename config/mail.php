@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'junk@nasiriyima.com', 'name' => 'STUUB'],
+    'from' => ['address' => 'no-reply@stuub.com', 'name' => 'STUUB-WBT'],
 
     /*
     |--------------------------------------------------------------------------

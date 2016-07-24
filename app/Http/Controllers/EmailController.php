@@ -60,10 +60,16 @@ class EmailController extends Controller
     public static function sendEmail($data){
        $settings = self::MailSettings();
        self::configMailSettings($settings);
-        \Mail::later(10, 'email.accountActivation', $data, function($message) use ($data)
+
+        \Mail::queue('email.accountActivation', $data, function($message) use ($data)
         {
             $message->to($data['email'], $data['name'])
                     ->subject($data['subject']);
         });
+/*        \Mail::later(10, 'email.accountActivation', $data, function($message) use ($data)
+        {
+            $message->to($data['email'], $data['name'])
+                    ->subject($data['subject']);
+        });*/
     }
 }

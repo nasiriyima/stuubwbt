@@ -12,11 +12,15 @@ class AdminController extends Controller
 {
     protected $page_data = [];
     public function __construct() {
-        //$this->middleware('sentinel');
-        //$this->page_data['pagegroup'] = 'Aviation';
-        $this->page_data['currentuser'] = "User";
+        $this->middleware('sentinel');
+        $this->page_data['currentuser'] = \Sentinel::check();
         //The User must be someone that can read messages
         $this->page_data['messageUser'] = \App\User::find(1);
+        $this->page_data['inbox_count'] = \App\User::find($this->page_data['messageUser']->id)->receiverMessage()->inbox()->count();
+        $this->page_data['sent_count'] = \App\User::find($this->page_data['messageUser']->id)->senderMessage()->sent()->count();
+        $this->page_data['saved_count'] = \App\User::find($this->page_data['messageUser']->id)->senderMessage()->draft()->count();
+        $this->page_data['deleted_count'] = \App\User::find($this->page_data['messageUser']->id)->receiverMessage()->onlyTrashed()->get()->count();
+
     }
      /**
      * Display a listing of the resource.
@@ -25,7 +29,7 @@ class AdminController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.index');
+        return view('admin.index', $this->page_data);
     }
     
     /**
@@ -47,6 +51,164 @@ class AdminController extends Controller
             return redirect('admin/student-manager');
         }
 
+    }
+
+    public function getMyMessageInbox(){
+        $this->page_data['message_inbox'] = \App\User::find($this->page_data['messageUser']->id)->receiverMessage()->inbox()->get();
+        $this->page_data['profileStats'] = 100;
+        $this->page_data['open'] = 'open';
+        return view('admin.mymessage.index')->with($this->page_data);
+    }
+
+    public function getMyMessageSent(){
+        $this->page_data['message_sent'] = \App\User::find($this->page_data['messageUser']->id)->senderMessage()->sent()->get();
+        $this->page_data['profileStats'] = 100;
+        $this->page_data['open'] = 'open';
+        return view('admin.mymessage.sent')->with($this->page_data);
+    }
+
+    public function getMyMessageSaved(){
+        $this->page_data['message_saved'] = \App\User::find($this->page_data['messageUser']->id)->senderMessage()->draft()->get();
+        $this->page_data['profileStats'] = 100;
+        $this->page_data['open'] = 'open';
+        return view('admin.mymessage.saved')->with($this->page_data);
+    }
+
+    public function getMyMessageDeleted(){
+        $this->page_data['message_deleted'] =  \App\User::find($this->page_data['messageUser']->id)->receiverMessage()->onlyTrashed()->get();
+        $this->page_data['profileStats'] = 100;
+        $this->page_data['open'] = 'open';
+        return view('admin.mymessage.deleted')->with($this->page_data);
+    }
+
+    public function postProcessMessage(){
+        $request = \Request::except('_token');
+        $status = '';
+        if($request['action'] == 'Save'){
+            $rules = [
+                'subject' => 'required'
+            ];
+            $validator = \Validator::make($request, $rules);
+            if($validator->passes()){
+                if(isset($request['to'])){
+                    foreach($request['to'] as $id){
+                        //Send Inbox with status unread
+                        $message = new \App\Message();
+                        $message->subject = $request['subject'];
+                        $message->body = $request['body'] or '';
+                        $message->receiver_id = $id;
+                        $message->sender_id = $this->page_data['messageUser']->id;
+                        $message->store = 0;
+                        $message->status = 0;
+                        $message->save();
+                    }
+                } else {
+                    $message = new \App\Message();
+                    $message->subject = $request['subject'] or '';
+                    $message->body = $request['body'];
+                    $message->receiver_id = 0;
+                    $message->sender_id = $this->page_data['messageUser']->id;
+                    $message->store = 0;
+                    $message->status = 0;
+                    $message->save();
+                }
+                $status = 'Message was saved successfully';
+                return redirect()->back()->with('message', $status);
+            }
+            return redirect()->back()->withErrors($validator->errors());
+        }
+        if($request['action'] == 'Send' || $request['action'] == 'Reply' || $request['action'] == 'Forward'){
+            $rules = [
+                'to' => 'required',
+                'subject' => 'required|max:255',
+                'body' => 'required',
+            ];
+            $validator = \Validator::make($request, $rules);
+            if($validator->passes()){
+                foreach($request['to'] as $id){
+                    //Send Inbox with status unread
+                    $message = new \App\Message();
+                    $message->subject = $request['subject'];
+                    $message->body = $request['body'];
+                    $message->receiver_id = $id;
+                    $message->sender_id = $this->page_data['messageUser']->id;
+                    $message->store = 1;
+                    $message->status = 0;
+                    $message->save();
+
+                    //Save Sent with status 0
+                    $message = new \App\Message();
+                    $message->subject = $request['subject'];
+                    $message->body = $request['body'] or '';
+                    $message->receiver_id = $id;
+                    $message->sender_id = $this->page_data['messageUser']->id;
+                    $message->store = 2;
+                    $message->status = 0;
+                    $message->save();
+                    if(!$message->save()){
+                        $message = new \App\Message();
+                        $message->subject = $request['subject'];
+                        $message->body = $request['body'];
+                        $message->receiver_id = $id;
+                        $message->sender_id = $this->page_data['messageUser']->id;
+                        $message->store = 0;
+                        $message->status = 0;
+                        $message->save();
+                    }
+                }
+                $status = 'Message was sent successfully';
+                return redirect()->back()->with('message', $status);
+            }
+            return redirect()->back()->withErrors($validator->errors());
+        }
+    }
+
+    public function postDeleteMessage(){
+        $request = \Request::except('_token');
+        if($request['deleteType'] == 'one'){
+            $message = \App\Message::find($request['id']);
+            $message->delete();
+        } else {
+            unset($request['DataTables_Table_0_length']);
+            unset($request['deleteType']);
+            foreach($request as $id){
+                $message = \App\Message::find($id);
+                $message->delete();
+            }
+        }
+        return json_encode(['url' => url('admin/my-message-inbox')]);
+    }
+
+    public function postUndo(){
+        $request = \Request::except('_token');
+        if($request['undoType'] == 'one'){
+            $message = \App\Message::withTrashed()->find(\Crypt::decrypt($request['id']));
+            $message->restore();
+        } else {
+            unset($request['DataTables_Table_0_length']);
+            unset($request['undoType']);
+            foreach($request as $id){
+                $message = \App\Message::withTrashed()->find(\Crypt::decrypt($id));
+                $message->restore();
+            }
+        }
+        return json_encode(['url' => url('admin/my-message-deleted')]);
+    }
+
+    public function postForceDelete(){
+        $request = \Request::except('_token');
+        if($request['deleteType'] == 'one'){
+            $message = \App\Message::withTrashed()->find(\Crypt::decrypt($request['id']));
+            $message->forceDelete();
+        } else {
+            unset($request['DataTables_Table_0_length']);
+            unset($request['deleteType']);
+            foreach($request as $id){
+                $message = \App\Message::withTrashed()->find(\Crypt::decrypt($request['id']));
+                $message->forceDelete();
+            }
+        }
+        return json_encode(['url' => url('admin/my-message-inbox')]);
     }
 
     /**
