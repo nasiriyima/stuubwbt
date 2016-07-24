@@ -214,6 +214,6 @@ class AuthController extends Controller
     
     public function getLogout(){
         \Sentinel::logout();
-        return redirect()->back();
+        return redirect('/');
     }
 }

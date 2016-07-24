@@ -14,6 +14,9 @@ class AdminController extends Controller
     public function __construct() {
         $this->middleware('sentinel');
         $this->page_data['currentuser'] = \Sentinel::check();
+        if($this->page_data['currentuser']->user_type != 2){
+            return redirect('web')->send();
+        }
         //The User must be someone that can read messages
         $this->page_data['messageUser'] = \App\User::find(1);
         $this->page_data['inbox_count'] = \App\User::find($this->page_data['messageUser']->id)->receiverMessage()->inbox()->count();

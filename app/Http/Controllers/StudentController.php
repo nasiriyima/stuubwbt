@@ -14,6 +14,7 @@ class StudentController extends Controller
 {
     public $page_data = [];
     public function __construct(){
+        $this->middleware('sentinel');
         if(!\Sentinel::check()){
            return redirect('web')->send();
         }
