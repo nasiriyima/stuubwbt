@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ExamProvider extends Model
 {
     //
-    public function question(){
-        return $this->hasMany('\App\Question');
+    public function exam(){
+        return $this->hasMany('\App\Exam');
     }
 }

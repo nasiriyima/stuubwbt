@@ -14,8 +14,10 @@ class AdminController extends Controller
     public function __construct() {
         $this->middleware('sentinel');
         $this->page_data['currentuser'] = \Sentinel::check();
-        if($this->page_data['currentuser']->user_type != 2){
-            return redirect('web')->send();
+        if(\Sentinel::check()){
+            if($this->page_data['currentuser']->user_type != 2){
+                return redirect('web')->send();
+            }
         }
         //The User must be someone that can read messages
         $this->page_data['messageUser'] = \App\User::find(1);
@@ -224,7 +226,7 @@ class AdminController extends Controller
         $this->page_data['student'] = \App\User::find(\Crypt::decrypt($id));
         $this->page_data['inbox_count'] = 0;
         $this->page_data['saved_count'] = 0;
-        $this->page_data['inbox'] = $this->page_data['messageUser']->receiver()->inbox(\Crypt::decrypt($id))->get();
+        $this->page_data['inbox'] = $this->page_data['messageUser']->receiverMessage()->inbox(\Crypt::decrypt($id))->get();
        return view('admin.studentprofile', $this->page_data);
         $this->page_data['deleted_count'] = 0;
         //$this->page_data['performances'] = \App\ExamProvider::all();
@@ -269,6 +271,11 @@ class AdminController extends Controller
     {
         $this->page_data['exams'] = \App\Exam::publishedExams();
         $this->page_data['examcount'] = \App\Exam::count();
+        $this->page_data['providerscount'] = \App\ExamProvider::count();
+        $this->page_data['subjectcount'] = \App\Subject::count();
+        $this->page_data['categorycount'] = \App\Category::count();
+        $this->page_data['sessioncount'] = \App\Session::count();
+        $this->page_data['monthcount'] = \App\Month::count();
         return view('admin.wbtmanager', $this->page_data);
     }
     
@@ -357,7 +364,19 @@ class AdminController extends Controller
     public function getSubjectManager()
     {
         $this->page_data['subjects'] = \App\Subject::get();
+        $this->page_data['categories'] = \App\Category::get();
         return view('admin.subjectmanager', $this->page_data);
+    }
+
+    public function postAddSubject(Request $request)
+    {
+        $data = $request->only([
+            'code', 'name', 'description', 'category_id'
+        ]);
+        $subject = new \App\Subject();
+        $subject = $subject->create($data);
+
+        return redirect('admin/subject-manager');
     }
     
     public function getSubjectExams($id)
@@ -368,18 +387,71 @@ class AdminController extends Controller
     
     public function getProviderManager()
     {
-        return view('admin.providermanager');
+        $this->page_data['providers'] = \App\ExamProvider::all();
+        return view('admin.providermanager', $this->page_data);
+    }
+
+    public function getCategoryManager()
+    {
+        $this->page_data['categories'] = \App\Category::all();
+        return view('admin.categorymanager', $this->page_data);
+    }
+
+    public function getSessionManager()
+    {
+        $this->page_data['sessions'] = \App\Session::all();
+        return view('admin.sessionmanager', $this->page_data);
+    }
+
+    public function getMonthManager()
+    {
+        $this->page_data['months'] = \App\Month::all();
+        $this->page_data['providers'] = \App\ExamProvider::all();
+        return view('admin.monthmanager', $this->page_data);
+    }
+
+    public function postAddMonth(Request $request)
+    {
+        $data = $request->only([
+            'code', 'name', 'exam_provider_id'
+        ]);
+        $month = new \App\Month();
+        $month = $month->create($data);
+
+        return redirect('admin/month-manager');
+    }
+
+    public function postAddSession(Request $request)
+    {
+        $data = $request->only([
+            'code', 'name'
+        ]);
+        $session = new \App\Session();
+        $session = $session->create($data);
+
+        return redirect('admin/session-manager');
+    }
+
+    public function postAddCategory(Request $request)
+    {
+        $data = $request->only([
+            'code', 'name'
+        ]);
+        $category = new \App\Category();
+        $category = $category->create($data);
+
+        return redirect('admin/category-manager');
     }
 
     public function getNews($id = NULL)
     {
         if(empty($id)){
-            $page_data['Cnews'] = \App\News::withTrashed();
-            $page_data['news'] = \App\News::withTrashed()->get()->chunk(4);
-            return view('admin.news.newsindex', $page_data);
+            $this->page_data['Cnews'] = \App\News::withTrashed();
+            $this->page_data['news'] = \App\News::withTrashed()->get()->chunk(4);
+            return view('admin.news.newsindex', $this->page_data);
         }else{
-            $page_data['newsitem'] = \App\News::find(\Crypt::decrypt($id));
-            return view('admin.news.newsitem', $page_data);
+            $this->page_data['newsitem'] = \App\News::find(\Crypt::decrypt($id));
+            return view('admin.news.newsitem', $this->page_data);
         }
 
     }
@@ -392,8 +464,8 @@ class AdminController extends Controller
     public function getNewsItem($param1 = NULL)
     {
         if($param1 == 'add'){
-            $page_data['news'] = \App\News::withTrashed()->get()->chunk(4);
-            return view('admin.news.addnews', $page_data);
+            $this->page_data['news'] = \App\News::withTrashed()->get()->chunk(4);
+            return view('admin.news.addnews', $this->page_data);
         }
 
     }
