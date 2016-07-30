@@ -126,9 +126,9 @@
 			ReviewForm.initReviewForm();
 			CheckoutForm.initCheckoutForm();
                     });
-			$(".table").DataTable();
+
     CKEDITOR.replace('question');
-    // jQuery, bind an event handler or use some other way to trigger ajax call.
+        // jQuery, bind an event handler or use some other way to trigger ajax call.
 
     function loadImageFileAsURL()
     {

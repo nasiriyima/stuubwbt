@@ -1,10 +1,9 @@
-@extends('admin_layout')
+<?php $__env->startSection('pagetitle'); ?>
+<?php echo e($exam->examProvider->code); ?>, <?php echo e($exam->subject->name); ?>, <?php echo e($exam->month->code); ?> <?php echo e($exam->session->name); ?>
 
-@section('pagetitle')
-{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}
-@stop
-@section('maincontent')
-<link rel="stylesheet" href="{{ asset('assets/js/plugins/chosen/chosen.min.css') }}">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('assets/js/plugins/chosen/chosen.min.css')); ?>">
 	<div class="row">
         <div class="col-md-6">
             <div class="row margin-bottom-10">
@@ -13,7 +12,7 @@
                         <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
                             <li>
                                 <a href="javascript:void(0)"><i class="fa fa-question"></i>Questions</a>
-                                <span class="badge badge-green rounded-x">{{$exam->question->count()}}</span>
+                                <span class="badge badge-green rounded-x"><?php echo e($exam->question->count()); ?></span>
                             </li>
                         </ul>
                     </center>
@@ -22,13 +21,13 @@
         </div>
         <div class="col-md-5 margin-top-20">
             <a href="javascript:void(0);" onclick="trashexam()"><i class="fa fa-3x fa-trash pull-right"></i></a>
-            <a href="{{url('admin/exam-profile')}}/{{\Crypt::encrypt($exam->id)}}/edit" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
-            @if($exam->status == 1)
+            <a href="<?php echo e(url('admin/exam-profile')); ?>/<?php echo e(\Crypt::encrypt($exam->id)); ?>/edit" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
+            <?php if($exam->status == 1): ?>
             <a href="javascript:void(0);" onclick="unpublishexam()"><i class="fa fa-3x fa-ban pull-right"></i></a>
-            @endif
-            @if($exam->status==0)
+            <?php endif; ?>
+            <?php if($exam->status==0): ?>
             <a href="javascript:void(0);" onclick="publichexam()"><i class="fa fa-3x fa-check pull-right"></i></a>
-            @endif
+            <?php endif; ?>
         </div>
     </div>
     <div class="row" id="message_div">
@@ -57,27 +56,28 @@
                              </tr>
                          </thead>
                          <tbody>
-                             {{--*/$count=1;/*--}}
-                             @foreach($exam->question as $question)
+                             <?php /**/$count=1;/**/ ?>
+                             <?php foreach($exam->question as $question): ?>
                              <tr>
-                                 <td>{{$count}}</td>
-                                 <td>{!! implode(' ', array_slice(explode(' ', $question->name), 0, 20)) !!}</td>
+                                 <td><?php echo e($count); ?></td>
+                                 <td><?php echo implode(' ', array_slice(explode(' ', $question->name), 0, 20)); ?></td>
                                  <td class="hidden-sm">50</td>
                                  <td>
-                                     {{($question->question_additional_information_id)? $question->questionAdditionalInformation->name:' '}}
+                                     <?php echo e(($question->question_additional_information_id)? $question->questionAdditionalInformation->name:' '); ?>
+
                                  </td>
                                  <td>
-                                     <a href="{{url('admin/exam-question-edit')}}/{{\Crypt::encrypt($question->id)}}"><i class="fa fa-edit"></i> Edit|</a>
-                                     <a href="javascript:void(0)" onclick="showDeleteModal('{{$question->id}}');"><i class="fa fa-trash"></i> Delete</a>                                 </td>
+                                     <a href="<?php echo e(url('admin/exam-question-edit')); ?>/<?php echo e(\Crypt::encrypt($question->id)); ?>"><i class="fa fa-edit"></i> Edit|</a>
+                                     <a href="javascript:void(0)" onclick="showDeleteModal('<?php echo e($question->id); ?>');"><i class="fa fa-trash"></i> Delete</a>                                 </td>
                              </tr>
-                             {{--*/$count++;/*--}}
-                             @endforeach
+                             <?php /**/$count++;/**/ ?>
+                             <?php endforeach; ?>
                      </table> 
                 </div>
             </div>
         </div>
         <div class="tab-pane fade in" id="addquestion">
-            @include('admin.addexamination')
+            <?php echo $__env->make('admin.addexamination', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
     </div>
 </div>
@@ -95,20 +95,20 @@
         </div>
     </div>
 </div>
-@stop
-@section('pagecss')
-<link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')}}">
-<link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')}}">
-<link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
-@stop
-@section('pageplugins')
-<script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/js/forms/checkout.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/ckeditor/ckeditor.js')}}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagecss'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pageplugins'); ?>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/forms/checkout.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/ckeditor/ckeditor.js')); ?>"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
             OrderForm.initOrderForm();
@@ -128,9 +128,9 @@
         var formdata = new Object();
         formdata.question_id = $("input[name=delete_question_id]").val();
         formdata.exam_id = $("input[name=examid]").val();
-        formdata._token = "{!! csrf_token() !!}";
+        formdata._token = "<?php echo csrf_token(); ?>";
         $.ajax({
-            url: "{!! url('wbt/delete-exam-question') !!}",
+            url: "<?php echo url('wbt/delete-exam-question'); ?>",
             data: formdata,
             method:"post",
             success:function(response){
@@ -171,9 +171,9 @@
             }
         }
 
-        var url = '{!! url("wbt/additional-info") !!}';
+        var url = '<?php echo url("wbt/additional-info"); ?>';
         var formData = {
-            "_token" : "{!! csrf_token() !!}",
+            "_token" : "<?php echo csrf_token(); ?>",
             "image" : $("#img_preview").prop("src"),
             "image_description" : $("input[name=image_description]").val(),
             "text_description" : $("input[name=text_description]").val(),
@@ -216,7 +216,7 @@
         if ($("option:selected", this).attr("data-typ") == 1) {
             var img_id = $('option:selected', this).val();
             var img_ext = $('option:selected', this).attr('data-desc');
-            var img_url = '{!! asset("storage/additional_info/' + img_id + '.' + img_ext + '")!!}';
+            var img_url = '<?php echo asset("storage/additional_info/' + img_id + '.' + img_ext + '"); ?>';
             $("#img_select_preview").prop("src",img_url);
             $("#select_preview_title,#img_select_preview").show();
             $("#select_preview_title").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PREVIEW");
@@ -232,7 +232,7 @@
                 '<div class="col-md-12">'+
                     '<div class="alert alert-warning fade in text-center">'+
                         '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                        '<h5>You are about to trash <strong>{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}</strong></h5>'+
+                        '<h5>You are about to trash <strong><?php echo e($exam->examProvider->code); ?>, <?php echo e($exam->subject->name); ?>, <?php echo e($exam->month->code); ?> <?php echo e($exam->session->name); ?></strong></h5>'+
                         '<h4>DO YOU YOU WANT TO CONTINUE?</h4>'+
                         '<p>'+
                             '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
@@ -245,7 +245,7 @@
     function publichexam(){
         //Check Number of Questions != 0
         //Check Each Question has Answer Selected
-        var qcount = '{{$exam->question->count()}}';
+        var qcount = '<?php echo e($exam->question->count()); ?>';
         if(qcount == 0){
             var message = 'Add Examination Question(s) Before Publishing';
             $('#message_div').html(
@@ -258,11 +258,11 @@
                     '</div>');
         }else{
             $.ajax({
-                url: '{{url("admin/publish-exam")}}',
+                url: '<?php echo e(url("admin/publish-exam")); ?>',
                 method: 'POST',
                 data:{
-                    _token:'{{csrf_token()}}',
-                    exam: '{{$exam->id}}'
+                    _token:'<?php echo e(csrf_token()); ?>',
+                    exam: '<?php echo e($exam->id); ?>'
                 },
                 success:function(response){
                     $('#message_div').html(
@@ -281,4 +281,5 @@
         }
     }
 </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -14,14 +14,14 @@ class CBTController extends Controller
     /*
      * Exam View Controller
      */
-    Public function getIndex($examsession){
+    public function getIndex($examsession){
         return view('cbtmanager.exampage');
     }
     
     /*
      * Add Examination Question Function
      */
-    Public function postAddExamination(){
+    public function postAddExamination(){
         $formData = \Request::all();
         $exam = new \App\Exam();
         $exam->subject_id = $formData['subject_id'];
@@ -38,7 +38,7 @@ class CBTController extends Controller
     /*
      * Add Examination Question Function
      */
-    Public function postAddExaminationQuestion(){
+    public function postAddExaminationQuestion(){
         $formData = \Request::all();
         $question = new \App\Question();
         $question->code = 'test';
@@ -61,6 +61,73 @@ class CBTController extends Controller
            } 
         }
         return redirect('admin/exam-profile'.'/'.$formData['examid']);
+    }
+
+    /*
+     * Update Examination Question Function
+     */
+    public function postUpdateExaminationQuestion(Request $request){
+
+        $formData = \Request::all();
+        //Edit Question
+        $question = \App\Question::find(\Crypt::decrypt($formData['questionid']));
+        $question->question_additional_information_id = $formData['add_info'];
+        $question->name = $formData['question_name'];
+        $question->save();
+
+        //UnPublish Exam
+
+        //Delete Exam History
+        if($question->exam->history){
+            foreach($question->exam->history as $history){
+                $history->delete();
+            }
+        }
+
+        //Delete Question Options
+        if($question->option){
+            foreach($question->option as $option){
+                $option->delete();
+            }
+        }
+
+        for($x=1; $x<6; $x++){
+            $status =0;
+            if(\Request::Input('answer') == $x)
+                $status = 1;
+            if(!empty(\Request::Input('option'.$x))){
+                $option = new \App\Option();
+                $option->name = \Request::Input('option'.$x);
+                $option->question_id = $question->id;
+                $option->status = $status;
+                $option->save();
+            }
+        }
+        return redirect('admin/exam-profile'.'/'.\Crypt::encrypt($question->exam->id));
+    }
+
+
+    public function postDeleteExamQuestion(Request $request){
+        $data = $request->only([
+            'question_id',
+            'exam_id'
+        ]);
+        $question = \App\Question::find($data['question_id']);
+
+        //Delete Exam History
+        if($question->exam->history){
+            foreach($question->exam->history as $history){
+                $history->delete();
+            }
+        }
+
+        //Delete Question Options
+        foreach($question->option as $option){
+            $option->delete();
+        }
+        //Delete Question
+        $question->delete();
+        return json_encode(['url' => url('admin/exam-profile/'.$data['exam_id'])]);
     }
 
 
@@ -102,6 +169,12 @@ class CBTController extends Controller
         $info->save();
       }
 
+      $information = \App\QuestionAdditionalInformation::orderBy("created_at", "DESC")->get();
+      return $information;
+    }
+
+
+    Public function getAdditionalInfos() {
       $information = \App\QuestionAdditionalInformation::orderBy("created_at", "DESC")->get();
       return $information;
     }

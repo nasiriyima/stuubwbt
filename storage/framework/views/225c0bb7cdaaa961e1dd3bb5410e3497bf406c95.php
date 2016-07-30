@@ -1,10 +1,8 @@
-@extends('admin_layout')
-
-@section('pagetitle')
+<?php $__env->startSection('pagetitle'); ?>
     QUESTION EDIT
-@stop
-@section('maincontent')
-<link rel="stylesheet" href="{{ asset('assets/js/plugins/chosen/chosen.min.css') }}">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('maincontent'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('assets/js/plugins/chosen/chosen.min.css')); ?>">
     <div class="row" id="message_div">
     </div>
 <div class="tab-v1">
@@ -13,24 +11,24 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
-            @include('admin.addexaminationquestionedit')
+            <?php echo $__env->make('admin.addexaminationquestionedit', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
     </div>
 </div>
-@stop
-@section('pagecss')
-<link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')}}">
-<link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')}}">
-<link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
-@stop
-@section('pageplugins')
-<script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/js/forms/checkout.js')}}"></script>
-<script type="text/javascript" src="{{ asset('public/assets/plugins/ckeditor/ckeditor.js')}}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pagecss'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('pageplugins'); ?>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/dataTables/jquery.dataTables.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/js/forms/checkout.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('public/assets/plugins/ckeditor/ckeditor.js')); ?>"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
 			CheckoutForm.initCheckoutForm();
@@ -69,9 +67,9 @@
             }
         }
 
-        var url = '{!! url("wbt/additional-info") !!}';
+        var url = '<?php echo url("wbt/additional-info"); ?>';
         var formData = {
-            "_token" : "{!! csrf_token() !!}",
+            "_token" : "<?php echo csrf_token(); ?>",
             "image" : $("#img_preview").prop("src"),
             "image_description" : $("input[name=image_description]").val(),
             "text_description" : $("input[name=text_description]").val(),
@@ -112,14 +110,14 @@
     function addInfoSave() {
         $("#img_select_preview,#desc_select_preview,#select_preview_title").hide();
         $("#additional_info").append("<option value=''> No additional info </option>");
-        var url2 = '{!! url("wbt/additional-infos") !!}';
+        var url2 = '<?php echo url("wbt/additional-infos"); ?>';
         $.ajax({
             type: 'get',
             url: url2,
             success: function(informations) {
                 $("#additional_info").empty();
                 $("#additional_info").append("<option value='0'> No additional info </option>");
-                var add_info_id = '{!! $question->question_additional_information_id !!}';
+                var add_info_id = '<?php echo $question->question_additional_information_id; ?>';
                 $.each(informations, function(key, value) {
                     var id = value["id"];
                     var name = value["name"];
@@ -144,7 +142,7 @@
         if ($("option:selected", this).attr("data-typ") == 1) {
             var img_id = $('option:selected', this).val();
             var img_ext = $('option:selected', this).attr('data-desc');
-            var img_url = '{!! asset("storage/additional_info/' + img_id + '.' + img_ext + '")!!}';
+            var img_url = '<?php echo asset("storage/additional_info/' + img_id + '.' + img_ext + '"); ?>';
             $("#img_select_preview").prop("src",img_url);
             $("#select_preview_title,#img_select_preview").show();
             $("#select_preview_title").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PREVIEW");
@@ -156,4 +154,5 @@
         };
     });
 </script>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

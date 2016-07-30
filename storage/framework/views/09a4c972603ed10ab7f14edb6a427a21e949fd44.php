@@ -1,8 +1,9 @@
 <div class="row">
     <div class="col-md-12">
-        {!! Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
+        <?php echo Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')); ?>
 
-        <input type="hidden" name="examid" value="{{\Crypt::encrypt($exam->id)}}">
+
+        <input type="hidden" name="examid" value="<?php echo e(\Crypt::encrypt($exam->id)); ?>">
             <fieldset>
                 <div class="row">
                     <div class="col-md-8">
@@ -37,9 +38,9 @@
                         <section>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count=1;/*--}}
+                                    <?php /**/$count=1;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" required><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option1" placeholder="Option A" required>
@@ -48,9 +49,9 @@
                             </label>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count++;/*--}}
+                                    <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" required><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option2" placeholder="Option B" required>
@@ -59,9 +60,9 @@
                             </label>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count++;/*--}}
+                                    <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option3" placeholder="Option C">
@@ -70,9 +71,9 @@
                             </label>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count++;/*--}}
+                                    <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option4" placeholder="Option D">
@@ -81,9 +82,9 @@
                             </label>
                             <label class="input">
                                 <div class="row">
-                                    {{--*/$count++;/*--}}
+                                    <?php /**/$count++;/**/ ?>
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
+                                        <label class="radio"><input type="radio" name="answer" value="<?php echo e($count); ?>" disabled required><i class="rounded-x"></i></label>
                                     </div>
                                     <div class="col-md-11">
                                         <input type="text" name="option5" placeholder="Option E">
@@ -99,12 +100,13 @@
                     <button type="submit" class="btn-u">Save and Add Questions</button>
                 </div>
             </footer>
-        {!! Form::close() !!}
+        <?php echo Form::close(); ?>
+
             <div class="modal fade row" id="add_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="javascript:void(0)" enctype="multipart/form-data" class="sky-form">
-                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title" id="myModalLabel4">Enter Additional Information</h4>

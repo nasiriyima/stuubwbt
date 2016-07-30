@@ -340,7 +340,7 @@ class AdminController extends Controller
     public function getExamQuestionEdit($id)
     {
         $this->page_data['question'] = \App\Question::find(\Crypt::decrypt($id));
-        $this->page_data['exam'] = \App\Exam::find($this->page_data['question']->id);
+        $this->page_data['options'] = $this->page_data['question']->option;
         $this->page_data['instructions'] = \App\Instruction::get();
         return view('admin.examquestionedit',$this->page_data);
     }

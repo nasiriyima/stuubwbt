@@ -1,15 +1,14 @@
 <div class="row">
     <div class="col-md-12">
-        {!! Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
-
-        <input type="hidden" name="examid" value="{{\Crypt::encrypt($exam->id)}}">
+        {!! Form::open(array('url' => url('wbt/update-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
+        <input type="hidden" name="questionid" value="{{\Crypt::encrypt($question->id)}}">
             <fieldset>
                 <div class="row">
                     <div class="col-md-8">
                         <section>
                             <label class="textarea">
                                 <span>QUESTION TEXT</span>
-                                <textarea rows="2" name="question_name" placeholder="Question Text" id="question" required ></textarea>
+                                <textarea rows="2" name="question_name" placeholder="Question Text" id="question" required>{{$question->name}}</textarea>
                             </label>
                         </section>
                     </div>
@@ -39,10 +38,13 @@
                                 <div class="row">
                                     {{--*/$count=1;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" required><i class="rounded-x"></i></label>
+                                        <label class="radio">
+                                            <input type="radio" name="answer" value="{{$count}}" required {{($options->count() > 0 && $options[0]->status == 1)? 'checked':''}}>
+                                            <i class="rounded-x"></i>
+                                        </label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option1" placeholder="Option A" required>
+                                        <input type="text" name="option1" placeholder="Option A" value="{{($options->count() > 0)? $options[0]->name:''}}" required>
                                     </div>
                                 </div>
                             </label>
@@ -50,10 +52,12 @@
                                 <div class="row">
                                     {{--*/$count++;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" required><i class="rounded-x"></i></label>
-                                    </div>
+                                        <label class="radio">
+                                            <input type="radio" name="answer" value="{{$count}}" required {{($options->count() > 1 && $options[1]->status == 1)? 'checked':''}}>
+                                            <i class="rounded-x"></i>
+                                        </label>                                    </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option2" placeholder="Option B" required>
+                                        <input type="text" name="option2" placeholder="Option B" value="{{($options->count() > 1)? $options[1]->name:''}}" required>
                                     </div>
                                 </div>
                             </label>
@@ -61,10 +65,12 @@
                                 <div class="row">
                                     {{--*/$count++;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
-                                    </div>
+                                        <label class="radio">
+                                            <input type="radio" name="answer" value="{{$count}}" required {{($options->count() > 2 && $options[2]->status == 1)? 'checked':''}}>
+                                            <i class="rounded-x"></i>
+                                        </label>                                    </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option3" placeholder="Option C">
+                                        <input type="text" name="option3" placeholder="Option C" value="{{($options->count() > 2)? $options[2]->name:''}}">
                                     </div>
                                 </div>
                             </label>
@@ -72,10 +78,12 @@
                                 <div class="row">
                                     {{--*/$count++;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
-                                    </div>
+                                        <label class="radio">
+                                            <input type="radio" name="answer" value="{{$count}}" required {{($options->count() > 3 && $options[3]->status == 1)? 'checked':''}}>
+                                            <i class="rounded-x"></i>
+                                        </label>                                    </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option4" placeholder="Option D">
+                                        <input type="text" name="option4" placeholder="Option D" value="{{($options->count() > 3)? $options[3]->name:''}}">
                                     </div>
                                 </div>
                             </label>
@@ -83,10 +91,12 @@
                                 <div class="row">
                                     {{--*/$count++;/*--}}
                                     <div class="col-md-1">
-                                        <label class="radio"><input type="radio" name="answer" value="{{$count}}" disabled required><i class="rounded-x"></i></label>
-                                    </div>
+                                        <label class="radio">
+                                            <input type="radio" name="answer" value="{{$count}}" required {{($options->count() > 4 && $options[4]->status == 1)? 'checked':''}}>
+                                            <i class="rounded-x"></i>
+                                        </label>                                    </div>
                                     <div class="col-md-11">
-                                        <input type="text" name="option5" placeholder="Option E">
+                                        <input type="text" name="option5" placeholder="Option E" value="{{($options->count() > 4)? $options[4]->name:''}}">
                                     </div>
                                 </div>
                             </label>
@@ -96,7 +106,7 @@
             </fieldset>
             <footer>
                 <div class="pull-right">
-                    <button type="submit" class="btn-u">Save and Add Questions</button>
+                    <button type="submit" class="btn-u">Update Question</button>
                 </div>
             </footer>
         {!! Form::close() !!}
