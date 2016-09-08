@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e72792-6f94-4110-a16b-26dba3b8b596" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Console/Kernel.php" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/includes/footer.blade.php" afterPath="$PROJECT_DIR$/resources/views/includes/footer.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/includes/header_css.blade.php" afterPath="$PROJECT_DIR$/resources/views/includes/header_css.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/0a3b623286027ba71e9ac93a2dbadb4bc3f24a5b.php" afterPath="$PROJECT_DIR$/storage/framework/views/0a3b623286027ba71e9ac93a2dbadb4bc3f24a5b.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/1f169ef8d79932c53d4537733596d1527b417ac3.php" afterPath="$PROJECT_DIR$/storage/framework/views/1f169ef8d79932c53d4537733596d1527b417ac3.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/551477115bd421eb6f2056dd4bd4194b6e5857cf.php" afterPath="$PROJECT_DIR$/storage/framework/views/551477115bd421eb6f2056dd4bd4194b6e5857cf.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/d5485c1ce82ab9c76e1661d84b620e2a6c5b3c88.php" afterPath="$PROJECT_DIR$/storage/framework/views/d5485c1ce82ab9c76e1661d84b620e2a6c5b3c88.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" />
     </list>
     <ignored path="stuubwbt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -337,15 +332,15 @@
       <workItem from="1469960194848" duration="860000" />
       <workItem from="1469987942881" duration="838000" />
       <workItem from="1470649046122" duration="2168000" />
-      <workItem from="1473341502631" duration="277000" />
+      <workItem from="1473341502631" duration="876000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42049000" />
+    <option name="totallyTimeSpent" value="42648000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="1" width="1364" height="726" extended-state="0" />
+    <frame x="1" y="1" width="1364" height="726" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
