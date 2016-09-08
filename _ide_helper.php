@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.43 on 2016-08-11.
+ * Generated for Laravel 5.2.45 on 2016-09-08.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -4843,7 +4843,7 @@ namespace {
          * Retrieve the minimum value of a given column.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function min($column){
@@ -4854,7 +4854,7 @@ namespace {
          * Retrieve the maximum value of a given column.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function max($column){
@@ -4865,7 +4865,7 @@ namespace {
          * Retrieve the sum of the values of a given column.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function sum($column){
@@ -4876,7 +4876,7 @@ namespace {
          * Retrieve the average of the values of a given column.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function avg($column){
@@ -4887,7 +4887,7 @@ namespace {
          * Alias for the "avg" method.
          *
          * @param string $column
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function average($column){
@@ -4899,11 +4899,23 @@ namespace {
          *
          * @param string $function
          * @param array $columns
-         * @return float|int 
+         * @return mixed 
          * @static 
          */
         public static function aggregate($function, $columns = array()){
             return \Illuminate\Database\Query\Builder::aggregate($function, $columns);
+        }
+        
+        /**
+         * Execute a numeric aggregate function on the database.
+         *
+         * @param string $function
+         * @param array $columns
+         * @return float|int 
+         * @static 
+         */
+        public static function numericAggregate($function, $columns = array()){
+            return \Illuminate\Database\Query\Builder::numericAggregate($function, $columns);
         }
         
         /**
@@ -7253,7 +7265,7 @@ namespace {
         }
         
         /**
-         * Get a subset of the items from the input data.
+         * Get a subset containing the provided keys with values from the input data.
          *
          * @param array|mixed $keys
          * @return array 
@@ -11978,6 +11990,27 @@ namespace {
          */
         public static function setReminderRepository($reminders){
             \Cartalyst\Sentinel\Sentinel::setReminderRepository($reminders);
+        }
+        
+        /**
+         * Returns the throttle repository.
+         *
+         * @return \Cartalyst\Sentinel\Throttling\ThrottleRepositoryInterface 
+         * @static 
+         */
+        public static function getThrottleRepository(){
+            return \Cartalyst\Sentinel\Sentinel::getThrottleRepository();
+        }
+        
+        /**
+         * Sets the throttle repository.
+         *
+         * @param \Cartalyst\Sentinel\Throttling\ThrottleRepositoryInterface $throttle
+         * @return void 
+         * @static 
+         */
+        public static function setThrottleRepository($throttle){
+            \Cartalyst\Sentinel\Sentinel::setThrottleRepository($throttle);
         }
         
         /**
