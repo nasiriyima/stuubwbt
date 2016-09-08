@@ -7,11 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
 {
     public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '40126584f138c5b242276af54966dc19' => __DIR__ . '/..' . '/nqxcode/phpmorphy/src/common.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
@@ -25,6 +25,10 @@ class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
         array (
             'tests\\' => 6,
         ),
+        'p' => 
+        array (
+            'phpDocumentor\\Reflection\\' => 25,
+        ),
         'Z' => 
         array (
             'Zend\\Stdlib\\' => 12,
@@ -33,6 +37,10 @@ class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
         'X' => 
         array (
             'XdgBaseDir\\' => 11,
+        ),
+        'W' => 
+        array (
+            'Webmozart\\Assert\\' => 17,
         ),
         'S' => 
         array (
@@ -110,6 +118,12 @@ class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
             0 => __DIR__ . '/..' . '/nqxcode/lucene-stemmer-en-ru/tests',
             1 => __DIR__ . '/..' . '/nqxcode/laravel-lucene-search/tests',
         ),
+        'phpDocumentor\\Reflection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+        ),
         'Zend\\Stdlib\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',
@@ -121,6 +135,10 @@ class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
         'XdgBaseDir\\' => 
         array (
             0 => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src',
+        ),
+        'Webmozart\\Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
         'Symfony\\Polyfill\\Util\\' => 
         array (
@@ -265,13 +283,6 @@ class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
     );
 
     public static $prefixesPsr0 = array (
-        'p' => 
-        array (
-            'phpDocumentor' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            ),
-        ),
         'Z' => 
         array (
             'ZendSearch' => 
@@ -320,6 +331,13 @@ class ComposerStaticInita412d998ca3839c2ab1bfc023d2cb5fe
             'Cron' => 
             array (
                 0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src',
+            ),
+        ),
+        'B' => 
+        array (
+            'Barryvdh' => 
+            array (
+                0 => __DIR__ . '/..' . '/barryvdh/reflection-docblock/src',
             ),
         ),
     );

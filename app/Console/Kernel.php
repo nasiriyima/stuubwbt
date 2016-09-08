@@ -26,5 +26,20 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        //Lucene Student Update
+        $student_count = (\App\SystemPreference::systemSettings('student_record_count')->value)?
+            \App\SystemPreference::systemSettings('student_record_count')->value:0;
+        $studentCount = count(\App\User::studentUsers());
+        if($studentCount > $student_count || $studentCount < $student_count){
+            $schedule->command('search:rebuild')
+                ->everyMinute();
+
+            $setting = \App\SystemPreference::systemSettings('student_record_count');
+            $setting->value = $studentCount;
+            $setting->save();
+        }
+
+        $schedule->command('queue:work')
+            ->everyMinute();
     }
 }
