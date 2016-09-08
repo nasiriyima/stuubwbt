@@ -9,8 +9,8 @@ EXAMINATION RESOURCES MANAGER - <small>Examination</small>
 <div class="tab-v1">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">All Entries</a></li>
-        <li class=""><a href="#published" data-toggle="tab">Published</a></li>
-        <li class=""><a href="#unpublished" data-toggle="tab">Unpublished</a></li>
+{{--        <li class=""><a href="#published" data-toggle="tab">Published</a></li>
+        <li class=""><a href="#unpublished" data-toggle="tab">Unpublished</a></li>--}}
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
@@ -52,11 +52,11 @@ EXAMINATION RESOURCES MANAGER - <small>Examination</small>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade in" id="published">
+       {{-- <div class="tab-pane fade in" id="published">
         </div>
         <div class="tab-pane fade in" id="unpublished">
             
-        </div>
+        </div>--}}
     </div>
 </div>
 @stop

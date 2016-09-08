@@ -81,7 +81,10 @@ class AuthController extends Controller
     public function getAccountActivation($user)
     {
         \Activation::removeExpired(); // Remove all Expired Activations
-        $page_data['user'] = \Sentinel::findById(\Crypt::decrypt($user));
+        $userid = \Crypt::decrypt($user);
+        $page_data['user'] = \Sentinel::findById($userid);
+/*        $page_data['user'] = \Sentinel::findById($userid);*/
+/*        $page_data['user'] = \Sentinel::findById(\Crypt::decrypt($user));*/
         $page_data['pagename'] = "home";
         if($page_data['user']){
             if(\Activation::exists($page_data['user'])){
@@ -143,14 +146,74 @@ class AuthController extends Controller
     
     private static function activateaccount($user, $code){
         if (\Activation::complete($user, $code)){
-            dd('activated');
+            $friendship = new \App\Friendship();
+            $friendship->user_id = $user->id;
+            $friendship->friend_id = 1;
+            $friendship->message = "";
+            $friendship->status = 1;
+            $friendship->save();
+            dd('activated and friend established with Admin');
         }else{
             dd('not activated');
         }
     }
+
+    public function postCreateStaff(Request $request){
+        $data = $request->only([
+           'fname', 'email', 'password', 'userroles'
+        ]);
+
+        $credentials = [
+            'email'    => $data['email'],
+            'password' => $data['password'],
+            'first_name' => $data['fname'],
+            'user_type' => 2,
+        ];
+        if(\Sentinel::findByCredentials($credentials)){
+           dd('user exist');
+        }else {
+            $user = \Sentinel::registerAndActivate($credentials);      //Register User
+            if(isset($data['userroles'])){
+                foreach($data['userroles'] as $roleslug){
+                    $role = \Sentinel::findRoleBySlug($roleslug);
+                    $role->users()->attach($user);
+                }
+            }
+            return redirect('admin/users-management');
+        }
+    }
+
+    public function postAddRole(){
+        $formData = \Request::all();
+        $slug = \Sentinel::findRoleBySlug($formData['rslug']);
+        if($slug){
+            $data['validity'] = 'failed';
+            $data['title'] = 'ROLE NOT CREATED';
+            $data['message'] = 'Invalid "Slug Name",';
+        }
+        else{
+            $permissions = [];
+            if(isset($formData['permissions'])){
+                foreach($formData['permissions'] as $permission){
+                    $perm[$permission] = true;
+                }
+                $role = \Sentinel::getRoleRepository()->createModel()->create([
+                    'name' => $formData['rname'],
+                    'slug' => $formData['rslug'],
+                    'permissions'=> $perm,
+                ]);
+            }
+            $role = \Sentinel::getRoleRepository()->createModel()->create([
+                'name' => $formData['rname'],
+                'slug' => $formData['rslug']
+            ]);
+            $data['validity'] = 'success';
+        }
+        return json_encode($data);
+    }
     
     public function getLogout(){
         \Sentinel::logout();
-        return redirect()->back();
+        return redirect('/');
     }
 }

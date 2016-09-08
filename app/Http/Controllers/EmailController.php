@@ -9,6 +9,22 @@ use App\Http\Controllers\Controller;
 
 class EmailController extends Controller
 {
+    public function __construct() {
+       /* $this->middleware('sentinel');
+        $this->page_data['currentuser'] = \Sentinel::check();
+        if(\Sentinel::check()){
+            if($this->page_data['currentuser']->user_type != 2){
+                return redirect('web')->send();
+            }
+        }*/
+        //The User must be someone that can read messages
+        $this->page_data['messageUser'] = \App\User::find(1);
+        $this->page_data['inbox_count'] = \App\User::find($this->page_data['messageUser']->id)->receiverMessage()->inbox()->count();
+        $this->page_data['sent_count'] = \App\User::find($this->page_data['messageUser']->id)->senderMessage()->sent()->count();
+        $this->page_data['saved_count'] = \App\User::find($this->page_data['messageUser']->id)->senderMessage()->draft()->count();
+        $this->page_data['deleted_count'] = \App\User::find($this->page_data['messageUser']->id)->receiverMessage()->onlyTrashed()->get()->count();
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +32,8 @@ class EmailController extends Controller
      */
     public function getEmailSettings()
     {
-        $page_data['mailsettings'] = self::MailSettings();
-        return view('admin.settings.email')->with($page_data);
+        $this->page_data['mailsettings'] = self::MailSettings();
+        return view('admin.settings.email')->with($this->page_data);
     }
     
     public function postUpdateEmailSettings(){
@@ -60,10 +76,16 @@ class EmailController extends Controller
     public static function sendEmail($data){
        $settings = self::MailSettings();
        self::configMailSettings($settings);
-        \Mail::later(10, 'email.accountActivation', $data, function($message) use ($data)
+
+        \Mail::queue('email.accountActivation', $data, function($message) use ($data)
         {
             $message->to($data['email'], $data['name'])
                     ->subject($data['subject']);
         });
+/*        \Mail::later(10, 'email.accountActivation', $data, function($message) use ($data)
+        {
+            $message->to($data['email'], $data['name'])
+                    ->subject($data['subject']);
+        });*/
     }
 }

@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         {!! Form::open(array('url' => url('wbt/add-examination-question'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
+
         <input type="hidden" name="examid" value="{{\Crypt::encrypt($exam->id)}}">
             <fieldset>
                 <div class="row">
@@ -19,7 +20,7 @@
                         <section>
                             <label class="select">
                                 <span>ADDITIONAL INFORMATION</span>
-                                <select id="additional_info" data-placeholder="Choose a Additional Information..." class="form-control chosen-select" tabindex="2"></select>
+                                <select id="additional_info" name="add_info" data-placeholder="Choose a Additional Information..." class="form-control chosen-select" tabindex="2"></select>
                             </label>
                         </section>
                         <section>

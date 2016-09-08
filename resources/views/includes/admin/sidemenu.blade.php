@@ -37,14 +37,36 @@
                                                 WBT Manager
                                         </a>
                                 </li>
-
-                                <li class="dropdown">
-                                        <a href="javascript:void(0);" class="dropdown-toggle">
-                                                Reports
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                                <li><a href="page_about2.html">About Us </a></li>
-                                        </ul>
+                                <li class="dropdown {{ $open or ''}}">
+                                    <a href="javascript:void(0);" class="dropdown-toggle">
+                                        My Messages
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="">
+                                            <a href="{{ url('admin/my-message-inbox') }}">
+                                                <span class="badge badge-u pull-right rounded-2x">{{ $inbox_count }}</span>
+                                                Inbox
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/my-message-sent') }}">
+                                                <span class="badge badge-green pull-right rounded-2x">{{ $sent_count }}</span>
+                                                Sent
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/my-message-saved') }}">
+                                                <span class="badge badge-yellow pull-right rounded-2x">{{ $saved_count }}</span>
+                                                Saved
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/my-message-deleted') }}">
+                                                <span class="badge badge-red pull-right rounded-2x">{{ $deleted_count }}</span>
+                                                Deleted
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <a href="{{url('admin/schools-manager')}}">
@@ -64,6 +86,11 @@
                                                 <li><a href="{{url('admin/users-management')}}">User Management</a></li>
                                                  <li><a href="{{url('email/email-settings')}}">Email Settings</a></li>
                                         </ul>
+                                </li>
+                                <li>
+                                    <a href="{{url('auth/logout')}}">
+                                        Logout
+                                    </a>
                                 </li>
                             </ul>
                             <p class="copyright-text">&copy; 2015 STUUB Web Based Testing.</p>

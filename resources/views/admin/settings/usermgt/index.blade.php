@@ -12,37 +12,10 @@ SYSTEM USER MANAGEMENT
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
-            <div class="row">
-                <div class="col-md-12">
-               <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Users Name</th>
-                            <th>E-Mail</th>
-                            <th>Last Seen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($students as $student)
-                        <tr>
-                            <td>1</td>
-                            <td>{{$student->first_name}}</td>
-                            <td>{{$student->email}}</td>
-                            <td><span class="label label-warning">Expiring</span></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table> 
-                </div>
-            </div>
+            @include('admin.settings.usermgt.users')
         </div>
         <div class="tab-pane fade in" id="role">
-            <div class="row">
-                <div class="col-md-12">
-               
-                </div>
-            </div>
+            @include('admin.settings.usermgt.roles')
         </div>
         <div class="tab-pane fade in" id="log">
             <div class="row">
@@ -54,6 +27,66 @@ SYSTEM USER MANAGEMENT
     </div>
 </div>
 @stop
-@section('pagejs')
+@section('pagecss')
+    <link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css')}}">
+    <link rel="stylesheet" href="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css')}}">
+    <link rel="stylesheet" href="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.css') }}">
+@stop
+@section('pageplugins')
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/dataTables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/js/forms/checkout.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('public/assets/plugins/ckeditor/ckeditor.js')}}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            CheckoutForm.initCheckoutForm();
+        });
+    </script>
+    <script type="text/javascript">
+        function togglerole(){
+            $('#addrole').toggle('slow');
+            $('#listrole').toggle('slow');
+            $('#addrolebtn').toggle();
+            $('#addroleclose').toggle();
+        }
+        function toggleuser(){
+            $('#userlist').toggle();
+            $('#adduser').toggle();
+            $('#adduserbtn').toggle();
+            $('#closeuseradd').toggle();
+        }
+        function createRole(){
+            var permissions = [];
+            $(".permission:checked").each(function() {
+                permissions.push(this.value);
+            });
+            var rslug = $("input[name=rslug]").val();
+            var rname = $("input[name=rname]").val();
 
+            if(rname == ' ' || rslug == ' '){
+                return false;
+            }else{
+                $.ajax({
+                        url: '{{url('auth/add-role')}}',
+                        method: 'POST',
+                        dataType: 'json',
+                        data:{
+                            permissions: permissions,
+                            rname: rname,
+                            rslug: rslug,
+                            _token: '{{csrf_token()}}'
+                        },
+                        success: function(rsp){
+                                location.reload();
+                        },
+                        error: function(err){
+
+                        }
+                })
+            }
+        }
+    </script>
 @stop

@@ -12,7 +12,7 @@
                     <center>
                         <ul class="list-inline badge-lists badge-box-v2 margin-bottom-30">
                             <li>
-                                <a href="{{url('admin/news-item/add')}}"><i class="fa fa-question"></i>Questions</a>
+                                <a href="javascript:void(0)"><i class="fa fa-question"></i>Questions</a>
                                 <span class="badge badge-green rounded-x">{{$exam->question->count()}}</span>
                             </li>
                         </ul>
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-5 margin-top-20">
             <a href="javascript:void(0);" onclick="trashexam()"><i class="fa fa-3x fa-trash pull-right"></i></a>
-            <a href="javascript:void(0);" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
+            <a href="{{url('admin/exam-profile')}}/{{\Crypt::encrypt($exam->id)}}/edit" onclick="editexam()"><i class="fa fa-3x fa-edit pull-right"></i></a>
             @if($exam->status == 1)
             <a href="javascript:void(0);" onclick="unpublishexam()"><i class="fa fa-3x fa-ban pull-right"></i></a>
             @endif
@@ -67,9 +67,8 @@
                                      {{($question->question_additional_information_id)? $question->questionAdditionalInformation->name:' '}}
                                  </td>
                                  <td>
-                                     <i class="fa fa-edit"></i>
-                                     <i class="fa fa-trash"></i>
-                                 </td>
+                                     <a href="{{url('admin/exam-question-edit')}}/{{\Crypt::encrypt($question->id)}}"><i class="fa fa-edit"></i> Edit|</a>
+                                     <a href="javascript:void(0)" onclick="showDeleteModal('{{$question->id}}');"><i class="fa fa-trash"></i> Delete</a>                                 </td>
                              </tr>
                              {{--*/$count++;/*--}}
                              @endforeach
@@ -79,6 +78,20 @@
         </div>
         <div class="tab-pane fade in" id="addquestion">
             @include('admin.addexamination')
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-danger fade in">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4>Warning !</h4>
+            <p>You are about to delete a question from an examination, are you sure you will like to delete selected Item?</p>
+            <input type="hidden" name="delete_question_id" value="" />
+            <p>
+                <a class="btn-u btn-u-red" href="javascript:deleteQuestion()">Continue</a>
+                <a class="btn-u btn-u-sea" href="javascript:void(0)" data-dismiss="modal">Cancel</a>
+            </p>
         </div>
     </div>
 </div>
@@ -105,6 +118,27 @@
 			$(".table").DataTable();
     CKEDITOR.replace('question');
     // jQuery, bind an event handler or use some other way to trigger ajax call.
+
+    function showDeleteModal(delQueId){
+        $("input[name=delete_question_id]").val(delQueId);
+        $("#deletemodal").modal("show");
+    }
+    function deleteQuestion(){
+
+        var formdata = new Object();
+        formdata.question_id = $("input[name=delete_question_id]").val();
+        formdata.exam_id = $("input[name=examid]").val();
+        formdata._token = "{!! csrf_token() !!}";
+        $.ajax({
+            url: "{!! url('wbt/delete-exam-question') !!}",
+            data: formdata,
+            method:"post",
+            success:function(response){
+                var obj = JSON.parse(response);
+                window.location = obj.url;
+            }
+        });
+    }
 
     function loadImageFileAsURL()
     {
@@ -211,39 +245,40 @@
     function publichexam(){
         //Check Number of Questions != 0
         //Check Each Question has Answer Selected
-        var qcount = {{$exam->question->count()}};
+        var qcount = '{{$exam->question->count()}}';
         if(qcount == 0){
-            var message = '<strong>{{$exam->examProvider->code}}, {{$exam->subject->name}}, {{$exam->month->code}} {{$exam->session->name}}</strong>';
+            var message = 'Add Examination Question(s) Before Publishing';
+            $('#message_div').html(
+                    '<div class="col-md-12">'+
+                    '<div class="alert alert-danger fade in text-center">'+
+                    '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                    '<h4>CANNOT PUBLISH EXAM</h4>'+
+                    '<h5>'+message+'</h5>'+
+                    '</div>'+
+                    '</div>');
+        }else{
+            $.ajax({
+                url: '{{url("admin/publish-exam")}}',
+                method: 'POST',
+                data:{
+                    _token:'{{csrf_token()}}',
+                    exam: '{{$exam->id}}'
+                },
+                success:function(response){
+                    $('#message_div').html(
+                            '<div class="col-md-12">'+
+                            '<div class="alert alert-succes fade in text-center">'+
+                            '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                            '<h4>Exam Was Successfully Published</h4>'+
+                            '</div>'+
+                            '</div>');
+                },
+                error:function(){
+
+                }
+            });
+
         }
-        $('#message_div').html(
-                '<div class="col-md-12">'+
-                '<div class="alert alert-danger fade in text-center">'+
-                '<h4>CANNOT PUBLISH EXAM</h4>'+
-                '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
-                '<h5>'+message+'</h5>'+
-                '<p>'+
-                '<a class="btn-u btn-u-xs btn-u" href="#">No, Cancel</a>'+
-                ' <a class="btn-u btn-u-xs btn-u-red" href="#">Yes, Trash</a>'+
-                '</p>'+
-                '</div>'+
-                '</div>');
     }
 </script>
-</script>
-    <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/nicescroll/jquery.nicescroll.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-    <!-- PLUGINS -->
-    <script src="{{ asset('assets/js/plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/chosen/chosen.jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/icheck/icheck.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/timepicker/bootstrap-timepicker.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/mask/jquery.mask.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/prettify/prettify.js') }}"></script>
-
-    <!-- MAIN APPS JS -->
-    <script src="{{ asset('assets/js/plugins/apps.js') }}"></script>
 @stop

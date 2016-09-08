@@ -12,7 +12,7 @@ EXAMINATION RESOURCES MANAGER - <small>Add Examination</small>
         <div class="tab-pane fade in active" id="home">
             <div class="row">
                 <div class="col-md-12">
-                            {!! Form::open(array('url' => url('wbt/add-examination'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
+                        {!! Form::open(array('url' => url('wbt/add-examination'),'class'=>'sky-form', 'id'=>'sky-form')) !!}
                         <fieldset>
                             <div class="row">
                                 <section class="col col-4">

@@ -14,6 +14,7 @@ class StudentController extends Controller
 {
     public $page_data = [];
     public function __construct(){
+        $this->middleware('sentinel');
         if(!\Sentinel::check()){
            return redirect('web')->send();
         }
@@ -307,88 +308,7 @@ class StudentController extends Controller
         $this->page_data['open'] = 'open';
         return view('student.mymessage.index')->with($this->page_data);
     }
-
-    public function postProcessMessage(){
-        $request = \Request::except('_token');
-        $status = '';
-        if($request['action'] == 'Save'){
-            $rules = [
-                'subject' => 'required'
-            ];
-            $validator = \Validator::make($request, $rules);
-            if($validator->passes()){
-                if(isset($request['to'])){
-                    foreach($request['to'] as $id){
-                        //Send Inbox with status unread
-                        $message = new \App\Message();
-                        $message->subject = $request['subject'];
-                        $message->body = $request['body'] or '';
-                        $message->receiver_id = $id;
-                        $message->sender_id = $this->page_data['user']->id;
-                        $message->store = 0;
-                        $message->status = 0;
-                        $message->save();
-                    }
-                } else {
-                    $message = new \App\Message();
-                    $message->subject = $request['subject'] or '';
-                    $message->body = $request['body'];
-                    $message->receiver_id = 0;
-                    $message->sender_id = $this->page_data['user']->id;
-                    $message->store = 0;
-                    $message->status = 0;
-                    $message->save();
-                }
-                $status = 'Message was saved successfully';
-                return redirect()->back()->with('message', $status);
-            }
-            return redirect()->back()->withErrors($validator->errors());
-        }
-        if($request['action'] == 'Send' || $request['action'] == 'Reply' || $request['action'] == 'Forward'){
-            $rules = [
-                'to' => 'required',
-                'subject' => 'required|max:255',
-                'body' => 'required',
-            ];
-            $validator = \Validator::make($request, $rules);
-            if($validator->passes()){
-                foreach($request['to'] as $id){
-                    //Send Inbox with status unread
-                    $message = new \App\Message();
-                    $message->subject = $request['subject'];
-                    $message->body = $request['body'];
-                    $message->receiver_id = $id;
-                    $message->sender_id = $this->page_data['user']->id;
-                    $message->store = 1;
-                    $message->status = 0;
-                    $message->save();
-
-                    //Save Sent with status 0
-                    $message = new \App\Message();
-                    $message->subject = $request['subject'];
-                    $message->body = $request['body'] or '';
-                    $message->receiver_id = $id;
-                    $message->sender_id = $this->page_data['user']->id;
-                    $message->store = 2;
-                    $message->status = 0;
-                    $message->save();
-                    if(!$message->save()){
-                        $message = new \App\Message();
-                        $message->subject = $request['subject'];
-                        $message->body = $request['body'];
-                        $message->receiver_id = $id;
-                        $message->sender_id = $this->page_data['user']->id;
-                        $message->store = 0;
-                        $message->status = 0;
-                        $message->save();
-                    }
-                }
-                $status = 'Message was sent successfully';
-                return redirect()->back()->with('message', $status);
-            }
-            return redirect()->back()->withErrors($validator->errors());
-        }
-    }
+    
 
     public function postMessageDetails(){
         $request = \Request::except('_token');
