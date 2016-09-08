@@ -5,7 +5,7 @@
 						<!-- About -->
 						<div class="col-md-3 md-margin-bottom-40">
 							<a href="index.html">
-								<img id="logo-footer" class="footer-logo" src="{{ asset('public/assets/img/stuub-logo.png')}}" alt="" width="140px">
+								<img id="logo-footer" class="footer-logo" src="{{ asset('assets/img/stuub-logo.png')}}" alt="" width="140px">
 							</a>
 							<p style="text-align: justify;">At Stuub Agency, we recruit students for renowned universities in Turkey. Our expertise in students' recruitment has given these higher institutions we partner with the luxury of focusing on university administration and instructing while we run point on promoting and creating awareness for their brands. </p>
 						</div><!--/col-md-3-->
