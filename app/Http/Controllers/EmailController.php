@@ -77,15 +77,15 @@ class EmailController extends Controller
        $settings = self::MailSettings();
        self::configMailSettings($settings);
 
-        \Mail::queue('email.registration', $data, function($message) use ($data)
+        // \Mail::queue('email.registration', $data, function($message) use ($data)
+        // {
+        //     $message->to($data['email'], $data['name'])
+        //             ->subject($data['subject']);
+        // });
+        \Mail::later(10, 'email.accountActivation', $data, function($message) use ($data)
         {
             $message->to($data['email'], $data['name'])
                     ->subject($data['subject']);
         });
-/*        \Mail::later(10, 'email.accountActivation', $data, function($message) use ($data)
-        {
-            $message->to($data['email'], $data['name'])
-                    ->subject($data['subject']);
-        });*/
     }
 }
