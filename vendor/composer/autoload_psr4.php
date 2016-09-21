@@ -31,6 +31,7 @@ return array(
     'Symfony\\Component\\ClassLoader\\' => array($vendorDir . '/symfony/class-loader'),
     'SuperClosure\\' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src/Psy'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Nqxcode\\Stemming\\' => array($vendorDir . '/nqxcode/lucene-stemmer-en-ru/src/Nqxcode/Stemming'),
     'Nqxcode\\LuceneSearch\\' => array($vendorDir . '/nqxcode/laravel-lucene-search/src/Nqxcode/LuceneSearch'),
