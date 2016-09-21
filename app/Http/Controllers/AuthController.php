@@ -60,11 +60,15 @@ class AuthController extends Controller
             'first_name' => $formdata['name'],
             'user_type' => 1,
        ];
+
        if(\Sentinel::findByCredentials($credentials)){
            return redirect('web/sign-in')->with('message','A STUUBWBT account exits with this email');
        }else{
+
             $user = \Sentinel::register($credentials);      //Register User
+
             $activation = \Activation::create($user);       //Create User Activation
+
             $maildata = [
                 'email' => $formdata['email'],
                 'name' => $formdata['name'],
@@ -73,7 +77,8 @@ class AuthController extends Controller
                 'activationurl'=> url('auth/verify-account/'.\Crypt::encrypt($activation->code).'/'.\Crypt::encrypt($formdata['email']))
                 ];
                 EmailController::sendEmail($maildata);
-            return redirect('auth/account-activation/'.\Crypt::encrypt($user->id));
+            $userid = \Crypt::encrypt($user->id);
+            return redirect('auth/account-activation/'.$userid);
        }
        
     }

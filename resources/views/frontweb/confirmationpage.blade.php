@@ -15,7 +15,6 @@
                                                 <p>Thank you for Registration on STUUB WBT. A confirmation email has being sent to <strong>{{$user->email}}</strong> with an activation code to complete your registration.
                                                 Copy and paste the activation code the the text box below to complete your registration.
                                                 </p>
-                                                <p>
                                                     {!! Form::open(array('url' => url('auth/account-activation'), 'method'=>'POST')) !!}
                                                     <input type="hidden" name="user" value="{{\Crypt::encrypt($user->id)}}"/>
                                                     <div class="input-group">
@@ -25,7 +24,6 @@
                                                             </span>
                                                     </div>
                                                     {!! Form::close() !!}
-                                                </p>
                                                 <p>If you didn't receive activation code, <a href="#">CLICK HERE</a> resend</p>
                                         </div>
                                 </div>
