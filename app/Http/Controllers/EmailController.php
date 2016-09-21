@@ -81,10 +81,10 @@ class EmailController extends Controller
             $message->to($data['email'], $data['name'])
                     ->subject($data['subject']);
         });
-/*        \Mail::later(10, 'email.accountActivation', $data, function($message) use ($data)
-        {
-            $message->to($data['email'], $data['name'])
-                    ->subject($data['subject']);
-        });*/
+        // \Mail::later(60, 'email.accountActivation', $data, function($message) use ($data)
+        // {
+        //     $message->to($data['email'], $data['name'])
+        //             ->subject($data['subject']);
+        // });
     }
 }
