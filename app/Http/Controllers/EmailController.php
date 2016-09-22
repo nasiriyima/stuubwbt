@@ -76,7 +76,7 @@ class EmailController extends Controller
     public static function sendEmail($data){
        $settings = self::MailSettings();
        self::configMailSettings($settings);
-        \Mail::send('email.registration', $data, function($message) use ($data)
+        \Mail::queue('email.registration', $data, function($message) use ($data)
         {
             $message->to($data['email'], $data['name'])
                     ->subject($data['subject']);
