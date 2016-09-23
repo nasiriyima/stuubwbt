@@ -229,7 +229,7 @@
                     var index = 0;
                     for(var i in row){
                         if(index%2 === 0){
-                            if(row[i].profile){
+                            if(row[i].profile.image && row[i].school[0].name){
                                 td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                                 tr.push(td1);
                             } else {
@@ -239,7 +239,7 @@
                             }
                         }
                         if(index%2 === 1){
-                            if(row[i].profile){
+                            if(row[i].profile.image && row[i].school[0].name){
                                 td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
                                 tr.push(td1);
                             } else {
