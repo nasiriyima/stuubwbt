@@ -11,7 +11,7 @@
         <div class="col-md-9 mb-margin-bottom-30">
             <div class="headline"><h2>Get in Touch</h2></div>
             <p>
-                Accusamus et iusto odio dignissimos <strong class="color-green">ducimus qui blanditiis</strong> praesentium voluptatum deleniti atque corrupti quos dolores et quas feugiat. Et harum quidem rerum facilis est et expedita distinctio lorem ipsum dolor sit amet, consectetur adipiscing <strong class="color-green">elit landitiis</strong>. Quidem re
+                
             </p>
             <form action="assets/php/sky-forms-pro/demo-contacts-process.php" method="post" id="sky-form3" class="sky-form contact-style">
                 <fieldset class="no-padding">
@@ -61,11 +61,12 @@
             <div class="headline"><h2>Contacts</h2></div>
             <ul class="list-unstyled who margin-bottom-30">
                 <li><a href="#"><i class="fa fa-home"></i>Suite 102 APC Plaza, 12 Cape town street, Wuse Zone 4, Abuja - Nigeria </a></li>
-                <li><a href="#"><i class="fa fa-phone"></i>1(222) 5x86 x97x</a></li>
-                <li><a href="#"><i class="fa fa-home"></i>5B Streat, City 50987 New Town US</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>info@example.com</a></li>
-                <li><a href="#"><i class="fa fa-phone"></i>1(222) 5x86 x97x</a></li>
-                <li><a href="#"><i class="fa fa-globe"></i>http://www.example.com</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i>(+234) 081-5734-0545 </a></li>
+                <li><a href="#"><i class="fa fa-home"></i>Hakki Yeten Caddesi Selenium Plaza
+No. 10/C K5/6 Besiktas
+Istanbul, Turkey </a></li>
+                <li><a href="#"><i class="fa fa-envelope"></i>admissions@stuub.com</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i>(+90) 212-381-8723 </a></li>
             </ul>
         </div><!--/col-md-3-->
     </div>
