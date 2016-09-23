@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-        <title>Login 1 | Unify - Responsive Website Template</title>
+        <title>STUUB | WBT</title>
 
         <!-- Meta -->
         <meta charset="utf-8">
@@ -45,7 +45,7 @@
                 <div class="reg-block-header">
                     <center>
                         <a href="{{url('/')}}">
-                            <img src="http://localhost/stuubwbt/public/assets/img/logo1-default.png" width="160px" class="rounded-4x">
+                            <img src="{{ asset('public/assets/img/logo1-default.png') }}" width="160px" class="rounded-4x">
                         </a>
                     </center>
                     <br>
