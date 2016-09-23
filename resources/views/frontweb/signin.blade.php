@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-        <title>Login 1 | Unify - Responsive Website Template</title>
+        <title>STUUB | WBT</title>
 
         <!-- Meta -->
         <meta charset="utf-8">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="input-group margin-bottom-20">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        <input type="text" class="form-control" placeholder="Password" name="password" required>
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                 </div>
                 <hr>
 
