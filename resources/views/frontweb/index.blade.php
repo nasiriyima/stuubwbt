@@ -42,7 +42,7 @@
 				<div class="row">
                                         <div class="col-md-5">
                                             <span>STUUB Web Based Test</span>
-                                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa</p>
+                                            <p>At Stuub Agency, we recruit students for renowned universities in Turkey. Our expertise in students' recruitment has given these higher institutions we partner with the luxury of focusing on university administration and instructing while we run point on promoting and creating awareness for their brands. </p>
 					</div>
                                         <div class="col-md-4 animated fadeInLeft">
                                                 <p><img src="{{ asset('public/assets/img/clients4/1.png')}}" alt="" width="100">
