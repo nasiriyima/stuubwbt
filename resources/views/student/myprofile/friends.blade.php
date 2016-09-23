@@ -229,12 +229,24 @@
                     var index = 0;
                     for(var i in row){
                         if(index%2 === 0){
-                            td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
-                            tr.push(td1);
+                            if(row[i].profile){
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
+                                tr.push(td1);
+                            } else {
+                                var noprofie = null;
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(noprofie)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#"></a></span></div><div class="clearfix margin-bottom-20"></div><p></p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
+                                tr.push(td1);
+                            }
                         }
                         if(index%2 === 1){
-                            td2 = td2 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'</li><li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
-                            tr.push(td2);
+                            if(row[i].profile){
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(row[i].profile.image)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#">'+row[i].profile.address+'</a></span></div><div class="clearfix margin-bottom-20"></div><p>'+row[i].school[0].name+'</p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
+                                tr.push(td1);
+                            } else {
+                                var noprofie = null;
+                                td1 = td1 + '<div class="profile-blog"><img class="rounded-x" src="'+getImageUrl(noprofie)+'" alt="'+row[i].first_name+'"><div class="name-location"><strong><a href="'+'{!! url("student/friend-profile") !!}/'+row[i].id+'">'+row[i].first_name+'</a></strong><span><i class="fa fa-map-marker"></i><a href="#"></a></span></div><div class="clearfix margin-bottom-20"></div><p></p><hr><ul class="list-inline share-list">'+enableRequest('{!! $profileStats !!}', row[i].id, row[i].first_name, '{!! $friendships !!}')+'<li><i class="fa fa-group"></i><a href="#">'+row[i].friendship.length+' Friends</a></li></ul></div>';
+                                tr.push(td1);
+                            }
                         }
                         if(Object.keys(row).length%2 === 1 && index === (Object.keys(row).length-1)){
                             td2 = td2 + '';
