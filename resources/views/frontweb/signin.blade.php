@@ -45,7 +45,7 @@
                 <div class="reg-block-header">
                     <center>
                         <a href="{{url('/')}}">
-                            <img src="http://localhost/stuubwbt/public/assets/img/logo1-default.png" width="160px" class="rounded-4x">
+                            <img src="{{ asset('public/assets/img/logo1-default.png') }}" width="160px" class="rounded-4x">
                         </a>
                     </center>
                     <br>
